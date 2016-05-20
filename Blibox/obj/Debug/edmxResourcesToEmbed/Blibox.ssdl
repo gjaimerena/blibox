@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BliboxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="ID_articulo" />
+    </Key>
+    <Property Name="ID_articulo" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_cliente" Type="int" Nullable="false" />
+    <Property Name="Costo" Type="int" />
+    <Property Name="IVA" Type="nchar" MaxLength="10" />
+    <Property Name="Precio_lista" Type="int" />
+    <Property Name="Precio_fecha" Type="date" />
+    <Property Name="Stock" Type="int" />
+    <Property Name="Fazon" Type="nchar" MaxLength="10" />
+    <Property Name="Stock_minimo" Type="int" />
+    <Property Name="Cant_x_bulto" Type="int" />
+    <Property Name="Tamaño_caja" Type="int" />
+    <Property Name="Tiraje_term_x_hora" Type="int" />
+    <Property Name="Tiraje_troquel_x_hora" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ID_cliente" />
+    </Key>
+    <Property Name="ID_cliente" Type="int" Nullable="false" />
+    <Property Name="Razon_Social" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Contacto" Type="nvarchar" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
+    <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Codigo_Postal" Type="int" />
+    <Property Name="Telefono" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID_vendedor" Type="int" />
+    <Property Name="Comision_vendedor" Type="nchar" MaxLength="10" />
+    <Property Name="IVA" Type="nchar" MaxLength="10" />
+    <Property Name="CUIT" Type="int" />
+    <Property Name="Saldo" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+    <Property Name="Referidos" Type="nchar" MaxLength="10" />
+    <Property Name="ID_rubro" Type="int" />
+    <Property Name="DiasFF" Type="nchar" MaxLength="10" />
+    <Property Name="Dias_Cheque" Type="nchar" MaxLength="10" />
+    <Property Name="Grupo_mailing" Type="nchar" MaxLength="10" />
+    <Property Name="Limite_credito" Type="nchar" MaxLength="10" />
+    <Property Name="Fecha_alta" Type="date" />
+  </EntityType>
+  <EntityType Name="Componente">
+    <Key>
+      <PropertyRef Name="ID_componente" />
+    </Key>
+    <Property Name="ID_componente" Type="int" Nullable="false" />
+    <Property Name="ID_articulo" Type="int" Nullable="false" />
+    <Property Name="Peso" Type="int" />
+    <Property Name="ID_material" Type="int" />
+    <Property Name="ID_marco" Type="int" />
+    <Property Name="Ciclos" Type="nchar" MaxLength="10" />
+    <Property Name="Bocas" Type="nchar" MaxLength="10" />
+    <Property Name="Espesor" Type="nchar" MaxLength="10" />
+    <Property Name="ID_matriz" Type="int" />
+    <Property Name="ID_cortante" Type="int" />
+    <Property Name="Color" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Compras">
+    <Key>
+      <PropertyRef Name="ID_compra" />
+    </Key>
+    <Property Name="ID_compra" Type="int" Nullable="false" />
+    <Property Name="ID_proveedor" Type="int" />
+    <Property Name="Fecha_compra" Type="date" />
+    <Property Name="Nro_factura" Type="int" />
+    <Property Name="Cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Neto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Nro_operacion" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Condicion_venta">
+    <Key>
+      <PropertyRef Name="ID_condicion_venta" />
+    </Key>
+    <Property Name="ID_condicion_venta" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Cortante">
+    <Key>
+      <PropertyRef Name="ID_cortante" />
+    </Key>
+    <Property Name="ID_cortante" Type="int" Nullable="false" />
+    <Property Name="Codigo" Type="nchar" MaxLength="10" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sector" Type="nchar" MaxLength="10" />
+    <Property Name="Bocas" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CtaCte_Clientes">
+    <Key>
+      <PropertyRef Name="ID_movimiento" />
+    </Key>
+    <Property Name="ID_movimiento" Type="int" Nullable="false" />
+    <Property Name="ID_cliente" Type="int" />
+    <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
+    <Property Name="Saldo" Type="int" />
+    <Property Name="Fecha_movimiento" Type="date" />
+    <Property Name="Concepto" Type="nchar" MaxLength="10" />
+    <Property Name="Importe_movimiento" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CtaCte_Proveedores">
+    <Key>
+      <PropertyRef Name="ID_movimiento" />
+    </Key>
+    <Property Name="ID_movimiento" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID_Proveedor" Type="int" />
+    <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
+    <Property Name="Saldo" Type="int" />
+    <Property Name="Fecha_movimiento" Type="date" />
+    <Property Name="Concepto" Type="nchar" MaxLength="10" />
+    <Property Name="Importe_movimiento" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Detalle_factura">
+    <Key>
+      <PropertyRef Name="Nro_factura" />
+    </Key>
+    <Property Name="Nro_factura" Type="int" Nullable="false" />
+    <Property Name="Nro_Item" Type="int" />
+    <Property Name="ID_articulo" Type="int" />
+    <Property Name="Cantidad" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Precio_unitario" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Precio_total" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Encabezado_Factura">
+    <Key>
+      <PropertyRef Name="Nro_factura" />
+    </Key>
+    <Property Name="Nro_factura" Type="int" Nullable="false" />
+    <Property Name="Tipo" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="ID_cliente" Type="int" Nullable="false" />
+    <Property Name="ID_vendedor" Type="int" />
+    <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Tipo_iva_responsable" Type="nchar" MaxLength="10" />
+    <Property Name="Valor_inscripto" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ID_condicon_venta" Type="int" />
+    <Property Name="ID_movimiento" Type="int" />
+  </EntityType>
+  <EntityType Name="IVA">
+    <Key>
+      <PropertyRef Name="ID_IVA" />
+    </Key>
+    <Property Name="ID_IVA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Valor" Type="decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="Marco">
+    <Key>
+      <PropertyRef Name="ID_marco" />
+    </Key>
+    <Property Name="ID_marco" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ancho" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="Largo" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="ID_material" />
+    </Key>
+    <Property Name="ID_material" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Peso" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="Observaciones" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Matriz">
+    <Key>
+      <PropertyRef Name="ID_matriz" />
+    </Key>
+    <Property Name="ID_matriz" Type="int" Nullable="false" />
+    <Property Name="Codigo" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sector" Type="nchar" MaxLength="10" />
+    <Property Name="Bocas" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="ID_pedido" />
+    </Key>
+    <Property Name="ID_pedido" Type="int" Nullable="false" />
+    <Property Name="ID_cliente" Type="int" Nullable="false" />
+    <Property Name="ID_articulo" Type="int" Nullable="false" />
+    <Property Name="cantidad_pedida" Type="int" />
+    <Property Name="cantidad_entregada" Type="int" />
+    <Property Name="Fecha_pedido" Type="date" />
+    <Property Name="Orden_compra" Type="nchar" MaxLength="10" />
+    <Property Name="Armado" Type="nchar" MaxLength="10" />
+    <Property Name="Fecha_armado" Type="date" />
+    <Property Name="Fecha_entrega" Type="date" />
+    <Property Name="Precio" Type="int" />
+    <Property Name="Observaciones" Type="nchar" MaxLength="10" />
+    <Property Name="Impreso" Type="nchar" MaxLength="10" />
+    <Property Name="ID_vendedor" Type="int" />
+    <Property Name="Importe_matriz" Type="int" />
+    <Property Name="Tipo_caja" Type="nchar" MaxLength="10" />
+    <Property Name="Codigo_articulo_interno_cliente" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Presupuesto">
+    <Key>
+      <PropertyRef Name="ID_presupuesto" />
+    </Key>
+    <Property Name="ID_presupuesto" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="Color" Type="nchar" MaxLength="10" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="Articulo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID_marco" Type="int" />
+    <Property Name="ID_material" Type="int" />
+    <Property Name="Espesor" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Bocas" Type="int" />
+    <Property Name="Precio_lista1" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Precio_lista2" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Precio_lista3" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="ID_proveedor" />
+    </Key>
+    <Property Name="ID_proveedor" Type="int" Nullable="false" />
+    <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
+    <Property Name="Contacto" Type="nvarchar" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
+    <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefono" Type="int" />
+    <Property Name="Celular" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fecha_alta" Type="date" />
+    <Property Name="IVA" Type="nchar" MaxLength="10" />
+    <Property Name="CUIT" Type="int" />
+    <Property Name="Saldo" Type="int" />
+    <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Remito">
+    <Key>
+      <PropertyRef Name="ID_remito" />
+    </Key>
+    <Property Name="ID_remito" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="date" />
+    <Property Name="ID_pedido" Type="int" />
+    <Property Name="Cantidad" Type="int" />
+  </EntityType>
+  <EntityType Name="Rubro">
+    <Key>
+      <PropertyRef Name="ID_rubro" />
+    </Key>
+    <Property Name="ID_rubro" Type="int" Nullable="false" />
+    <Property Name="Descirpcion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Observaciones" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Vendedor">
+    <Key>
+      <PropertyRef Name="ID_vendedor" />
+    </Key>
+    <Property Name="ID_vendedor" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
+    <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefono" Type="int" />
+    <Property Name="Celular" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fecha_alta" Type="datetime" />
+    <Property Name="Observacion" Type="nvarchar" MaxLength="50" />
+    <Property Name="Codigo_postal" Type="int" />
+  </EntityType>
+  <Association Name="FK_Articulo_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ID_cliente" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="ID_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_Rubro">
+    <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rubro">
+        <PropertyRef Name="ID_rubro" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ID_rubro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_Vendedor">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="ID_vendedor" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="ID_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Componente_Articulo">
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+    <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="ID_articulo" />
+      </Principal>
+      <Dependent Role="Componente">
+        <PropertyRef Name="ID_articulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Componente_Cortante">
+    <End Role="Cortante" Type="Self.Cortante" Multiplicity="0..1" />
+    <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cortante">
+        <PropertyRef Name="ID_cortante" />
+      </Principal>
+      <Dependent Role="Componente">
+        <PropertyRef Name="ID_cortante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Componente_Marco">
+    <End Role="Marco" Type="Self.Marco" Multiplicity="0..1" />
+    <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marco">
+        <PropertyRef Name="ID_marco" />
+      </Principal>
+      <Dependent Role="Componente">
+        <PropertyRef Name="ID_marco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Componente_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="ID_material" />
+      </Principal>
+      <Dependent Role="Componente">
+        <PropertyRef Name="ID_material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Componente_Matriz">
+    <End Role="Matriz" Type="Self.Matriz" Multiplicity="0..1" />
+    <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matriz">
+        <PropertyRef Name="ID_matriz" />
+      </Principal>
+      <Dependent Role="Componente">
+        <PropertyRef Name="ID_matriz" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compras_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+    <End Role="Compras" Type="Self.Compras" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="ID_proveedor" />
+      </Principal>
+      <Dependent Role="Compras">
+        <PropertyRef Name="ID_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CtaCte_Clientes_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ID_cliente" />
+      </Principal>
+      <Dependent Role="CtaCte_Clientes">
+        <PropertyRef Name="ID_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CtaCte_Proveedores_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+    <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="ID_proveedor" />
+      </Principal>
+      <Dependent Role="CtaCte_Proveedores">
+        <PropertyRef Name="ID_Proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Detalle_factura_Encabezado_Factura">
+    <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="1" />
+    <End Role="Detalle_factura" Type="Self.Detalle_factura" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Encabezado_Factura">
+        <PropertyRef Name="Nro_factura" />
+      </Principal>
+      <Dependent Role="Detalle_factura">
+        <PropertyRef Name="Nro_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Encabezado_Factura_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ID_cliente" />
+      </Principal>
+      <Dependent Role="Encabezado_Factura">
+        <PropertyRef Name="ID_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Encabezado_Factura_Condicion_venta">
+    <End Role="Condicion_venta" Type="Self.Condicion_venta" Multiplicity="0..1" />
+    <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Condicion_venta">
+        <PropertyRef Name="ID_condicion_venta" />
+      </Principal>
+      <Dependent Role="Encabezado_Factura">
+        <PropertyRef Name="ID_condicon_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Encabezado_Factura_Vendedor">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+    <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="ID_vendedor" />
+      </Principal>
+      <Dependent Role="Encabezado_Factura">
+        <PropertyRef Name="ID_vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedido_Articulo">
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="ID_articulo" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="ID_articulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedido_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ID_cliente" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="ID_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Remito_Pedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+    <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="ID_pedido" />
+      </Principal>
+      <Dependent Role="Remito">
+        <PropertyRef Name="ID_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BliboxModelStoreContainer">
+    <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Componente" EntityType="Self.Componente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compras" EntityType="Self.Compras" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cortante" EntityType="Self.Cortante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CtaCte_Clientes" EntityType="Self.CtaCte_Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Encabezado_Factura" EntityType="Self.Encabezado_Factura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IVA" EntityType="Self.IVA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Marco" EntityType="Self.Marco" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Matriz" EntityType="Self.Matriz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Presupuesto" EntityType="Self.Presupuesto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Articulo_Cliente" Association="Self.FK_Articulo_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Articulo" EntitySet="Articulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_Rubro" Association="Self.FK_Cliente_Rubro">
+      <End Role="Rubro" EntitySet="Rubro" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_Vendedor" Association="Self.FK_Cliente_Vendedor">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Componente_Articulo" Association="Self.FK_Componente_Articulo">
+      <End Role="Articulo" EntitySet="Articulo" />
+      <End Role="Componente" EntitySet="Componente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Componente_Cortante" Association="Self.FK_Componente_Cortante">
+      <End Role="Cortante" EntitySet="Cortante" />
+      <End Role="Componente" EntitySet="Componente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Componente_Marco" Association="Self.FK_Componente_Marco">
+      <End Role="Marco" EntitySet="Marco" />
+      <End Role="Componente" EntitySet="Componente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Componente_Material" Association="Self.FK_Componente_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="Componente" EntitySet="Componente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Componente_Matriz" Association="Self.FK_Componente_Matriz">
+      <End Role="Matriz" EntitySet="Matriz" />
+      <End Role="Componente" EntitySet="Componente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compras_Proveedor" Association="Self.FK_Compras_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compras" EntitySet="Compras" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CtaCte_Clientes_Cliente" Association="Self.FK_CtaCte_Clientes_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura" Association="Self.FK_Detalle_factura_Encabezado_Factura">
+      <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
+      <End Role="Detalle_factura" EntitySet="Detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Encabezado_Factura_Cliente" Association="Self.FK_Encabezado_Factura_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Encabezado_Factura_Condicion_venta" Association="Self.FK_Encabezado_Factura_Condicion_venta">
+      <End Role="Condicion_venta" EntitySet="Condicion_venta" />
+      <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Encabezado_Factura_Vendedor" Association="Self.FK_Encabezado_Factura_Vendedor">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedido_Articulo" Association="Self.FK_Pedido_Articulo">
+      <End Role="Articulo" EntitySet="Articulo" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedido_Cliente" Association="Self.FK_Pedido_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Remito_Pedido" Association="Self.FK_Remito_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Remito" EntitySet="Remito" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

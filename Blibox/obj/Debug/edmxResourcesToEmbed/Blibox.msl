@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BliboxModelStoreContainer" CdmEntityContainer="BliboxEntities">
+    <EntitySetMapping Name="Articulo">
+      <EntityTypeMapping TypeName="BliboxModel.Articulo">
+        <MappingFragment StoreEntitySet="Articulo">
+          <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="Precio_lista" ColumnName="Precio_lista" />
+          <ScalarProperty Name="Precio_fecha" ColumnName="Precio_fecha" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Fazon" ColumnName="Fazon" />
+          <ScalarProperty Name="Stock_minimo" ColumnName="Stock_minimo" />
+          <ScalarProperty Name="Cant_x_bulto" ColumnName="Cant_x_bulto" />
+          <ScalarProperty Name="Tamaño_caja" ColumnName="Tamaño_caja" />
+          <ScalarProperty Name="Tiraje_term_x_hora" ColumnName="Tiraje_term_x_hora" />
+          <ScalarProperty Name="Tiraje_troquel_x_hora" ColumnName="Tiraje_troquel_x_hora" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="BliboxModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+          <ScalarProperty Name="Razon_Social" ColumnName="Razon_Social" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+          <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+          <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+          <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
+          <ScalarProperty Name="Comision_vendedor" ColumnName="Comision_vendedor" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="Referidos" ColumnName="Referidos" />
+          <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
+          <ScalarProperty Name="DiasFF" ColumnName="DiasFF" />
+          <ScalarProperty Name="Dias_Cheque" ColumnName="Dias_Cheque" />
+          <ScalarProperty Name="Grupo_mailing" ColumnName="Grupo_mailing" />
+          <ScalarProperty Name="Limite_credito" ColumnName="Limite_credito" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Componente">
+      <EntityTypeMapping TypeName="BliboxModel.Componente">
+        <MappingFragment StoreEntitySet="Componente">
+          <ScalarProperty Name="ID_componente" ColumnName="ID_componente" />
+          <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="ID_material" ColumnName="ID_material" />
+          <ScalarProperty Name="ID_marco" ColumnName="ID_marco" />
+          <ScalarProperty Name="Ciclos" ColumnName="Ciclos" />
+          <ScalarProperty Name="Bocas" ColumnName="Bocas" />
+          <ScalarProperty Name="Espesor" ColumnName="Espesor" />
+          <ScalarProperty Name="ID_matriz" ColumnName="ID_matriz" />
+          <ScalarProperty Name="ID_cortante" ColumnName="ID_cortante" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compras">
+      <EntityTypeMapping TypeName="BliboxModel.Compras">
+        <MappingFragment StoreEntitySet="Compras">
+          <ScalarProperty Name="ID_compra" ColumnName="ID_compra" />
+          <ScalarProperty Name="ID_proveedor" ColumnName="ID_proveedor" />
+          <ScalarProperty Name="Fecha_compra" ColumnName="Fecha_compra" />
+          <ScalarProperty Name="Nro_factura" ColumnName="Nro_factura" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Neto" ColumnName="Neto" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Nro_operacion" ColumnName="Nro_operacion" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Condicion_venta">
+      <EntityTypeMapping TypeName="BliboxModel.Condicion_venta">
+        <MappingFragment StoreEntitySet="Condicion_venta">
+          <ScalarProperty Name="ID_condicion_venta" ColumnName="ID_condicion_venta" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cortante">
+      <EntityTypeMapping TypeName="BliboxModel.Cortante">
+        <MappingFragment StoreEntitySet="Cortante">
+          <ScalarProperty Name="ID_cortante" ColumnName="ID_cortante" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Sector" ColumnName="Sector" />
+          <ScalarProperty Name="Bocas" ColumnName="Bocas" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CtaCte_Clientes">
+      <EntityTypeMapping TypeName="BliboxModel.CtaCte_Clientes">
+        <MappingFragment StoreEntitySet="CtaCte_Clientes">
+          <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
+          <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+          <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="Fecha_movimiento" ColumnName="Fecha_movimiento" />
+          <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+          <ScalarProperty Name="Importe_movimiento" ColumnName="Importe_movimiento" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CtaCte_Proveedores">
+      <EntityTypeMapping TypeName="BliboxModel.CtaCte_Proveedores">
+        <MappingFragment StoreEntitySet="CtaCte_Proveedores">
+          <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
+          <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
+          <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="Fecha_movimiento" ColumnName="Fecha_movimiento" />
+          <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+          <ScalarProperty Name="Importe_movimiento" ColumnName="Importe_movimiento" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Detalle_factura">
+      <EntityTypeMapping TypeName="BliboxModel.Detalle_factura">
+        <MappingFragment StoreEntitySet="Detalle_factura">
+          <ScalarProperty Name="Nro_factura" ColumnName="Nro_factura" />
+          <ScalarProperty Name="Nro_Item" ColumnName="Nro_Item" />
+          <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Precio_unitario" ColumnName="Precio_unitario" />
+          <ScalarProperty Name="Precio_total" ColumnName="Precio_total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Encabezado_Factura">
+      <EntityTypeMapping TypeName="BliboxModel.Encabezado_Factura">
+        <MappingFragment StoreEntitySet="Encabezado_Factura">
+          <ScalarProperty Name="Nro_factura" ColumnName="Nro_factura" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+          <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
+          <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+          <ScalarProperty Name="Tipo_iva_responsable" ColumnName="Tipo_iva_responsable" />
+          <ScalarProperty Name="Valor_inscripto" ColumnName="Valor_inscripto" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="ID_condicon_venta" ColumnName="ID_condicon_venta" />
+          <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IVA">
+      <EntityTypeMapping TypeName="BliboxModel.IVA">
+        <MappingFragment StoreEntitySet="IVA">
+          <ScalarProperty Name="ID_IVA" ColumnName="ID_IVA" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marco">
+      <EntityTypeMapping TypeName="BliboxModel.Marco">
+        <MappingFragment StoreEntitySet="Marco">
+          <ScalarProperty Name="ID_marco" ColumnName="ID_marco" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Ancho" ColumnName="Ancho" />
+          <ScalarProperty Name="Largo" ColumnName="Largo" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Material">
+      <EntityTypeMapping TypeName="BliboxModel.Material">
+        <MappingFragment StoreEntitySet="Material">
+          <ScalarProperty Name="ID_material" ColumnName="ID_material" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matriz">
+      <EntityTypeMapping TypeName="BliboxModel.Matriz">
+        <MappingFragment StoreEntitySet="Matriz">
+          <ScalarProperty Name="ID_matriz" ColumnName="ID_matriz" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Sector" ColumnName="Sector" />
+          <ScalarProperty Name="Bocas" ColumnName="Bocas" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pedido">
+      <EntityTypeMapping TypeName="BliboxModel.Pedido">
+        <MappingFragment StoreEntitySet="Pedido">
+          <ScalarProperty Name="ID_pedido" ColumnName="ID_pedido" />
+          <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+          <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
+          <ScalarProperty Name="cantidad_pedida" ColumnName="cantidad_pedida" />
+          <ScalarProperty Name="cantidad_entregada" ColumnName="cantidad_entregada" />
+          <ScalarProperty Name="Fecha_pedido" ColumnName="Fecha_pedido" />
+          <ScalarProperty Name="Orden_compra" ColumnName="Orden_compra" />
+          <ScalarProperty Name="Armado" ColumnName="Armado" />
+          <ScalarProperty Name="Fecha_armado" ColumnName="Fecha_armado" />
+          <ScalarProperty Name="Fecha_entrega" ColumnName="Fecha_entrega" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="Impreso" ColumnName="Impreso" />
+          <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
+          <ScalarProperty Name="Importe_matriz" ColumnName="Importe_matriz" />
+          <ScalarProperty Name="Tipo_caja" ColumnName="Tipo_caja" />
+          <ScalarProperty Name="Codigo_articulo_interno_cliente" ColumnName="Codigo_articulo_interno_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Presupuesto">
+      <EntityTypeMapping TypeName="BliboxModel.Presupuesto">
+        <MappingFragment StoreEntitySet="Presupuesto">
+          <ScalarProperty Name="ID_presupuesto" ColumnName="ID_presupuesto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+          <ScalarProperty Name="ID_marco" ColumnName="ID_marco" />
+          <ScalarProperty Name="ID_material" ColumnName="ID_material" />
+          <ScalarProperty Name="Espesor" ColumnName="Espesor" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Bocas" ColumnName="Bocas" />
+          <ScalarProperty Name="Precio_lista1" ColumnName="Precio_lista1" />
+          <ScalarProperty Name="Precio_lista2" ColumnName="Precio_lista2" />
+          <ScalarProperty Name="Precio_lista3" ColumnName="Precio_lista3" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedor">
+      <EntityTypeMapping TypeName="BliboxModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="ID_proveedor" ColumnName="ID_proveedor" />
+          <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
+          <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+          <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+          <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+          <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+          <ScalarProperty Name="IVA" ColumnName="IVA" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Remito">
+      <EntityTypeMapping TypeName="BliboxModel.Remito">
+        <MappingFragment StoreEntitySet="Remito">
+          <ScalarProperty Name="ID_remito" ColumnName="ID_remito" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="ID_pedido" ColumnName="ID_pedido" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rubro">
+      <EntityTypeMapping TypeName="BliboxModel.Rubro">
+        <MappingFragment StoreEntitySet="Rubro">
+          <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
+          <ScalarProperty Name="Descirpcion" ColumnName="Descirpcion" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendedor">
+      <EntityTypeMapping TypeName="BliboxModel.Vendedor">
+        <MappingFragment StoreEntitySet="Vendedor">
+          <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+          <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+          <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Codigo_postal" ColumnName="Codigo_postal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

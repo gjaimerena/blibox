@@ -1,0 +1,192 @@
+﻿@model Blibox.Proveedor
+
+@{
+    ViewBag.Title = "Detalle del proveedor";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Proveedor")"><i class="fa fa-dashboard"></i> Proveedores</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+
+        <div class="box box-default">
+            <form class="form-horizontal" style="padding:10px;">
+                <h4> Detalle del proveedor</h4>
+                <hr />
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Id proveedor</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_proveedor)" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Razon Social</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Razon_social)" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Contacto</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Contacto)" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">CUIT</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.CUIT)" readonly />
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Domicilio</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Domicilio)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Localidad</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Localidad)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Provincia</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Provincia)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Telefono</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Telefono)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Celular</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Celular)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Email</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Email)" readonly />
+
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">IVA</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            %
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.IVA)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Fecha Alta</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_alta)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Saldo</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Saldo)" readonly />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Observacion</label>
+                    <div class="col-md-4 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        </div>
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+
+                    </div>
+                </div>
+
+            </form>
+            <br />
+        </div>
+
+        <p>
+            <button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_proveedor })</button> |
+            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+        </p>
+
+      
+    </section>
+</div><!-- /.content-wrapper -->

@@ -1,18 +1,24 @@
 ﻿
 <!DOCTYPE html>
 <html>
+
 <head>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+    <title>BLIBOX S.A. - Envases termoformados</title>
+    <meta name="Description" content="Es una empresa dedicada al termoformado de plástico, empaque y envasamiento de diferentes productos según las normativas de los
+clientes.">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   
-    <title>Cockatoo</title>
+    <title>Blibox</title>
     @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
 
-    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -35,6 +41,10 @@
     <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <style>
+        table.table tr th a{color: #000 !important;}
+    </style>
 
     
 
@@ -69,6 +79,7 @@
                 @Html.Partial("~/Views/Shared/_Footer.cshtml")
 
             </div>
+        
         
        
         <!-- jQuery 2.1.4 -->
@@ -113,8 +124,113 @@
         <script src="~/Scripts/dist/demo.js"></script>
         @RenderSection("scripts", required: false)
 
+        <script>
+         
+            //$("#comp_on1").click(function () {
+
+            //    //Agergar conponentes
+            //    if ($("#comp_on1").attr("value") == "Agregar Componente") {
+            //        $("#componente1").toggle();
+            //        $("#comp_on1").attr('value', 'Agregar Componente 2');
+            //       // $("#compDelete1").visible = false;
+            //    }
+            //    else if ($("#comp_on1").attr("value") == "Agregar Componente 2") {
+            //        $("#componente2").toggle();
+            //        $("#comp_on1").attr('value', 'Agregar Componente 3');
+            //        $("#compDelete1").hide();
+            //    }
+            //    else if ($("#comp_on1").attr("value") == "Agregar Componente 3") {
+            //        $("#componente3").toggle();
+            //        $("#comp_on1").toggle();
+            //        $("#compDelete2").hide();
+            //    }
+               
+            //})
+          
+            //$("#compDelete1").click(function () {
+            //   $("#comp_on1").attr('value', 'Agregar Componente');
+            //   $("#componente1").toggle();
+            //})
+
+            //$("#compDelete2").click(function () {
+            //    $("#comp_on1").attr('value', 'Agregar Componente 2');
+            //    $("#compDelete1").show();
+            //    $("#componente2").toggle();
+            // })
+
+            //$("#compDelete3").click(function () {
+            //    $("#comp_on1").attr('value', 'Agregar Componente 3');
+            //    $("#comp_on1").toggle();
+            //    $("#compDelete2").show();
+            //    $("#componente3").toggle();
+            //})
+           
+
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+              ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+              },
+              startDate: moment().subtract(29, 'days'),
+              endDate: moment()
+            },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        );
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass: 'iradio_minimal-red'
+        });
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass: 'iradio_flat-green'
+        });
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false
+        });
+      });
+        </script>
 
        
+        
+      
 
     </body>
 

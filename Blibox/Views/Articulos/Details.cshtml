@@ -1,0 +1,366 @@
+﻿@model Blibox.Articulo
+@section Scripts
+{
+    <script>
+
+        // var nro_comp = document.getElementById("nrocomponentes").value();
+        var nro_comp = @Html.Raw(Model.Componente.Count());
+
+
+        switch (nro_comp) {
+            case 1:
+                $("#componente1").show();
+                $("#componente2").hide();
+                $("#componente3").hide();
+                break;
+            case 2:
+                $("#componente1").show();
+                $("#componente2").show();
+                $("#componente3").hide();
+                break;
+            case 3:
+                $("#componente1").show();
+                $("#componente2").show();
+                $("#componente3").show();
+                break;
+            case 0:
+                $("#componente1").hide();
+                $("#componente2").hide();
+                $("#componente3").hide();
+                break;
+            default:
+                $("#componente1").hide();
+                $("#componente2").hide();
+                $("#componente3").hide();
+                break;
+        }
+
+    </script>
+
+}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Articulos</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+
+        <div class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Detalle del Articulo</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label class="col-sm-2 control-label">ID Articulo:</label>
+                            <div class="col-md-2 input-group">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_articulo)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">ID Cliente:</label>
+                            <div class="col-md-2 input-group">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_cliente)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">F0PD:</label>
+                            <div class="col-md-2 input-group">
+                                <input class="form-control" placeholder="@Html.Display("F0DP")" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Descripcion:</label>
+                            <div class="col-md-6 input-group">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-sm-2 control-label">Costo:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Costo)" readonly />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Precio Lista:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_lista)" readonly />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Fecha Precio:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_fecha)" readonly />
+                        </div>
+                        </div>
+                    </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-sm-2 control-label">Iva:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.IVA)" readonly />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Fazon:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fazon)" readonly />
+                        </div>
+
+                    </div>
+                    </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-sm-2 control-label">Cant. por Bulto:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cant_x_bulto)" readonly />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Tamaño Caja:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tamaño_caja)" readonly />
+                        </div>
+                    </div>
+
+                    </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-sm-2 control-label">Tiraje term. por hora:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_term_x_hora)" readonly />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Tiraje troquel por hora:</label>
+                        <div class="col-md-2 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_troquel_x_hora)" readonly />
+                        </div>
+
+                    </div>
+                    </div>
+                <br />
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-sm-2 control-label">Observaciones:</label>
+                        <div class="col-md-6 input-group">
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+                        </div>
+                    </div>
+                </div>
+            <br />    
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="col-sm-4 control-label">Cantidad de componentes:</label>
+                    <div class="col-md-2 input-group">
+                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Componente.Count)" readonly />
+                    </div>
+                </div>
+             </div>
+            <!-- /.box-body -->
+        </div>
+            </div>
+        @{ if (Model.Componente.Count() > 0)
+            {
+                <div id="componente1" class="box box-warning box-solid" style="display:none;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Componente 1</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="col-md-5">
+                                    <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Peso, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-5">
+                                    <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            }
+
+            if (Model.Componente.Count() > 1)
+            {
+                <div id="componente2" class="box box-warning box-solid" style="display:none;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Componente 2</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="col-md-5">
+                                    <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Peso, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-5">
+                                    <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            }
+            if (Model.Componente.Count() > 2)
+            {
+                <div id="componente3" class="box box-warning box-solid" style="display:none;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Componente 3</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="col-md-5">
+                                    <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Peso, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-5">
+                                    <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-4">
+                                    <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                </div><!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            }
+        }
+        <p>
+            <button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_articulo })</button> |
+            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+        </p>
+
+
+
+
+    </section>
+</div><!-- /.content-wrapper -->

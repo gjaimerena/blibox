@@ -29,21 +29,22 @@
             <li class="@*active*@ treeview" >
 
                 <a href="#" style="color: #fff">
-                    <i class="fa fa-files-o"></i> <span>ABMs</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-files-o"></i> <span>Administracion</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     @*<li><a href="@Url.Action("Manuales", "Documentacion")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Manuales</></a></li>*@
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Articulos</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Vendedores</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Clientes</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Proveedores</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Movimientos Cta Cte</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Compras</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Pedidos</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Matrices</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Rubros</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Cortantes</></a></li>
-                    <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Planchas y Material</></a></li>
+                    <li><a href="@Url.Action("Index", "Articulos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Articulos</></a></li>
+                    <li><a href="@Url.Action("Index", "Vendedores")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Vendedores</></a></li>
+                    <li><a href="@Url.Action("Index", "Clientes")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Clientes</></a></li>
+                    <li><a href="@Url.Action("Index", "Proveedor")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Proveedores</></a></li>
+                    <li><a href="@Url.Action("Index", "CtaCte")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Movimientos Cta Cte</></a></li>
+                    <li><a href="@Url.Action("Index", "Compras")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Compras</></a></li>
+                    <li><a href="@Url.Action("Index", "Pedidos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Pedidos</></a></li>
+                    <li><a href="@Url.Action("Index", "Matrices")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Matrices</></a></li>
+                    <li><a href="@Url.Action("Index", "Rubros")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Rubros</></a></li>
+                    <li><a href="@Url.Action("Index", "Cortantes")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Cortantes</></a></li>
+                    <li><a href="@Url.Action("Index", "Materiales")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Materiales</></a></li>
+                    <li><a href="@Url.Action("Index", "Marcos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Marcos</></a></li>
 
 
 
@@ -54,7 +55,7 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            @*<li class="treeview">
                 <a href="#" style="color: #fff">
                     <i class="fa fa-laptop"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -92,7 +93,7 @@
 
 
                 </ul>
-            </li>
+            </li>*@
 
             <li class="treeview">
                 <a href="#" style="color: #fff">
@@ -113,7 +114,7 @@
 
             <li class="treeview">
                 <a href="#" style="color: #fff">
-                    <i class="fa fa-circle"></i> <span>Presupuestos</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-calculator"></i> <span>Presupuestos</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Altas</></a></li>
@@ -125,7 +126,7 @@
 
             <li class="treeview">
                 <a href="#" style="color: #fff">
-                    <i class="fa fa-circle"></i> <span>Cotizaciones</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-file-text"></i> <span>Cotizaciones</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Altas</></a></li>
@@ -137,7 +138,7 @@
 
             <li class="treeview">
                 <a href="#" style="color: #fff">
-                    <i class="fa fa-circle"></i> <span>Resultados</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-bar-chart"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Total de Ventas por Periodo</></a></li>
