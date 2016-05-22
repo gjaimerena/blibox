@@ -1,0 +1,74 @@
+﻿@model Blibox.CtaCte_Clientes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CtaCte_Clientes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Razon_social)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Razon_social)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Saldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_movimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_movimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Concepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Concepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Importe_movimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Importe_movimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Razon_Social)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Razon_Social)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_movimiento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
