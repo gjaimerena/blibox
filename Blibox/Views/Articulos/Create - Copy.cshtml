@@ -1,5 +1,4 @@
-﻿@model Blibox.Models.AddArticulo
-
+﻿@model Blibox.Articulo
 @section Scripts
 {
     <script>
@@ -12,33 +11,28 @@
                     $("#componente1").show();
                     $("#componente2").hide();
                     $("#componente3").hide();
-                    
-                break;
+                    break;
                 case "2":
                     $("#componente1").show();
                     $("#componente2").show();
                     $("#componente3").hide();
-                        break;
+                    break;
                 case "3":
                     $("#componente1").show();
                     $("#componente2").show();
                     $("#componente3").show();
-                        break;
+                    break;
                 case "Ninguno":
                     $("#componente1").hide();
                     $("#componente2").hide();
                     $("#componente3").hide();
-                        break;
-                        default:
+                    break;
+                default:
                     $("#componente1").hide();
                     $("#componente2").hide();
                     $("#componente3").hide();
-                        break;
+                    break;
             }
-
-           
-
-            
         }
     </script>
     
@@ -87,7 +81,7 @@
                                 <label>ID Cliente</label>
                                 <div>
                                     @Html.DropDownList("ID_cliente", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.articulo.ID_cliente, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -95,8 +89,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>F0PD</label>
-                                @Html.EditorFor(model => model.articulo.ID_articulo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.articulo.ID_articulo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.ID_articulo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ID_articulo, "", new { @class = "text-danger" })
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
                     </div>
@@ -105,8 +99,8 @@
                             <div class="form-group">
                                 <label>Descripción</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Descripcion, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -117,8 +111,8 @@
                             <div class="form-group">
                                 <label>Precio Costo</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Costo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Costo, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -126,8 +120,8 @@
                             <div class="form-group">
                                 <label>Precio Lista</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Precio_lista, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Precio_lista, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Precio_lista, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Precio_lista, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -140,8 +134,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.EditorFor(model => model.articulo.Precio_fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Precio_fecha, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Precio_fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
+                                    @Html.ValidationMessageFor(model => model.Precio_fecha, "", new { @class = "text-danger" })
                                 </div><!-- /.input group -->
                             </div><!-- /.form group -->
                         </div><!-- /.col -->
@@ -149,8 +143,8 @@
                             <div class="form-group">
                                 <label>IVA</label>
                                 <div>
-                                    @Html.RadioButtonFor(model => model.articulo.IVA, "SI") SI
-                                    @Html.RadioButtonFor(model => model.articulo.IVA, "NO") NO
+                                    @Html.RadioButtonFor(model => model.IVA, "SI") SI
+                                    @Html.RadioButtonFor(model => model.IVA, "NO") NO
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -161,8 +155,8 @@
                             <div class="form-group">
                                 <label>Stock</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Stock, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Stock, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -170,8 +164,8 @@
                             <div class="form-group">
                                 <label>Stock Minimo</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Stock_minimo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Stock_minimo, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Stock_minimo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock_minimo, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -180,9 +174,9 @@
                             <div class="form-group">
                                 <label>Fazon</label>
                                 <div>
-                                    @Html.RadioButtonFor(model => model.articulo.Fazon, "SI") SI
-                                    @Html.RadioButtonFor(model => model.articulo.Fazon, "NO") NO
-                                    @Html.ValidationMessageFor(model => model.articulo.Fazon, "", new { @class = "text-danger" })
+                                    @Html.RadioButtonFor(model => model.Fazon, "SI") SI
+                                    @Html.RadioButtonFor(model => model.Fazon, "NO") NO
+                                    @Html.ValidationMessageFor(model => model.Fazon, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -192,8 +186,8 @@
                             <div class="form-group">
                                 <label>Cantidad por bulto</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Cant_x_bulto, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Cant_x_bulto, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Cant_x_bulto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Cant_x_bulto, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -201,8 +195,8 @@
                             <div class="form-group">
                                 <label>Tamaño Caja</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tamaño_caja, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tamaño_caja, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tamaño_caja, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tamaño_caja, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -210,8 +204,8 @@
                             <div class="form-group">
                                 <label>Tiraje Term. por Hora</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tiraje_term_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tiraje_term_x_hora, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tiraje_term_x_hora, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tiraje_term_x_hora, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -219,8 +213,8 @@
                             <div class="form-group">
                                 <label>Tiraje troquel por hora</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tiraje_troquel_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tiraje_troquel_x_hora, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tiraje_troquel_x_hora, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tiraje_troquel_x_hora, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -230,8 +224,8 @@
                             <div class="form-group">
                                 <label>Observaciones</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Observaciones, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -261,13 +255,12 @@
                         </div><!-- /.box-header -->
                         <div class="box-body">
 
-                           
                             <div class="col-md-6">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Material</label>
                                         <div>
-                                            @Html.DropDownListFor(model => model.comp1.ID_material, (SelectList)ViewBag.Mat_Descripcion)
+                                            @Html.DropDownList("material1", (SelectList)ViewBag.Mat_Descripcion)
 
                                         </div>
                                     </div><!-- /.form-group -->
@@ -285,7 +278,7 @@
                                     <div class="form-group">
                                         <label>Marco</label>
                                         <div>
-                                            @Html.DropDownListFor(model => model.comp1.Marco, (SelectList)ViewBag.marco)
+                                            @Html.DropDownList("marco1", (SelectList)ViewBag.marco)
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div>
@@ -296,7 +289,7 @@
                                     <div class="form-group">
                                         <label>Ciclo</label>
                                         <div>
-                                            @Html.EditorFor(model => model.comp1.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.Editor("ciclos1", new { htmlAttributes = new { @class = "form-control" } })
                                             @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })*@
                                         </div>
                                     </div><!-- /.form-group -->
@@ -305,7 +298,7 @@
                                     <div class="form-group">
                                         <label>Bocas</label>
                                         <div>
-                                            @Html.EditorFor(model => model.comp1.Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.Editor("bocas1", new { htmlAttributes = new { @class = "form-control" } })
                                             @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })*@
                                         </div>
                                     </div><!-- /.form-group -->
@@ -314,7 +307,7 @@
                                     <div class="form-group">
                                         <label>Espesor</label>
                                         <div>
-                                            @Html.EditorFor(model => model.comp1.Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.Editor("espesor1", new { htmlAttributes = new { @class = "form-control" } })
                                             @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
                                         </div>
                                     </div><!-- /.form-group -->
@@ -326,7 +319,7 @@
                                         <label>Matriz</label>
                                         <div>
                                           
-                                            @Html.DropDownListFor(model => model.comp1.ID_matriz, (SelectList)ViewBag.Matriz)
+                                            @Html.DropDownList("matriz_codigo1", (SelectList)ViewBag.Matriz)
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div><!-- /.col -->
@@ -337,7 +330,7 @@
                                     <div class="form-group">
                                         <label>Cortante</label>
                                         <div>
-                                            @Html.DropDownListFor(model => model.comp1.ID_cortante, (SelectList)ViewBag.cortante)
+                                            @Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div><!-- /.col -->
@@ -346,8 +339,8 @@
                                     <div class="form-group">
                                         <label>Color</label>
                                         <div>
-                                            @Html.EditorFor(model => model.comp1.Color, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp1.Color, "", new { @class = "text-danger" })
+                                            @Html.Editor("color1", new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessage("color1", "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
@@ -503,7 +496,7 @@
                                         <label>Ciclo</label>
                                         <div>
                                             @Html.Editor("ciclos3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Ciclos, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div>
@@ -512,7 +505,7 @@
                                         <label>Bocas</label>
                                         <div>
                                             @Html.Editor("bocas3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Bocas, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div>
@@ -521,7 +514,7 @@
                                         <label>Espesor</label>
                                         <div>
                                             @Html.Editor("espesor3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Espesor, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })
                                         </div>
                                     </div><!-- /.form-group -->
                                 </div>

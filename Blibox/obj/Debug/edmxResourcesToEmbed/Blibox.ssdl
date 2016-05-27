@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="ID_articulo" />
     </Key>
-    <Property Name="ID_articulo" Type="int" Nullable="false" />
+    <Property Name="ID_articulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ID_cliente" Type="int" Nullable="false" />
     <Property Name="Costo" Type="int" />
@@ -24,7 +24,7 @@
     <Key>
       <PropertyRef Name="ID_cliente" />
     </Key>
-    <Property Name="ID_cliente" Type="int" Nullable="false" />
+    <Property Name="ID_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Razon_Social" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Contacto" Type="nvarchar" MaxLength="50" />
     <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
@@ -51,7 +51,7 @@
     <Key>
       <PropertyRef Name="ID_componente" />
     </Key>
-    <Property Name="ID_componente" Type="int" Nullable="false" />
+    <Property Name="ID_componente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_articulo" Type="int" Nullable="false" />
     <Property Name="Peso" Type="int" />
     <Property Name="ID_material" Type="int" />
@@ -67,7 +67,7 @@
     <Key>
       <PropertyRef Name="ID_compra" />
     </Key>
-    <Property Name="ID_compra" Type="int" Nullable="false" />
+    <Property Name="ID_compra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_proveedor" Type="int" />
     <Property Name="Fecha_compra" Type="date" />
     <Property Name="Nro_factura" Type="int" />
@@ -89,7 +89,7 @@
     <Key>
       <PropertyRef Name="ID_cortante" />
     </Key>
-    <Property Name="ID_cortante" Type="int" Nullable="false" />
+    <Property Name="ID_cortante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Codigo" Type="nchar" MaxLength="10" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Sector" Type="nchar" MaxLength="10" />
@@ -161,7 +161,7 @@
     <Key>
       <PropertyRef Name="ID_marco" />
     </Key>
-    <Property Name="ID_marco" Type="int" Nullable="false" />
+    <Property Name="ID_marco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Ancho" Type="decimal" Precision="6" Scale="2" />
     <Property Name="Largo" Type="decimal" Precision="6" Scale="2" />
@@ -171,7 +171,7 @@
     <Key>
       <PropertyRef Name="ID_material" />
     </Key>
-    <Property Name="ID_material" Type="int" Nullable="false" />
+    <Property Name="ID_material" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Peso" Type="decimal" Precision="6" Scale="2" />
     <Property Name="Observaciones" Type="nchar" MaxLength="10" />
@@ -180,7 +180,7 @@
     <Key>
       <PropertyRef Name="ID_matriz" />
     </Key>
-    <Property Name="ID_matriz" Type="int" Nullable="false" />
+    <Property Name="ID_matriz" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Codigo" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Sector" Type="nchar" MaxLength="10" />
@@ -191,7 +191,7 @@
     <Key>
       <PropertyRef Name="ID_pedido" />
     </Key>
-    <Property Name="ID_pedido" Type="int" Nullable="false" />
+    <Property Name="ID_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_cliente" Type="int" Nullable="false" />
     <Property Name="ID_articulo" Type="int" Nullable="false" />
     <Property Name="cantidad_pedida" Type="int" />
@@ -213,7 +213,7 @@
     <Key>
       <PropertyRef Name="ID_presupuesto" />
     </Key>
-    <Property Name="ID_presupuesto" Type="int" Nullable="false" />
+    <Property Name="ID_presupuesto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
     <Property Name="Color" Type="nchar" MaxLength="10" />
     <Property Name="Cantidad" Type="int" />
@@ -233,7 +233,7 @@
     <Key>
       <PropertyRef Name="ID_proveedor" />
     </Key>
-    <Property Name="ID_proveedor" Type="int" Nullable="false" />
+    <Property Name="ID_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
     <Property Name="Contacto" Type="nvarchar" MaxLength="50" />
     <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
@@ -261,15 +261,25 @@
     <Key>
       <PropertyRef Name="ID_rubro" />
     </Key>
-    <Property Name="ID_rubro" Type="int" Nullable="false" />
+    <Property Name="ID_rubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Descirpcion" Type="nvarchar" MaxLength="50" />
     <Property Name="Observaciones" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Vendedor">
     <Key>
       <PropertyRef Name="ID_vendedor" />
     </Key>
-    <Property Name="ID_vendedor" Type="int" Nullable="false" />
+    <Property Name="ID_vendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
@@ -518,6 +528,7 @@
     <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Articulo_Cliente" Association="Self.FK_Articulo_Cliente">
       <End Role="Cliente" EntitySet="Cliente" />

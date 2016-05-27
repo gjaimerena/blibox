@@ -44,9 +44,7 @@ namespace Blibox.Models
                     s.ID_cliente.ToString().Contains(q)
                     ).OrderBy(m => m.ID_articulo);
             }
-
-            
-
+   
             switch (sortOrder)
             {
                 case "id":
@@ -61,70 +59,12 @@ namespace Blibox.Models
                 case "descripcion_desc":
                     query = query.OrderByDescending(x => x.Descripcion);
                     break;
-                //case "date":
-                //    query = query.OrderBy(x => x.date);
-                //    break;
-                //case "date_desc":
-                //    query = query.OrderByDescending(x => x.date);
-                //    break;
                 default:
                     break;
             }
             return View(query.ToPagedList(page, pageSize));
         }
-        //public ActionResult Index(String searchString, String Items, String sortOrder)
-        //{
-
-        //    //cargo el listview con los campos disponible spara buuqueda
-        //    items.Add(new SelectListItem() { Text = "Todos", Value = "0", Selected=true});
-        //    items.Add(new SelectListItem(){Text = "ID_articulo", Value = "ID_articulo" });
-        //    items.Add(new SelectListItem() { Text = "Descripcion", Value = "Descripcion" });
-        //    items.Add(new SelectListItem() { Text = "ID_Cliente", Value = "ID_Cliente" });
-
-        //    ViewBag.Items = items;
-
-        //    var articulo = from a in db.Articulo
-        //                   select a;
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        switch (Items)
-        //        {
-        //            case "Descripcion":
-        //                articulo = articulo.Where(a => a.Descripcion.Contains(searchString));
-        //                break;
-        //            case "ID_articulo":
-        //                articulo = articulo.Where(a => a.ID_articulo.ToString().Equals(searchString));
-        //                break;
-        //            default:
-        //                break;
-        //        }
-
-        //    }
-
-        //    ViewBag.IdSort = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
-        //    ViewBag.DescripcionSort = sortOrder == "Descripcion" ? "descripcion_desc" : "Descripcion";
-        //    articulo = from s in db.Articulo select s;
-
-        //    switch (sortOrder)
-        //    {
-        //        case "id_desc":
-        //            articulo = articulo.OrderByDescending(s => s.ID_articulo);
-        //            break;
-        //        case "Descripcion":
-        //            articulo = articulo.OrderBy(s => s.Descripcion);
-        //            break;
-        //        case "descripcion_desc":
-        //            articulo = articulo.OrderByDescending(s => s.Descripcion);
-        //            break;
-        //        default:
-        //            articulo = articulo.OrderBy(s => s.ID_articulo);
-        //            break;
-        //    }
-        //    ////articulo = db.Articulo.Include(a => a.Cliente);
-        //    return View(articulo.ToList());
-        //}
-
-
+ 
         // GET: Articulos/Details/5
         public ActionResult Details(int? id)
         {
@@ -147,7 +87,6 @@ namespace Blibox.Models
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
 
-           
             mat = new SelectList(db.Material.Select(m => m.Descripcion).ToList());
             marco = new SelectList(db.Marco.Select(m => m.Descripcion).ToList());
             matriz = new SelectList(db.Matriz.Select(m => m.Codigo));
@@ -157,12 +96,9 @@ namespace Blibox.Models
             ViewBag.Marco = marco;
             ViewBag.Matriz = matriz;
             ViewBag.cortante = cortante;
-            
             ViewBag.Peso = "0";
             ComboComponentes().First().Selected = true;
             ViewBag.componentes = ComboComponentes();
-            
-           
 
             return View();
         }
@@ -172,11 +108,11 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Descripcion,ID_cliente,Costo,IVA,Precio_lista,Precio_fecha,Stock,Fazon,Stock_minimo,Cant_x_bulto,Tamaño_caja,Tiraje_term_x_hora,Tiraje_troquel_x_hora,Observaciones")] Articulo articulo)
+        public ActionResult Create(AddArticulo articulo)//([Bind(Include = "Descripcion,ID_cliente,Costo,IVA,Precio_lista,Precio_fecha,Stock,Fazon,Stock_minimo,Cant_x_bulto,Tamaño_caja,Tiraje_term_x_hora,Tiraje_troquel_x_hora,Observaciones")] Articulo articulo)
         {
-            Componente comp1, comp2, comp3;
+          //  Componente comp1, comp2, comp3;
             
-
+            
             var errors = ModelState.Select(x => x.Value.Errors)
                           .Where(y => y.Count > 0)
                           .ToList();
@@ -185,10 +121,11 @@ namespace Blibox.Models
 
                 //obtengo nro de compoenente que tiene el articulo
                 string nrocomp = (Request["nrocomponentes"]);
-                //obtengo nuevo id para el articulo a agregar
-                articulo.ID_articulo = db.Articulo.OrderByDescending(m => m.ID_articulo).FirstOrDefault().ID_articulo + 1;
-                //obtengo ultimo ID usado para saber los nuevos ID a crear
-                int lastIDComponente = db.Componente.OrderByDescending(m => m.ID_componente).FirstOrDefault().ID_componente;
+
+                //genero nuevo articulo
+                db.Articulo.Add(articulo.articulo);
+
+                int ID_new_Articulo = db.Articulo.OrderByDescending(m => m.ID_articulo).FirstOrDefault().ID_articulo;
                 //genero componentes
 
                 string cortante = "";
@@ -196,143 +133,143 @@ namespace Blibox.Models
                 string material = "";
                 string matriz = "";
 
-                switch (nrocomp)
-                {
-                    case "1":
-                        cortante = Request["Cortante_codigo1"];
-                        marco = (Request["marco1"]);
-                        material = (Request["material1"]);
-                        matriz = (Request["matriz_codigo1"]);
+                //switch (nrocomp)
+                //{
+                //    case "1":
+                //        cortante = Request["Cortante_codigo1"];
+                //        marco = (Request["marco1"]);
+                //        material = (Request["material1"]);
+                //        matriz = (Request["matriz_codigo1"]);
 
-                        comp1 = new Componente
-                        {
-                            Bocas = Request["bocas1"],
-                            Ciclos = Request["ciclos1"],
-                            Color = Request["color1"],
-                            Espesor = Request["espesor1"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 1,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
-                        db.Componente.Add(comp1);
-                        break;
-                    case "2":
-                         cortante = Request["Cortante_codigo1"];
-                         marco = (Request["marco1"]);
-                         material = (Request["material1"]);
-                         matriz = (Request["matriz_codigo1"]);
+                //        comp1 = new Componente
+                //        {
+                //            Bocas = Request["bocas1"],
+                //            Ciclos = Request["ciclos1"],
+                //            Color = Request["color1"],
+                //            Espesor = Request["espesor1"],
+                //            ID_articulo = ID_new_Articulo,
+                //           // ID_componente = lastIDComponente + 1,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
+                //        db.Componente.Add(comp1);
+                //        break;
+                //    case "2":
+                //         cortante = Request["Cortante_codigo1"];
+                //         marco = (Request["marco1"]);
+                //         material = (Request["material1"]);
+                //         matriz = (Request["matriz_codigo1"]);
 
-                        comp1 = new Componente
-                        {
-                            Bocas = Request["bocas1"],
-                            Ciclos = Request["ciclos1"],
-                            Color = Request["color1"],
-                            Espesor = Request["espesor1"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 1,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
+                //        comp1 = new Componente
+                //        {
+                //            Bocas = Request["bocas1"],
+                //            Ciclos = Request["ciclos1"],
+                //            Color = Request["color1"],
+                //            Espesor = Request["espesor1"],
+                //            ID_articulo = ID_new_Articulo,
+                //           // ID_componente = lastIDComponente + 1,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
 
-                        cortante = Request["Cortante_codigo2"];
-                        marco = (Request["marco2"]);
-                        material = (Request["material2"]);
-                        matriz = (Request["matriz_codigo2"]);
+                //        cortante = Request["Cortante_codigo2"];
+                //        marco = (Request["marco2"]);
+                //        material = (Request["material2"]);
+                //        matriz = (Request["matriz_codigo2"]);
 
-                        comp2 = new Componente
-                        {
-                            Bocas = Request["bocas2"],
-                            Ciclos = Request["ciclos2"],
-                            Color = Request["color2"],
-                            Espesor = Request["espesor2"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 2,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
-                        db.Componente.Add(comp1);
-                        db.Componente.Add(comp2);
+                //        comp2 = new Componente
+                //        {
+                //            Bocas = Request["bocas2"],
+                //            Ciclos = Request["ciclos2"],
+                //            Color = Request["color2"],
+                //            Espesor = Request["espesor2"],
+                //            ID_articulo = ID_new_Articulo,
+                //        //    ID_componente = lastIDComponente + 2,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
+                //        db.Componente.Add(comp1);
+                //        db.Componente.Add(comp2);
 
-                        break;
-                    case "3":
-                         cortante = Request["Cortante_codigo1"];
-                         marco = (Request["marco1"]);
-                         material = (Request["material1"]);
-                         matriz = (Request["matriz_codigo1"]);
+                //        break;
+                //    case "3":
+                //         cortante = Request["Cortante_codigo1"];
+                //         marco = (Request["marco1"]);
+                //         material = (Request["material1"]);
+                //         matriz = (Request["matriz_codigo1"]);
 
-                        comp1 = new Componente
-                        {
-                            Bocas = Request["bocas1"],
-                            Ciclos = Request["ciclos1"],
-                            Color = Request["color1"],
-                            Espesor = Request["espesor1"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 1,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
+                //        comp1 = new Componente
+                //        {
+                //            Bocas = Request["bocas1"],
+                //            Ciclos = Request["ciclos1"],
+                //            Color = Request["color1"],
+                //            Espesor = Request["espesor1"],
+                //            ID_articulo = ID_new_Articulo,
+                //     //       ID_componente = lastIDComponente + 1,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
 
-                        cortante = Request["Cortante_codigo2"];
-                        marco = (Request["marco2"]);
-                        material = (Request["material2"]);
-                        matriz = (Request["matriz_codigo2"]);
+                //        cortante = Request["Cortante_codigo2"];
+                //        marco = (Request["marco2"]);
+                //        material = (Request["material2"]);
+                //        matriz = (Request["matriz_codigo2"]);
 
-                        comp2 = new Componente
-                        {
-                            Bocas = Request["bocas2"],
-                            Ciclos = Request["ciclos2"],
-                            Color = Request["color2"],
-                            Espesor = Request["espesor2"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 2,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
+                //        comp2 = new Componente
+                //        {
+                //            Bocas = Request["bocas2"],
+                //            Ciclos = Request["ciclos2"],
+                //            Color = Request["color2"],
+                //            Espesor = Request["espesor2"],
+                //            ID_articulo = ID_new_Articulo,
+                //           // ID_componente = lastIDComponente + 2,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
 
-                        cortante = Request["Cortante_codigo3"];
-                        marco = (Request["marco3"]);
-                        material = (Request["material3"]);
-                        matriz = (Request["matriz_codigo3"]);
+                //        cortante = Request["Cortante_codigo3"];
+                //        marco = (Request["marco3"]);
+                //        material = (Request["material3"]);
+                //        matriz = (Request["matriz_codigo3"]);
 
-                        comp3 = new Componente
-                        {
-                            Bocas = Request["bocas3"],
-                            Ciclos = Request["ciclos3"],
-                            Color = Request["color3"],
-                            Espesor = Request["espesor3"],
-                            ID_articulo = articulo.ID_articulo,
-                            ID_componente = lastIDComponente + 3,
-                            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
-                            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
-                            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
-                            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
-                            Peso = 0
-                        };
-                        db.Componente.Add(comp1);
-                        db.Componente.Add(comp2);
-                        db.Componente.Add(comp3);
-                        break;
+                //        comp3 = new Componente
+                //        {
+                //            Bocas = Request["bocas3"],
+                //            Ciclos = Request["ciclos3"],
+                //            Color = Request["color3"],
+                //            Espesor = Request["espesor3"],
+                //            ID_articulo = ID_new_Articulo,
+                //         //   ID_componente = lastIDComponente + 3,
+                //            ID_cortante = db.Cortante.Where(m => m.Codigo == cortante).FirstOrDefault().ID_cortante,
+                //            ID_marco = db.Marco.Where(m => m.Descripcion == marco).FirstOrDefault().ID_marco,
+                //            ID_material = db.Material.Where(m => m.Descripcion == material).FirstOrDefault().ID_material,
+                //            ID_matriz = db.Matriz.Where(m => m.Codigo == matriz).FirstOrDefault().ID_matriz,
+                //            Peso = 0
+                //        };
+                //        db.Componente.Add(comp1);
+                //        db.Componente.Add(comp2);
+                //        db.Componente.Add(comp3);
+                //        break;
                        
-                    default: break;
-                }
+                //    default: break;
+                //}
 
-                db.Articulo.Add(articulo);
+               // db.Articulo.Add(articulo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -350,7 +287,7 @@ namespace Blibox.Models
                 ViewBag.Peso = "0";
             }
 
-            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
+            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.articulo.ID_cliente);
             return View(articulo);
         }
 

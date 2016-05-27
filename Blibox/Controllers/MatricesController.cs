@@ -114,7 +114,7 @@ namespace Blibox.Controllers
         {
             if (ModelState.IsValid)
             {
-                matriz.ID_matriz = db.Matriz.OrderByDescending(m => m.ID_matriz).FirstOrDefault().ID_matriz + 1;
+              //  matriz.ID_matriz = db.Matriz.OrderByDescending(m => m.ID_matriz).FirstOrDefault().ID_matriz + 1;
                 db.Matriz.Add(matriz);
                 db.SaveChanges();
                 return RedirectToAction("Index");

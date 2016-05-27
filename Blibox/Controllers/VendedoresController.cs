@@ -115,7 +115,7 @@ namespace Blibox.Controllers
         {
             if (ModelState.IsValid)
             {
-                vendedor.ID_vendedor = db.Vendedor.OrderByDescending(m => m.ID_vendedor).FirstOrDefault().ID_vendedor + 1;
+               // vendedor.ID_vendedor = db.Vendedor.OrderByDescending(m => m.ID_vendedor).FirstOrDefault().ID_vendedor + 1;
                   
                 db.Vendedor.Add(vendedor);
                 db.SaveChanges();
