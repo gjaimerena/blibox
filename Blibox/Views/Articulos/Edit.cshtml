@@ -1,57 +1,5 @@
 ﻿@model Blibox.Articulo
 
-@section Scripts
-{
-    <script>
-        function editcomp() {
-            // var nro_comp = document.getElementById("nrocomponentes").value();
-            var nro_comp = @Html.Raw(Model.Componente.Count());
-
-
-            switch (nro_comp) {
-                case 1:
-                    $("#componente1").show();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                    $("#changeNroComponentes").show();
-                    $("#changeNroComponentes").val="Agregar Componente 2";
-                   
-                    break;
-                case 2:
-                    $("#componente1").show();
-                    $("#componente2").show();
-                    $("#componente3").hide();
-                    $("#changeNroComponentes").show();
-                    $("#changeNroComponentes").val="Agregar Componente 3";
-                    break;
-                case 3:
-                    $("#componente1").show();
-                    $("#componente2").show();
-                    $("#componente3").show();
-                    $("#changeNroComponentes").show();
-                    $("#changeNroComponentes").val="Quitar Componente 3";
-                    break;
-                case 0:
-                    $("#componente1").hide();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                    $("#changeNroComponentes").show();
-                    $("#changeNroComponentes").val="Agregar Componente";
-                    break;
-                default:
-                    $("#componente1").hide();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                    break;
-            }
-        }
-
-        function Addcomp(){
-            @*if ($("#changeNroComponentes").val=="Agregar Componente") @Model.Componente..Add( var item = new Componente());*@
-        }
-    </script>
-
-}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -60,7 +8,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("Index", "Articulos")"><i class="fa fa-dashboard"></i> Articulos</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -79,16 +27,6 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        @* <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>ID Articulo</label>
-                                    <div>
-                                        @Html.EditorFor(model => model.ID_articulo, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                                        @Html.ValidationMessageFor(model => model.ID_articulo, "", new { @class = "text-danger" })
-                                    </div>
-                                </div><!-- /.form-group -->
-                            </div>*@
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>ID Cliente</label>
@@ -245,351 +183,132 @@
 
                     </div><!-- /.row -->
                     <!--Agregar componenetes-->
-                    <div class="row">
-                        <div class="form-group">
-                            <div @*class="box-footer"*@>
-                                <div class="col-md-3">
-                                    <label>Seleccione cantidad de componentes</label>
-                                </div>
-                                <div class="col-md-2">
-
-                                    <input name="EditComponentes" class="btn btn-primary" type="button" value="Editar Componentes" onClick="editcomp()" />
-                                    <input name="AddComponentes" class="btn btn-primary" type="button" value="Agregar Componentes" onClick="Addcomp()" id="changeNroComponentes" />
-                                    @*@Html.Action("Editar Componentes",null, new { @onClick = "editcomp()", @class = "form-control", @id = "nrocomponentes"  })*@
-                                    @*@Html.DropDownList("nrocomponentes", (SelectList)ViewBag.componentes, new { @onchange = "changecomp(nrocomponentes)", @class = "form-control", @id = "nrocomponentes" })*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-              
 
                     <br />
+                    @if (Model != null && Model.Componente != null && Model.Componente.Count < 3)
+                    {
+                        <button type="button" class="btn btn-success ">@Html.ActionLink("Agregar Componente", "AgregarComponente", new { Id = Model.ID_articulo })</button>
+                    }
 
-               @{ if (Model.Componente.Count() > 0)
-                   {
-                    <div class="box box-default" id="componente1" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 1</h3>
-                            <div class="box-tools pull-right">
+                    <br /><br />
 
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
+                    @if (Model != null && Model.Componente != null && Model.Componente.Count > 0)
+                    {
 
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownList("material1", (SelectList)ViewBag.Mat_Descripcion)
+                        var i = 0;
+                        var nro = 1 + i;
 
+                        //ViewBag.idArticulo = Model.ID_articulo;
+                        foreach (var item in Model.Componente)
+                        {
+                            // ViewBag.comp[i] = item.ID_componente;
+
+                            <div class="box box-warning box-solid collapsed-box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Componente @nro</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    @Html.Editor("Componente[" + i + "].ID_Componente", item.ID_componente.ToString(), new { htmlAttributes = new { @Value = item.ID_componente, @style = "display: none" } })
+                                    @Html.Editor("Componente[" + i + "].ID_articulo", item.ID_articulo.ToString(), new { htmlAttributes = new { @Value = item.ID_articulo, @style = "display: none" } })
+                                    <div class="row col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Material</label>
+                                                <div>
+                                                    @Html.DropDownList("Componente[" + i + "].ID_material", new SelectList(ViewBag.Mat_Descripcion, "ID_material", "Descripcion", item.ID_material), htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Peso</label>
+                                                <div>
+                                                    @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownList("marco1", (SelectList)ViewBag.marco)
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Color</label>
+                                                <div>
+                                                    @Html.Editor("Componente[" + i + "].Color", item.Color, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @*@Html.ValidationMessage(item.Color.ToString(), new { @class = "text-danger" })*@
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.Editor("ciclos1", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })*@
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Ciclo</label>
+                                                <div>
+                                                    @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.Editor("bocas1", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })*@
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Bocas</label>
+                                                <div>
+                                                    @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.Editor("espesor1", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-
-                                            @Html.DropDownList("matriz_codigo1", (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.Editor("color1", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessage("color1", "", new { @class = "text-danger" })
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Espesor</label>
+                                                <div>
+                                                    @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!--./box-->
-                   }
-             }
-               @{ if (Model.Componente.Count() > 1) { 
-                    <div class="box box-default" id="componente2" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 2</h3>
-                            <div class="box-tools pull-right">
-
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownList("material2", (SelectList)ViewBag.Mat_Descripcion)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownList("marco2", (SelectList)ViewBag.marco)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.Editor("ciclos2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.Editor("bocas2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.Editor("espesor2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                            @Html.DropDownList("matriz_codigo2", (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownList("Cortante_codigo2", (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.Editor("color2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessage("color1", "", new { @class = "text-danger" })
+                                    <div class="row col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Matriz</label>
+                                                <div>
+                                                    @Html.DropDownList("Componente[" + i + "].ID_matriz", new SelectList(ViewBag.Matriz, "ID_matriz", "Codigo", item.ID_matriz), htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div><!-- /.form-group -->
+                                        </div><!-- /.col -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Cortante</label>
+                                                <div>
+                                                    @Html.DropDownList("Componente[" + i + "].ID_cortante", new SelectList(ViewBag.cortante, "ID_cortante", "Descripcion", item.ID_cortante), htmlAttributes: new { @class = "form-control" })
+                                                    @*@Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)*@
+                                                </div>
+                                            </div><!-- /.form-group -->
+                                        </div><!-- /.col -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Marco</label>
+                                                <div>
+                                                    @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div><!-- /.form-group -->
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!-- /.box -->
-                   }}
-                @{ if (Model.Componente.Count() > 2) { 
-                    <!--Agregar componenetes 3-->
-                    <div class="box box-default" id="componente3" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 3</h3>
-                            <div class="box-tools pull-right">
+                                    <div class="row col-md-2">
 
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownList("material3", (SelectList)ViewBag.Mat_Descripcion)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownList("marco3", (SelectList)ViewBag.marco)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.Editor("ciclos3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.Editor("bocas3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.Editor("espesor3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                            @Html.DropDownList("matriz_codigo3", (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownList("Cortante_codigo3", (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.Editor("color3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessage("color3", "", new { @class = "text-danger" })
-                                        </div>
+                                        <button type="button" class="btn btn-danger ">@Html.ActionLink("Eliminar", "eliminarComponente", new { Id = item.ID_componente })</button>
                                     </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!-- /.box -->
-                        } }
-
+                                </div> <!-- /.box-body -->
+                            </div><!--./box-->
+                            i++; nro++;
+                        }
+                    }
 
                     <div class="form-group">
                         <div class="box-footer">
                             <input type="submit" value="Actualizar" class="btn btn-primary" />
                         </div>
-
                     </div>
                 </div><!-- /.box-body -->
-
             </div><!-- /.box -->
-
         }
 
         <div>
@@ -598,5 +317,3 @@
 
     </section>
 </div><!-- /.content-wrapper -->
-
-

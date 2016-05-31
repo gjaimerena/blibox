@@ -1,48 +1,6 @@
-﻿@model Blibox.Models.AddArticulo
+﻿
+@model Blibox.Articulo
 
-@section Scripts
-{
-    <script>
-        function changecomp(nrocomponentes) {
-            // var nro_comp = document.getElementById("nrocomponentes").value();
-            var nro_comp = $('[id*=nrocomponentes]').val();
-
-            switch (nro_comp) {
-                case "1":
-                    $("#componente1").show();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                    
-                break;
-                case "2":
-                    $("#componente1").show();
-                    $("#componente2").show();
-                    $("#componente3").hide();
-                        break;
-                case "3":
-                    $("#componente1").show();
-                    $("#componente2").show();
-                    $("#componente3").show();
-                        break;
-                case "Ninguno":
-                    $("#componente1").hide();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                        break;
-                        default:
-                    $("#componente1").hide();
-                    $("#componente2").hide();
-                    $("#componente3").hide();
-                        break;
-            }
-
-           
-
-            
-        }
-    </script>
-    
-}
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -87,7 +45,7 @@
                                 <label>ID Cliente</label>
                                 <div>
                                     @Html.DropDownList("ID_cliente", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.articulo.ID_cliente, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -95,8 +53,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>F0PD</label>
-                                @Html.EditorFor(model => model.articulo.ID_articulo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.articulo.ID_articulo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.ID_articulo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ID_articulo, "", new { @class = "text-danger" })
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
                     </div>
@@ -105,8 +63,8 @@
                             <div class="form-group">
                                 <label>Descripción</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Descripcion, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -117,8 +75,8 @@
                             <div class="form-group">
                                 <label>Precio Costo</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Costo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Costo, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -126,8 +84,8 @@
                             <div class="form-group">
                                 <label>Precio Lista</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Precio_lista, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Precio_lista, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Precio_lista, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Precio_lista, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -140,8 +98,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    @Html.EditorFor(model => model.articulo.Precio_fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Precio_fecha, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Precio_fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
+                                    @Html.ValidationMessageFor(model => model.Precio_fecha, "", new { @class = "text-danger" })
                                 </div><!-- /.input group -->
                             </div><!-- /.form group -->
                         </div><!-- /.col -->
@@ -149,8 +107,8 @@
                             <div class="form-group">
                                 <label>IVA</label>
                                 <div>
-                                    @Html.RadioButtonFor(model => model.articulo.IVA, "SI") SI
-                                    @Html.RadioButtonFor(model => model.articulo.IVA, "NO") NO
+                                    @Html.RadioButtonFor(model => model.IVA, "SI") SI
+                                    @Html.RadioButtonFor(model => model.IVA, "NO") NO
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -161,8 +119,8 @@
                             <div class="form-group">
                                 <label>Stock</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Stock, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Stock, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -170,8 +128,8 @@
                             <div class="form-group">
                                 <label>Stock Minimo</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Stock_minimo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Stock_minimo, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Stock_minimo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock_minimo, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -180,9 +138,9 @@
                             <div class="form-group">
                                 <label>Fazon</label>
                                 <div>
-                                    @Html.RadioButtonFor(model => model.articulo.Fazon, "SI") SI
-                                    @Html.RadioButtonFor(model => model.articulo.Fazon, "NO") NO
-                                    @Html.ValidationMessageFor(model => model.articulo.Fazon, "", new { @class = "text-danger" })
+                                    @Html.RadioButtonFor(model => model.Fazon, "SI") SI
+                                    @Html.RadioButtonFor(model => model.Fazon, "NO") NO
+                                    @Html.ValidationMessageFor(model => model.Fazon, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -192,8 +150,8 @@
                             <div class="form-group">
                                 <label>Cantidad por bulto</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Cant_x_bulto, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Cant_x_bulto, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Cant_x_bulto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Cant_x_bulto, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -201,8 +159,8 @@
                             <div class="form-group">
                                 <label>Tamaño Caja</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tamaño_caja, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tamaño_caja, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tamaño_caja, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tamaño_caja, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -210,8 +168,8 @@
                             <div class="form-group">
                                 <label>Tiraje Term. por Hora</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tiraje_term_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tiraje_term_x_hora, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tiraje_term_x_hora, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tiraje_term_x_hora, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -219,8 +177,8 @@
                             <div class="form-group">
                                 <label>Tiraje troquel por hora</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Tiraje_troquel_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Tiraje_troquel_x_hora, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Tiraje_troquel_x_hora, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Tiraje_troquel_x_hora, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
@@ -230,345 +188,202 @@
                             <div class="form-group">
                                 <label>Observaciones</label>
                                 <div>
-                                    @Html.EditorFor(model => model.articulo.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.articulo.Observaciones, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
 
                     </div><!-- /.row -->
-                    <!--Agregar componenetes-->
-                    <div class="row">
-                        <div class="form-group">
-                            <div @*class="box-footer"*@>
+                   
+
+                    <div>
+                        <em data-bind="validationMessage: detalle"></em>
+                    </div>
+
+                    <button data-bind="click: agregarDetalle">Agregar Componente</button>
+
+                    <br /><br />
+
+                    <div class="box box-default" data-bind="foreach: detalle">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Material</label>
+                                        <div>
+                                            <select required="required" data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"></select>
+                                            <em data-bind="validationMessage: ID_material"></em>
+
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Ciclos</label>
+                                        <div>
+                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }" />
+                                            <em data-bind="validationMessage: Ciclos"></em>
+
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Bocas</label>
+                                        <div>
+                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
+                                            <em data-bind="validationMessage: Bocas"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                            
+                       
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Espesor</label>
+                                        <div>
+                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
+                                            <em data-bind="validationMessage: Espesor"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <div>
+                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
+                                            <em data-bind="validationMessage: Color"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Peso</label>
+                                        <div>
+                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
+                                            <em data-bind="validationMessage: Peso"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <label>Seleccione cantidad de componentes</label>
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.DropDownList("nrocomponentes", (SelectList)ViewBag.componentes, new { @onchange = "changecomp(nrocomponentes)", @class = "form-control", @id = "nrocomponentes" })
+                                    <div class="form-group">
+                                        <label>Marco</label>
+                                        <div>
+
+                                            <select required="required" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
+                                            <em data-bind="validationMessage: ID_marco"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div><!-- /.col -->
+
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Matriz</label>
+                                        <div>
+                                            <select required="required" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
+                                            <em data-bind="validationMessage: ID_matriz"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div><!-- /.col -->
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Cortante</label>
+                                        <div>
+                                            <select required="required" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
+                                            <em data-bind="validationMessage: ID_cortante"></em>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                <br />
-                    <div class="box box-default" id="componente1" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 1</h3>
-                            <div class="box-tools pull-right">
-
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-
+                            <div class="col-md-3">
+                                <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
+                            </div>
                            
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownListFor(model => model.comp1.ID_material, (SelectList)ViewBag.Mat_Descripcion)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownListFor(model => model.comp1.Marco, (SelectList)ViewBag.marco)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.EditorFor(model => model.comp1.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.EditorFor(model => model.comp1.Bocas, new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.EditorFor(model => model.comp1.Espesor, new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                          
-                                            @Html.DropDownListFor(model => model.comp1.ID_matriz, (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownListFor(model => model.comp1.ID_cortante, (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.EditorFor(model => model.comp1.Color, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp1.Color, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!--./box-->
-
-
-                    <div class="box box-default" id="componente2" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 2</h3>
-                            <div class="box-tools pull-right">
-
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownList("material2", (SelectList)ViewBag.Mat_Descripcion)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownList("marco2", (SelectList)ViewBag.marco)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.Editor("ciclos2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Ciclos, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.Editor("bocas2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Bocas, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.Editor("espesor2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                            @Html.DropDownList("matriz_codigo2", (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownList("Cortante_codigo2", (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.Editor("color2", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessage("color1", "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!-- /.box -->
-                    <!--Agregar componenetes 3-->
-                    <div class="box box-default" id="componente3" style="display:none;">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Componente 3</h3>
-                            <div class="box-tools pull-right">
-
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-
-                            <div class="col-md-6">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            @Html.DropDownList("material3", (SelectList)ViewBag.Mat_Descripcion)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            @Html.DisplayName((String)@ViewBag.Peso)
-
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
-                                            @Html.DropDownList("marco3", (SelectList)ViewBag.marco)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Ciclo</label>
-                                        <div>
-                                            @Html.Editor("ciclos3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Ciclos, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            @Html.Editor("bocas3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Bocas, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            @Html.Editor("espesor3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.comp3.Espesor, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                            @Html.DropDownList("matriz_codigo3", (SelectList)ViewBag.Matriz)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            @Html.DropDownList("Cortante_codigo3", (SelectList)ViewBag.cortante)
-                                        </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            @Html.Editor("color3", new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessage("color3", "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.box-body -->
-                    </div><!-- /.box -->
-
-
-
-                    <div class="form-group">
-                        <div class="box-footer">
-                            <input type="submit" value="Generar" class="btn btn-primary" />
+                           
                         </div>
-
+                        <hr style="background-color: red; height: 1px; border: 0;"/>
                     </div>
-                </div><!-- /.box-body -->
+
+                        @*<table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Ciclos</th>
+                                    <th>Bocas</th>
+                                    <th>Espesor</th>
+                                    <th>Color</th>
+                                    <th>Peso</th>
+                                    <th>Marco</th>
+                                    <th>Matriz</th>
+                                    <th>Cortante</th>
+
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: detalle">
+                                <tr>
+                                    <td>
+                                        <select required="required" data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"></select>
+                                        <em data-bind="validationMessage: ID_material"></em>
+                                    </td>
+                                    <td>
+                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }" />
+                                        <em data-bind="validationMessage: Ciclos"></em>
+                                    </td>
+                                    <td>
+                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
+                                        <em data-bind="validationMessage: Bocas"></em>
+                                    </td>
+                                    <td>
+                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
+                                        <em data-bind="validationMessage: Espesor"></em>
+                                    </td>
+                                    <td>
+                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
+                                        <em data-bind="validationMessage: Color"></em>
+                                    </td>
+                                    <td>
+                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
+                                        <em data-bind="validationMessage: Peso"></em>
+                                    </td>
+                                    <td>
+                                        <select required="required" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
+                                        <em data-bind="validationMessage: ID_material"></em>
+                                    </td>
+
+                                    <td>
+                                        <select required="required" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
+                                        <em data-bind="validationMessage: ID_matriz"></em>
+                                    </td>
+                                    <td>
+                                        <select required="required" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
+                                        <em data-bind="validationMessage: ID_cortante"></em>
+                                    </td>
+                                    <td>
+                                        <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>*@
+
+                        <br />
+
+                        <div class="form-group">
+                            <div class="box-footer">
+                                <input type="submit" value="Generar" data-bind="enable: canCreate()" class="btn btn-primary" />
+                            </div>
+
+                        </div>
+                    </div><!-- /.box-body -->
 
             </div><!-- /.box -->
 
@@ -582,3 +397,29 @@
 
     </section>
 </div><!-- /.content-wrapper -->
+
+<script src="~/Scripts/ArticuloCreateViewModel.js"></script>
+<script src="~/Scripts/knockout-3.4.0.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>
+
+<script>
+    // catálogo de productos que se utiliza para llenar el <select /> de productos de cada detalle
+    var materiales = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Mat_Descripcion))');
+
+    // catálogo de productos que se utiliza para llenar el <select /> de productos de cada detalle
+    var marcos = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Marco))');
+
+    var matriz = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Matriz))');
+
+    var cortante = JSON.parse('@Html.Raw(Json.Encode(ViewBag.cortante))');
+
+
+    // viewModel con el que haremos el binding de nuestra vista.
+    var viewModel = new articuloViewModel();
+
+    // inicializamos la validación de knockout.
+    ko.validation.init({ insertMessages: false, parseInputAttributes: true });
+
+    // aplicamos el viewModel a nuestra vista.
+    ko.applyBindings(viewModel);
+</script>
