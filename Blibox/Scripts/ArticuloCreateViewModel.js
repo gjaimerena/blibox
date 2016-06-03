@@ -30,6 +30,8 @@ var articuloViewModel = function () {
         self.detalle.remove(detalle);
     };
 
+    
+
     self.canCreate = function () {
         var detallesValidos = ((self.detalle().length > 0) && (self.detalle().length < 4));
 

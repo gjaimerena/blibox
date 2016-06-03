@@ -1,0 +1,282 @@
+﻿@model Blibox.Encabezado_Factura
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Factura")"><i class="fa fa-dashboard"></i> Facturacion</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <!-- SELECT2 EXAMPLE -->
+            <div class="box box-default">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nuevo Articulo</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Seleccione Cliente</label>
+                                <div>
+                                    @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente, htmlAttributes: new { @class = "form-control", onchange = "onChangeCliente();" })
+                                     @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Tipo Documento</label>
+                                <div>
+                                    @Html.EditorFor(model => model.Cliente.TipoDocumento, new { htmlAttributes = new { @class = "form-control", @id = "CUIT" } })
+                                    @*@Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Condicion IVA</label>
+                                @Html.Editor("TipoResponsable", new { htmlAttributes = new { @class = "form-control", @id = "TipoResp" } })
+                              
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Descuento</label>
+                                @Html.EditorFor(model => model.Descuento, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+
+                       <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Factura Nº</label>
+                                <div>
+                                    @Html.Editor(((int)ViewBag.NroFacturaNew).ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nro_factura, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+                                <label>Fecha Emision:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
+                                    @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                                </div><!-- /.input group -->
+                            </div><!-- /.form group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Remito</label>
+                                <div>
+                                    @Html.EditorFor(model => model.Nro_remito, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nro_remito, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Orden Compra</label>
+                                <div>
+                                    @Html.EditorFor(model => model.OrdenCompra, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.OrdenCompra, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Seleccione Cliente</label>
+                                <div>
+                                    @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_vendedor, htmlAttributes: new { @class = "form-control" , onchange = "onChangeCliente();" })
+                                    @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Cantidad Dias a pagar</label>
+                                <div>
+                                    @Html.EditorFor(model => model.Cliente.DiasFF, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Cliente.DiasFF, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Cheque Dias</label>
+                                <div>
+                                    @Html.EditorFor(model => model.Cliente.Dias_Cheque, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Cliente.Dias_Cheque, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                    </div>
+                    <!--Agregar componenetes-->
+
+                    <br />
+                    @if (Model != null && Model.Detalle_factura != null)
+                    {
+                        <button type="button" class="btn btn-success ">@Html.ActionLink("Agregar Articulo", "AgregarArticulo", new { Id = Model.Nro_factura })</button>
+                    }
+
+                    <br /><br />
+
+                    @if (Model != null && Model.Detalle_factura != null && Model.Detalle_factura.Count > 0)
+                    {
+
+                        var i = 0;
+                        var nro = 1 + i;
+
+                        //ViewBag.idArticulo = Model.ID_articulo;
+                        foreach (var item in Model.Detalle_factura)
+                        {
+                            // ViewBag.comp[i] = item.ID_componente;
+
+                            <div class="box box-warning box-solid collapsed-box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Componente @nro</h3>
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    @Html.Editor("Detalle_factura[" + i + "].Nro_factura", Model.Nro_factura.ToString(), new { htmlAttributes = new { @Value = Model.Nro_factura, @style = "display: none" } })
+                                    @Html.Editor("Detalle_factura[" + i + "].ID_item", nro.ToString(), new { htmlAttributes = new { @Value = nro, @style = "display: none" } })
+                                    <div class="row col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Articulo</label>
+                                                <div>
+                                                    @Html.DropDownList("Detalle_factura[" + i + "].ID_articulo", new SelectList(ViewBag.articulos, "ID_articulo", "Descripcion", item.ID_articulo), htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Peso</label>
+                                                <div>
+                                                    @Html.Editor("Detalle_factura[" + i + "].Cantidad", item.Cantidad.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                       
+                                        <div class="row col-md-2">
+
+                                            <button type="button" class="btn btn-danger ">@Html.ActionLink("Eliminar", "eliminarDetalle", new { Id_item = item.ID_item, Nro_factura = item.Nro_factura })</button>
+                                        </div>
+                                    </div>
+                                </div> <!-- /.box-body -->
+                            </div><!--./box-->
+                            i++; nro++;
+                        }
+                    }
+
+                    <div class="form-group">
+                        <div class="box-footer">
+                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        }
+
+        <div>
+            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+        </div>
+
+    </section>
+</div><!-- /.content-wrapper -->
+
+<script>
+
+    @*function onChangeCliente() {
+
+        var id = $(this).val();
+
+        jQuery.ajax({
+            url: '@Url.Action("obtenerCUIT", "Factura")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ idCliente: id }),
+            success: function (result) {
+                $('#Cliente_CUIT').val(result);
+            }
+        });
+    }*@
+
+    function onChangeCliente1() {
+
+
+        var strSelected = "";
+        $("#ID_cliente option:selected").each(function () {
+            strSelected += $(this)[0].value;
+        });
+        var url = "@Url.Action("obtenerCUIT", "Factura")" + '/' + strSelected;
+
+        $.getJSON(url.toString() , function (data) {
+            //$.get(url, null, function (data) {
+                $("#Cliente_CUIT").var(data);
+            //});
+        });
+    }
+
+    function onChangeCliente() {
+
+        var strSelected = "";
+        $("#ID_cliente option:selected").each(function () {
+            strSelected += $(this)[0].value;
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("obtenerCUIT", "Factura")",
+            data: "{'idCliente': " + strSelected + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    $("#CUIT").val(data.CUIT);
+                    $("#DiasFF").val(data.DiasFF);
+                    $("#Dias_Cheque").val(data.Dias_Cheque);
+                    $("#TipoResp").val(data.CondicionIVA);
+                    
+                    //$("#_CUIT").load();
+                  //  alert("entro" + data);
+                }
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
+    }
+
+</script>

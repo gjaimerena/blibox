@@ -14,6 +14,12 @@ namespace Blibox
     
     public partial class Encabezado_Factura
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Encabezado_Factura()
+        {
+            this.Detalle_factura = new HashSet<Detalle_factura>();
+        }
+    
         public int Nro_factura { get; set; }
         public string Tipo { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
@@ -26,10 +32,14 @@ namespace Blibox
         public Nullable<decimal> IVA { get; set; }
         public Nullable<int> ID_condicon_venta { get; set; }
         public Nullable<int> ID_movimiento { get; set; }
+        public Nullable<int> Nro_remito { get; set; }
+        public Nullable<int> OrdenCompra { get; set; }
+        public Nullable<decimal> Descuento { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
         public virtual Condicion_venta Condicion_venta { get; set; }
-        public virtual Detalle_factura Detalle_factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Detalle_factura> Detalle_factura { get; set; }
         public virtual Vendedor Vendedor { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

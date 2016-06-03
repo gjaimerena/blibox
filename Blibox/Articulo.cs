@@ -11,18 +11,18 @@ namespace Blibox
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Articulo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Articulo()
         {
             this.Componente = new HashSet<Componente>();
+            this.Detalle_factura = new HashSet<Detalle_factura>();
             this.Pedido = new HashSet<Pedido>();
         }
     
         public int ID_articulo { get; set; }
-        [Required(AllowEmptyStrings =false,ErrorMessage ="El campo no puede estar vacio")]
         public string Descripcion { get; set; }
         public int ID_cliente { get; set; }
         public Nullable<int> Costo { get; set; }
@@ -38,10 +38,12 @@ namespace Blibox
         public Nullable<int> Tiraje_troquel_x_hora { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Componente> Componente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Detalle_factura> Detalle_factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }
