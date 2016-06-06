@@ -41,7 +41,7 @@ namespace Blibox.Controllers
                     s.Vendedor.Apellido.Contains(q) ||
                     s.Fecha.ToString().Contains(q) ||
                     s.Cliente.Razon_Social.Contains(q) ||
-                    s.Cliente.CUIT.ToString().Contains(q)
+                    s.Cliente.Documento.ToString().Contains(q)
                     ).OrderBy(m => m.ID_cliente);
             }
 
