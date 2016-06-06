@@ -142,24 +142,25 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.TipoResponsable, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 %
                             </div>
-                            @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.IVA, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.TipoResponsable, (SelectList)ViewBag.TipoResponsables, htmlAttributes: new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.TipoResponsable, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TipoResponsable, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CUIT, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("CUIT", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
                             </div>
-                            @Html.EditorFor(model => model.CUIT, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CUIT, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.TipoDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TipoDocumento, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

@@ -50,47 +50,7 @@ namespace Blibox.Models
 
             return View(query.ToPagedList(page, pageSize));
         }
-
-        //public ActionResult Index(String searchString, String Items)
-        //{
-        //    //cargo el listview con los campos disponible spara buuqueda
-        //    items.Add(new SelectListItem() { Text = "Todos", Value = "0", Selected = true });
-        //    items.Add(new SelectListItem() { Text = "ID_Cliente", Value = "ID_Cliente" });
-        //    items.Add(new SelectListItem() { Text = "Razon Social", Value = "Razon Social" });
-        //    items.Add(new SelectListItem() { Text = "CUIT", Value = "CUIT" });
-
-
-        //    ViewBag.Items = items;
-
-
-        //    var cliente = from a in db.Cliente select a;
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        switch (Items)
-        //        {
-        //            case "Razon Social":
-        //                cliente = cliente.Where(a => a.Razon_Social.Contains(searchString));
-        //                break;
-        //            case "ID_Cliente":
-        //                cliente = cliente.Where(a => a.ID_cliente.ToString().Equals(searchString));
-        //                break;
-        //            case "CUIT":
-        //                cliente = cliente.Where(a => a.CUIT.ToString().Equals(searchString));
-        //                break;
-        //            default:
-        //                break;
-
-        //        }
-
-        //    }
-
-
-        //    return View(cliente.ToList());
-        //    // var cliente = db.Cliente.Include(c => c.Rubro).Include(c => c.Vendedor);
-        //    //return View(cliente.ToList());
-        //}
-
+        
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
@@ -111,6 +71,7 @@ namespace Blibox.Models
         {
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion");
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre");
+            ViewBag.TipoResponsables = new SelectList(db.TipoResponsables, "Codigo", "Descripcion");
             return View();
         }
 
@@ -119,11 +80,12 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_cliente,Razon_Social,Contacto,Domicilio,Localidad,Provincia,Codigo_Postal,Telefono,Email,ID_vendedor,Comision_vendedor,IVA,CUIT,Saldo,Observaciones,Referidos,ID_rubro,DiasFF,Dias_Cheque,Grupo_mailing,Limite_credito,Fecha_alta")] Cliente cliente)
+        public ActionResult Create(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-               // cliente.ID_cliente = db.Cliente.OrderByDescending(m => m.ID_cliente).FirstOrDefault().ID_cliente + 1;
+                // cliente.ID_cliente = db.Cliente.OrderByDescending(m => m.ID_cliente).FirstOrDefault().ID_cliente + 1;
+                cliente.TipoDocumento = 25; //valor para CUIT
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -131,6 +93,7 @@ namespace Blibox.Models
 
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", cliente.ID_vendedor);
+            ViewBag.TipoResponsables = new SelectList(db.TipoResponsables, "Codigo", "Descripcion",cliente.TipoResponsable);
             return View(cliente);
         }
 
@@ -148,6 +111,7 @@ namespace Blibox.Models
             }
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", cliente.ID_vendedor);
+            ViewBag.TipoResponsables = new SelectList(db.TipoResponsables, "Codigo", "Descripcion", cliente.TipoResponsable);
             return View(cliente);
         }
 
@@ -156,7 +120,7 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_cliente,Razon_Social,Contacto,Domicilio,Localidad,Provincia,Codigo_Postal,Telefono,Email,ID_vendedor,Comision_vendedor,IVA,CUIT,Saldo,Observaciones,Referidos,ID_rubro,DiasFF,Dias_Cheque,Grupo_mailing,Limite_credito,Fecha_alta")] Cliente cliente)
+        public ActionResult Edit(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -166,6 +130,7 @@ namespace Blibox.Models
             }
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", cliente.ID_vendedor);
+            ViewBag.TipoResponsables = new SelectList(db.TipoResponsables, "Codigo", "Descripcion", cliente.TipoResponsable);
             return View(cliente);
         }
 
