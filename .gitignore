@@ -3,3 +3,8 @@ Blibox/bin/*
 Blibox/obj/*
 
 
+/Blibox.Logica/obj/Debug
+/packages
+
+/TestAutenticacion/obj/Debug
+/TestAutenticacion/bin/Debug
