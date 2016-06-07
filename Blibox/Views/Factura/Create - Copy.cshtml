@@ -142,53 +142,65 @@ $(document).ready(function(){
 
                     <br /><br />
 
-                    <table class="table table-striped table-bordered table-condensed">
-                        <thead>
-                            <tr>
-                                <th>@Html.DisplayName("Articulo")</th>
-                                <th>@Html.DisplayName("Cantidad")</th>
-                                <th>@Html.DisplayName("Precio Unitario")</th>
-                                <th>@Html.DisplayName("Precio Total")</th>
-                                <th>OPCIONES</th>
-                            </tr>
-                        </thead>
+                    <div class="box box-default" data-bind="foreach: detalle">
+                        <div class="row">
+                            
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Articulo</label>
+                                        <div>
+                                            <select required="required" id="articulo" onchange="setPrecioUnit()" data-bind="value: ID_articulo, options: window.articulos, optionsText: 'Descripcion', optionsValue: 'ID_articulo', attr: { name: 'Detalle_factura[' + $index() + '].ID_articulo' }"></select>
+                                            <em data-bind="validationMessage: ID_articulo"></em>
 
-                            <tbody data-bind="foreach: detalle">
-                                <tr>
-                                    <td>
-                                        <select required="required"   data-bind="value: ID_articulo, options: window.articulos, optionsText: 'Descripcion', optionsValue: 'ID_articulo', attr: { name: 'Detalle_factura[' + $index() + '].ID_articulo', id: 'articulo' + $index(), onchange: 'setPrecioUnit('+$index()+')'  }"></select>
-                                        <em data-bind="validationMessage: ID_articulo"></em>
-                                    </td>
-                                    <td>
-                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Cantidad, attr: { name: 'Detalle_factura[' + $index() + '].Cantidad', id: 'Cantidad'+$index(), onchange: 'changePT('+$index()+')'  }" />
-                                        <em data-bind="validationMessage: Cantidad"></em>
-                                    </td>
-                                    <td>
-                                        <input type="number" required="required" min="0" max="999999999" data-bind="value: Precio_unitario, attr: { name: 'Detalle_factura[' + $index() + '].Precio_unitario' , id: 'PrecioUnitario'+$index(), onchange: 'changePT('+$index()+')' }" />
-                                        <em data-bind="validationMessage: Precio_unitario"></em>
-                                    </td>
-                                    <td>
-                                        <input type="number" readonly  required="required" min="0" max="999999999" data-bind="value: Precio_total, attr: { name: 'Detalle_factura[' + $index() + '].Precio_total', id: 'PrecioTotal'+$index() }" />
-                                        <em data-bind="validationMessage: Precio_total"></em>
-                                    </td>
-                                    <td>
-                                        <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
-                                    </td>
-                                </tr>
-                        </tbody>
-            
-                           
-                            </table>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <div>
+                                            <input type="number" id="Cantidad" onchange="changePT()" required="required" min="0" max="999999999" data-bind="value: Cantidad, attr: { name: 'Detalle_factura[' + $index() + '].Cantidad' }" />
+                                            <em data-bind="validationMessage: Cantidad"></em>
 
-                        <!--Fin agregar item-->
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Precio Unitario</label>
+                                        <div>
+                                            <input type="number" id="PrecioUnitario" onchange="changePT()" required="required" min="0" max="999999999" data-bind="value: Precio_unitario, attr: { name: 'Detalle_factura[' + $index() + '].Precio_unitario' }" />
+                                            <em data-bind="validationMessage: Precio_unitario"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Precio Total</label>
+                                        <div>
+                                            <input type="number" readonly id="PrecioTotal" required="required" min="0" max="999999999" data-bind="value: Precio_total, attr: { name: 'Detalle_factura[' + $index() + '].Precio_total' }" />
+                                            <em data-bind="validationMessage: Precio_total"></em>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                </div>
+                               <div class="col-md-3">
+                                   <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
+                               </div>
 
 
-                        <div class="form-group">
-                            <div class="box-footer">
-                                <input type="submit" value="Actualizar" class="btn btn-primary" />
-                            </div>
                         </div>
-</div><!-- /.box-body -->
+                        <hr style="background-color: red; height: 1px; border: 0;" />
+                    </div>
+                
+                <!--Fin agregar item-->
+                    
+
+                    <div class="form-group">
+                        <div class="box-footer">
+                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
             </div><!-- /.box -->
         }
 
@@ -203,19 +215,19 @@ $(document).ready(function(){
 
 <script>
     
-    function changePT(id) {
+    function changePT() {
         var strSelected = "";
         this.focus();
-        strSelected += $('#PrecioUnitario' + id).val();
+        strSelected += $('#PrecioUnitario').val();
             // var art = $("#articulo option:selected").val();
-        var cantidad = $('#Cantidad' + id).val();
+            var cantidad = $('#Cantidad').val();
             
-        $('#PrecioTotal' + id).val(strSelected * cantidad)
+            $('#PrecioTotal').val(strSelected*cantidad)
     }
 
-    function setPrecioUnit(id) {
+    function setPrecioUnit() {
         var strSelected = "";
-        $("#articulo"+id+" option:selected").each(function () {
+        $("#articulo option:selected").each(function () {
             strSelected += $(this)[0].value;
         });
         $.ajax({
@@ -227,10 +239,10 @@ $(document).ready(function(){
         success: function (data) {
             if (data != null) {
                 var pu = data;
-                $('#PrecioUnitario' + id).val(pu);
-                if ($('#Cantidad' + id).val() != 0) {
+                $('#PrecioUnitario').val(pu);
+                if ($('#Cantidad').val() != 0) {
                     var cantidad = $('#Cantidad').val()
-                    $('#PrecioTotal' + id).val(cantidad * pu);
+                    $('#PrecioTotal').val(cantidad*pu);
                 }
             }
         },

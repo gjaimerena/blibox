@@ -79,9 +79,19 @@ namespace Blibox.Controllers
             ViewBag.TipoResponsable = new SelectList(db.TipoResponsables, "Codigo", "Descripcion");
 
             Encabezado_Factura nro_factura = db.Encabezado_Factura.OrderByDescending(m => m.Nro_factura).FirstOrDefault();
-            ViewBag.NroFacturaNew = (nro_factura == null)? 0 : nro_factura.Nro_factura;
+           //eliminarArticulo nro de factura lo emito luego de obtener aprobacion de afip
+          //   ViewBag.NroFacturaNew = (nro_factura == null)? 0 : nro_factura.Nro_factura;
 
-            ViewBag.articulos = new SelectList(db.Articulo, "ID_articulo", "Descripcion");
+            
+
+            List<Articulo> articulos = db.Articulo.Select(m => m).ToList();
+            ICollection<Articulo> ArticuloColeccion = new HashSet<Articulo>();
+            for (int i = 0; i < articulos.Count; i++)
+            {
+               ArticuloColeccion.Add(new Articulo { ID_articulo = articulos.ElementAt(i).ID_articulo, Descripcion = articulos.ElementAt(i).Descripcion });
+            }
+            ViewBag.articulos = ArticuloColeccion;
+
             return View();
         }
 
@@ -90,7 +100,7 @@ namespace Blibox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nro_factura,Tipo,Fecha,ID_cliente,ID_vendedor,Subtotal,Tipo_iva_responsable,Valor_inscripto,Total,IVA,ID_condicon_venta,ID_movimiento")] Encabezado_Factura encabezado_Factura)
+        public ActionResult Create(Encabezado_Factura encabezado_Factura)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +140,7 @@ namespace Blibox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nro_factura,Tipo,Fecha,ID_cliente,ID_vendedor,Subtotal,Tipo_iva_responsable,Valor_inscripto,Total,IVA,ID_condicon_venta,ID_movimiento")] Encabezado_Factura encabezado_Factura)
+        public ActionResult Edit(Encabezado_Factura encabezado_Factura)
         {
             if (ModelState.IsValid)
             {
@@ -204,7 +214,34 @@ namespace Blibox.Controllers
         {
             Cliente cliente = db.Cliente.Where(m=>m.ID_cliente == idCliente).FirstOrDefault();
 
-            return Json(cliente, JsonRequestBehavior.AllowGet);
+            ClienteJson clientejson = new ClienteJson
+            {
+                Documento = cliente.Documento,
+
+                ID_cliente = cliente.ID_cliente,
+                Razon_Social = cliente.Razon_Social,
+                TipoDocumento = cliente.TipoDocumento,
+                TipoResponsable = db.TipoResponsables.Where(m => m.Codigo == cliente.TipoResponsable).FirstOrDefault().Descripcion,
+                DiasFF = cliente.DiasFF,
+                Dias_Cheque = cliente.Dias_Cheque
+
+            };
+            
+            return Json(clientejson, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult obtenerPrecioUnitario(int? idArticulo)
+        {
+            Articulo articulo = db.Articulo.Where(m => m.ID_articulo == idArticulo).FirstOrDefault();
+
+            if (articulo!= null)
+            {
+                if (articulo.Precio_lista!=null) return Json(articulo.Precio_lista, JsonRequestBehavior.AllowGet);
+            }
+            
+                return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

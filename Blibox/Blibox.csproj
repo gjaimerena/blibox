@@ -251,6 +251,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
+    <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
     <Compile Include="Controllers\CtaCte_ClientesController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
@@ -1180,6 +1181,7 @@
     <Content Include="plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\FacturaDetalleCreateViewModel.js" />
     <Content Include="Scripts\ArticuloCreateViewModel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1558,6 +1560,7 @@
     <Content Include="Views\Factura\Details.cshtml" />
     <Content Include="Views\Factura\Edit.cshtml" />
     <Content Include="Views\Factura\Index.cshtml" />
+    <Content Include="Views\Factura\Create - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

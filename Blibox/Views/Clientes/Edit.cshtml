@@ -142,7 +142,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.TipoResponsable, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Condicion IVA", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 %
@@ -159,8 +159,8 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
                             </div>
-                            @Html.EditorFor(model => model.TipoDocumento, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.TipoDocumento, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Documento, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
