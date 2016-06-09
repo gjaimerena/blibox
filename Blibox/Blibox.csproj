@@ -373,6 +373,7 @@
     <Content Include="Content\dist\css\skins\skin-yellow.min.css" />
     <Content Include="Content\dist\css\skins\_all-skins.css" />
     <Content Include="Content\dist\css\skins\_all-skins.min.css" />
+    <Content Include="Content\dist\img\Add.png" />
     <Content Include="Content\dist\img\avatar.png" />
     <Content Include="Content\dist\img\avatar04.png" />
     <Content Include="Content\dist\img\avatar2.png" />
@@ -381,6 +382,8 @@
     <Content Include="Content\dist\img\boxed-bg.jpg" />
     <Content Include="Content\dist\img\boxed-bg.png" />
     <Content Include="Content\dist\img\default-50x50.gif" />
+    <Content Include="Content\dist\img\Delete.png" />
+    <Content Include="Content\dist\img\Edit.png" />
     <Content Include="Content\dist\img\gigolo.jpg" />
     <Content Include="Content\dist\img\gigolo2.jpg" />
     <Content Include="Content\dist\img\icons.png" />
@@ -389,6 +392,7 @@
     <Content Include="Content\dist\img\photo2.png" />
     <Content Include="Content\dist\img\photo3.jpg" />
     <Content Include="Content\dist\img\photo4.jpg" />
+    <Content Include="Content\dist\img\Save.png" />
     <Content Include="Content\dist\img\user1-128x128.jpg" />
     <Content Include="Content\dist\img\user2-160x160.jpg" />
     <Content Include="Content\dist\img\user3-128x128.jpg" />
@@ -1307,6 +1311,7 @@
     <Content Include="Scripts\dist\demo.js" />
     <Content Include="Scripts\dist\pages\dashboard.js" />
     <Content Include="Scripts\dist\pages\dashboard2.js" />
+    <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1561,6 +1566,7 @@
     <Content Include="Views\Factura\Edit.cshtml" />
     <Content Include="Views\Factura\Index.cshtml" />
     <Content Include="Views\Factura\Create - Copy.cshtml" />
+    <Content Include="Views\Factura\Create - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

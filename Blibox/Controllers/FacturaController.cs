@@ -226,7 +226,15 @@ namespace Blibox.Controllers
                 Dias_Cheque = cliente.Dias_Cheque
 
             };
-            
+
+            List<Articulo> articulos = db.Articulo.Where(m => m.ID_cliente == idCliente).ToList();
+            ICollection<Articulo> ArticuloColeccion = new HashSet<Articulo>();
+            for (int i = 0; i < articulos.Count; i++)
+            {
+                ArticuloColeccion.Add(new Articulo { ID_articulo = articulos.ElementAt(i).ID_articulo, Descripcion = articulos.ElementAt(i).Descripcion });
+            }
+            ViewBag.articulos = ArticuloColeccion;
+
             return Json(clientejson, JsonRequestBehavior.AllowGet);
         }
 
