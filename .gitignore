@@ -1,5 +1,8 @@
 .vs/*
 Blibox/bin/*
 Blibox/obj/*
+Blibox.Logica/obj/*
+TestAutenticacion/bin/*
+TestAutenticacion/obj/*
 
 
