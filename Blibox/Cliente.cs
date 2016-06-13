@@ -34,8 +34,8 @@ namespace Blibox
         public string Email { get; set; }
         public Nullable<int> ID_vendedor { get; set; }
         public string Comision_vendedor { get; set; }
-        public string IVA { get; set; }
-        public Nullable<int> CUIT { get; set; }
+        public string CondicionIVA { get; set; }
+        public Nullable<int> TipoResponsable { get; set; }
         public Nullable<int> Saldo { get; set; }
         public string Observaciones { get; set; }
         public string Referidos { get; set; }
@@ -45,10 +45,13 @@ namespace Blibox
         public string Grupo_mailing { get; set; }
         public string Limite_credito { get; set; }
         public Nullable<System.DateTime> Fecha_alta { get; set; }
+        public Nullable<int> TipoDocumento { get; set; }
+        public string Documento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Articulo> Articulo { get; set; }
         public virtual Rubro Rubro { get; set; }
+        public virtual TipoResponsables TipoResponsables { get; set; }
         public virtual Vendedor Vendedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CtaCte_Clientes> CtaCte_Clientes { get; set; }
@@ -56,5 +59,6 @@ namespace Blibox
         public virtual ICollection<Encabezado_Factura> Encabezado_Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual TipoDocumento TipoDocumento1 { get; set; }
     }
 }

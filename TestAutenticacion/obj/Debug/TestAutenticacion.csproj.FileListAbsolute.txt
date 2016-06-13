@@ -1,0 +1,8 @@
+F:\Web Blibox\Web Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.exe.config
+F:\Web Blibox\Web Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.exe
+F:\Web Blibox\Web Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.pdb
+F:\Web Blibox\Web Blibox\TestAutenticacion\bin\Debug\Blibox.Logica.dll
+F:\Web Blibox\Web Blibox\TestAutenticacion\bin\Debug\Blibox.Logica.pdb
+F:\Web Blibox\Web Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.csprojResolveAssemblyReference.cache
+F:\Web Blibox\Web Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.exe
+F:\Web Blibox\Web Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.pdb

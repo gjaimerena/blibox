@@ -251,8 +251,10 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
+    <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
     <Compile Include="Controllers\CtaCte_ClientesController.cs" />
+    <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcosController.cs" />
@@ -275,7 +277,7 @@
     <Compile Include="Encabezado_Factura.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -315,6 +317,15 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDocumento.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoResponsables.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Vendedor.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -362,6 +373,7 @@
     <Content Include="Content\dist\css\skins\skin-yellow.min.css" />
     <Content Include="Content\dist\css\skins\_all-skins.css" />
     <Content Include="Content\dist\css\skins\_all-skins.min.css" />
+    <Content Include="Content\dist\img\Add.png" />
     <Content Include="Content\dist\img\avatar.png" />
     <Content Include="Content\dist\img\avatar04.png" />
     <Content Include="Content\dist\img\avatar2.png" />
@@ -370,6 +382,8 @@
     <Content Include="Content\dist\img\boxed-bg.jpg" />
     <Content Include="Content\dist\img\boxed-bg.png" />
     <Content Include="Content\dist\img\default-50x50.gif" />
+    <Content Include="Content\dist\img\Delete.png" />
+    <Content Include="Content\dist\img\Edit.png" />
     <Content Include="Content\dist\img\gigolo.jpg" />
     <Content Include="Content\dist\img\gigolo2.jpg" />
     <Content Include="Content\dist\img\icons.png" />
@@ -378,6 +392,7 @@
     <Content Include="Content\dist\img\photo2.png" />
     <Content Include="Content\dist\img\photo3.jpg" />
     <Content Include="Content\dist\img\photo4.jpg" />
+    <Content Include="Content\dist\img\Save.png" />
     <Content Include="Content\dist\img\user1-128x128.jpg" />
     <Content Include="Content\dist\img\user2-160x160.jpg" />
     <Content Include="Content\dist\img\user3-128x128.jpg" />
@@ -1170,6 +1185,8 @@
     <Content Include="plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\FacturaDetalleCreateViewModel.js" />
+    <Content Include="Scripts\ArticuloCreateViewModel.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1294,6 +1311,7 @@
     <Content Include="Scripts\dist\demo.js" />
     <Content Include="Scripts\dist\pages\dashboard.js" />
     <Content Include="Scripts\dist\pages\dashboard2.js" />
+    <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1413,6 +1431,10 @@
     <Content Include="Scripts\jtable\themes\metro\red\jtable.css" />
     <Content Include="Scripts\jtable\themes\metro\red\jtable.min.css" />
     <Content Include="Scripts\jtable\themes\metro\red\loading.gif" />
+    <Content Include="Scripts\knockout-3.4.0.debug.js" />
+    <Content Include="Scripts\knockout-3.4.0.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1537,6 +1559,14 @@
     <Content Include="Views\CtaCte_Clientes\Details.cshtml" />
     <Content Include="Views\CtaCte_Clientes\Edit.cshtml" />
     <Content Include="Views\CtaCte_Clientes\Index.cshtml" />
+    <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Factura\Create.cshtml" />
+    <Content Include="Views\Factura\Delete.cshtml" />
+    <Content Include="Views\Factura\Details.cshtml" />
+    <Content Include="Views\Factura\Edit.cshtml" />
+    <Content Include="Views\Factura\Index.cshtml" />
+    <Content Include="Views\Factura\Create - Copy.cshtml" />
+    <Content Include="Views\Factura\Create - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

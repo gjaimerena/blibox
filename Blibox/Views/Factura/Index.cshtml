@@ -1,0 +1,119 @@
+﻿@model PagedList.IPagedList<Blibox.Encabezado_Factura>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Facturacion</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <p>
+            <button type="button" class="btn btn-info ">@Html.ActionLink("NUEVA FACTURA", "Create")</button>
+        </p>
+
+        @*@using (Html.BeginForm())
+            {
+                <p>
+                    BUSCADOR DE ARTICULOS:
+                    <br />
+                    @Html.DropDownList("Items")
+                    <br />
+                    @Html.TextBox("SearchString")
+
+                    <button type="submit" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search"></span> Buscar
+                    </button>
+                </p>
+
+
+            }*@
+
+        @{ string currentFilter = ViewBag.CurrentFilter;
+            string currentSort = ViewBag.CurrentSort;
+            if (string.IsNullOrEmpty(currentSort))
+            {
+                currentSort = "id";
+            } }
+
+        <div class="search-box">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                </div>
+                <button type="submit" class="btn btn-info">Buscar</button>
+            </form>
+        </div>
+        <br />
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Facturas</h3>
+            </div>
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                     <th>@Html.DisplayName("Nro Factura")</th>
+                    <th>@Html.DisplayName("Fecha")</th>
+                    <th>@Html.DisplayName("Movimiento")</th>
+                    <th>@Html.DisplayName("IVA")</th>
+                    <th>@Html.DisplayName("Total")</th>
+                    <th>@Html.DisplayName("Cliente")</th>
+                    <th>@Html.DisplayName("CUIT")</th>
+                    <th>@Html.DisplayName("Vendedor")</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Nro_factura)</td>
+                        <td>@Html.DisplayFor(model => item.Fecha)</td>
+                        <td>@Html.DisplayFor(model => item.ID_movimiento)</td>
+                        <td>@Html.DisplayFor(model => item.IVA)</td>
+                        <td>@Html.DisplayFor(model => item.Total)</td>
+                        <td>@Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
+                        <td>@Html.DisplayFor(model => item.Cliente.Documento)</td>
+                        <td>@Html.DisplayFor(model => item.Vendedor.Apellido)</td>
+                        <td> @Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
+                        <td>
+                            @*<button type="button" class="btn btn-primary ">@Html.ActionLink("Edit", "Edit", new { id = item.Nro_factura })</button> |*@
+                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Ver Detalle", "Details", new { id = item.Nro_factura })</button> @*|
+                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Delete", "Delete", new { id = item.Nro_factura })</button>*@
+
+                        </td>
+                    </tr>
+                }
+
+
+            </table>
+        </div>
+
+        @if (Model.PageCount > 1)
+        {
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new
+           {
+               page,
+               sortOrder = ViewBag.currentSort,
+               q = ViewBag.CurrentFilter
+           }))
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            </div>
+        }
+
+
+
+
+
+    </section>
+</div><!-- /.content-wrapper -->

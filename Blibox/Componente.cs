@@ -14,11 +14,6 @@ namespace Blibox
     
     public partial class Componente
     {
-
-        public Componente()
-        {
-            Bocas = "";
-        }
         public int ID_componente { get; set; }
         public int ID_articulo { get; set; }
         public Nullable<int> Peso { get; set; }

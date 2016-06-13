@@ -1,0 +1,6 @@
+F:\Web Blibox\Web Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll.config
+F:\Web Blibox\Web Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll
+F:\Web Blibox\Web Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
+F:\Web Blibox\Web Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.csprojResolveAssemblyReference.cache
+F:\Web Blibox\Web Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.dll
+F:\Web Blibox\Web Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.pdb

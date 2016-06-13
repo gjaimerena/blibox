@@ -15,12 +15,13 @@ namespace Blibox
     public partial class Detalle_factura
     {
         public int Nro_factura { get; set; }
-        public Nullable<int> Nro_Item { get; set; }
-        public Nullable<int> ID_articulo { get; set; }
+        public int ID_item { get; set; }
+        public int ID_articulo { get; set; }
         public Nullable<decimal> Cantidad { get; set; }
         public Nullable<decimal> Precio_unitario { get; set; }
         public Nullable<decimal> Precio_total { get; set; }
     
+        public virtual Articulo Articulo { get; set; }
         public virtual Encabezado_Factura Encabezado_Factura { get; set; }
     }
 }

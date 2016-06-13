@@ -17,8 +17,8 @@ namespace Blibox
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Vendedor()
         {
-            this.Cliente = new HashSet<Cliente>();
             this.Encabezado_Factura = new HashSet<Encabezado_Factura>();
+            this.Cliente = new HashSet<Cliente>();
         }
     
         public int ID_vendedor { get; set; }
@@ -35,8 +35,8 @@ namespace Blibox
         public Nullable<int> Codigo_postal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Encabezado_Factura> Encabezado_Factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cliente> Cliente { get; set; }
     }
 }
