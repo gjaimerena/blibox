@@ -1,0 +1,34 @@
+﻿@model Blibox.Usuario
+
+@{
+    ViewBag.Title = "Login";
+}
+<html>
+<head>
+
+</head>
+<body>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group col-md-8">
+            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+        <div class="form-group col-md-8">
+            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group col-md-8">
+            <input type="submit" class="btn btn-primary" />
+
+        </div>
+
+            </div>
+}
+
+</body>
+</html>

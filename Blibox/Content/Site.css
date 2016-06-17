@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    //padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -20,5 +20,284 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
+}
+
+.has-error .form-control:focus {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;
+}
+
+.has-success .form-control:focus {
+    border-color: #2b542c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #67b168;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #67b168;
+}
+
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+@CHARSET "UTF-8";
+
+body {
+    //background-color: #ddd;
+    background-color: white;
+}
+
+.container, .content {
+    background-color: white;
+    padding-bottom: 20px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+ul#dropdown-menu {
+    width: 100%;
+}
+
+ul.menu > li:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+    background-color: #e8e8e8;
+    background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+    background-image: -o-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e8e8e8));
+    background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
+    background-repeat: repeat-x;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+body {
+//    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+
+    font-size: 1.5em;
+    line-height: 20px;
+    color: #333;
+}
+.form-group {
+    clear: both;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.form-control-feedback {
+    right: 17px;
+}
+.evitar-clicks {
+    pointer-events: none;
+}
+
+.page-header {
+    padding-bottom: 0px;
+    margin: 20px 0 20px;
+}
+
+.navbar-brand {
+    padding: 0px; 
+}
+
+#file {
+    height: inherit;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+}
+
+thead.row {
+    color: #265a88;
+}
+
+.glyphicon-ok {
+    color: #419641;
+}
+
+.glyphicon-remove {
+    color: #b92c28;
+}
+
+img.loading {
+    height: 1em;
+}
+
+.col-sm-10 {
+    padding-bottom: 0.5em;
+}
+
+
+@media screen and (max-width : 640px) {
+    .divTabla {
+        overflow-x: scroll;
+        padding: 0em;
+    }
+}
+
+.divTabla {
+    overflow-x: scroll;
+    margin-bottom: 1em;
+}
+
+table {
+    border-collapse: initial;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.fechaEdit {
+    font-size: 1em;
+    
+}
+
+.exito > input {
+    width: auto;
+    height: 1em;
+    display: inline-block;
+}
+
+.table {
+    border-radius: 4px;
+}
+
+.accion .glyphicon.glyphicon-lock,
+.accion .glyphicon.glyphicon-remove,
+.accion .glyphicon.glyphicon-edit,
+.accion .glyphicon.glyphicon-ok,
+.accion .glyphicon.glyphicon-floppy-disk,
+.accion .glyphicon.glyphicon-floppy-save {
+    
+    font-size: 1.5em;
+}
+
+a > .glyphicon:before {
+    margin-right: 5px;
+}
+
+.cargando {
+    cursor: wait;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.accion > a:focus,
+.accion > a:hover {
+    text-decoration: none;
+    outline-width: 0px;
+}
+
+body {
+    //font-family: halfling;
+    font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+}
+.checkboxSpan > input[type=checkbox]
+{
+    vertical-align: middle;
+    float: left;
+}
+
+input[type=checkbox].checkboxHeader,
+input[type=checkbox].modificado {
+    height: 1.3em;
+    width: 1.3em;
+    margin-right: 0.3em;
+    vertical-align: bottom;
+    position: relative;
+}
+    
+.form-horizontal .has-feedback .form-control-feedback {
+    right: 28px;
+}
+
+label.control-label {
+    clear: both;
+}
+
+.btn {
+    text-transform: uppercase;
+}
+
+h3 {
+    margin-top: 0px;
+    text-transform: uppercase;
+}
+
+.form-control {
+    border-width: 2px;
+}
+
+@media (min-width: 768px) {
+    label.control-label.no-clear-md {
+        clear: none;
+    }
+    
+    @media (max-width: 992px) {
+        .navbar-header {
+            width: 30%;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    a.navbar-brand.navbar-left {
+        max-width: 75%;
+    }
+}
+
+i.form-control-feedback.glyphicon.glyphicon-asterisk {
+    color: #ccc;
+}
+
+/* Don't add a check icon to the radio */
+input[type="radio"].styled:checked+label:after {
+    font-family: 'FontAwesome';
+    content: '';
+}
+
+.form-horizontal .radio {
+    padding-top: 0px;
+}
+
+.box-header {
+    background-color: #00a65a;
+    color: white;
+}
+
+button > a,
+button > a:hover,
+button > a:focus {
+    text-decoration: none;
+    color: white;
 }
