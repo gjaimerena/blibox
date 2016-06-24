@@ -1167,7 +1167,7 @@ a {
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer {
-    background-color: #f9f9f9;
+    background-color: #00A65A; /*#f9f9f9;*/
     padding: 10px;
 }
 

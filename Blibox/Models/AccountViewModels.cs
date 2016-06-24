@@ -49,9 +49,13 @@ namespace Blibox.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
+
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +68,10 @@ namespace Blibox.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -83,6 +91,10 @@ namespace Blibox.Models
 
     public class ResetPasswordViewModel
     {
+        [Required]
+       [Display(Name = "Usuario")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -104,6 +116,10 @@ namespace Blibox.Models
 
     public class ForgotPasswordViewModel
     {
+        [Required]
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
