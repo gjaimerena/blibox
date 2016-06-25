@@ -1316,7 +1316,7 @@ a {
         -moz-appearance: none;
         appearance: none;
     }
-
+/*
 .form-group.has-success label {
     color: #00a65a;
 }
@@ -1343,7 +1343,7 @@ a {
     border-color: #dd4b39;
     box-shadow: none;
 }
-
+*/
 .input-group .input-group-addon {
     border-radius: 0;
     border-color: #d2d6de;

@@ -157,7 +157,6 @@
                                    data_fv_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe seleccionar una opción",
                                    data_fv_row = ".dobleEntrada",
                                    label = "Si",
-                                   required = "required",
                                    @class = "styled",
                                    @id = "ivaSi"
 
@@ -167,12 +166,12 @@
 
                                 <div class="radio">
                                     @Html.RadioButtonFor(model => model.IVA, "No", new
-                                   {
-                                       label = "Si",
-                                       @class = "styled",
-                                       @id = "ivaNo"
+                               {
+                                   label = "Si",
+                                   @class = "styled",
+                                   @id = "ivaNo"
 
-                                   })
+                               })
                                     <label for="ivaNo">No</label>
                                 </div>
                             </div>
@@ -183,27 +182,26 @@
                                 <div class="radio">
 
                                     @Html.RadioButtonFor(model => model.Fazon, "No", new
-                                   {
+                               {
 
-                                       data_fv_choice = "true",
-                                       data_fv_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe seleccionar una opción",
-                                       data_fv_row = ".dobleEntrada",
-                                       required = "required",
-                                       label = "Si",
-                                       @class = "styled",
-                                       @id = "fazonSi"
+                                   data_fv_choice = "true",
+                                   data_fv_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe seleccionar una opción",
+                                   data_fv_row = ".dobleEntrada",
+                                   label = "Si",
+                                   @class = "styled",
+                                   @id = "fazonSi"
 
-                                   })
+                               })
                                     <label for="fazonSi">Si</label>
                                 </div>
                                 <div class="radio">
 
                                     @Html.RadioButtonFor(model => model.Fazon, "No", new
-                                   {
-                                       label = "No",
-                                       @class = "styled",
-                                       @id = "fazonNo"
-                                   })
+                               {
+                                   label = "No",
+                                   @class = "styled",
+                                   @id = "fazonNo"
+                               })
                                     <label for="fazonNo">No</label>
                                 </div>
 
@@ -247,7 +245,7 @@
                             })
                             </div>
                         </div>
-                        
+
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <label class="control-label col-md-2">Cantidad por bulto</label>
@@ -317,7 +315,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Observaciones</label>
                         <div class="col-md-10">
-                        @Html.EditorFor(
+                            @Html.EditorFor(
                             model => model.Observaciones,
                             new
                             {
@@ -328,7 +326,7 @@
                                     data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Observaciones no válidas",
                                     data_fv_stringlength_min = 0,
                                     data_fv_stringlength = "true"
-                            }
+                                }
                             })
                         </div><!-- /.col -->
                     </div><!-- /.form-group -->
@@ -342,195 +340,133 @@
 
                     <br /><br />
 
-                    <div class="box box-default" data-bind="foreach: detalle">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Material</label>
-                                        <div>
-                                            <select required="required" data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"></select>
+                    <div data-bind="foreach: detalle">
+                        <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Componente</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box box-default box-body">
+                                <div class="form-group">
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label">Material</label>
+                                        <div class="col-md-4">
+                                            <select required="required"
+                                                    data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"
+                                                    class="form-control"></select>
                                             <em data-bind="validationMessage: ID_material"></em>
-
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Ciclos</label>
-                                        <div>
-                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }" />
+                                    </div>
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Ciclos</label>
+                                        <div class="col-md-4">
+                                            <input type="text"
+                                                   required="required"
+                                                   min="0"
+                                                   max="999999999"
+                                                   data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }"
+                                                   data-fv-numeric-message="debe ser numerico"
+                                                   class="form-control" />
                                             <em data-bind="validationMessage: Ciclos"></em>
-
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Bocas</label>
-                                        <div>
-                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
+                                    </div>
+                                </div><!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label">Bocas</label>
+                                        <div class="col-md-4">
+                                            <input type="number" required="required"
+                                                   class="form-control"
+                                                   min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
                                             <em data-bind="validationMessage: Bocas"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-
-
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Espesor</label>
-                                        <div>
-                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
+                                    </div>
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Espesor</label>
+                                        <div class="col-md-4">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
                                             <em data-bind="validationMessage: Espesor"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Color</label>
-                                        <div>
-                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
+                                    </div>
+                                </div><!-- /.form-group -->
+
+
+                                <div class="form-group">
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Color</label>
+                                        <div class="col-md-4">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
                                             <em data-bind="validationMessage: Color"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Peso</label>
-                                        <div>
-                                            <input type="number" required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
+                                    </div>
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Peso</label>
+                                        <div class="col-md-4">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
                                             <em data-bind="validationMessage: Peso"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Marco</label>
-                                        <div>
+                                    </div>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Marco</label>
+                                        <div class="col-md-4">
 
-                                            <select required="required" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
+                                            <select required="required" class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
                                             <em data-bind="validationMessage: ID_marco"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
+                                    </div><!-- /.dobleEntrada -->
 
 
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Matriz</label>
-                                        <div>
-                                            <select required="required" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Matriz</label>
+                                        <div class="col-md-4">
+                                            <select required="required" class="form-control" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
                                             <em data-bind="validationMessage: ID_matriz"></em>
                                         </div>
-                                    </div><!-- /.form-group -->
-                                </div><!-- /.col -->
+                                    </div>
+                                </div><!-- /.form-group -->
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Cortante</label>
-                                        <div>
-                                            <select required="required" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
+                                <div class="form-group">
+                                    <div class="dobleEntrada">
+                                        <label class="col-md-2 control-label no-clear-md">Cortante</label>
+                                        <div class="col-md-4">
+
+                                            <select required="required" class="form-control" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
                                             <em data-bind="validationMessage: ID_cortante"></em>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-danger pull-right" data-bind="click: $root.eliminarDetalle">Eliminar</button>
+                                    </div>
+                                </div><!-- /.form-group -->
                             </div>
-                            <div class="col-md-3">
-                                <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
-                            </div>
-
-
                         </div>
-                        <hr style="background-color: red; height: 1px; border: 0;" />
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="box-footer">
+                        <input type="submit" value="Generar" data-bind="enable: canCreate()" class="btn btn-primary" />
                     </div>
 
-                    @*<table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Material</th>
-                                <th>Ciclos</th>
-                                <th>Bocas</th>
-                                <th>Espesor</th>
-                                <th>Color</th>
-                                <th>Peso</th>
-                                <th>Marco</th>
-                                <th>Matriz</th>
-                                <th>Cortante</th>
-
-                            </tr>
-                        </thead>
-                        <tbody data-bind="foreach: detalle">
-                            <tr>
-                                <td>
-                                    <select required="required" data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"></select>
-                                    <em data-bind="validationMessage: ID_material"></em>
-                                </td>
-                                <td>
-                                    <input type="number" required="required" min="0" max="999999999" data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }" />
-                                    <em data-bind="validationMessage: Ciclos"></em>
-                                </td>
-                                <td>
-                                    <input type="number" required="required" min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
-                                    <em data-bind="validationMessage: Bocas"></em>
-                                </td>
-                                <td>
-                                    <input type="number" required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
-                                    <em data-bind="validationMessage: Espesor"></em>
-                                </td>
-                                <td>
-                                    <input type="number" required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
-                                    <em data-bind="validationMessage: Color"></em>
-                                </td>
-                                <td>
-                                    <input type="number" required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
-                                    <em data-bind="validationMessage: Peso"></em>
-                                </td>
-                                <td>
-                                    <select required="required" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
-                                    <em data-bind="validationMessage: ID_material"></em>
-                                </td>
-
-                                <td>
-                                    <select required="required" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
-                                    <em data-bind="validationMessage: ID_matriz"></em>
-                                </td>
-                                <td>
-                                    <select required="required" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
-                                    <em data-bind="validationMessage: ID_cortante"></em>
-                                </td>
-                                <td>
-                                    <button data-bind="click: $root.eliminarDetalle">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>*@
-
-                    <br />
-
-                    <div class="form-group">
-                        <div class="box-footer">
-                            <input type="submit" value="Generar" data-bind="enable: canCreate()" class="btn btn-primary" />
-                        </div>
-
-                    </div>
-                </div><!-- /.box-body -->
+                </div>
             }
 
             <div>
                 <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
             </div>
 
-    </div><!-- /.box -->
-
-
-</section>
+        </div><!-- /.box -->
+    </section>
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">

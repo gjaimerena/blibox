@@ -241,6 +241,10 @@ input[type=checkbox].modificado {
     right: 28px;
 }
 
+.form-horizontal .has-feedback .checkbox .form-control-feedback {
+    right: -14px;
+}
+
 label.control-label {
     clear: both;
 }
