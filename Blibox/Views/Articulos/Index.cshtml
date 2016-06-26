@@ -97,11 +97,19 @@
                         <td>@Html.DisplayFor(model => item.Observaciones)</td>
                        
                         <td> @Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
-                        <td>
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Edit", "Edit", new { id = item.ID_articulo })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Details", "Details", new { id = item.ID_articulo })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Delete", "Delete", new { id = item.ID_articulo })</button> 
-          
+                        <td class="accion">
+                            <a href="@Url.Action("Details", new { id = item.ID_articulo })" title="Ver" class="">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span class="sr-only">Ver</span>
+                            </a>
+                            <a href="@Url.Action("Edit", new { id = item.ID_articulo })"  title="Editar">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                <span class="sr-only">Editar</span>
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.ID_articulo })" title="Eliminar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                <span class="sr-only">Eliminar</span>
+                            </a>
                         </td>
                    </tr>
                 }
@@ -122,11 +130,6 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             </div>
         }
-
-                    
-
-      
-
     </section>
 </div><!-- /.content-wrapper -->
 
