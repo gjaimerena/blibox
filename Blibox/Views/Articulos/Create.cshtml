@@ -16,7 +16,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="box box-default">
+        <div class="box box-default box-body">
             @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
                 @Html.AntiForgeryToken()

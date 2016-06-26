@@ -15,173 +15,320 @@
     <!-- Main content -->
     <section class="content">
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
         {
             @Html.AntiForgeryToken()
 
         <!-- SELECT2 EXAMPLE -->
-            <div class="box box-default">
+            <div class="box box-default box-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nuevo Articulo</h3>
+                    <h3 class="box-title">Editar Artículo</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>ID Cliente</label>
-                                <div>
-                                    @Html.DropDownList("ID_cliente", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>F0PD</label>
-                                @Html.EditorFor(model => model.ID_articulo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ID_articulo, "", new { @class = "text-danger" })
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">ID Cliente</label>
+                            <div class="col-md-4">
+                                @Html.DropDownList(
+                                     "ID_cliente",
+                                     null,
+                                     htmlAttributes: new
+                                     {
+                                         @class = "form-control",
+                                         @id = "idcliente",
+                                         data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe elegir el cliente",
+                                         required = "required",
+                                         data_fv_row = ".dobleEntrada"
+                                     })
+                            </div><!-- /.col -->
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">FOPD</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.ID_articulo,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @text = "number",
+                                            @id = "idarticulo",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el identificador de artículo",
+                                            required = "required",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El identificador de artículo debe ser numérico",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label>Descripción</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Descripción</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(
+                                 model => model.Descripcion,
+                                 new
+                                 {
+                                     htmlAttributes = new
+                                     {
+                                         @class = "form-control",
+                                         @id = "descripcion",
+                                         data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la descripción",
+                                         required = "required"
+                                     }
+                                 })
                         </div><!-- /.col -->
-                    </div><!-- /.row -->
+                    </div><!-- /.form-group -->
 
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Precio Costo</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Precio Lista</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Precio_lista, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Precio_lista, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2">Precio Costo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                             model => model.Costo,
+                             new
+                             {
+                                 htmlAttributes = new
+                                 {
+                                     @class = "form-control",
+                                     @id = "costo",
+                                     data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el costo",
+                                     required = "required",
+                                     data_fv_row = ".dobleEntrada"
+                                 }
+                             })
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
 
-                        <div class="col-md-2">
+                            <label class="control-label col-md-2 no-clear-md">Precio Lista</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                 model => model.Precio_lista,
+                                 new
+                                 {
+                                     htmlAttributes = new
+                                     {
+                                         @class = "form-control",
+                                         @id = "precioLista",
+                                         data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el precio de lista",
+                                         data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El precio de lista debe ser numérico",
+                                         required = "required",
+                                         data_fv_row = ".dobleEntrada"
+                                     }
+                                 })
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
 
-                            <div class="form-group">
-                                <label>Fecha Precio Lista:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    @Html.EditorFor(model => model.Precio_fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
-                                    @Html.ValidationMessageFor(model => model.Precio_fecha, "", new { @class = "text-danger" })
-                                </div><!-- /.input group -->
-                            </div><!-- /.form group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>IVA</label>
-                                <div>
-                                    @Html.RadioButtonFor(model => model.IVA, "SI") SI
-                                    @Html.RadioButtonFor(model => model.IVA, "NO") NO
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2">Fecha Precio Lista:</label>
+                            <div class="col-md-4 input">
+                                @Html.EditorFor(
+                                 model => model.Precio_fecha,
+                                 new
+                                 {
+                                     htmlAttributes = new
+                                     {
+                                         @class = "form-control  pull-right",
+                                         id = "reservation",
+                                         data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha límite del precio de lista",
+                                         data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> La fecha límite del precio de lista debe ser una fecha válida",
+                                         required = "required",
+                                         placeholder = "dd/mm/yyyy",
+                                         type = "date",
+                                         data_fv_row = ".dobleEntrada"
+                                     }
+                                 })
+                                <!--i class="input-group-addon fa fa-calendar"></!i-->
+                            </div><!-- /.input group -->
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2 no-clear-md">IVA</label>
+                            <div class="col-md-1 checkbox">
+                                <div class="radio">
+                                    @Html.RadioButtonFor(model => model.IVA, "Si", new
+                               {
+                                   data_fv_choice = "true",
+                                   data_fv_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe seleccionar una opción",
+                                   data_fv_row = ".dobleEntrada",
+                                   label = "Si",
+                                   @class = "styled",
+                                   @id = "ivaSi"
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Stock</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                               })
+                                    <label for="ivaSi">Si</label>
                                 </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Stock Minimo</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Stock_minimo, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Stock_minimo, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Fazon</label>
-                                <div>
-                                    @Html.RadioButtonFor(model => model.Fazon, "SI") SI
-                                    @Html.RadioButtonFor(model => model.Fazon, "NO") NO
-                                    @Html.ValidationMessageFor(model => model.Fazon, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Cantidad por bulto</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cant_x_bulto, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Cant_x_bulto, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Tamaño Caja</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Tamaño_caja, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Tamaño_caja, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Tiraje Term. por Hora</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Tiraje_term_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Tiraje_term_x_hora, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Tiraje troquel por hora</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Tiraje_troquel_x_hora, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Tiraje_troquel_x_hora, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label>Observaciones</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
+                                <div class="radio">
+                                    @Html.RadioButtonFor(model => model.IVA, "No", new
+                               {
+                                   label = "Si",
+                                   @class = "styled",
+                                   @id = "ivaNo"
 
-                    </div><!-- /.row -->
+                               })
+                                    <label for="ivaNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2 no-clear-md">Fazón</label>
+                            <div class="col-md-1 checkbox">
+                                <div class="radio">
+
+                                    @Html.RadioButtonFor(model => model.Fazon, "No", new
+                               {
+
+                                   data_fv_choice = "true",
+                                   data_fv_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe seleccionar una opción",
+                                   data_fv_row = ".dobleEntrada",
+                                   label = "Si",
+                                   @class = "styled",
+                                   @id = "fazonSi"
+
+                               })
+                                    <label for="fazonSi">Si</label>
+                                </div>
+                                <div class="radio">
+
+                                    @Html.RadioButtonFor(model => model.Fazon, "No", new
+                               {
+                                   label = "No",
+                                   @class = "styled",
+                                   @id = "fazonNo"
+                               })
+                                    <label for="fazonNo">No</label>
+                                </div>
+
+                            </div><!-- /.form-group -->
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2">Stock</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                model => model.Stock,
+                                new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control",
+                                        @text = "number",
+                                        @id = "stock",
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El stock debe ser numérico",
+                                        data_fv_row = ".dobleEntrada"
+                                    }
+                                })
+                            </div><!-- /.col -->
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2 no-clear-md">Stock Minimo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                            model => model.Stock_minimo,
+                            new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    @text = "number",
+                                    @id = "stockMinimo",
+                                    data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> La cantidad de stock mínimo debe ser numérico",
+                                    data_fv_row = ".dobleEntrada"
+                                }
+                            })
+                            </div>
+                        </div>
+
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Cantidad por bulto</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(
+                                model => model.Cant_x_bulto,
+                                new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control",
+                                        @id = "cantXBulto",
+                                        data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> La cantidad por bulto debe ser numérica",
+                                        @text = "number"
+                                    }
+                                })
+                        </div>
+                        <label class="control-label col-md-2 no-clear-md">Tamaño Caja</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(
+                                model => model.Tamaño_caja,
+                                new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control",
+                                        @id = "cantXBulto",
+                                        data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> El tamaño de la caja debe ser numérico",
+                                        @text = "number"
+                                    }
+                                })
+                        </div><!-- /.col -->
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Tiraje Term. por Hora</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(
+                                model => model.Tiraje_term_x_hora,
+                                new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control",
+                                        @id = "tirajeTermXHora",
+                                        data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> El tiraje por hora debe ser numérico",
+                                        @text = "number"
+                                    }
+                                })
+                        </div>
+                        <label class="control-label col-md-2 no-clear-md">Tiraje troquel por hora</label>
+                        <div class="col-md-4">
+                            @Html.EditorFor(
+                                    model => model.Tiraje_troquel_x_hora,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "tirajeTroquelXHora",
+                                            data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> El tiraje del troquel por hora debe ser numérico",
+                                            @text = "number",
+                                            @rows = 5
+                                        }
+                                    })
+                        </div><!-- /.col -->
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Observaciones</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(
+                            model => model.Observaciones,
+                            new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    @id = "observaciones",
+                                    data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Observaciones no válidas",
+                                    data_fv_stringlength_min = 0,
+                                    data_fv_stringlength = "true"
+                                }
+                            })
+                        </div><!-- /.col -->
+                    </div><!-- /.form-group -->
                     <!--Agregar componenetes-->
 
                     <br />
@@ -207,97 +354,85 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Componente @nro</h3>
                                     <div class="box-tools pull-right">
-                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                        <button id="btnCollapse" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                                     </div><!-- /.box-tools -->
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     @Html.Editor("Componente[" + i + "].ID_Componente", item.ID_componente.ToString(), new { htmlAttributes = new { @Value = item.ID_componente, @style = "display: none" } })
                                     @Html.Editor("Componente[" + i + "].ID_articulo", item.ID_articulo.ToString(), new { htmlAttributes = new { @Value = item.ID_articulo, @style = "display: none" } })
-                                    <div class="row col-md-12">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Material</label>
-                                                <div>
-                                                    @Html.DropDownList("Componente[" + i + "].ID_material", new SelectList(ViewBag.Mat_Descripcion, "ID_material", "Descripcion", item.ID_material), htmlAttributes: new { @class = "form-control" })
-                                                </div>
-                                            </div><!-- /.form-group -->
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Peso</label>
-                                                <div>
-                                                    @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div><!-- /.form-group -->
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Color</label>
-                                                <div>
-                                                    @Html.Editor("Componente[" + i + "].Color", item.Color, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @*@Html.ValidationMessage(item.Color.ToString(), new { @class = "text-danger" })*@
-                                                </div>
+                                    <div class="form-group">
+                                        <div class="dobleEntrada">
+                                            <label class="col-md-2 control-label">Material</label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("Componente[" + i + "].ID_material", new SelectList(ViewBag.Mat_Descripcion, "ID_material", "Descripcion", item.ID_material), htmlAttributes: new { @class = "form-control" })
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Ciclo</label>
-                                                <div>
-                                                    @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div><!-- /.form-group -->
+                                        <div class="dobleEntrada">
+                                            <label class="control-label col-md-2 no-clear-md">Peso</label>
+                                            <div class="col-md-4">
+                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Bocas</label>
-                                                <div>
-                                                    @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @class = "form-control" } })
-                                                </div>
-                                            </div><!-- /.form-group -->
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <div class="dobleEntrada">
+                                            <label class="col-md-2 control-label">Color</label>
+                                            <div class="col-md-4">
+                                                @Html.Editor("Componente[" + i + "].Color", item.Color, new { htmlAttributes = new { @class = "form-control" } })
+                                                @*@Html.ValidationMessage(item.Color.ToString(), new { @class = "text-danger" })*@
+                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Espesor</label>
-                                                <div>
-                                                    @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
-                                                </div>
-                                            </div><!-- /.form-group -->
+                                        <div class="dobleEntrada">
+                                            <label class="control-label col-md-2 no-clear-md">Ciclo</label>
+                                            <div class="col-md-4">
+                                                @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <div class="dobleEntrada">
+                                            <label class="col-md-2 control-label">Bocas</label>
+                                            <div class="col-md-4">
+                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
+                                        </div>
+                                        <div class="dobleEntrada">
+                                            <label class="control-label col-md-2 no-clear-md">Espesor</label>
+                                            <div class="col-md-4">
+                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                                @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
+                                            </div>
+                                        </div>
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <div class="dobleEntrada">
+                                            <label class="control-label col-md-2">Matriz</label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("Componente[" + i + "].ID_matriz", new SelectList(ViewBag.Matriz, "ID_matriz", "Codigo", item.ID_matriz), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div><!-- /.col -->
+                                        <div class="dobleEntrada">
+                                            <label class="no-clear-md col-md-2 control-label">Cortante</label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("Componente[" + i + "].ID_cortante", new SelectList(ViewBag.cortante, "ID_cortante", "Descripcion", item.ID_cortante), htmlAttributes: new { @class = "form-control" })
+                                                @*@Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)*@
+                                            </div>
+                                        </div><!-- /.col -->
+                                    </div><!-- /.form-group -->
+                                    <div class="form-group">
+                                        <div class="dobleEntrada">
+                                            <label class="col-md-2 control-label">Marco</label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-danger pull-right">@Html.ActionLink("Eliminar", "eliminarComponente", new { Id = item.ID_componente })</button>
                                         </div>
                                     </div>
-                                    <div class="row col-md-12">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Matriz</label>
-                                                <div>
-                                                    @Html.DropDownList("Componente[" + i + "].ID_matriz", new SelectList(ViewBag.Matriz, "ID_matriz", "Codigo", item.ID_matriz), htmlAttributes: new { @class = "form-control" })
-                                                </div>
-                                            </div><!-- /.form-group -->
-                                        </div><!-- /.col -->
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Cortante</label>
-                                                <div>
-                                                    @Html.DropDownList("Componente[" + i + "].ID_cortante", new SelectList(ViewBag.cortante, "ID_cortante", "Descripcion", item.ID_cortante), htmlAttributes: new { @class = "form-control" })
-                                                    @*@Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)*@
-                                                </div>
-                                            </div><!-- /.form-group -->
-                                        </div><!-- /.col -->
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Marco</label>
-                                                <div>
-                                                    @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @class = "form-control" })
-                                                </div>
-                                            </div><!-- /.form-group -->
-                                        </div>
-                                    </div>
-                                    <div class="row col-md-2">
+                                </div>
+                            </div> <!-- /.box-body -->
 
-                                        <button type="button" class="btn btn-danger ">@Html.ActionLink("Eliminar", "eliminarComponente", new { Id = item.ID_componente })</button>
-                                    </div>
-                                </div> <!-- /.box-body -->
-                            </div><!--./box-->
                             i++; nro++;
                         }
                     }
@@ -317,3 +452,7 @@
 
     </section>
 </div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    validarForm('#form');
+</script>
