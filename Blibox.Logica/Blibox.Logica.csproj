@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -44,7 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Facturacion\FE.cs" />
     <Compile Include="Facturacion\LoginTicket.cs" />
+    <Compile Include="Facturacion\Ticket.cs" />
+    <Compile Include="Model\DetalleRegistros.cs" />
+    <Compile Include="Model\Factura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\WSAA\Reference.cs">
       <AutoGen>True</AutoGen>

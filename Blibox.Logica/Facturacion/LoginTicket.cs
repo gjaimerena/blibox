@@ -33,7 +33,7 @@ namespace Blibox.Logica.Facturacion
         private bool _verboseMode = true;
         private static UInt32 _globalUniqueID = 0;
         public static bool VerboseMode = false;
-
+      
         /// <summary> 
         /// Construye un Login Ticket obtenido del WSAA 
         /// </summary> 
@@ -42,7 +42,7 @@ namespace Blibox.Logica.Facturacion
         /// <param name="argRutaCertX509Firmante">Ruta del certificado X509 (con clave privada) usado para firmar</param> 
         /// <param name="argVerbose">Nivel detallado de descripcion? true/false</param> 
         /// <remarks></remarks> 
-        public string ObtenerLoginTicketResponse(string argServicio, string argUrlWsaa, string argRutaCertX509Firmante, bool argVerbose)
+        public Ticket ObtenerLoginTicketResponse(string argServicio, string argUrlWsaa, string argRutaCertX509Firmante, bool argVerbose)
         {
 
             this.RutaDelCertificadoFirmante = argRutaCertX509Firmante;
@@ -56,6 +56,8 @@ namespace Blibox.Logica.Facturacion
             XmlNode xmlNodoGenerationTime;
             XmlNode xmlNodoExpirationTime;
             XmlNode xmlNodoService;
+
+            Ticket ticket = new Ticket();
 
             // PASO 1: Genero el Login Ticket Request 
             try
@@ -158,13 +160,19 @@ namespace Blibox.Logica.Facturacion
                 this.ExpirationTime = DateTime.Parse(XmlLoginTicketResponse.SelectSingleNode("//expirationTime").InnerText);
                 this.Sign = XmlLoginTicketResponse.SelectSingleNode("//sign").InnerText;
                 this.Token = XmlLoginTicketResponse.SelectSingleNode("//token").InnerText;
+
+                ticket.sign = this.Sign;
+                ticket.token = this.Token;
+
+
             }
             catch (Exception excepcionAlAnalizarLoginTicketResponse)
             {
                 throw new Exception("***Error ANALIZANDO el LoginTicketResponse : " + excepcionAlAnalizarLoginTicketResponse.Message);
             }
 
-            return loginTicketResponse;
+           
+            return ticket;
 
         }
 

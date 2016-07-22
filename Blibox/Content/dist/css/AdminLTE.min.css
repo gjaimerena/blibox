@@ -584,7 +584,7 @@ a {
             .sidebar-menu .treeview-menu > li > a {
                 padding: 5px 5px 5px 15px;
                 display: block;
-                font-size: 14px;
+                font-size: 13px; /*14px;*/
             }
 
                 .sidebar-menu .treeview-menu > li > a > .fa, .sidebar-menu .treeview-menu > li > a > .glyphicon, .sidebar-menu .treeview-menu > li > a > .ion {
@@ -1809,7 +1809,7 @@ a {
 
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
     display: inline-block;
-    font-size: 18px;
+    font-size: 15px; /*18px;*/
     margin: 0;
     line-height: 1;
 }
