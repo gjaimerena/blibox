@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blibox.Logica.Facturacion;
+using Blibox.Logica.Model;
+
 namespace TestAutenticacion
 {
     class Program
@@ -26,7 +28,7 @@ namespace TestAutenticacion
                 Console.WriteLine("");
                 Console.WriteLine("Presione una opcion: ");
                 Console.WriteLine("1. Verificacar LoginTicket.");
-                Console.WriteLine("2. Ver ejemplo de lectura Xml");
+                Console.WriteLine("2. Autorizacion de factura");
                 Console.WriteLine("ESC. Salir");
 
                 cki = Console.ReadKey();
@@ -37,7 +39,37 @@ namespace TestAutenticacion
                 }
                 if (cki.Key == ConsoleKey.D2 || cki.Key == ConsoleKey.NumPad2)
                 {
-                    FE.createFacturaXML("","", null);
+                    DetalleRegistros[] detalles = new DetalleRegistros[1];
+
+                    //factura sin errores
+                    DetalleRegistros det = new DetalleRegistros();
+                    det.Concepto = 1; //producto
+                    det.DocTipo = 80; //cuit
+                    det.DocNro = 20111111112;
+                    det.CbteDesde = 3;
+                    det.CbteHasta = 3;
+                    det.CbteFch = "20160727";
+                    det.ImpTotal = 121; //si importe total es mayor a cero debe existir IVAAlic
+                    det.ImpTotConc = 0;
+                    det.ImpNeto = 100;
+                    det.ImpOpEx = 0;
+                    det.ImpTrib = 0;
+                    det.ImpIVA = 21;
+                    det.MonId = "PES";
+                    det.MonCotiz = 1;
+
+                    IVA[] iva = new IVA[1];
+                    iva[0] = new IVA();
+                    iva[0].Id = 5; //21%
+                    iva[0].BaseImp = 100;
+                    iva[0].Importe = 21;
+
+                    det.Iva = iva;
+
+                    detalles[0] = det;
+
+
+                    FE.AutorizacionFactura(30707744398,1,1,001,detalles);
                     //Console.WriteLine(FE.ReadElementsXML());
                 }
 
@@ -56,10 +88,11 @@ namespace TestAutenticacion
             bool blnVerboseMode = DEFAULT_VERBOSE;
 
             LoginTicket login = new LoginTicket();
-            string loginTicketResponse = login.ObtenerLoginTicketResponse(strIdServicioNegocio, strUrlWsaaWsdl, strRutaCertSigner, blnVerboseMode);
+            Ticket ticket = login.ObtenerLoginTicketResponse(strIdServicioNegocio, strUrlWsaaWsdl, strRutaCertSigner, blnVerboseMode);
 
 
-            Console.WriteLine(loginTicketResponse);
+            Console.WriteLine("Sign: " + ticket.sign);
+            Console.WriteLine("Token: " + ticket.token);
             Console.ReadLine(); //Pause
         }
 

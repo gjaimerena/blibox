@@ -47,7 +47,13 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Facturacion\FE.cs" />
     <Compile Include="Facturacion\LoginTicket.cs" />
-    <Compile Include="Facturacion\Ticket.cs" />
+    <Compile Include="Model\Error.cs" />
+    <Compile Include="Model\Evento.cs" />
+    <Compile Include="Model\FECAERespuesta.cs" />
+    <Compile Include="Model\FECAERespuestaCabecera.cs" />
+    <Compile Include="Model\FECAERespuestaDetalle.cs" />
+    <Compile Include="Model\Observacion.cs" />
+    <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\DetalleRegistros.cs" />
     <Compile Include="Model\Factura.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
