@@ -11,7 +11,7 @@ namespace Blibox
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Articulo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,6 +28,8 @@ namespace Blibox
         public Nullable<int> Costo { get; set; }
         public string IVA { get; set; }
         public Nullable<int> Precio_lista { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Precio_fecha { get; set; }
         public Nullable<int> Stock { get; set; }
         public string Fazon { get; set; }

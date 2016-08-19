@@ -134,12 +134,14 @@
                                      htmlAttributes = new
                                      {
                                          @class = "form-control  pull-right",
-                                         id = "reservation",
+                                         id = "fechaPrecioLista",
                                          data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha límite del precio de lista",
                                          data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> La fecha límite del precio de lista debe ser una fecha válida",
+                                         data_fv_date_format = "DD/MM/YYYY ",
+                                         data_fv_date = true,
                                          required = "required",
                                          placeholder = "dd/mm/yyyy",
-                                         type = "date",
+                                         type = "text",
                                          data_fv_row = ".dobleEntrada"
                                      }
                                  })
@@ -455,4 +457,5 @@
 
 <script type="text/javascript">
     validarForm('#form');
+    inicializarDatePicker('#fechaPrecioLista', false, false);
 </script>

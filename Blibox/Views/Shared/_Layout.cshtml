@@ -43,6 +43,8 @@ clientes.">
     <link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/0.3.5/awesome-bootstrap-checkbox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+
     <!-- Css form validation-->
     <link rel="stylesheet" href="~/Content/formValidation.min.css">
     <!-- Css customizable -->
@@ -97,6 +99,7 @@ clientes.">
             <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
             <!-- datepicker -->
             <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+            <script src="~/plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
             <!-- Bootstrap WYSIHTML5 -->
             <script src="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
             <!-- Slimscroll -->
@@ -185,7 +188,7 @@ clientes.">
         $("[data-mask]").inputmask();
 
         //Date range picker
-        $('#reservation').daterangepicker();
+        //$('#reservation').daterangepicker();
         //Date range picker with time picker
         $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
         //Date range as a button

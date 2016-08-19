@@ -305,3 +305,16 @@ button > a:focus {
     text-decoration: none;
     color: white;
 }
+
+.datepicker thead > tr > th {
+    color: white;
+    background-color: #00a65a;
+}
+
+.datepicker thead > tr > th:hover {
+    color: #00a65a;
+}
+.datepicker .dow:hover {
+    background-color: #eee;
+}
+

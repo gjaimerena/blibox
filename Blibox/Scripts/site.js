@@ -39,3 +39,25 @@ function validarForm(id) {
             });
     });
 }
+
+function inicializarDatePicker(id, fechaMinima, fechaMaxima) {
+    if (fechaMinima = '')
+        fechaMinima = false
+
+    if (fechaMaxima = '')
+        fechaMaxima = false
+
+    $(id).ready(function () {
+        $(id)
+            .datepicker({
+                startView: 3,
+                maxViewMode: 3,
+                language: 'es',
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                startDate: fechaMinima,
+                endDate: fechaMaxima,
+                linked: true,
+            })
+    })
+}
