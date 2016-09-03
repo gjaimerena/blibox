@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Blibox.Controllers
 {
@@ -28,6 +29,6 @@ namespace Blibox.Controllers
         //public Nullable<System.DateTime> Fecha_alta { get; set; }
         public Nullable<int> TipoDocumento { get; set; }
         public string Documento { get; set; }
-
+        public List<Articulo> Articulos { get; set; }
     }
 }

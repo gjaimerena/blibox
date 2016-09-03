@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Blibox;
 using PagedList;
+using Blibox.Models;
 
 namespace Blibox.Controllers
 {
@@ -72,26 +73,7 @@ namespace Blibox.Controllers
         public ActionResult Create()
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
-            ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
-            ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura");
-            ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre");
-
-            ViewBag.TipoResponsable = new SelectList(db.TipoResponsables, "Codigo", "Descripcion");
-
-            Encabezado_Factura nro_factura = db.Encabezado_Factura.OrderByDescending(m => m.Nro_factura).FirstOrDefault();
-           //eliminarArticulo nro de factura lo emito luego de obtener aprobacion de afip
-          //   ViewBag.NroFacturaNew = (nro_factura == null)? 0 : nro_factura.Nro_factura;
-
-            
-
-            List<Articulo> articulos = db.Articulo.Select(m => m).ToList();
-            ICollection<Articulo> ArticuloColeccion = new HashSet<Articulo>();
-            for (int i = 0; i < articulos.Count; i++)
-            {
-               ArticuloColeccion.Add(new Articulo { ID_articulo = articulos.ElementAt(i).ID_articulo, Descripcion = articulos.ElementAt(i).Descripcion });
-            }
-            ViewBag.articulos = ArticuloColeccion;
-
+            ViewBag.art = "";
             return View();
         }
 
@@ -100,20 +82,18 @@ namespace Blibox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Encabezado_Factura encabezado_Factura)
+        public ActionResult Create(FormCollection formCollection)
         {
             if (ModelState.IsValid)
             {
-                db.Encabezado_Factura.Add(encabezado_Factura);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //db.Encabezado_Factura.Add(encabezado_Factura);
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
 
-            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
-            ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion", encabezado_Factura.ID_condicon_venta);
-            ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura", encabezado_Factura.Nro_factura);
-            ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", encabezado_Factura.ID_vendedor);
-            return View(encabezado_Factura);
+           // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+           
+            return View(formCollection);
         }
 
         // GET: Factura/Edit/5
@@ -210,10 +190,13 @@ namespace Blibox.Controllers
         }
 
         [HttpPost]
-        public ActionResult obtenerCUIT(int? idCliente)
+        public ActionResult obtenerDatosCliente(int? idCliente)
         {
+
             Cliente cliente = db.Cliente.Where(m=>m.ID_cliente == idCliente).FirstOrDefault();
 
+            BliboxEntities db2 = new BliboxEntities();
+            db2.Configuration.ProxyCreationEnabled = false;
             ClienteJson clientejson = new ClienteJson
             {
                 Documento = cliente.Documento,
@@ -223,19 +206,25 @@ namespace Blibox.Controllers
                 TipoDocumento = cliente.TipoDocumento,
                 TipoResponsable = db.TipoResponsables.Where(m => m.Codigo == cliente.TipoResponsable).FirstOrDefault().Descripcion,
                 DiasFF = cliente.DiasFF,
-                Dias_Cheque = cliente.Dias_Cheque
+                Dias_Cheque = cliente.Dias_Cheque,
+                Articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList()
 
             };
 
-            List<Articulo> articulos = db.Articulo.Where(m => m.ID_cliente == idCliente).ToList();
-            ICollection<Articulo> ArticuloColeccion = new HashSet<Articulo>();
-            for (int i = 0; i < articulos.Count; i++)
-            {
-                ArticuloColeccion.Add(new Articulo { ID_articulo = articulos.ElementAt(i).ID_articulo, Descripcion = articulos.ElementAt(i).Descripcion });
-            }
-            ViewBag.articulos = ArticuloColeccion;
+            ViewBag.art = clientejson.Articulos;
 
             return Json(clientejson, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult obtenerArticulos(int? idCliente)
+        {
+
+            BliboxEntities db2 = new BliboxEntities();
+            db2.Configuration.ProxyCreationEnabled = false;
+
+            List<Articulo> articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList();
+            return Json(articulos, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
