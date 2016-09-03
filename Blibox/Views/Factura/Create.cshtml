@@ -133,10 +133,30 @@ $(document).ready(function(){
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Seleccione Cliente</label>
+                                <div>
+                                    <select id="Art"></select>
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Articulos</label>
+                                <div>
+                                 <select id="Articulos">
+
+                                 </select>
+
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
                     </div>
 
                   
-                    <button type="button" id="btnAdd">Agregar Articulo</button>
+                    <button type="button" id="btnAdd"  data-filas='0'>Agregar Articulo</button>
                    
                    
                     <br /><br />
@@ -178,4 +198,60 @@ $(document).ready(function(){
     </section>
 </div><!-- /.content-wrapper -->
 
+
+<script>
+
+    function changePT(id) {
+        var strSelected = "";
+        this.focus();
+        strSelected += $('#PrecioUnitario' + id).val();
+            // var art = $("#articulo option:selected").val();
+        var cantidad = $('#Cantidad' + id).val();
+
+        $('#PrecioTotal' + id).val(strSelected * cantidad)
+    }
+
+    
+
+    function onChangeCliente() {
+
+        var strSelected = "";
+        $("#ID_cliente option:selected").each(function () {
+            strSelected += $(this)[0].value;
+        });
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("obtenerDatosCliente", "Factura")",
+            data: "{'idCliente': " + strSelected + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+
+
+                    $('#CUIT').val(data.Documento);
+                    $('#TipoResp').val(data.TipoResponsable)
+                    $("#DiasFF").val(data.DiasFF);
+                    $("#Dias_Cheque").val(data.Dias_Cheque);
+                    var select = $("#Articulos");
+
+                    for (var articulo in data.Articulos) {
+
+                        var option = document.createElement('option');
+                        option.innerHTML = data.Articulos[articulo].Descripcion;
+                        option.value = data.Articulos[articulo].ID_articulo;
+                        select.append(option);
+
+                    }
+
+                }
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
+    }
+    
+    onChangeCliente();
+</script>
 
