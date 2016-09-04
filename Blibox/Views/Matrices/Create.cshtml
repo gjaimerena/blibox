@@ -1,9 +1,5 @@
 ﻿@model Blibox.Matriz
 
-@{
-    ViewBag.Title = "Create";
-}
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -19,71 +15,24 @@
     <!-- Main content -->
     <section class="content">
         <div class="box box-default">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal" style="padding:10px;">
-                    <h4> Nueva Matriz</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nueva matriz</h3>
+                </div><!-- /.box-header -->
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                @Html.Partial("~/Views/Matrices/CreateTemplate.cshtml")
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Sector, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Sector, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Sector, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Bocas, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Bocas, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Bocas, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-1">
-                            <input type="submit" value="Generar" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>
             }
-            </div>
-            <div>
-                <button type="button" class="btn btn-info">@Html.ActionLink("Volver", "Index")</button>
-            </div>
-</section>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-info">@Html.ActionLink("Volver", "Index")</button>
+        </div>
+
+    </section>
 </div><!-- /.content-wrapper -->

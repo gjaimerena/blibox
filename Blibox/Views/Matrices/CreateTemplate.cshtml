@@ -1,0 +1,128 @@
+﻿@model Blibox.Matriz
+
+<div class="box-body">
+    <div class="form-group">
+        <div class="dobleEntrada">
+            @Html.Label("Código", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    @Html.EditorFor(
+                    model => model.Codigo,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "codigo",
+                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el código",
+                            required = "required",
+                            data_fv_row = ".dobleEntrada",
+                            autofocus = "autofocus"
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+        <div class="dobleEntrada">
+            @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    @Html.EditorFor(
+                    model => model.Descripcion,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "descripcion",
+                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la descripción",
+                            required = "required",
+                            data_fv_row = ".dobleEntrada",
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="dobleEntrada">
+            @Html.Label("Sector", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    @Html.EditorFor(
+                    model => model.Sector,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "sector",
+                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el sector",
+                            required = "required",
+                            data_fv_row = ".dobleEntrada",
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+
+        <div class="dobleEntrada">
+            @Html.Label("Bocas", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    @Html.EditorFor(
+                    model => model.Bocas,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "bocas",
+                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar las bocas",
+                            required = "required",
+                            data_fv_row = ".dobleEntrada",
+                            @type = "number",
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="dobleEntrada">
+            @Html.Label("Observaciones", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    @Html.EditorFor(
+                    model => model.Observaciones,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "observaciones",
+                            data_fv_row = ".dobleEntrada",
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2">
+            <input type="submit" value="Grabar" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    validarForm('#form');
+    //inicializarDatePicker('#fechaPrecioLista', false, false);
+</script>
