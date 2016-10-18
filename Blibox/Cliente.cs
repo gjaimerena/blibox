@@ -51,6 +51,7 @@ namespace Blibox
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Articulo> Articulo { get; set; }
         public virtual Rubro Rubro { get; set; }
+        public virtual TipoDocumento TipoDocumento1 { get; set; }
         public virtual TipoResponsables TipoResponsables { get; set; }
         public virtual Vendedor Vendedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -59,6 +60,5 @@ namespace Blibox
         public virtual ICollection<Encabezado_Factura> Encabezado_Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
-        public virtual TipoDocumento TipoDocumento1 { get; set; }
     }
 }

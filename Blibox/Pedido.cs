@@ -39,8 +39,8 @@ namespace Blibox
         public string Codigo_articulo_interno_cliente { get; set; }
     
         public virtual Articulo Articulo { get; set; }
+        public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Remito> Remito { get; set; }
-        public virtual Cliente Cliente { get; set; }
     }
 }

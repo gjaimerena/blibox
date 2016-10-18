@@ -251,17 +251,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
-    <Compile Include="Models\JsonClient\ClienteJson.cs" />
-    <Compile Include="Controllers\CortantesController.cs" />
-    <Compile Include="Controllers\CtaCte_ClientesController.cs" />
-    <Compile Include="Controllers\FacturaController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MarcosController.cs" />
-    <Compile Include="Controllers\MaterialesController.cs" />
-    <Compile Include="Controllers\MatricesController.cs" />
-    <Compile Include="Controllers\RubrosController.cs" />
-    <Compile Include="Controllers\VendedoresController.cs" />
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -277,10 +266,6 @@
     <Compile Include="Encabezado_Factura.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="IVA.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -292,6 +277,21 @@
     </Compile>
     <Compile Include="Matriz.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JsonClient\ClienteJson.cs" />
+    <Compile Include="Controllers\CortantesController.cs" />
+    <Compile Include="Controllers\CtaCte_ClientesController.cs" />
+    <Compile Include="Controllers\FacturaController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MarcosController.cs" />
+    <Compile Include="Controllers\MaterialesController.cs" />
+    <Compile Include="Controllers\MatricesController.cs" />
+    <Compile Include="Controllers\RubrosController.cs" />
+    <Compile Include="Controllers\VendedoresController.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
@@ -317,9 +317,6 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoDocumento.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>

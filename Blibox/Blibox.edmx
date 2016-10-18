@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BliboxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Blibox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -146,12 +146,11 @@
             <PropertyRef Name="Nro_factura" />
           </Key>
           <Property Name="Nro_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Tipo" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Tipo" Type="nchar" MaxLength="1" />
           <Property Name="Fecha" Type="date" />
-          <Property Name="ID_cliente" Type="int" Nullable="false" />
+          <Property Name="ID_cliente" Type="int" />
           <Property Name="ID_vendedor" Type="int" />
           <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Tipo_iva_responsable" Type="nchar" MaxLength="10" />
           <Property Name="Valor_inscripto" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IVA" Type="decimal" Precision="18" Scale="2" />
@@ -275,16 +274,6 @@
           <Property Name="ID_rubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descirpcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Observaciones" Type="nchar" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoDocumento">
           <Key>
@@ -498,7 +487,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Encabezado_Factura_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
           <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
@@ -569,7 +558,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BliboxModelStoreContainer">
+        <EntityContainer Name="BliboxStoreContainer">
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Componente" EntityType="Self.Componente" Schema="dbo" store:Type="Tables" />
@@ -589,7 +578,6 @@
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoResponsables" EntityType="Self.TipoResponsables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
@@ -678,10 +666,11 @@
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BliboxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Blibox" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -701,10 +690,47 @@
           <Property Name="Tiraje_term_x_hora" Type="Int32" />
           <Property Name="Tiraje_troquel_x_hora" Type="Int32" />
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Articulo_Cliente" FromRole="Articulo" ToRole="Cliente" />
           <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Articulo" FromRole="Articulo" ToRole="Componente" />
           <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Articulo" FromRole="Articulo" ToRole="Detalle_factura" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Articulo" FromRole="Articulo" ToRole="Pedido" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Articulo_Cliente" FromRole="Articulo" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID_cliente" />
+          </Key>
+          <Property Name="ID_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Razon_Social" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo_Postal" Type="Int32" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_vendedor" Type="Int32" />
+          <Property Name="Comision_vendedor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CondicionIVA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TipoResponsable" Type="Int32" />
+          <Property Name="Saldo" Type="Int32" />
+          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Referidos" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ID_rubro" Type="Int32" />
+          <Property Name="DiasFF" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Dias_Cheque" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Grupo_mailing" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Limite_credito" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fecha_alta" Type="DateTime" Precision="0" />
+          <Property Name="TipoDocumento" Type="Int32" />
+          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Cliente" FromRole="Cliente" ToRole="Articulo" />
+          <NavigationProperty Name="Rubro" Relationship="Self.FK_Cliente_Rubro" FromRole="Cliente" ToRole="Rubro" />
+          <NavigationProperty Name="TipoDocumento1" Relationship="Self.FK_Cliente_TipoDocumento" FromRole="Cliente" ToRole="TipoDocumento" />
+          <NavigationProperty Name="TipoResponsables" Relationship="Self.FK_Cliente_TipoResponsables" FromRole="Cliente" ToRole="TipoResponsables" />
+          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Cliente_Vendedor" FromRole="Cliente" ToRole="Vendedor" />
+          <NavigationProperty Name="CtaCte_Clientes" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="Cliente" ToRole="CtaCte_Clientes" />
+          <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Cliente" ToRole="Encabezado_Factura" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Cliente" FromRole="Cliente" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="Componente">
           <Key>
@@ -775,7 +801,7 @@
           <Property Name="Concepto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Importe_movimiento" Type="Int32" />
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_CtaCte_Clientes_Cliente" FromRole="CtaCte_Clientes" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="CtaCte_Clientes" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
@@ -810,24 +836,23 @@
             <PropertyRef Name="Nro_factura" />
           </Key>
           <Property Name="Nro_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="ID_cliente" Type="Int32" Nullable="false" />
+          <Property Name="ID_cliente" Type="Int32" />
           <Property Name="ID_vendedor" Type="Int32" />
           <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Tipo_iva_responsable" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Valor_inscripto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IVA" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ID_condicon_venta" Type="Int32" />
           <Property Name="ID_movimiento" Type="Int32" />
-          <NavigationProperty Name="Condicion_venta" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Encabezado_Factura" ToRole="Condicion_venta" />
-          <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura1" FromRole="Encabezado_Factura" ToRole="Detalle_factura" />
-          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Encabezado_Factura_Vendedor" FromRole="Encabezado_Factura" ToRole="Vendedor" />
           <Property Name="Nro_remito" Type="Int32" />
           <Property Name="OrdenCompra" Type="Int32" />
           <Property Name="Descuento" Type="Decimal" Precision="4" Scale="2" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Encabezado_Factura_Cliente" FromRole="Encabezado_Factura" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Encabezado_Factura" ToRole="Cliente" />
+          <NavigationProperty Name="Condicion_venta" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Encabezado_Factura" ToRole="Condicion_venta" />
+          <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura1" FromRole="Encabezado_Factura" ToRole="Detalle_factura" />
+          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Encabezado_Factura_Vendedor" FromRole="Encabezado_Factura" ToRole="Vendedor" />
         </EntityType>
         <EntityType Name="IVA">
           <Key>
@@ -891,8 +916,8 @@
           <Property Name="Tipo_caja" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Codigo_articulo_interno_cliente" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Pedido_Articulo" FromRole="Pedido" ToRole="Articulo" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Pedido_Cliente" FromRole="Pedido" ToRole="Cliente" />
           <NavigationProperty Name="Remito" Relationship="Self.FK_Remito_Pedido" FromRole="Pedido" ToRole="Remito" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Pedido_Cliente" FromRole="Pedido" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="Presupuesto">
           <Key>
@@ -952,17 +977,23 @@
           <Property Name="ID_rubro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descirpcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Observaciones" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Cliente_Rubro" FromRole="Rubro" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Rubro" FromRole="Rubro" ToRole="Cliente" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="TipoDocumento">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_TipoDocumento" FromRole="TipoDocumento" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="TipoResponsables">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_TipoResponsables" FromRole="TipoResponsables" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="Vendedor">
           <Key>
@@ -980,9 +1011,21 @@
           <Property Name="Fecha_alta" Type="DateTime" Precision="3" />
           <Property Name="Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Codigo_postal" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Vendedor" FromRole="Vendedor" ToRole="Cliente" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Vendedor" FromRole="Vendedor" ToRole="Encabezado_Factura" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Cliente_Vendedor" FromRole="Vendedor" ToRole="Cliente" />
         </EntityType>
+        <Association Name="FK_Articulo_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="ID_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Componente_Articulo">
           <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
           <End Role="Componente" Type="Self.Componente" Multiplicity="*" />
@@ -1016,6 +1059,90 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="ID_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Rubro">
+          <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rubro">
+              <PropertyRef Name="ID_rubro" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="ID_rubro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_TipoDocumento">
+          <End Role="TipoDocumento" Type="Self.TipoDocumento" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDocumento">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="TipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_TipoResponsables">
+          <End Role="TipoResponsables" Type="Self.TipoResponsables" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoResponsables">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="TipoResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Vendedor">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="ID_vendedor" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="ID_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCte_Clientes_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="CtaCte_Clientes">
+              <PropertyRef Name="ID_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Encabezado_Factura_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="Encabezado_Factura">
+              <PropertyRef Name="ID_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="ID_cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1141,6 +1268,7 @@
         </Association>
         <EntityContainer Name="BliboxEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Articulo" EntityType="Self.Articulo" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Componente" EntityType="Self.Componente" />
           <EntitySet Name="Compras" EntityType="Self.Compras" />
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" />
@@ -1158,8 +1286,13 @@
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
           <EntitySet Name="Remito" EntityType="Self.Remito" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" />
+          <EntitySet Name="TipoResponsables" EntityType="Self.TipoResponsables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
+          <AssociationSet Name="FK_Articulo_Cliente" Association="Self.FK_Articulo_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Componente_Articulo" Association="Self.FK_Componente_Articulo">
             <End Role="Articulo" EntitySet="Articulo" />
             <End Role="Componente" EntitySet="Componente" />
@@ -1170,6 +1303,34 @@
           </AssociationSet>
           <AssociationSet Name="FK_Pedido_Articulo" Association="Self.FK_Pedido_Articulo">
             <End Role="Articulo" EntitySet="Articulo" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Rubro" Association="Self.FK_Cliente_Rubro">
+            <End Role="Rubro" EntitySet="Rubro" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_TipoDocumento" Association="Self.FK_Cliente_TipoDocumento">
+            <End Role="TipoDocumento" EntitySet="TipoDocumento" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_TipoResponsables" Association="Self.FK_Cliente_TipoResponsables">
+            <End Role="TipoResponsables" EntitySet="TipoResponsables" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Vendedor" Association="Self.FK_Cliente_Vendedor">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CtaCte_Clientes_Cliente" Association="Self.FK_CtaCte_Clientes_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Encabezado_Factura_Cliente" Association="Self.FK_Encabezado_Factura_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Cliente" Association="Self.FK_Pedido_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK_Componente_Cortante" Association="Self.FK_Componente_Cortante">
@@ -1212,199 +1373,15 @@
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
-          <EntitySet Name="TipoResponsables" EntityType="BliboxModel.TipoResponsables" />
-          <EntitySet Name="Cliente" EntityType="BliboxModel.Cliente" />
-          <AssociationSet Name="FK_Articulo_Cliente" Association="BliboxModel.FK_Articulo_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Articulo" EntitySet="Articulo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Rubro" Association="BliboxModel.FK_Cliente_Rubro">
-            <End Role="Rubro" EntitySet="Rubro" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_TipoResponsables" Association="BliboxModel.FK_Cliente_TipoResponsables">
-            <End Role="TipoResponsables" EntitySet="TipoResponsables" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Vendedor" Association="BliboxModel.FK_Cliente_Vendedor">
-            <End Role="Vendedor" EntitySet="Vendedor" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CtaCte_Clientes_Cliente" Association="BliboxModel.FK_CtaCte_Clientes_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Encabezado_Factura_Cliente" Association="BliboxModel.FK_Encabezado_Factura_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Cliente" Association="BliboxModel.FK_Pedido_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
-          <EntitySet Name="TipoDocumento" EntityType="BliboxModel.TipoDocumento" />
-          <AssociationSet Name="FK_Cliente_TipoDocumento" Association="BliboxModel.FK_Cliente_TipoDocumento">
-            <End Role="TipoDocumento" EntitySet="TipoDocumento" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TipoResponsables">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Cliente_TipoResponsables" FromRole="TipoResponsables" ToRole="Cliente" />
-        </EntityType>
-        <EntityType Name="Cliente">
-          <Key>
-            <PropertyRef Name="ID_cliente" />
-          </Key>
-          <Property Name="ID_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Razon_Social" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Codigo_Postal" Type="Int32" />
-          <Property Name="Telefono" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_vendedor" Type="Int32" />
-          <Property Name="Comision_vendedor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CondicionIVA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="TipoResponsable" Type="Int32" />
-          <Property Name="Saldo" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Referidos" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ID_rubro" Type="Int32" />
-          <Property Name="DiasFF" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Dias_Cheque" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Grupo_mailing" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Limite_credito" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Fecha_alta" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Articulo" Relationship="BliboxModel.FK_Articulo_Cliente" FromRole="Cliente" ToRole="Articulo" />
-          <NavigationProperty Name="Rubro" Relationship="BliboxModel.FK_Cliente_Rubro" FromRole="Cliente" ToRole="Rubro" />
-          <NavigationProperty Name="TipoResponsables" Relationship="BliboxModel.FK_Cliente_TipoResponsables" FromRole="Cliente" ToRole="TipoResponsables" />
-          <NavigationProperty Name="Vendedor" Relationship="BliboxModel.FK_Cliente_Vendedor" FromRole="Cliente" ToRole="Vendedor" />
-          <NavigationProperty Name="CtaCte_Clientes" Relationship="BliboxModel.FK_CtaCte_Clientes_Cliente" FromRole="Cliente" ToRole="CtaCte_Clientes" />
-          <NavigationProperty Name="Encabezado_Factura" Relationship="BliboxModel.FK_Encabezado_Factura_Cliente" FromRole="Cliente" ToRole="Encabezado_Factura" />
-          <NavigationProperty Name="Pedido" Relationship="BliboxModel.FK_Pedido_Cliente" FromRole="Cliente" ToRole="Pedido" />
-          <Property Name="TipoDocumento" Type="Int32" />
-          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="TipoDocumento1" Relationship="BliboxModel.FK_Cliente_TipoDocumento" FromRole="Cliente" ToRole="TipoDocumento" />
-        </EntityType>
-        <Association Name="FK_Articulo_Cliente">
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="BliboxModel.Articulo" Role="Articulo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="Articulo">
-              <PropertyRef Name="ID_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Rubro">
-          <End Type="BliboxModel.Rubro" Role="Rubro" Multiplicity="0..1" />
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rubro">
-              <PropertyRef Name="ID_rubro" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="ID_rubro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_TipoResponsables">
-          <End Type="BliboxModel.TipoResponsables" Role="TipoResponsables" Multiplicity="0..1" />
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoResponsables">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="TipoResponsable" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Vendedor">
-          <End Type="BliboxModel.Vendedor" Role="Vendedor" Multiplicity="0..1" />
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vendedor">
-              <PropertyRef Name="ID_vendedor" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="ID_vendedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CtaCte_Clientes_Cliente">
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="0..1" />
-          <End Type="BliboxModel.CtaCte_Clientes" Role="CtaCte_Clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="CtaCte_Clientes">
-              <PropertyRef Name="ID_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Encabezado_Factura_Cliente">
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="BliboxModel.Encabezado_Factura" Role="Encabezado_Factura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="Encabezado_Factura">
-              <PropertyRef Name="ID_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedido_Cliente">
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="BliboxModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="ID_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TipoDocumento">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Cliente" Relationship="BliboxModel.FK_Cliente_TipoDocumento" FromRole="TipoDocumento" ToRole="Cliente" />
-        </EntityType>
-        <Association Name="FK_Cliente_TipoDocumento">
-          <End Type="BliboxModel.TipoDocumento" Role="TipoDocumento" Multiplicity="0..1" />
-          <End Type="BliboxModel.Cliente" Role="Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoDocumento">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="TipoDocumento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BliboxModelStoreContainer" CdmEntityContainer="BliboxEntities">
+        <EntityContainerMapping StorageEntityContainer="BliboxStoreContainer" CdmEntityContainer="BliboxEntities">
           <EntitySetMapping Name="Articulo">
-            <EntityTypeMapping TypeName="BliboxModel.Articulo">
+            <EntityTypeMapping TypeName="Blibox.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
                 <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1424,8 +1401,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="Blibox.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
+                <ScalarProperty Name="Razon_Social" ColumnName="Razon_Social" />
+                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
+                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
+                <ScalarProperty Name="Comision_vendedor" ColumnName="Comision_vendedor" />
+                <ScalarProperty Name="CondicionIVA" ColumnName="CondicionIVA" />
+                <ScalarProperty Name="TipoResponsable" ColumnName="TipoResponsable" />
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Referidos" ColumnName="Referidos" />
+                <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
+                <ScalarProperty Name="DiasFF" ColumnName="DiasFF" />
+                <ScalarProperty Name="Dias_Cheque" ColumnName="Dias_Cheque" />
+                <ScalarProperty Name="Grupo_mailing" ColumnName="Grupo_mailing" />
+                <ScalarProperty Name="Limite_credito" ColumnName="Limite_credito" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Componente">
-            <EntityTypeMapping TypeName="BliboxModel.Componente">
+            <EntityTypeMapping TypeName="Blibox.Componente">
               <MappingFragment StoreEntitySet="Componente">
                 <ScalarProperty Name="ID_componente" ColumnName="ID_componente" />
                 <ScalarProperty Name="ID_articulo" ColumnName="ID_articulo" />
@@ -1442,7 +1449,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Compras">
-            <EntityTypeMapping TypeName="BliboxModel.Compras">
+            <EntityTypeMapping TypeName="Blibox.Compras">
               <MappingFragment StoreEntitySet="Compras">
                 <ScalarProperty Name="ID_compra" ColumnName="ID_compra" />
                 <ScalarProperty Name="ID_proveedor" ColumnName="ID_proveedor" />
@@ -1458,7 +1465,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Condicion_venta">
-            <EntityTypeMapping TypeName="BliboxModel.Condicion_venta">
+            <EntityTypeMapping TypeName="Blibox.Condicion_venta">
               <MappingFragment StoreEntitySet="Condicion_venta">
                 <ScalarProperty Name="ID_condicion_venta" ColumnName="ID_condicion_venta" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1466,7 +1473,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cortante">
-            <EntityTypeMapping TypeName="BliboxModel.Cortante">
+            <EntityTypeMapping TypeName="Blibox.Cortante">
               <MappingFragment StoreEntitySet="Cortante">
                 <ScalarProperty Name="ID_cortante" ColumnName="ID_cortante" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1478,7 +1485,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CtaCte_Clientes">
-            <EntityTypeMapping TypeName="BliboxModel.CtaCte_Clientes">
+            <EntityTypeMapping TypeName="Blibox.CtaCte_Clientes">
               <MappingFragment StoreEntitySet="CtaCte_Clientes">
                 <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
                 <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
@@ -1492,7 +1499,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CtaCte_Proveedores">
-            <EntityTypeMapping TypeName="BliboxModel.CtaCte_Proveedores">
+            <EntityTypeMapping TypeName="Blibox.CtaCte_Proveedores">
               <MappingFragment StoreEntitySet="CtaCte_Proveedores">
                 <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
                 <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
@@ -1506,7 +1513,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Detalle_factura">
-            <EntityTypeMapping TypeName="BliboxModel.Detalle_factura">
+            <EntityTypeMapping TypeName="Blibox.Detalle_factura">
               <MappingFragment StoreEntitySet="Detalle_factura">
                 <ScalarProperty Name="Nro_factura" ColumnName="Nro_factura" />
                 <ScalarProperty Name="ID_item" ColumnName="ID_item" />
@@ -1518,28 +1525,27 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Encabezado_Factura">
-            <EntityTypeMapping TypeName="BliboxModel.Encabezado_Factura">
+            <EntityTypeMapping TypeName="Blibox.Encabezado_Factura">
               <MappingFragment StoreEntitySet="Encabezado_Factura">
-                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
-                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
-                <ScalarProperty Name="Nro_remito" ColumnName="Nro_remito" />
                 <ScalarProperty Name="Nro_factura" ColumnName="Nro_factura" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
                 <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
                 <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
-                <ScalarProperty Name="Tipo_iva_responsable" ColumnName="Tipo_iva_responsable" />
                 <ScalarProperty Name="Valor_inscripto" ColumnName="Valor_inscripto" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="IVA" ColumnName="IVA" />
                 <ScalarProperty Name="ID_condicon_venta" ColumnName="ID_condicon_venta" />
                 <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
+                <ScalarProperty Name="Nro_remito" ColumnName="Nro_remito" />
+                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="IVA">
-            <EntityTypeMapping TypeName="BliboxModel.IVA">
+            <EntityTypeMapping TypeName="Blibox.IVA">
               <MappingFragment StoreEntitySet="IVA">
                 <ScalarProperty Name="ID_IVA" ColumnName="ID_IVA" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
@@ -1547,7 +1553,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Marco">
-            <EntityTypeMapping TypeName="BliboxModel.Marco">
+            <EntityTypeMapping TypeName="Blibox.Marco">
               <MappingFragment StoreEntitySet="Marco">
                 <ScalarProperty Name="ID_marco" ColumnName="ID_marco" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1558,7 +1564,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Material">
-            <EntityTypeMapping TypeName="BliboxModel.Material">
+            <EntityTypeMapping TypeName="Blibox.Material">
               <MappingFragment StoreEntitySet="Material">
                 <ScalarProperty Name="ID_material" ColumnName="ID_material" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1568,7 +1574,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Matriz">
-            <EntityTypeMapping TypeName="BliboxModel.Matriz">
+            <EntityTypeMapping TypeName="Blibox.Matriz">
               <MappingFragment StoreEntitySet="Matriz">
                 <ScalarProperty Name="ID_matriz" ColumnName="ID_matriz" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -1580,7 +1586,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pedido">
-            <EntityTypeMapping TypeName="BliboxModel.Pedido">
+            <EntityTypeMapping TypeName="Blibox.Pedido">
               <MappingFragment StoreEntitySet="Pedido">
                 <ScalarProperty Name="ID_pedido" ColumnName="ID_pedido" />
                 <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
@@ -1603,7 +1609,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Presupuesto">
-            <EntityTypeMapping TypeName="BliboxModel.Presupuesto">
+            <EntityTypeMapping TypeName="Blibox.Presupuesto">
               <MappingFragment StoreEntitySet="Presupuesto">
                 <ScalarProperty Name="ID_presupuesto" ColumnName="ID_presupuesto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1624,7 +1630,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Proveedor">
-            <EntityTypeMapping TypeName="BliboxModel.Proveedor">
+            <EntityTypeMapping TypeName="Blibox.Proveedor">
               <MappingFragment StoreEntitySet="Proveedor">
                 <ScalarProperty Name="ID_proveedor" ColumnName="ID_proveedor" />
                 <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
@@ -1644,7 +1650,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Remito">
-            <EntityTypeMapping TypeName="BliboxModel.Remito">
+            <EntityTypeMapping TypeName="Blibox.Remito">
               <MappingFragment StoreEntitySet="Remito">
                 <ScalarProperty Name="ID_remito" ColumnName="ID_remito" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -1654,7 +1660,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rubro">
-            <EntityTypeMapping TypeName="BliboxModel.Rubro">
+            <EntityTypeMapping TypeName="Blibox.Rubro">
               <MappingFragment StoreEntitySet="Rubro">
                 <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
                 <ScalarProperty Name="Descirpcion" ColumnName="Descirpcion" />
@@ -1662,19 +1668,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BliboxModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="TipoDocumento">
+            <EntityTypeMapping TypeName="Blibox.TipoDocumento">
+              <MappingFragment StoreEntitySet="TipoDocumento">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoResponsables">
+            <EntityTypeMapping TypeName="Blibox.TipoResponsables">
+              <MappingFragment StoreEntitySet="TipoResponsables">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vendedor">
-            <EntityTypeMapping TypeName="BliboxModel.Vendedor">
+            <EntityTypeMapping TypeName="Blibox.Vendedor">
               <MappingFragment StoreEntitySet="Vendedor">
                 <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1688,52 +1699,6 @@
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
                 <ScalarProperty Name="Observacion" ColumnName="Observacion" />
                 <ScalarProperty Name="Codigo_postal" ColumnName="Codigo_postal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoResponsables">
-            <EntityTypeMapping TypeName="BliboxModel.TipoResponsables">
-              <MappingFragment StoreEntitySet="TipoResponsables">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cliente">
-            <EntityTypeMapping TypeName="BliboxModel.Cliente">
-              <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="Documento" ColumnName="Documento" />
-                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
-                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-                <ScalarProperty Name="Limite_credito" ColumnName="Limite_credito" />
-                <ScalarProperty Name="Grupo_mailing" ColumnName="Grupo_mailing" />
-                <ScalarProperty Name="Dias_Cheque" ColumnName="Dias_Cheque" />
-                <ScalarProperty Name="DiasFF" ColumnName="DiasFF" />
-                <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
-                <ScalarProperty Name="Referidos" ColumnName="Referidos" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
-                <ScalarProperty Name="TipoResponsable" ColumnName="TipoResponsable" />
-                <ScalarProperty Name="CondicionIVA" ColumnName="CondicionIVA" />
-                <ScalarProperty Name="Comision_vendedor" ColumnName="Comision_vendedor" />
-                <ScalarProperty Name="ID_vendedor" ColumnName="ID_vendedor" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-                <ScalarProperty Name="Codigo_Postal" ColumnName="Codigo_Postal" />
-                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
-                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
-                <ScalarProperty Name="Domicilio" ColumnName="Domicilio" />
-                <ScalarProperty Name="Contacto" ColumnName="Contacto" />
-                <ScalarProperty Name="Razon_Social" ColumnName="Razon_Social" />
-                <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoDocumento">
-            <EntityTypeMapping TypeName="BliboxModel.TipoDocumento">
-              <MappingFragment StoreEntitySet="TipoDocumento">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

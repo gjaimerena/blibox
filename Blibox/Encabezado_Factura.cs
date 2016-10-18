@@ -23,10 +23,9 @@ namespace Blibox
         public int Nro_factura { get; set; }
         public string Tipo { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
-        public int ID_cliente { get; set; }
+        public Nullable<int> ID_cliente { get; set; }
         public Nullable<int> ID_vendedor { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
-        public string Tipo_iva_responsable { get; set; }
         public Nullable<decimal> Valor_inscripto { get; set; }
         public Nullable<decimal> Total { get; set; }
         public Nullable<decimal> IVA { get; set; }
@@ -36,10 +35,10 @@ namespace Blibox
         public Nullable<int> OrdenCompra { get; set; }
         public Nullable<decimal> Descuento { get; set; }
     
+        public virtual Cliente Cliente { get; set; }
         public virtual Condicion_venta Condicion_venta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_factura> Detalle_factura { get; set; }
         public virtual Vendedor Vendedor { get; set; }
-        public virtual Cliente Cliente { get; set; }
     }
 }

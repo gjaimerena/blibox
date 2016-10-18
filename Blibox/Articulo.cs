@@ -11,7 +11,7 @@ namespace Blibox
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Articulo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,8 +28,6 @@ namespace Blibox
         public Nullable<int> Costo { get; set; }
         public string IVA { get; set; }
         public Nullable<int> Precio_lista { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Precio_fecha { get; set; }
         public Nullable<int> Stock { get; set; }
         public string Fazon { get; set; }
@@ -40,12 +38,12 @@ namespace Blibox
         public Nullable<int> Tiraje_troquel_x_hora { get; set; }
         public string Observaciones { get; set; }
     
+        public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Componente> Componente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_factura> Detalle_factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
-        public virtual Cliente Cliente { get; set; }
     }
 }
