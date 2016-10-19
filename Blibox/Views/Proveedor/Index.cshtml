@@ -32,7 +32,7 @@
         <div class="search-box">
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
                 <button type="submit" class="btn btn-info">Buscar</button>
             </form>
@@ -68,9 +68,19 @@
                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
                         <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
                         <td>
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Editar", "Edit", new { id = item.ID_proveedor })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Detalle", "Details", new { id = item.ID_proveedor })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Eliminar", "Delete", new { id = item.ID_proveedor })</button> |
+                           
+                            <a href="@Url.Action("Details", new { id = item.ID_proveedor })" title="Ver" class="">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span class="sr-only">Ver</span>
+                            </a>
+                            <a href="@Url.Action("Edit", new { id = item.ID_proveedor })" title="Editar">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                <span class="sr-only">Editar</span>
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.ID_proveedor })" title="Eliminar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                <span class="sr-only">Eliminar</span>
+                            </a>
                         </td>
                     </tr>
                 }

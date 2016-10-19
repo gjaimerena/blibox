@@ -12,16 +12,13 @@ namespace Blibox
     using System;
     using System.Collections.Generic;
     
-    public partial class Detalle_factura
+    public partial class AspNetUserClaims
     {
-        public int Nro_factura { get; set; }
-        public int ID_item { get; set; }
-        public int ID_articulo { get; set; }
-        public int Cantidad { get; set; }
-        public decimal Precio_unitario { get; set; }
-        public decimal Precio_total { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Articulo Articulo { get; set; }
-        public virtual Encabezado_Factura Encabezado_Factura { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

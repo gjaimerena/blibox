@@ -25,9 +25,9 @@ namespace Blibox
         public int ID_articulo { get; set; }
         public string Descripcion { get; set; }
         public int ID_cliente { get; set; }
-        public Nullable<int> Costo { get; set; }
-        public string IVA { get; set; }
-        public Nullable<int> Precio_lista { get; set; }
+        public Nullable<decimal> Costo { get; set; }
+        public Nullable<decimal> IVA { get; set; }
+        public Nullable<decimal> Precio_lista { get; set; }
         public Nullable<System.DateTime> Precio_fecha { get; set; }
         public Nullable<int> Stock { get; set; }
         public string Fazon { get; set; }

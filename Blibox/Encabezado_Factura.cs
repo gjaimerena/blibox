@@ -22,8 +22,8 @@ namespace Blibox
     
         public int Nro_factura { get; set; }
         public string Tipo { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<int> ID_cliente { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public int ID_cliente { get; set; }
         public Nullable<int> ID_vendedor { get; set; }
         public Nullable<decimal> Subtotal { get; set; }
         public Nullable<decimal> Valor_inscripto { get; set; }
@@ -34,6 +34,8 @@ namespace Blibox
         public Nullable<int> Nro_remito { get; set; }
         public Nullable<int> OrdenCompra { get; set; }
         public Nullable<decimal> Descuento { get; set; }
+        public string CAE { get; set; }
+        public int NroComprobante { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Condicion_venta Condicion_venta { get; set; }

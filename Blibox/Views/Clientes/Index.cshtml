@@ -31,7 +31,7 @@
         <div class="search-box">
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
                 <button type="submit" class="btn btn-info">Buscar</button>
             </form>
@@ -40,7 +40,7 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Articulos</h3>
+                <h3 class="box-title">Clientes</h3>
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -49,10 +49,10 @@
                     <th>@Html.DisplayName("CUIT")</th>
                     <th>@Html.DisplayName("Telefono")</th>
                     <th>@Html.DisplayName("Email")</th>
-                    <th>@Html.DisplayName("Domicilio")</th>
+                    @*<th>@Html.DisplayName("Domicilio")</th>
                     <th>@Html.DisplayName("Localidad")</th>
                     <th>@Html.DisplayName("Provincia")</th>
-                    <th>@Html.DisplayName("Rubro")</th>
+                    <th>@Html.DisplayName("Rubro")</th>*@
                     <th>@Html.DisplayName("Vendedor")</th>
                     <th>OPCIONES</th>
                 </tr>
@@ -64,16 +64,25 @@
                         <td>@Html.DisplayFor(model => item.Documento)</td>
                         <td>@Html.DisplayFor(model => item.Telefono)</td>
                         <td>@Html.DisplayFor(model => item.Email)</td>
-                        <td>@Html.DisplayFor(model => item.Domicilio)</td>
+                        @*<td>@Html.DisplayFor(model => item.Domicilio)</td>
                         <td>@Html.DisplayFor(model => item.Localidad)</td>
                         <td>@Html.DisplayFor(model => item.Provincia)</td>
-                        <td>@Html.DisplayFor(model => item.Rubro.Descirpcion)</td>
+                        <td>@Html.DisplayFor(model => item.Rubro.Descirpcion)</td>*@
                         <td> @Html.DisplayFor(model => item.Vendedor.ID_vendedor)</td>
                         <td>
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Editar", "Edit", new { id = item.ID_cliente })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Detalle", "Details", new { id = item.ID_cliente })</button> |
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Eliminar", "Delete", new { id = item.ID_cliente })</button>
-
+                           
+                            <a href="@Url.Action("Details", new { id = item.ID_cliente })" title="Ver" class="">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span class="sr-only">Ver</span>
+                            </a>
+                            <a href="@Url.Action("Edit", new { id = item.ID_cliente })" title="Editar">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                <span class="sr-only">Editar</span>
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.ID_cliente })" title="Eliminar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                <span class="sr-only">Eliminar</span>
+                            </a>
 
                         </td>
                     </tr>

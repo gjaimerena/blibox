@@ -38,7 +38,7 @@
         <div class="search-box">
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
                 <button type="submit" class="btn btn-info">Buscar</button>
             </form>
@@ -76,7 +76,7 @@
                         <td>@Html.DisplayFor(model => item.Nombre)</td>
                         <td>@Html.DisplayFor(model => item.Apellido)</td>
                         <td>@Html.DisplayFor(model => item.Domicilio)</td>
-                        <td><span class="badge bg-red">@Html.DisplayFor(model => item.Localidad)</span></td>
+                        <td>@Html.DisplayFor(model => item.Localidad)</td>
                         <td>@Html.DisplayFor(model => item.Codigo_postal)</td>
                         <td>@Html.DisplayFor(model => item.Provincia)</td>
                         <td>@Html.DisplayFor(model => item.Telefono)</td>
@@ -91,10 +91,19 @@
                         
                         <td> @Html.DisplayFor(model => item.Observacion)</td>
                         <td>
-                            <button type="button" class="btn btn-info ">@Html.ActionLink("Edit", "Edit", new { id = item.ID_vendedor })</button> |
-                            <button type="button" class="btn btn-info ">@Html.ActionLink("Details", "Details", new { id = item.ID_vendedor })</button> |
-                            <button type="button" class="btn btn-info ">@Html.ActionLink("Delete", "Delete", new { id = item.ID_vendedor })</button>
-
+                           
+                            <a href="@Url.Action("Details", new { id = item.ID_vendedor })" title="Ver" class="">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span class="sr-only">Ver</span>
+                            </a>
+                            <a href="@Url.Action("Edit", new { id = item.ID_vendedor })" title="Editar">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                <span class="sr-only">Editar</span>
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.ID_vendedor })" title="Eliminar">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                <span class="sr-only">Eliminar</span>
+                            </a>
 
                         </td>
                     </tr>

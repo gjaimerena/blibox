@@ -27,8 +27,8 @@ namespace Blibox
         public string Domicilio { get; set; }
         public string Localidad { get; set; }
         public string Provincia { get; set; }
-        public Nullable<int> Telefono { get; set; }
-        public Nullable<int> Celular { get; set; }
+        public string Telefono { get; set; }
+        public string Celular { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> Fecha_alta { get; set; }
         public string Observacion { get; set; }

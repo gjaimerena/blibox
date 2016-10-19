@@ -16,7 +16,7 @@ namespace Blibox.Controllers
         //public string Email { get; set; }
         //public Nullable<int> ID_vendedor { get; set; }
         //public string Comision_vendedor { get; set; }
-        //public string CondicionIVA { get; set; }
+        public string CondicionIVA { get; set; }
         public string TipoResponsable { get; set; }
         //public Nullable<int> Saldo { get; set; }
         //public string Observaciones { get; set; }

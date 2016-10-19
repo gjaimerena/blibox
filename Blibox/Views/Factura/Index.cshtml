@@ -50,7 +50,7 @@
         <div class="search-box">
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
                 <button type="submit" class="btn btn-info">Buscar</button>
             </form>
@@ -86,10 +86,15 @@
                         <td>@Html.DisplayFor(model => item.Vendedor.Apellido)</td>
                         <td> @Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
                         <td>
-                            @*<button type="button" class="btn btn-primary ">@Html.ActionLink("Edit", "Edit", new { id = item.Nro_factura })</button> |*@
-                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Ver Detalle", "Details", new { id = item.Nro_factura })</button> @*|
+                            @*<button type="button" class="btn btn-primary ">@Html.ActionLink("Edit", "Edit", new { id = item.Nro_factura })</button> |
+                            <button type="button" class="btn btn-primary ">@Html.ActionLink("Ver Detalle", "Details", new { id = item.Nro_factura })</button> |
                             <button type="button" class="btn btn-primary ">@Html.ActionLink("Delete", "Delete", new { id = item.Nro_factura })</button>*@
 
+
+                            <a href="@Url.Action("Details", new { id = item.Nro_factura })" title="Ver" class="">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span class="sr-only">Ver</span>
+                            </a>
                         </td>
                     </tr>
                 }

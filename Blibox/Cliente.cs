@@ -30,13 +30,13 @@ namespace Blibox
         public string Localidad { get; set; }
         public string Provincia { get; set; }
         public Nullable<int> Codigo_Postal { get; set; }
-        public Nullable<int> Telefono { get; set; }
+        public string Telefono { get; set; }
         public string Email { get; set; }
         public Nullable<int> ID_vendedor { get; set; }
         public string Comision_vendedor { get; set; }
         public string CondicionIVA { get; set; }
-        public Nullable<int> TipoResponsable { get; set; }
-        public Nullable<int> Saldo { get; set; }
+        public int TipoResponsable { get; set; }
+        public Nullable<decimal> Saldo { get; set; }
         public string Observaciones { get; set; }
         public string Referidos { get; set; }
         public Nullable<int> ID_rubro { get; set; }

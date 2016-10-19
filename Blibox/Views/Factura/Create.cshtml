@@ -59,36 +59,27 @@ $(document).ready(function(){
                         </div><!-- /.col -->
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label>Condicion IVA</label>
+                                <label>Tipo IVA</label>
                                 @Html.EditorFor(model => model.Cliente.TipoResponsables.Descripcion, new { htmlAttributes = new { @class = "form-control", @id = "TipoResp", @readonly = "readonly" } })
                               
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-                        <div class="col-md-1">
+
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label>Dias a pagar</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cliente.DiasFF, new { htmlAttributes = new { @class = "form-control", @id = "DiasFF" } })
-                                    @Html.ValidationMessageFor(model => model.Cliente.DiasFF, "", new { @class = "text-danger" })
-                                </div>
+                                <label>IVA</label>
+                                @Html.EditorFor(model => model.Cliente.CondicionIVA, new { htmlAttributes = new { @class = "form-control", @id = "iva" } })
+
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label>Cheque Dias</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cliente.Dias_Cheque, new { htmlAttributes = new { @class = "form-control", @id = "Dias_Cheque" } })
-                                    @Html.ValidationMessageFor(model => model.Cliente.Dias_Cheque, "", new { @class = "text-danger" })
-                                </div>
+                                <label>Condicion venta</label>
+                                @Html.DropDownList("ID_condicion_venta", (SelectList)ViewBag.CondicionVenta, htmlAttributes: new { @class = "form-control" })
+
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <label>Descuento</label>
-                                @Html.EditorFor(model => model.Descuento, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
+                       
                     </div>
                     <div class="row">
                        
@@ -132,31 +123,36 @@ $(document).ready(function(){
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Seleccione Cliente</label>
-                                <div>
-                                    <select id="Art"></select>
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label>Articulos</label>
+                                <label>Dias a pagar</label>
                                 <div>
-                                 <select id="Articulos">
-
-                                 </select>
-
+                                    @Html.EditorFor(model => model.Cliente.DiasFF, new { htmlAttributes = new { @class = "form-control", @id = "DiasFF" } })
+                                    @Html.ValidationMessageFor(model => model.Cliente.DiasFF, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Cheque Dias</label>
+                                <div>
+                                    @Html.EditorFor(model => model.Cliente.Dias_Cheque, new { htmlAttributes = new { @class = "form-control", @id = "Dias_Cheque" } })
+                                    @Html.ValidationMessageFor(model => model.Cliente.Dias_Cheque, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Descuento</label>
+                                @Html.EditorFor(model => model.Descuento, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        
                     </div>
 
                   
-                    <button type="button" id="btnAdd"  data-filas='0'>Agregar Articulo</button>
+                    <button type="button" id="btnAdd"  data-filas='0' class="btn btn-primary">Agregar Articulo</button>
                    
                    
                     <br /><br />
@@ -184,7 +180,7 @@ $(document).ready(function(){
 
                         <div class="form-group">
                             <div class="box-footer">
-                                <input type="submit" value="Actualizar" class="btn btn-primary" />
+                                <input type="submit" value="Generar" class="btn btn-primary" />
                             </div>
                         </div>
 </div><!-- /.box-body -->
@@ -233,6 +229,8 @@ $(document).ready(function(){
                     $('#TipoResp').val(data.TipoResponsable)
                     $("#DiasFF").val(data.DiasFF);
                     $("#Dias_Cheque").val(data.Dias_Cheque);
+                    $("#iva").val(data.CondicionIVA);
+                    
                     var select = $("#Articulos");
 
                     for (var articulo in data.Articulos) {

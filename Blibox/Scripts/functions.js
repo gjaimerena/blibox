@@ -68,10 +68,10 @@ function Add() {
     var namePrecioTotal = 'articulos[' + fila + '].precioTotal';
 
     $("#tblData tbody").append("<tr>" +
-        "<td><select id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
-        "<td><input type='number' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
-        "<td><input type='number' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
-        "<td><input type='number' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
+        "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
+        "<td><input class = 'form-control' type='number' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
+        "<td><input class = 'form-control' type='number' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
+        "<td><input class = 'form-control' type='number' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
         "<td><i class='btnSave glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphicon glyphicon-remove'></i> <select id='" + idPreciosUnitarios + "' class='hidden' /> </td>" +
         "</tr>");
     $(".btnSave").bind("click", Save);

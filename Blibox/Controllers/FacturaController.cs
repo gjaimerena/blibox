@@ -73,6 +73,7 @@ namespace Blibox.Controllers
         public ActionResult Create()
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+            ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
             ViewBag.art = "";
             return View();
         }
@@ -207,7 +208,8 @@ namespace Blibox.Controllers
                 TipoResponsable = db.TipoResponsables.Where(m => m.Codigo == cliente.TipoResponsable).FirstOrDefault().Descripcion,
                 DiasFF = cliente.DiasFF,
                 Dias_Cheque = cliente.Dias_Cheque,
-                Articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList()
+                Articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList(),
+                CondicionIVA = cliente.CondicionIVA
 
             };
 
