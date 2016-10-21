@@ -17,7 +17,7 @@ namespace Blibox
         public int Nro_factura { get; set; }
         public int ID_item { get; set; }
         public int ID_articulo { get; set; }
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         public decimal Precio_unitario { get; set; }
         public decimal Precio_total { get; set; }
     

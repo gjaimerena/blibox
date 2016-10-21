@@ -69,7 +69,7 @@ namespace TestAutenticacion
                     detalles[0] = det;
 
 
-                    FE.AutorizacionFactura(30707744398,1,1,001,detalles);
+                    FE.AutorizacionFactura(1,1,001,detalles);
                     //Console.WriteLine(FE.ReadElementsXML());
                 }
 

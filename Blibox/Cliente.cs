@@ -40,8 +40,8 @@ namespace Blibox
         public string Observaciones { get; set; }
         public string Referidos { get; set; }
         public Nullable<int> ID_rubro { get; set; }
-        public string DiasFF { get; set; }
-        public string Dias_Cheque { get; set; }
+        public Nullable<int> DiasFF { get; set; }
+        public Nullable<int> Dias_Cheque { get; set; }
         public string Grupo_mailing { get; set; }
         public string Limite_credito { get; set; }
         public Nullable<System.DateTime> Fecha_alta { get; set; }

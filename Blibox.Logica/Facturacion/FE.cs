@@ -8,7 +8,7 @@ namespace Blibox.Logica.Facturacion
     public class FE
     {
 
-        public static FECAERespuesta AutorizacionFactura(long cuit, int nroRegistros, int PtoVta, int CbteTipo, DetalleRegistros[] detalles)
+        public static FECAERespuesta AutorizacionFactura(int nroRegistros, int PtoVta, int CbteTipo, DetalleRegistros[] detalles)
         {
             WSFEv1.ServiceSoapClient fe = new WSFEv1.ServiceSoapClient();
             WSFEv1.FEAuthRequest auth = new WSFEv1.FEAuthRequest();
@@ -48,6 +48,9 @@ namespace Blibox.Logica.Facturacion
             feCAEReq.FeCabReq.PtoVta = PtoVta;
 
             feCAEReq.FeDetReq = new WSFEv1.FECAEDetRequest[nroRegistros];
+
+            //obtnego ultimo nro de comprobante emitido
+            int ultimoNroComprobante = obtenerUltimoComprobante(auth, PtoVta, CbteTipo);
             
             //Genero FeDetReq con tantos registro como indique en la cabecera
             for (int i = 0; i < nroRegistros; i++) {
@@ -57,9 +60,9 @@ namespace Blibox.Logica.Facturacion
                 feCAEReq.FeDetReq[i].Concepto = detalles[i].Concepto ;
                 feCAEReq.FeDetReq[i].DocTipo = detalles[i].DocTipo; 
                 feCAEReq.FeDetReq[i].DocNro = detalles[i].DocNro;
-                feCAEReq.FeDetReq[i].CbteDesde = detalles[i].CbteDesde;
-                feCAEReq.FeDetReq[i].CbteHasta = detalles[i].CbteHasta;
-                feCAEReq.FeDetReq[i].CbteFch = detalles[i].CbteFch;
+                feCAEReq.FeDetReq[i].CbteDesde = ultimoNroComprobante + 1;
+                feCAEReq.FeDetReq[i].CbteHasta = ultimoNroComprobante + 1;
+                feCAEReq.FeDetReq[i].CbteFch = DateTime.Now.ToString("yyyymmdd");//detalles[i].CbteFch;
                 feCAEReq.FeDetReq[i].ImpTotal = detalles[i].ImpTotal;
                 feCAEReq.FeDetReq[i].ImpTotConc = detalles[i].ImpTotConc;
                 feCAEReq.FeDetReq[i].ImpNeto = detalles[i].ImpNeto;
@@ -216,6 +219,21 @@ namespace Blibox.Logica.Facturacion
             return respuesta;
             
         }
-        
+
+        private static int obtenerUltimoComprobante(WSFEv1.FEAuthRequest auth, int ptoVenta, int cbteTipo)
+        {
+            try
+            {
+                WSFEv1.ServiceSoapClient fe = new WSFEv1.ServiceSoapClient();
+                return fe.FECompUltimoAutorizado(auth, ptoVenta, cbteTipo).CbteNro;
+
+            }
+            catch (Exception ex) {
+                return -1;
+            }
+
+
+
+        }
     }
 }

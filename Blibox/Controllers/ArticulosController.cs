@@ -195,7 +195,8 @@ namespace Blibox.Models
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Articulo articulo)
         {
-            
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+
             if (ModelState.IsValid)
             {
                 db.Entry(articulo).State = EntityState.Modified;
@@ -207,6 +208,7 @@ namespace Blibox.Models
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            getDropdownElements();
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
             return View(articulo);
         }

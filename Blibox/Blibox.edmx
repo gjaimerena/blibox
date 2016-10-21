@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Blibox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -13,12 +23,10 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_cliente" Type="int" Nullable="false" />
           <Property Name="Costo" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="IVA" Type="decimal" Precision="5" Scale="2" />
           <Property Name="Precio_lista" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Precio_fecha" Type="datetime" />
-          <Property Name="Stock" Type="int" />
-          <Property Name="Fazon" Type="varchar" MaxLength="10" />
-          <Property Name="Stock_minimo" Type="int" />
+          <Property Name="Precio_fecha" Type="date" />
+          <Property Name="Stock" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Stock_minimo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Cant_x_bulto" Type="int" />
           <Property Name="Tamaño_caja" Type="int" />
           <Property Name="Tiraje_term_x_hora" Type="int" />
@@ -97,11 +105,11 @@
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
           <Property Name="Referidos" Type="varchar" MaxLength="50" />
           <Property Name="ID_rubro" Type="int" />
-          <Property Name="DiasFF" Type="varchar" MaxLength="50" />
-          <Property Name="Dias_Cheque" Type="varchar" MaxLength="50" />
+          <Property Name="DiasFF" Type="int" />
+          <Property Name="Dias_Cheque" Type="int" />
           <Property Name="Grupo_mailing" Type="varchar" MaxLength="50" />
           <Property Name="Limite_credito" Type="varchar" MaxLength="50" />
-          <Property Name="Fecha_alta" Type="datetime" />
+          <Property Name="Fecha_alta" Type="date" />
           <Property Name="TipoDocumento" Type="int" />
           <Property Name="Documento" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -111,15 +119,15 @@
           </Key>
           <Property Name="ID_componente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_articulo" Type="int" Nullable="false" />
-          <Property Name="Peso" Type="int" />
+          <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ID_material" Type="int" />
           <Property Name="ID_marco" Type="int" />
-          <Property Name="Ciclos" Type="nchar" MaxLength="10" />
-          <Property Name="Bocas" Type="nchar" MaxLength="10" />
-          <Property Name="Espesor" Type="nchar" MaxLength="10" />
+          <Property Name="Ciclos" Type="varchar" MaxLength="50" />
+          <Property Name="Bocas" Type="varchar" MaxLength="50" />
+          <Property Name="Espesor" Type="varchar" MaxLength="50" />
           <Property Name="ID_matriz" Type="int" />
           <Property Name="ID_cortante" Type="int" />
-          <Property Name="Color" Type="nchar" MaxLength="10" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Compras">
           <Key>
@@ -141,18 +149,18 @@
             <PropertyRef Name="ID_condicion_venta" />
           </Key>
           <Property Name="ID_condicion_venta" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="nchar" MaxLength="10" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Cortante">
           <Key>
             <PropertyRef Name="ID_cortante" />
           </Key>
           <Property Name="ID_cortante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo" Type="nchar" MaxLength="10" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
-          <Property Name="Sector" Type="nchar" MaxLength="10" />
+          <Property Name="Codigo" Type="varchar" MaxLength="10" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Sector" Type="varchar" MaxLength="50" />
           <Property Name="Bocas" Type="int" />
-          <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CtaCte_Clientes">
           <Key>
@@ -160,12 +168,12 @@
           </Key>
           <Property Name="ID_movimiento" Type="int" Nullable="false" />
           <Property Name="ID_cliente" Type="int" />
-          <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
+          <Property Name="Razon_social" Type="varchar" MaxLength="50" />
           <Property Name="Saldo" Type="int" />
           <Property Name="Fecha_movimiento" Type="date" />
-          <Property Name="Concepto" Type="nchar" MaxLength="10" />
+          <Property Name="Concepto" Type="varchar" MaxLength="50" />
           <Property Name="Importe_movimiento" Type="int" />
-          <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
@@ -173,12 +181,12 @@
           </Key>
           <Property Name="ID_movimiento" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ID_Proveedor" Type="int" />
-          <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
+          <Property Name="Razon_social" Type="varchar" MaxLength="50" />
           <Property Name="Saldo" Type="int" />
           <Property Name="Fecha_movimiento" Type="date" />
           <Property Name="Concepto" Type="nchar" MaxLength="10" />
           <Property Name="Importe_movimiento" Type="int" />
-          <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -188,7 +196,7 @@
           <Property Name="Nro_factura" Type="int" Nullable="false" />
           <Property Name="ID_item" Type="int" Nullable="false" />
           <Property Name="ID_articulo" Type="int" Nullable="false" />
-          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Precio_unitario" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Precio_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
@@ -198,7 +206,7 @@
           </Key>
           <Property Name="Nro_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tipo" Type="nchar" MaxLength="1" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
           <Property Name="ID_cliente" Type="int" Nullable="false" />
           <Property Name="ID_vendedor" Type="int" />
           <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" />
@@ -212,6 +220,7 @@
           <Property Name="Descuento" Type="decimal" Precision="4" Scale="2" />
           <Property Name="CAE" Type="varchar" MaxLength="14" Nullable="false" />
           <Property Name="NroComprobante" Type="int" Nullable="false" />
+          <Property Name="FechaVencimientoCAE" Type="date" />
         </EntityType>
         <EntityType Name="IVA">
           <Key>
@@ -678,6 +687,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BliboxStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -812,6 +822,16 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Blibox" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -820,12 +840,10 @@
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_cliente" Type="Int32" Nullable="false" />
           <Property Name="Costo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IVA" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="Precio_lista" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Precio_fecha" Type="DateTime" Precision="3" />
-          <Property Name="Stock" Type="Int32" />
-          <Property Name="Fazon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Stock_minimo" Type="Int32" />
+          <Property Name="Precio_fecha" Type="DateTime" Precision="0" />
+          <Property Name="Stock" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Stock_minimo" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Cant_x_bulto" Type="Int32" />
           <Property Name="Tamaño_caja" Type="Int32" />
           <Property Name="Tiraje_term_x_hora" Type="Int32" />
@@ -906,11 +924,11 @@
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Referidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_rubro" Type="Int32" />
-          <Property Name="DiasFF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Dias_Cheque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiasFF" Type="Int32" />
+          <Property Name="Dias_Cheque" Type="Int32" />
           <Property Name="Grupo_mailing" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Limite_credito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha_alta" Type="DateTime" Precision="3" />
+          <Property Name="Fecha_alta" Type="DateTime" Precision="0" />
           <Property Name="TipoDocumento" Type="Int32" />
           <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Cliente" FromRole="Cliente" ToRole="Articulo" />
@@ -928,15 +946,15 @@
           </Key>
           <Property Name="ID_componente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_articulo" Type="Int32" Nullable="false" />
-          <Property Name="Peso" Type="Int32" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ID_material" Type="Int32" />
           <Property Name="ID_marco" Type="Int32" />
-          <Property Name="Ciclos" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Bocas" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Espesor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ciclos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bocas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Espesor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_matriz" Type="Int32" />
           <Property Name="ID_cortante" Type="Int32" />
-          <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Componente_Articulo" FromRole="Componente" ToRole="Articulo" />
           <NavigationProperty Name="Cortante" Relationship="Self.FK_Componente_Cortante" FromRole="Componente" ToRole="Cortante" />
           <NavigationProperty Name="Marco" Relationship="Self.FK_Componente_Marco" FromRole="Componente" ToRole="Marco" />
@@ -964,7 +982,7 @@
             <PropertyRef Name="ID_condicion_venta" />
           </Key>
           <Property Name="ID_condicion_venta" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Condicion_venta" ToRole="Encabezado_Factura" />
         </EntityType>
         <EntityType Name="Cortante">
@@ -972,11 +990,11 @@
             <PropertyRef Name="ID_cortante" />
           </Key>
           <Property Name="ID_cortante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Sector" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sector" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bocas" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Cortante" FromRole="Cortante" ToRole="Componente" />
         </EntityType>
         <EntityType Name="CtaCte_Clientes">
@@ -985,12 +1003,12 @@
           </Key>
           <Property Name="ID_movimiento" Type="Int32" Nullable="false" />
           <Property Name="ID_cliente" Type="Int32" />
-          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Saldo" Type="Int32" />
           <Property Name="Fecha_movimiento" Type="DateTime" Precision="0" />
-          <Property Name="Concepto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Importe_movimiento" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="CtaCte_Clientes" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="CtaCte_Proveedores">
@@ -999,12 +1017,12 @@
           </Key>
           <Property Name="ID_movimiento" Type="Guid" Nullable="false" />
           <Property Name="ID_Proveedor" Type="Int32" />
-          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Saldo" Type="Int32" />
           <Property Name="Fecha_movimiento" Type="DateTime" Precision="0" />
           <Property Name="Concepto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Importe_movimiento" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Proveedor" Relationship="Self.FK_CtaCte_Proveedores_Proveedor" FromRole="CtaCte_Proveedores" ToRole="Proveedor" />
         </EntityType>
         <EntityType Name="Detalle_factura">
@@ -1015,7 +1033,7 @@
           <Property Name="Nro_factura" Type="Int32" Nullable="false" />
           <Property Name="ID_item" Type="Int32" Nullable="false" />
           <Property Name="ID_articulo" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Precio_unitario" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Precio_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Detalle_factura_Articulo" FromRole="Detalle_factura" ToRole="Articulo" />
@@ -1027,7 +1045,7 @@
           </Key>
           <Property Name="Nro_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ID_cliente" Type="Int32" Nullable="false" />
           <Property Name="ID_vendedor" Type="Int32" />
           <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" />
@@ -1041,6 +1059,7 @@
           <Property Name="Descuento" Type="Decimal" Precision="4" Scale="2" />
           <Property Name="CAE" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NroComprobante" Type="Int32" Nullable="false" />
+          <Property Name="FechaVencimientoCAE" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Encabezado_Factura" ToRole="Cliente" />
           <NavigationProperty Name="Condicion_venta" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Encabezado_Factura" ToRole="Condicion_venta" />
           <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura1" FromRole="Encabezado_Factura" ToRole="Detalle_factura" />
@@ -1501,6 +1520,7 @@
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
         <EntityContainer Name="BliboxEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
@@ -1631,6 +1651,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BliboxStoreContainer" CdmEntityContainer="BliboxEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Blibox.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Articulo">
             <EntityTypeMapping TypeName="Blibox.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
@@ -1638,11 +1668,9 @@
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
-                <ScalarProperty Name="IVA" ColumnName="IVA" />
                 <ScalarProperty Name="Precio_lista" ColumnName="Precio_lista" />
                 <ScalarProperty Name="Precio_fecha" ColumnName="Precio_fecha" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
-                <ScalarProperty Name="Fazon" ColumnName="Fazon" />
                 <ScalarProperty Name="Stock_minimo" ColumnName="Stock_minimo" />
                 <ScalarProperty Name="Cant_x_bulto" ColumnName="Cant_x_bulto" />
                 <ScalarProperty Name="Tamaño_caja" ColumnName="Tamaño_caja" />
@@ -1839,6 +1867,7 @@
                 <ScalarProperty Name="Descuento" ColumnName="Descuento" />
                 <ScalarProperty Name="CAE" ColumnName="CAE" />
                 <ScalarProperty Name="NroComprobante" ColumnName="NroComprobante" />
+                <ScalarProperty Name="FechaVencimientoCAE" ColumnName="FechaVencimientoCAE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -74,119 +74,77 @@
                     <div class="form-group">
                         <div class="col-md-8 form-group">
                             <label class="col-sm-2 control-label">ID Articulo:</label>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_articulo)" readonly />
                             </div>
 
-                            <label class="col-sm-2 control-label">ID Cliente:</label>
-                            <div class="col-md-2">
-                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_cliente)" readonly />
+                            <label class="col-sm-2 control-label">Cliente:</label>
+                            <div class="col-md-3">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cliente.Razon_Social)" readonly />
                             </div>
 
                             <label class="col-sm-2 control-label">F0PD:</label>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <input class="form-control" placeholder="@Html.Display("F0DP")" readonly />
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
+
                             <label class="col-sm-2 control-label">Descripcion:</label>
-                            <div class="col-md-6 input-group">
+                            <div class="col-md-6">
                                 <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
                             </div>
+                            <label class="col-sm-2 control-label">Costo:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Costo)" readonly />
+                            </div>
 
+                            <label class="col-sm-2 control-label">Precio Lista:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_lista)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">Fecha Precio:</label>
+                            <div class="col-md-3">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_fecha.ToString().Split(' ')[0])" readonly />
+                            </div>
+                            <label class="col-sm-2 control-label">Cant. por Bulto:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cant_x_bulto)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">Tamaño Caja:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tamaño_caja)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">Tiraje term. por hora:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_term_x_hora)" readonly />
+                            </div>
+
+                            <label class="col-sm-2 control-label">Tiraje troquel por hora:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_troquel_x_hora)" readonly />
+                            </div>
+                            <label class="col-sm-2 control-label">Observaciones:</label>
+                            <div class="col-md-6 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+                            </div>
+                            <label class="col-sm-2 control-label">Componentes:</label>
+                            <div class="col-md-3 ">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Componente.Count)" readonly />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="col-sm-2 control-label">Costo:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Costo)" readonly />
-                        </div>
-
-                        <label class="col-sm-2 control-label">Precio Lista:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_lista)" readonly />
-                        </div>
-
-                        <label class="col-sm-2 control-label">Fecha Precio:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio_fecha)" readonly />
-                        </div>
-                        </div>
-                    </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="col-sm-2 control-label">Iva:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.IVA)" readonly />
-                        </div>
-
-                        <label class="col-sm-2 control-label">Fazon:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fazon)" readonly />
-                        </div>
-
-                    </div>
-                    </div>
-                <br />
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="col-sm-2 control-label">Cant. por Bulto:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cant_x_bulto)" readonly />
-                        </div>
-
-                        <label class="col-sm-2 control-label">Tamaño Caja:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tamaño_caja)" readonly />
-                        </div>
-                    </div>
-
-                    </div>
-                <br />
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="col-sm-2 control-label">Tiraje term. por hora:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_term_x_hora)" readonly />
-                        </div>
-
-                        <label class="col-sm-2 control-label">Tiraje troquel por hora:</label>
-                        <div class="col-md-2 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tiraje_troquel_x_hora)" readonly />
-                        </div>
-
-                    </div>
-                    </div>
-                <br />
                 
-                <div class="row">
-                    <div class="col-md-8">
-                        <label class="col-sm-2 control-label">Observaciones:</label>
-                        <div class="col-md-6 input-group">
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
-                        </div>
-                    </div>
-                </div>
-            <br />    
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="col-sm-4 control-label">Cantidad de componentes:</label>
-                    <div class="col-md-2 input-group">
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Componente.Count)" readonly />
-                    </div>
-                </div>
-             </div>
+               
+                
+               
+               
+              
+               
+
+              
             <!-- /.box-body -->
         </div>
             </div>

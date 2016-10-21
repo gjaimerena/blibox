@@ -74,6 +74,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="CertX509Blibox.pem" />
+    <None Include="log4net.config" />
     <None Include="Service References\WSAA\Blibox.Logica.WSAA.loginCmsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

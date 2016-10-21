@@ -36,6 +36,7 @@ namespace Blibox
         public Nullable<decimal> Descuento { get; set; }
         public string CAE { get; set; }
         public int NroComprobante { get; set; }
+        public Nullable<System.DateTime> FechaVencimientoCAE { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Condicion_venta Condicion_venta { get; set; }

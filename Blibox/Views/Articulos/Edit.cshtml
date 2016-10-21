@@ -148,7 +148,7 @@
                                 <!--i class="input-group-addon fa fa-calendar"></!i-->
                             </div><!-- /.input group -->
                         </div>
-                        <div class="dobleEntrada">
+                        @*<div class="dobleEntrada">
                             <label class="control-label col-md-2 no-clear-md">IVA</label>
                             <div class="col-md-1 checkbox">
                                 <div class="radio">
@@ -176,8 +176,8 @@
                                     <label for="ivaNo">No</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="dobleEntrada">
+                        </div>*@
+                        @*<div class="dobleEntrada">
                             <label class="control-label col-md-2 no-clear-md">Fazón</label>
                             <div class="col-md-1 checkbox">
                                 <div class="radio">
@@ -206,8 +206,8 @@
                                     <label for="fazonNo">No</label>
                                 </div>
 
-                            </div><!-- /.form-group -->
-                        </div>
+                            </div> /.form-group 
+                        </div>*@
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <div class="dobleEntrada">
@@ -347,6 +347,7 @@
                         var i = 0;
                         var nro = 1 + i;
 
+                        
                         //ViewBag.idArticulo = Model.ID_articulo;
                         foreach (var item in Model.Componente)
                         {
@@ -362,7 +363,9 @@
                                 <div class="box-body">
                                     @Html.Editor("Componente[" + i + "].ID_Componente", item.ID_componente.ToString(), new { htmlAttributes = new { @Value = item.ID_componente, @style = "display: none" } })
                                     @Html.Editor("Componente[" + i + "].ID_articulo", item.ID_articulo.ToString(), new { htmlAttributes = new { @Value = item.ID_articulo, @style = "display: none" } })
-                                    <div class="form-group">
+                                   
+                                    
+                                     <div class="form-group">
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Material</label>
                                             <div class="col-md-4">
@@ -372,7 +375,7 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @Value = item.Peso, @class = "form-control" } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -380,14 +383,14 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Color</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Color", item.Color, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Color", item.Color, new { htmlAttributes = new { @Value = item.Color, @class = "form-control" } })
                                                 @*@Html.ValidationMessage(item.Color.ToString(), new { @class = "text-danger" })*@
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Ciclo</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @Value = item.Ciclos, @class = "form-control" } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -395,13 +398,13 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Bocas</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @Value = item.Bocas, @class = "form-control" } })
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Espesor</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @Value = item.Espesor, @class = "form-control" } })
                                                 @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
                                             </div>
                                         </div>

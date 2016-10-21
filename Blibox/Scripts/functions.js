@@ -49,6 +49,21 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
     var cantidad = $('#' + idCantidad).val();
     var precioUnitario = $('#' + idPrecioUnitario).val();
     $('#' + idPrecioTotal).val(cantidad * precioUnitario);
+
+   
+    $("#subtotal").val(0);
+    $('#tblData tr.dato').each(function () { //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
+
+        var subtotal = $("#subtotal").val();
+        var dato = $(this).find('td:eq(3) input').val();
+        var iva = $("#iva").val();
+
+        subtotal = parseFloat(subtotal) + parseFloat(dato); //numero de la celda 3
+
+        $('#subtotal').val(parseFloat(subtotal)); //numero de la celda 3
+        $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(iva) / 100)));
+    })
+
 }
 
 function Add() {
@@ -67,7 +82,7 @@ function Add() {
     var namePrecioUnitario = 'articulos[' + fila + '].precioUnitario';
     var namePrecioTotal = 'articulos[' + fila + '].precioTotal';
 
-    $("#tblData tbody").append("<tr>" +
+    $("#tblData tbody").append("<tr class='dato'>" +
         "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
         "<td><input class = 'form-control' type='number' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
         "<td><input class = 'form-control' type='number' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +

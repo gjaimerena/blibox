@@ -16,7 +16,7 @@ namespace Blibox
     {
         public int ID_componente { get; set; }
         public int ID_articulo { get; set; }
-        public Nullable<int> Peso { get; set; }
+        public Nullable<decimal> Peso { get; set; }
         public Nullable<int> ID_material { get; set; }
         public Nullable<int> ID_marco { get; set; }
         public string Ciclos { get; set; }

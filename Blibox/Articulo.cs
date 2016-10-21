@@ -26,12 +26,10 @@ namespace Blibox
         public string Descripcion { get; set; }
         public int ID_cliente { get; set; }
         public Nullable<decimal> Costo { get; set; }
-        public Nullable<decimal> IVA { get; set; }
         public Nullable<decimal> Precio_lista { get; set; }
         public Nullable<System.DateTime> Precio_fecha { get; set; }
-        public Nullable<int> Stock { get; set; }
-        public string Fazon { get; set; }
-        public Nullable<int> Stock_minimo { get; set; }
+        public Nullable<decimal> Stock { get; set; }
+        public Nullable<decimal> Stock_minimo { get; set; }
         public Nullable<int> Cant_x_bulto { get; set; }
         public Nullable<int> Tamaño_caja { get; set; }
         public Nullable<int> Tiraje_term_x_hora { get; set; }

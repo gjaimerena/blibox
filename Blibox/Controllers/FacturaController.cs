@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Blibox;
 using PagedList;
 using Blibox.Models;
+using Blibox.Logica.Facturacion;
+using Blibox.Logica.Model;
 
 namespace Blibox.Controllers
 {
@@ -83,7 +85,7 @@ namespace Blibox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection formCollection)
+        public ActionResult Create(FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -92,9 +94,69 @@ namespace Blibox.Controllers
                 //return RedirectToAction("Index");
             }
 
-           // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
-           
-            return View(formCollection);
+            int idCliente = Convert.ToInt32(form["ID_cliente"]);
+            string documento = form["Cliente.Documento"];
+            string tipoDocumento = form["Cliente.TipoResponsables.Descripcion"];
+            double CondicionIVA = Convert.ToDouble(form["Cliente.CondicionIVA"].Replace('.', ','));
+            string ID_condicion_venta = form["ID_condicion_venta"];
+            DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
+            int Remito = Convert.ToInt32(form["Nro_remito"]);
+            int OrdenCompra = Convert.ToInt32(form["OrdenCompra"]);
+            int DiasFF = Convert.ToInt32(form["Cliente.DiasFF"]);
+            int DiasCheque = Convert.ToInt32(form["Cliente.Dias_Cheque"]);
+            Decimal Descuento = Convert.ToDecimal(form["Descuento"].Replace('.', ','));
+            Double subtotal = Convert.ToDouble(form["subtotal"].Replace('.', ','));
+            Double total = Convert.ToDouble(form["total"].Replace('.',','));
+
+            for (int i = 12; i < form.Count-2; i = i + 4)
+            {
+                itemFactura item = new itemFactura
+                {
+                    IdArticulo = Convert.ToInt32(form[form.GetKey(i)]),
+                    cantidad = Convert.ToDecimal(form[form.GetKey(i + 1)]),
+                    precioUnitario = Convert.ToDecimal(form[form.GetKey(i + 2)]),
+                    precioTotal = Convert.ToDecimal(form[form.GetKey(i + 3)])
+                };
+
+            }
+
+            //Consdigo autoriazcion en AFIP para generar factura
+            DetalleRegistros[] detalles = new DetalleRegistros[1];
+
+            DetalleRegistros det = new DetalleRegistros();
+            
+            //el nro de comproabnte lo obtiene la libreria
+            //Si no se le envia fecha de comprobante Afip asigna la fecha del proceso
+            //det.CbteFch = FechaEmision.ToString("yyyy-MM-dd");
+
+            det.Concepto= 1; //1=Productos
+            det.DocNro = Convert.ToInt64(documento);
+            det.DocTipo = 80 ; //80=CUIT
+            det.ImpTotal = total;
+            det.ImpNeto = subtotal;
+            det.ImpTotConc = 0;
+            det.ImpOpEx = 0;
+            det.ImpTrib = 0;
+            det.ImpIVA = subtotal * (CondicionIVA / 100);//
+            det.MonId = "PES"; //peso
+            det.MonCotiz = 1; //moneda argetnia es 1
+
+            Blibox.Logica.Model.IVA[] iva = new Blibox.Logica.Model.IVA[1];
+            iva[0] = new Blibox.Logica.Model.IVA();
+            iva[0].Id = 5; //21%
+            iva[0].BaseImp = subtotal;
+            iva[0].Importe = subtotal * (CondicionIVA/100);
+
+            det.Iva = iva;
+
+            detalles[0] = det;
+
+            FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 001, detalles);
+
+
+            // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+
+            return View(form);
         }
 
         // GET: Factura/Edit/5
