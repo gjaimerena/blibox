@@ -253,6 +253,9 @@
     <Compile Include="Compras.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="CondicionIVA.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -273,6 +276,9 @@
     </Compile>
     <Compile Include="Encabezado_Factura.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\FacturaHandler.ashx.cs">
+      <DependentUpon>FacturaHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="IVA.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
@@ -295,9 +301,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
-    <Compile Include="Extensions\FacturaHandler.ashx.cs">
-      <DependentUpon>FacturaHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Models\itemFactura.cs" />
     <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
@@ -1318,7 +1321,6 @@
     <Content Include="plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
-    <Compile Include="Extensions\FacturaHandler.ashx" />
     <EntityDeploy Include="Blibox.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
@@ -1326,6 +1328,7 @@
     <Content Include="Blibox.edmx.diagram">
       <DependentUpon>Blibox.edmx</DependentUpon>
     </Content>
+    <Content Include="Extensions\FacturaHandler.ashx" />
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />

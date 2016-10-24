@@ -76,6 +76,7 @@ namespace Blibox.Controllers
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
             ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
+            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion","5");
             ViewBag.art = "";
             return View();
         }
@@ -97,18 +98,32 @@ namespace Blibox.Controllers
             int idCliente = Convert.ToInt32(form["ID_cliente"]);
             string documento = form["Cliente.Documento"];
             string tipoDocumento = form["Cliente.TipoResponsables.Descripcion"];
-            double CondicionIVA = Convert.ToDouble(form["Cliente.CondicionIVA"].Replace('.', ','));
+            int CondicionIVA = Convert.ToInt32(form["iva"]);
+
+            double desc_Iva;
+            if (CondicionIVA <= 2)
+            {
+                desc_Iva = 0;
+            }
+            else
+            {
+                string descripcion = db.CondicionIVA.Where(m => m.Codigo == CondicionIVA).FirstOrDefault().Descripcion;
+                desc_Iva = Convert.ToDouble(descripcion.Replace('%', ' '));
+                desc_Iva =  Math.Round(desc_Iva, 2);
+            }
+
             string ID_condicion_venta = form["ID_condicion_venta"];
-            DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
+            // DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
             int Remito = Convert.ToInt32(form["Nro_remito"]);
             int OrdenCompra = Convert.ToInt32(form["OrdenCompra"]);
             int DiasFF = Convert.ToInt32(form["Cliente.DiasFF"]);
             int DiasCheque = Convert.ToInt32(form["Cliente.Dias_Cheque"]);
             Decimal Descuento = Convert.ToDecimal(form["Descuento"].Replace('.', ','));
             Double subtotal = Convert.ToDouble(form["subtotal"].Replace('.', ','));
-            Double total = Convert.ToDouble(form["total"].Replace('.',','));
+            Double total = Convert.ToDouble(form["total"].Replace('.', ','));
 
-            for (int i = 12; i < form.Count-2; i = i + 4)
+            List<itemFactura> itemsFactura = new List<itemFactura>();
+            for (int i = 11; i < form.Count - 2; i = i + 4)
             {
                 itemFactura item = new itemFactura
                 {
@@ -117,44 +132,99 @@ namespace Blibox.Controllers
                     precioUnitario = Convert.ToDecimal(form[form.GetKey(i + 2)]),
                     precioTotal = Convert.ToDecimal(form[form.GetKey(i + 3)])
                 };
-
+                itemsFactura.Add(item);
             }
 
             //Consdigo autoriazcion en AFIP para generar factura
             DetalleRegistros[] detalles = new DetalleRegistros[1];
 
             DetalleRegistros det = new DetalleRegistros();
-            
+
             //el nro de comproabnte lo obtiene la libreria
             //Si no se le envia fecha de comprobante Afip asigna la fecha del proceso
             //det.CbteFch = FechaEmision.ToString("yyyy-MM-dd");
 
-            det.Concepto= 1; //1=Productos
+            det.Concepto = 1; //1=Productos
             det.DocNro = Convert.ToInt64(documento);
-            det.DocTipo = 80 ; //80=CUIT
-            det.ImpTotal = total;
-            det.ImpNeto = subtotal;
+            det.DocTipo = 80; //80=CUIT
+            det.ImpTotal = Math.Round(total, 2); 
+            det.ImpNeto = Math.Round(subtotal,2);
             det.ImpTotConc = 0;
             det.ImpOpEx = 0;
             det.ImpTrib = 0;
-            det.ImpIVA = subtotal * (CondicionIVA / 100);//
+            det.ImpIVA = Math.Round(subtotal * (desc_Iva / 100), 2);  //
             det.MonId = "PES"; //peso
             det.MonCotiz = 1; //moneda argetnia es 1
 
-            Blibox.Logica.Model.IVA[] iva = new Blibox.Logica.Model.IVA[1];
-            iva[0] = new Blibox.Logica.Model.IVA();
-            iva[0].Id = 5; //21%
-            iva[0].BaseImp = subtotal;
-            iva[0].Importe = subtotal * (CondicionIVA/100);
+            if (CondicionIVA >= 3 && CondicionIVA <= 6)
+            {
+                Blibox.Logica.Model.IVA[] iva = new Blibox.Logica.Model.IVA[1];
+                iva[0] = new Blibox.Logica.Model.IVA();
+                iva[0].Id = CondicionIVA; //21%
+                iva[0].BaseImp = subtotal;
+                iva[0].Importe = subtotal * (desc_Iva / 100);
 
-            det.Iva = iva;
+                det.Iva = iva;
+            }
 
             detalles[0] = det;
 
             FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 001, detalles);
 
 
-            // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+
+            if (resp.Cabecera.Resultado == "A")
+            {
+                DateTime fechaVencCAE = DateTime.ParseExact(resp.Detalles[0].CAEFchVto, "yyyyMMdd", null);
+
+                Encabezado_Factura encFactura = new Encabezado_Factura
+                {
+                    CAE = resp.Detalles[0].CAE,
+                    Descuento = Descuento,
+                    Fecha = DateTime.Now,
+                    FechaVencimientoCAE = fechaVencCAE,
+                    ID_cliente = idCliente,
+                    ID_condicon_venta = Convert.ToInt32(ID_condicion_venta),
+                    IVA = Convert.ToDecimal(desc_Iva),
+                    NroComprobante = Convert.ToInt32(resp.Detalles[0].CbteDesde),
+                    Nro_remito = Remito,
+                    OrdenCompra = OrdenCompra,
+                    Subtotal = Convert.ToDecimal(subtotal),
+                    Total = Convert.ToDecimal(total),
+                    Tipo = "A",
+
+                };
+
+
+                List<Detalle_factura> detFactura = new List<Detalle_factura>();
+                int id_item = 1;
+                foreach (itemFactura item in itemsFactura)
+                {
+                    Detalle_factura newDet = new Detalle_factura
+                    {
+                        Cantidad = item.cantidad,
+                        ID_articulo = item.IdArticulo,
+                        Precio_unitario = item.precioUnitario,
+                        Precio_total = item.precioTotal,
+                        ID_item = id_item
+                    };
+
+                    detFactura.Add(newDet);
+                    id_item++;
+
+
+                };
+
+                encFactura.Detalle_factura = detFactura;
+
+                db.Encabezado_Factura.Add(encFactura);
+                db.SaveChanges();
+
+
+                // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+                return RedirectToAction("Index");
+                //return View(form);
+            }
 
             return View(form);
         }

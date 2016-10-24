@@ -51,7 +51,9 @@ namespace Blibox.Logica.Facturacion
 
             //obtnego ultimo nro de comprobante emitido
             int ultimoNroComprobante = obtenerUltimoComprobante(auth, PtoVta, CbteTipo);
-            
+
+
+            DateTime fechaActual = DateTime.Now;
             //Genero FeDetReq con tantos registro como indique en la cabecera
             for (int i = 0; i < nroRegistros; i++) {
 
@@ -62,7 +64,7 @@ namespace Blibox.Logica.Facturacion
                 feCAEReq.FeDetReq[i].DocNro = detalles[i].DocNro;
                 feCAEReq.FeDetReq[i].CbteDesde = ultimoNroComprobante + 1;
                 feCAEReq.FeDetReq[i].CbteHasta = ultimoNroComprobante + 1;
-                feCAEReq.FeDetReq[i].CbteFch = DateTime.Now.ToString("yyyymmdd");//detalles[i].CbteFch;
+                feCAEReq.FeDetReq[i].CbteFch = fechaActual.Year.ToString() + fechaActual.Month.ToString() + fechaActual.Day.ToString(); //detalles[i].CbteFch;
                 feCAEReq.FeDetReq[i].ImpTotal = detalles[i].ImpTotal;
                 feCAEReq.FeDetReq[i].ImpTotConc = detalles[i].ImpTotConc;
                 feCAEReq.FeDetReq[i].ImpNeto = detalles[i].ImpNeto;

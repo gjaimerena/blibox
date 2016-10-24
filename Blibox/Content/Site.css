@@ -319,3 +319,8 @@ button > a:focus {
     background-color: #eee;
 }
 
+
+.glyphiconAddItem {
+    font-size: 25px;
+    padding-top: 5px;
+}

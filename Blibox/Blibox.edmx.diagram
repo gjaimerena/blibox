@@ -57,6 +57,7 @@
         <AssociationConnector Association="Blibox.FK_Encabezado_Factura_Vendedor" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Remito_Pedido" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Blibox.CondicionIVA" Width="1.5" PointX="15.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

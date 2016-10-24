@@ -53,5 +53,6 @@ namespace Blibox
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoResponsables> TipoResponsables { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
+        public virtual DbSet<CondicionIVA> CondicionIVA { get; set; }
     }
 }

@@ -56,12 +56,19 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
 
         var subtotal = $("#subtotal").val();
         var dato = $(this).find('td:eq(3) input').val();
-        var iva = $("#iva").val();
-
+        var iva = parseInt($("#iva").val());
+        var porcIva = 0;
         subtotal = parseFloat(subtotal) + parseFloat(dato); //numero de la celda 3
 
         $('#subtotal').val(parseFloat(subtotal)); //numero de la celda 3
-        $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(iva) / 100)));
+        if (iva <= 3) {
+            porcIva = 0;
+        }
+        if (parseInt(iva) == 4) porcIva = 0.105;
+        if (parseInt(iva) == 5) porcIva = 0.21;
+        if (parseInt(iva) == 6) porcIva = 0.27;
+
+        $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva))));
     })
 
 }
@@ -84,10 +91,10 @@ function Add() {
 
     $("#tblData tbody").append("<tr class='dato'>" +
         "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
-        "<td><input class = 'form-control' type='number' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
-        "<td><i class='btnSave glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphicon glyphicon-remove'></i> <select id='" + idPreciosUnitarios + "' class='hidden' /> </td>" +
+        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
+        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
+        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
+        "<td><i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></td>" +
         "</tr>");
     $(".btnSave").bind("click", Save);
     $(".btnDelete").bind("click", Delete);
@@ -103,6 +110,10 @@ function Add() {
     });
 
     $('#' + idPrecioUnitario).change(function () {
+        calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal);
+    });
+
+    $('#iva').change(function () {
         calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal);
     });
 
@@ -123,7 +134,7 @@ function Save(){
     tdCantidad.children().attr('readonly', 'readonly');
     tdPrecioU.children().attr('readonly', 'readonly');
     tdPrecioT.children().attr('readonly', 'readonly');
-    tdButtons.html("<i class='btnDelete glyphicon glyphicon-remove'></i><i class='btnEdit glyphicon glyphicon-pencil'></i>");
+    tdButtons.html("<i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></i><i class='btnEdit glyphiconAddItem glyphicon glyphicon-pencil'></i>");
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
 
@@ -140,7 +151,7 @@ function Edit(){
     tdCantidad.children().attr('readonly', false);
     tdPrecioU.children().attr('readonly', false);
     tdPrecioT.children().attr('readonly', false);
-    tdButtons.html("<i class='btnSave glyphicon glyphicon-floppy-disk'></i>");
+    tdButtons.html("<i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i>");
     $(".btnSave").bind("click", Save);
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
