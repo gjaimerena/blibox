@@ -1612,6 +1612,10 @@
       <Project>{83fb1b48-a291-479e-bd7b-348197069187}</Project>
       <Name>Blibox.Logica</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Blibox.Reports\Blibox.Reports.csproj">
+      <Project>{83e60cd7-e98b-4e94-a900-d2d2f9fd5bac}</Project>
+      <Name>Blibox.Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

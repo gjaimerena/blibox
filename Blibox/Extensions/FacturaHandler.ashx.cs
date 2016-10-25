@@ -2,6 +2,7 @@
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -57,27 +58,28 @@ namespace Blibox
 
                 var ubicacionReporte = string.Empty;
 
-                path = HttpContext.Current.Server.MapPath("ModeloFactura.rdlc");
-                report.LocalReport.ReportPath = path;
+                path = ConfigurationManager.AppSettings["ReportFactura"];
+            //HttpContext.Current.Server.MapPath("ModeloFactura.rdlc");
+            report.LocalReport.ReportPath = path;
 
                 List<ReportParameter> res = new List<ReportParameter>();
 
-                res.Add(new ReportParameter("nroComprobante", factura.Nro_factura.ToString()));
-                //res.Add(new ReportParameter("tipoComprobante", "Remito"));
+                //res.Add(new ReportParameter("nroComprobante", factura.Nro_factura.ToString()));
+                ////res.Add(new ReportParameter("tipoComprobante", "Remito"));
 
-                DateTime fechaEmision = (factura.Fecha != null) ? (DateTime)factura.Fecha : DateTime.Now;
-                res.Add(new ReportParameter("fechaEmision", fechaEmision.ToString("dd-MM-yyyy")));
-                res.Add(new ReportParameter("nroCUIT", "30-70774439-8"));
+                //DateTime fechaEmision = (factura.Fecha != null) ? (DateTime)factura.Fecha : DateTime.Now;
+                //res.Add(new ReportParameter("fechaEmision", fechaEmision.ToString("dd-MM-yyyy")));
+                //res.Add(new ReportParameter("nroCUIT", "30-70774439-8"));
 
-                res.Add(new ReportParameter("subtotal", factura.Subtotal.ToString()));
-                decimal? montoIva = factura.Total - factura.Subtotal;
+                //res.Add(new ReportParameter("subtotal", factura.Subtotal.ToString()));
+                //decimal? montoIva = factura.Total - factura.Subtotal;
 
-                res.Add(new ReportParameter("montoIva", montoIva.ToString()));
-                res.Add(new ReportParameter("total", factura.Total.ToString()));
+                //res.Add(new ReportParameter("montoIva", montoIva.ToString()));
+                //res.Add(new ReportParameter("total", factura.Total.ToString()));
 
-                report.LocalReport.SetParameters(res);
+                //report.LocalReport.SetParameters(res);
 
-                ReportDataSource dsFactura = new ReportDataSource("dsFacturaDetalle", GetFacturaDetalle(factura.Detalle_factura.ToList()));
+                ReportDataSource dsFactura = new ReportDataSource("Factura", GetFacturaDetalle(factura.Detalle_factura.ToList()));
 
                 report.LocalReport.DataSources.Clear();
                 report.LocalReport.DataSources.Add(dsFactura);

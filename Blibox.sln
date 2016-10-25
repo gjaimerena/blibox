@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blibox.Logica", "Blibox.Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAutenticacion", "TestAutenticacion\TestAutenticacion.csproj", "{15BD45FC-CA5A-4038-ADC5-A60776B4F2E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blibox.Reports", "Blibox.Reports\Blibox.Reports.csproj", "{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{15BD45FC-CA5A-4038-ADC5-A60776B4F2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15BD45FC-CA5A-4038-ADC5-A60776B4F2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15BD45FC-CA5A-4038-ADC5-A60776B4F2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -90,8 +90,8 @@
                             <button type="button" class="btn btn-primary ">@Html.ActionLink("Ver Detalle", "Details", new { id = item.Nro_factura })</button> |
                             <button type="button" class="btn btn-primary ">@Html.ActionLink("Delete", "Delete", new { id = item.Nro_factura })</button>*@
 
-
-                            <a href="@Url.Action("Details", new { id = item.Nro_factura })" title="Ver" class="">
+                            <a href="~/Extensions/FacturaHandler.ashx?nroFactura=@item.Nro_factura">
+                            @*<a href="@Url.Action("Details", new { id = item.Nro_factura })" title="Ver" class="">*@
                                 <i class="glyphicon glyphicon-eye-open"></i>
                                 <span class="sr-only">Ver</span>
                             </a>

@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Facturacion\FE.cs" />
     <Compile Include="Facturacion\LoginTicket.cs" />
     <Compile Include="Model\Error.cs" />

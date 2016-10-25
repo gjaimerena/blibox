@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="FacturaHandler.ashx.cs" Class="Blibox.Extensions.Handler1" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="FacturaHandler.ashx.cs" Class="Blibox.FacturaHandler" %>
