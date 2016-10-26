@@ -17,6 +17,7 @@ namespace Blibox
         {
             #region IHttpHandler Members
             static Blibox.Encabezado_Factura factura = null;
+            static string lblTipoCbte;
 
             public bool IsReusable
             {
@@ -31,12 +32,18 @@ namespace Blibox
                 //write your handler implementation here.
                 int nroFactura = Convert.ToInt32(context.Request.QueryString["nroFactura"]);
 
+                string tipoCbte = context.Request.QueryString["tipoCbte"];
+                
+                if (tipoCbte == "1") lblTipoCbte = "Factura: ";
+                if (tipoCbte == "2") lblTipoCbte = "Nota Débito: ";
+                if (tipoCbte == "3") lblTipoCbte = "Nota Crédito: ";
+
                 using (BliboxEntities db = new BliboxEntities())
                 {
                     try
                     {
                         factura = db.Encabezado_Factura.Where(m => m.Nro_factura == nroFactura).FirstOrDefault();
-                        byte[] pdf = this.GenerarPDF();
+                        byte[] pdf = this.GenerarPDF(lblTipoCbte);
 
                         VisualizarPDF(r, pdf);
                     }
@@ -49,7 +56,7 @@ namespace Blibox
 
             }
 
-            private byte[] GenerarPDF()
+            private byte[] GenerarPDF(string lblTipoCbte)
             {
                 byte[] pdf = null;
                 string path;
@@ -62,24 +69,49 @@ namespace Blibox
             //HttpContext.Current.Server.MapPath("ModeloFactura.rdlc");
             report.LocalReport.ReportPath = path;
 
-                List<ReportParameter> res = new List<ReportParameter>();
 
-                //res.Add(new ReportParameter("nroComprobante", factura.Nro_factura.ToString()));
-                ////res.Add(new ReportParameter("tipoComprobante", "Remito"));
+            List<ReportParameter> res = new List<ReportParameter>();
 
-                //DateTime fechaEmision = (factura.Fecha != null) ? (DateTime)factura.Fecha : DateTime.Now;
-                //res.Add(new ReportParameter("fechaEmision", fechaEmision.ToString("dd-MM-yyyy")));
-                //res.Add(new ReportParameter("nroCUIT", "30-70774439-8"));
+            //nro de comobante lo armo con el punto de venta y el nro comprobante dado por afip
+            string nrocomprobante = factura.NroComprobante.ToString();
+            //nro comprobante debe tener 8 digitos y 3 el pto venta
+            while (nrocomprobante.Length < 8) nrocomprobante = "0" + nrocomprobante;
+            nrocomprobante = "001-" + nrocomprobante;
 
-                //res.Add(new ReportParameter("subtotal", factura.Subtotal.ToString()));
-                //decimal? montoIva = factura.Total - factura.Subtotal;
+            res.Add(new ReportParameter("NroComprobante", nrocomprobante));
+            res.Add(new ReportParameter("lblTipoCbte", lblTipoCbte));
+            //res.Add(new ReportParameter("tipoComprobante", "Remito"));
 
-                //res.Add(new ReportParameter("montoIva", montoIva.ToString()));
-                //res.Add(new ReportParameter("total", factura.Total.ToString()));
+            DateTime fechaEmision = (factura.Fecha != null) ? (DateTime)factura.Fecha : DateTime.Now;
+            res.Add(new ReportParameter("Fecha", fechaEmision.ToString("dd-MM-yyyy")));
+            res.Add(new ReportParameter("CUIT", "30-70774439-8"));
 
-                //report.LocalReport.SetParameters(res);
+            res.Add(new ReportParameter("Cliente_RazonSocial", factura.Cliente.Razon_Social));
+            res.Add(new ReportParameter("Cliente_Domicilio", factura.Cliente.Domicilio + " - " + factura.Cliente.Localidad + " - " + factura.Cliente.Provincia));
+            
+            res.Add(new ReportParameter("Cliente_TipoResponsable", factura.Cliente.TipoResponsables.Descripcion));
 
-                ReportDataSource dsFactura = new ReportDataSource("Factura", GetFacturaDetalle(factura.Detalle_factura.ToList()));
+            res.Add(new ReportParameter("Cliente_CUIT", factura.Cliente.Documento));
+            res.Add(new ReportParameter("CondicionVenta", factura.Condicion_venta.Descripcion));
+            res.Add(new ReportParameter("Cliente_Remito", factura.Nro_remito.ToString()));
+
+            //footer
+            res.Add(new ReportParameter("CAE", factura.CAE));
+
+            DateTime fechaVencCAE = (factura.FechaVencimientoCAE != null) ? (DateTime)factura.FechaVencimientoCAE : DateTime.Now;
+            res.Add(new ReportParameter("VencimientoCAE", fechaVencCAE.ToString("dd-MM-yyyy")));
+            
+
+
+            res.Add(new ReportParameter("Subtotal", factura.Subtotal.ToString()));
+            decimal? montoIva = factura.Total - factura.Subtotal;
+
+            res.Add(new ReportParameter("Cliente_IVA", factura.IVA.ToString()));
+            res.Add(new ReportParameter("Total", factura.Total.ToString()));
+
+            report.LocalReport.SetParameters(res);
+
+            ReportDataSource dsFactura = new ReportDataSource("Factura", GetFacturaDetalle(factura.Detalle_factura.ToList()));
 
                 report.LocalReport.DataSources.Clear();
                 report.LocalReport.DataSources.Add(dsFactura);

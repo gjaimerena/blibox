@@ -259,6 +259,7 @@
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\NotaDebitoController.cs" />
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -1329,6 +1330,10 @@
       <DependentUpon>Blibox.edmx</DependentUpon>
     </Content>
     <Content Include="Extensions\FacturaHandler.ashx" />
+    <Content Include="certificadosAfip\BliboxHomoCP" />
+    <Content Include="certificadosAfip\BliboxHomoCSR" />
+    <Content Include="certificadosAfip\certificate.pfx" />
+    <Content Include="certificadosAfip\CertX509Blibox.pem" />
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />
@@ -1586,12 +1591,9 @@
     <Content Include="Views\CtaCte_Clientes\Index.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Factura\Create.cshtml" />
-    <Content Include="Views\Factura\Delete.cshtml" />
-    <Content Include="Views\Factura\Details.cshtml" />
-    <Content Include="Views\Factura\Edit.cshtml" />
     <Content Include="Views\Factura\Index.cshtml" />
-    <Content Include="Views\Factura\Create - Copy.cshtml" />
-    <Content Include="Views\Factura\Create - Copy %282%29.cshtml" />
+    <Content Include="Views\NotaDebito\Create.cshtml" />
+    <Content Include="Views\NotaDebito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,8 +49,10 @@ namespace Blibox.Logica.Facturacion
 
             feCAEReq.FeDetReq = new WSFEv1.FECAEDetRequest[nroRegistros];
 
-            //obtnego ultimo nro de comprobante emitido
-            int ultimoNroComprobante = obtenerUltimoComprobante(auth, PtoVta, CbteTipo);
+            int Cbte = obtenerUltimoComprobante(auth, PtoVta, CbteTipo)+1;
+            
+            
+            
 
 
             DateTime fechaActual = DateTime.Now;
@@ -62,8 +64,8 @@ namespace Blibox.Logica.Facturacion
                 feCAEReq.FeDetReq[i].Concepto = detalles[i].Concepto ;
                 feCAEReq.FeDetReq[i].DocTipo = detalles[i].DocTipo; 
                 feCAEReq.FeDetReq[i].DocNro = detalles[i].DocNro;
-                feCAEReq.FeDetReq[i].CbteDesde = ultimoNroComprobante + 1;
-                feCAEReq.FeDetReq[i].CbteHasta = ultimoNroComprobante + 1;
+                feCAEReq.FeDetReq[i].CbteDesde = Cbte;
+                feCAEReq.FeDetReq[i].CbteHasta = Cbte;
                 feCAEReq.FeDetReq[i].CbteFch = fechaActual.Year.ToString() + fechaActual.Month.ToString() + fechaActual.Day.ToString(); //detalles[i].CbteFch;
                 feCAEReq.FeDetReq[i].ImpTotal = detalles[i].ImpTotal;
                 feCAEReq.FeDetReq[i].ImpTotConc = detalles[i].ImpTotConc;
@@ -233,9 +235,8 @@ namespace Blibox.Logica.Facturacion
             catch (Exception ex) {
                 return -1;
             }
-
-
-
         }
+
+        
     }
 }

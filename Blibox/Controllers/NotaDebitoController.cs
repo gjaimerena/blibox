@@ -9,20 +9,18 @@ using System.Web.Mvc;
 using Blibox;
 using PagedList;
 using Blibox.Models;
-using Blibox.Logica.Facturacion;
 using Blibox.Logica.Model;
+using Blibox.Logica.Facturacion;
 
 namespace Blibox.Controllers
 {
-    public class FacturaController : Controller
+    public class NotaDebitoController : Controller
     {
         private BliboxEntities db = new BliboxEntities();
 
-        // GET: Factura
-        // GET: Clientes
+        // GET: NotaDebito
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
-
             ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
 
             page = page > 0 ? page : 1;
@@ -34,7 +32,7 @@ namespace Blibox.Controllers
 
             ViewBag.CurrentSort = sortOrder;
 
-            var query = db.Encabezado_Factura.Include(e => e.Cliente).Include(e => e.Condicion_venta).Include(e => e.Detalle_factura).Include(e => e.Vendedor).Where(m => m.Tipo == "1").OrderBy(m => m.Nro_factura);
+            var query = db.Encabezado_Factura.Include(e => e.Cliente).Include(e => e.Condicion_venta).Include(e => e.Detalle_factura).Include(e => e.Vendedor).Where(m => m.Tipo == "2").OrderBy(m => m.Nro_factura);
 
             if (!String.IsNullOrEmpty(q))
             {
@@ -50,13 +48,8 @@ namespace Blibox.Controllers
 
             return View(query.ToPagedList(page, pageSize));
         }
-        //public ActionResult Index()
-        //{
-        //    var encabezado_Factura = db.Encabezado_Factura.Include(e => e.Cliente).Include(e => e.Condicion_venta).Include(e => e.Detalle_factura).Include(e => e.Vendedor);
-        //    return View(encabezado_Factura.ToList());
-        //}
 
-        // GET: Factura/Details/5
+        // GET: NotaDebito/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -71,17 +64,17 @@ namespace Blibox.Controllers
             return View(encabezado_Factura);
         }
 
-        // GET: Factura/Create
+        // GET: NotaDebito/Create
         public ActionResult Create()
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
             ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
-            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion","5");
+            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion", "5");
             ViewBag.art = "";
             return View();
         }
 
-        // POST: Factura/Create
+        // POST: NotaDebito/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -109,12 +102,13 @@ namespace Blibox.Controllers
             {
                 string descripcion = db.CondicionIVA.Where(m => m.Codigo == CondicionIVA).FirstOrDefault().Descripcion;
                 desc_Iva = Convert.ToDouble(descripcion.Replace('%', ' '));
-                desc_Iva =  Math.Round(desc_Iva, 2);
+                desc_Iva = Math.Round(desc_Iva, 2);
             }
 
             string ID_condicion_venta = form["ID_condicion_venta"];
             // DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
-            //int Remito = Convert.ToInt32(form["Nro_remito"]);
+            long NroCbteAsoc = Convert.ToInt64(form["NroComprobante"]);
+            int Remito = Convert.ToInt32(form["Nro_remito"]);
             int OrdenCompra = Convert.ToInt32(form["OrdenCompra"]);
             int DiasFF = Convert.ToInt32(form["Cliente.DiasFF"]);
             int DiasCheque = Convert.ToInt32(form["Cliente.Dias_Cheque"]);
@@ -123,7 +117,7 @@ namespace Blibox.Controllers
             Double total = Convert.ToDouble(form["total"].Replace('.', ','));
 
             List<itemFactura> itemsFactura = new List<itemFactura>();
-            for (int i = 10; i < form.Count - 2; i = i + 4)
+            for (int i = 12; i < form.Count - 2; i = i + 4)
             {
                 itemFactura item = new itemFactura
                 {
@@ -147,8 +141,8 @@ namespace Blibox.Controllers
             det.Concepto = 1; //1=Productos
             det.DocNro = Convert.ToInt64(documento);
             det.DocTipo = 80; //80=CUIT
-            det.ImpTotal = Math.Round(total, 2); 
-            det.ImpNeto = Math.Round(subtotal,2);
+            det.ImpTotal = Math.Round(total, 2);
+            det.ImpNeto = Math.Round(subtotal, 2);
             det.ImpTotConc = 0;
             det.ImpOpEx = 0;
             det.ImpTrib = 0;
@@ -167,12 +161,20 @@ namespace Blibox.Controllers
                 det.Iva = iva;
             }
 
+            //cargo el comprobante de la factura asociada
+            Blibox.Logica.Model.CbtesAsoc[] cbtesAsoc = new Blibox.Logica.Model.CbtesAsoc[1];
+            cbtesAsoc[0] = new Blibox.Logica.Model.CbtesAsoc();
+            cbtesAsoc[0].Nro = NroCbteAsoc;
+            cbtesAsoc[0].PtoVta = 1;
+            cbtesAsoc[0].Tipo = 1;
+
+            det.cbtesAsoc = cbtesAsoc;
+
+
             detalles[0] = det;
 
-            
-            FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 001, detalles);
-
-
+            //nroComprobante debe ser 0 para indicar que es una factura y debe generarse uno nuevo
+            FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 002, detalles);
 
             if (resp.Cabecera.Resultado == "A")
             {
@@ -192,7 +194,7 @@ namespace Blibox.Controllers
                     OrdenCompra = OrdenCompra,
                     Subtotal = Convert.ToDecimal(subtotal),
                     Total = Convert.ToDecimal(total),
-                    Tipo = "1", //1=Factura A
+                    Tipo = "2",
 
                 };
 
@@ -230,7 +232,7 @@ namespace Blibox.Controllers
             return View(form);
         }
 
-        // GET: Factura/Edit/5
+        // GET: NotaDebito/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -249,7 +251,7 @@ namespace Blibox.Controllers
             return View(encabezado_Factura);
         }
 
-        // POST: Factura/Edit/5
+        // POST: NotaDebito/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -269,7 +271,7 @@ namespace Blibox.Controllers
             return View(encabezado_Factura);
         }
 
-        // GET: Factura/Delete/5
+        // GET: NotaDebito/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -284,7 +286,7 @@ namespace Blibox.Controllers
             return View(encabezado_Factura);
         }
 
-        // POST: Factura/Delete/5
+        // POST: NotaDebito/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -327,7 +329,7 @@ namespace Blibox.Controllers
         public ActionResult obtenerDatosCliente(int? idCliente)
         {
 
-            Cliente cliente = db.Cliente.Where(m=>m.ID_cliente == idCliente).FirstOrDefault();
+            Cliente cliente = db.Cliente.Where(m => m.ID_cliente == idCliente).FirstOrDefault();
 
             BliboxEntities db2 = new BliboxEntities();
             db2.Configuration.ProxyCreationEnabled = false;
@@ -367,13 +369,16 @@ namespace Blibox.Controllers
         {
             Articulo articulo = db.Articulo.Where(m => m.ID_articulo == idArticulo).FirstOrDefault();
 
-            if (articulo!= null)
+            if (articulo != null)
             {
-                if (articulo.Precio_lista!=null) return Json(articulo.Precio_lista, JsonRequestBehavior.AllowGet);
+                if (articulo.Precio_lista != null) return Json(articulo.Precio_lista, JsonRequestBehavior.AllowGet);
             }
-            
-                return Json(0, JsonRequestBehavior.AllowGet);
+
+            return Json(0, JsonRequestBehavior.AllowGet);
         }
 
+
     }
+
+
 }
