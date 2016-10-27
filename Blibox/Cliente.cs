@@ -43,10 +43,10 @@ namespace Blibox
         public Nullable<int> DiasFF { get; set; }
         public Nullable<int> Dias_Cheque { get; set; }
         public string Grupo_mailing { get; set; }
-        public string Limite_credito { get; set; }
         public Nullable<System.DateTime> Fecha_alta { get; set; }
         public Nullable<int> TipoDocumento { get; set; }
         public string Documento { get; set; }
+        public Nullable<int> id_ctacte { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Articulo> Articulo { get; set; }

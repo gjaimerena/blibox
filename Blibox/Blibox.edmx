@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Blibox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -108,10 +98,10 @@
           <Property Name="DiasFF" Type="int" />
           <Property Name="Dias_Cheque" Type="int" />
           <Property Name="Grupo_mailing" Type="varchar" MaxLength="50" />
-          <Property Name="Limite_credito" Type="varchar" MaxLength="50" />
           <Property Name="Fecha_alta" Type="date" />
           <Property Name="TipoDocumento" Type="int" />
           <Property Name="Documento" Type="varchar" MaxLength="50" />
+          <Property Name="id_ctacte" Type="int" />
         </EntityType>
         <EntityType Name="Componente">
           <Key>
@@ -171,16 +161,12 @@
         </EntityType>
         <EntityType Name="CtaCte_Clientes">
           <Key>
-            <PropertyRef Name="ID_movimiento" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="ID_movimiento" Type="int" Nullable="false" />
-          <Property Name="ID_cliente" Type="int" />
-          <Property Name="Razon_social" Type="varchar" MaxLength="50" />
-          <Property Name="Saldo" Type="int" />
-          <Property Name="Fecha_movimiento" Type="date" />
-          <Property Name="Concepto" Type="varchar" MaxLength="50" />
-          <Property Name="Importe_movimiento" Type="int" />
-          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="fecha_alta" Type="varchar" MaxLength="50" />
+          <Property Name="limite_credito" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
@@ -194,6 +180,21 @@
           <Property Name="Concepto" Type="nchar" MaxLength="10" />
           <Property Name="Importe_movimiento" Type="int" />
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CtaCteClientesMov">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ctacte" Type="int" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="datetime" Nullable="false" />
+          <Property Name="importe_movimiento" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="saldo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="nro_comprobante" Type="int" />
+          <Property Name="observacion" Type="varchar" MaxLength="50" />
+          <Property Name="desc_debito" Type="varchar" MaxLength="50" />
+          <Property Name="desc_credito" Type="varchar" MaxLength="50" />
+          <Property Name="concepto" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -518,14 +519,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CtaCte_Clientes_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="ID_cliente" />
             </Principal>
             <Dependent Role="CtaCte_Clientes">
-              <PropertyRef Name="ID_cliente" />
+              <PropertyRef Name="id_cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,6 +539,18 @@
             </Principal>
             <Dependent Role="CtaCte_Proveedores">
               <PropertyRef Name="ID_Proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCteClientesMov_CtaCte_Clientes">
+          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="1" />
+          <End Role="CtaCteClientesMov" Type="Self.CtaCteClientesMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CtaCte_Clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CtaCteClientesMov">
+              <PropertyRef Name="id_ctacte" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -694,7 +707,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BliboxStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -709,6 +721,7 @@
           <EntitySet Name="Cortante" EntityType="Self.Cortante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CtaCte_Clientes" EntityType="Self.CtaCte_Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CtaCteClientesMov" EntityType="Self.CtaCteClientesMov" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Encabezado_Factura" EntityType="Self.Encabezado_Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IVA" EntityType="Self.IVA" Schema="dbo" store:Type="Tables" />
@@ -776,6 +789,10 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
           </AssociationSet>
+          <AssociationSet Name="FK_CtaCteClientesMov_CtaCte_Clientes" Association="Self.FK_CtaCteClientesMov_CtaCte_Clientes">
+            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+            <End Role="CtaCteClientesMov" EntitySet="CtaCteClientesMov" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -829,16 +846,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Blibox" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -934,10 +941,10 @@
           <Property Name="DiasFF" Type="Int32" />
           <Property Name="Dias_Cheque" Type="Int32" />
           <Property Name="Grupo_mailing" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Limite_credito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Fecha_alta" Type="DateTime" Precision="0" />
           <Property Name="TipoDocumento" Type="Int32" />
           <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_ctacte" Type="Int32" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Cliente" FromRole="Cliente" ToRole="Articulo" />
           <NavigationProperty Name="Rubro" Relationship="Self.FK_Cliente_Rubro" FromRole="Cliente" ToRole="Rubro" />
           <NavigationProperty Name="TipoDocumento1" Relationship="Self.FK_Cliente_TipoDocumento" FromRole="Cliente" ToRole="TipoDocumento" />
@@ -992,6 +999,13 @@
           <Property Name="Descripcion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Condicion_venta" ToRole="Encabezado_Factura" />
         </EntityType>
+        <EntityType Name="CondicionIVA">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Cortante">
           <Key>
             <PropertyRef Name="ID_cortante" />
@@ -1006,17 +1020,14 @@
         </EntityType>
         <EntityType Name="CtaCte_Clientes">
           <Key>
-            <PropertyRef Name="ID_movimiento" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="ID_movimiento" Type="Int32" Nullable="false" />
-          <Property Name="ID_cliente" Type="Int32" />
-          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Saldo" Type="Int32" />
-          <Property Name="Fecha_movimiento" Type="DateTime" Precision="0" />
-          <Property Name="Concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Importe_movimiento" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="fecha_alta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="limite_credito" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="CtaCte_Clientes" ToRole="Cliente" />
+          <NavigationProperty Name="CtaCteClientesMov" Relationship="Self.FK_CtaCteClientesMov_CtaCte_Clientes" FromRole="CtaCte_Clientes" ToRole="CtaCteClientesMov" />
         </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
@@ -1031,6 +1042,22 @@
           <Property Name="Importe_movimiento" Type="Int32" />
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Proveedor" Relationship="Self.FK_CtaCte_Proveedores_Proveedor" FromRole="CtaCte_Proveedores" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="CtaCteClientesMov">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_ctacte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="importe_movimiento" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="saldo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="nro_comprobante" Type="Int32" />
+          <Property Name="observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="desc_debito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="desc_credito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CtaCte_Clientes" Relationship="Self.FK_CtaCteClientesMov_CtaCte_Clientes" FromRole="CtaCteClientesMov" ToRole="CtaCte_Clientes" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -1367,14 +1394,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CtaCte_Clientes_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="ID_cliente" />
             </Principal>
             <Dependent Role="CtaCte_Clientes">
-              <PropertyRef Name="ID_cliente" />
+              <PropertyRef Name="id_cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1474,6 +1501,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CtaCteClientesMov_CtaCte_Clientes">
+          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="1" />
+          <End Role="CtaCteClientesMov" Type="Self.CtaCteClientesMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CtaCte_Clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CtaCteClientesMov">
+              <PropertyRef Name="id_ctacte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CtaCte_Proveedores_Proveedor">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
           <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
@@ -1527,7 +1566,6 @@
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
         <EntityContainer Name="BliboxEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Articulo" EntityType="Self.Articulo" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
@@ -1537,9 +1575,11 @@
           <EntitySet Name="Componente" EntityType="Self.Componente" />
           <EntitySet Name="Compras" EntityType="Self.Compras" />
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" />
+          <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" />
           <EntitySet Name="Cortante" EntityType="Self.Cortante" />
           <EntitySet Name="CtaCte_Clientes" EntityType="Self.CtaCte_Clientes" />
           <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" />
+          <EntitySet Name="CtaCteClientesMov" EntityType="Self.CtaCteClientesMov" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" />
           <EntitySet Name="Encabezado_Factura" EntityType="Self.Encabezado_Factura" />
           <EntitySet Name="IVA" EntityType="Self.IVA" />
@@ -1631,6 +1671,10 @@
             <End Role="Condicion_venta" EntitySet="Condicion_venta" />
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
           </AssociationSet>
+          <AssociationSet Name="FK_CtaCteClientesMov_CtaCte_Clientes" Association="Self.FK_CtaCteClientesMov_CtaCte_Clientes">
+            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+            <End Role="CtaCteClientesMov" EntitySet="CtaCteClientesMov" />
+          </AssociationSet>
           <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
@@ -1651,31 +1695,13 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="CondicionIVA" EntityType="Blibox.CondicionIVA" />
         </EntityContainer>
-        <EntityType Name="CondicionIVA">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="Codigo" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BliboxStoreContainer" CdmEntityContainer="BliboxEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="Blibox.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Articulo">
             <EntityTypeMapping TypeName="Blibox.Articulo">
               <MappingFragment StoreEntitySet="Articulo">
@@ -1763,10 +1789,10 @@
                 <ScalarProperty Name="DiasFF" ColumnName="DiasFF" />
                 <ScalarProperty Name="Dias_Cheque" ColumnName="Dias_Cheque" />
                 <ScalarProperty Name="Grupo_mailing" ColumnName="Grupo_mailing" />
-                <ScalarProperty Name="Limite_credito" ColumnName="Limite_credito" />
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
                 <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
                 <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="id_ctacte" ColumnName="id_ctacte" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1811,6 +1837,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CondicionIVA">
+            <EntityTypeMapping TypeName="Blibox.CondicionIVA">
+              <MappingFragment StoreEntitySet="CondicionIVA">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Cortante">
             <EntityTypeMapping TypeName="Blibox.Cortante">
               <MappingFragment StoreEntitySet="Cortante">
@@ -1826,14 +1860,10 @@
           <EntitySetMapping Name="CtaCte_Clientes">
             <EntityTypeMapping TypeName="Blibox.CtaCte_Clientes">
               <MappingFragment StoreEntitySet="CtaCte_Clientes">
-                <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
-                <ScalarProperty Name="ID_cliente" ColumnName="ID_cliente" />
-                <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
-                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
-                <ScalarProperty Name="Fecha_movimiento" ColumnName="Fecha_movimiento" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Importe_movimiento" ColumnName="Importe_movimiento" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="limite_credito" ColumnName="limite_credito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1848,6 +1878,22 @@
                 <ScalarProperty Name="Concepto" ColumnName="Concepto" />
                 <ScalarProperty Name="Importe_movimiento" ColumnName="Importe_movimiento" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CtaCteClientesMov">
+            <EntityTypeMapping TypeName="Blibox.CtaCteClientesMov">
+              <MappingFragment StoreEntitySet="CtaCteClientesMov">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_ctacte" ColumnName="id_ctacte" />
+                <ScalarProperty Name="fecha_movimiento" ColumnName="fecha_movimiento" />
+                <ScalarProperty Name="importe_movimiento" ColumnName="importe_movimiento" />
+                <ScalarProperty Name="saldo" ColumnName="saldo" />
+                <ScalarProperty Name="nro_comprobante" ColumnName="nro_comprobante" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="desc_debito" ColumnName="desc_debito" />
+                <ScalarProperty Name="desc_credito" ColumnName="desc_credito" />
+                <ScalarProperty Name="concepto" ColumnName="concepto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2063,14 +2109,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="CondicionIVA">
-            <EntityTypeMapping TypeName="Blibox.CondicionIVA">
-              <MappingFragment StoreEntitySet="CondicionIVA">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

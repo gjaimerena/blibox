@@ -14,15 +14,19 @@ namespace Blibox
     
     public partial class CtaCte_Clientes
     {
-        public int ID_movimiento { get; set; }
-        public Nullable<int> ID_cliente { get; set; }
-        public string Razon_social { get; set; }
-        public Nullable<int> Saldo { get; set; }
-        public Nullable<System.DateTime> Fecha_movimiento { get; set; }
-        public string Concepto { get; set; }
-        public Nullable<int> Importe_movimiento { get; set; }
-        public string Observaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CtaCte_Clientes()
+        {
+            this.CtaCteClientesMov = new HashSet<CtaCteClientesMov>();
+        }
+    
+        public int id { get; set; }
+        public int id_cliente { get; set; }
+        public string fecha_alta { get; set; }
+        public Nullable<decimal> limite_credito { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CtaCteClientesMov> CtaCteClientesMov { get; set; }
     }
 }

@@ -25,7 +25,6 @@ namespace Blibox
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -35,9 +34,11 @@ namespace Blibox
         public virtual DbSet<Componente> Componente { get; set; }
         public virtual DbSet<Compras> Compras { get; set; }
         public virtual DbSet<Condicion_venta> Condicion_venta { get; set; }
+        public virtual DbSet<CondicionIVA> CondicionIVA { get; set; }
         public virtual DbSet<Cortante> Cortante { get; set; }
         public virtual DbSet<CtaCte_Clientes> CtaCte_Clientes { get; set; }
         public virtual DbSet<CtaCte_Proveedores> CtaCte_Proveedores { get; set; }
+        public virtual DbSet<CtaCteClientesMov> CtaCteClientesMov { get; set; }
         public virtual DbSet<Detalle_factura> Detalle_factura { get; set; }
         public virtual DbSet<Encabezado_Factura> Encabezado_Factura { get; set; }
         public virtual DbSet<IVA> IVA { get; set; }
@@ -53,6 +54,5 @@ namespace Blibox
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoResponsables> TipoResponsables { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
-        public virtual DbSet<CondicionIVA> CondicionIVA { get; set; }
     }
 }

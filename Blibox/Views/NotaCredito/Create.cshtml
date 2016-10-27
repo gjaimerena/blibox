@@ -19,7 +19,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "Factura")"><i class="fa fa-dashboard"></i> Facturacion</a></li>
+            <li><a href="@Url.Action("Index", "NotaCredito")"><i class="fa fa-dashboard"></i> Facturacion</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -34,7 +34,7 @@
             <div class="box box-default">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nueva Factura</h3>
+                    <h3 class="box-title">Nueva Nota de Crédito</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
@@ -106,7 +106,16 @@
                                     </div><!-- /.input group -->
                                 </div><!-- /.form group -->
                             </div><!-- /.col -->*@
-                        @*<div class="col-md-2">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Nro Comprobante</label>
+                                <div>
+                                    @Html.EditorFor(model => model.NroComprobante, new { htmlAttributes = new { @Value = "0", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NroComprobante, "", new { @class = "text-danger" })
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Remito</label>
                                 <div>
@@ -114,7 +123,7 @@
                                     @Html.ValidationMessageFor(model => model.Nro_remito, "", new { @class = "text-danger" })
                                 </div>
                             </div><!-- /.form-group -->
-                        </div><!-- /.col -->*@
+                        </div><!-- /.col -->
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Orden Compra</label>
@@ -190,17 +199,17 @@
                     </div>
                     <div class="form-group">
                         <div class="box-footer">
-                            
+
                         </div>
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
-       
 
-        <div>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Cancelar", "Index")</button>
-            <input type="submit" value="Generar" class="btn btn-success" />
-        </div>
+
+            <div>
+                <button type="button" class="btn btn-info ">@Html.ActionLink("Cancelar", "Index")</button>
+                <input type="submit" value="Generar" class="btn btn-success" />
+            </div>
         }
     </section>
 </div><!-- /.content-wrapper -->

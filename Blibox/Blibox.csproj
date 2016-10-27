@@ -259,17 +259,18 @@
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
     <Compile Include="Cortante.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CtaCteClientesMov.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCte_Clientes.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCte_Proveedores.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Detalle_factura.cs">
@@ -305,7 +306,6 @@
     <Compile Include="Models\itemFactura.cs" />
     <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
-    <Compile Include="Controllers\CtaCte_ClientesController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1322,6 +1322,11 @@
     <Content Include="plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Extensions\FacturaHandler.ashx" />
+    <Content Include="certificadosAfip\BliboxHomoCP" />
+    <Content Include="certificadosAfip\BliboxHomoCSR" />
+    <Content Include="certificadosAfip\certificate.pfx" />
+    <Content Include="certificadosAfip\CertX509Blibox.pem" />
     <EntityDeploy Include="Blibox.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
@@ -1329,11 +1334,6 @@
     <Content Include="Blibox.edmx.diagram">
       <DependentUpon>Blibox.edmx</DependentUpon>
     </Content>
-    <Content Include="Extensions\FacturaHandler.ashx" />
-    <Content Include="certificadosAfip\BliboxHomoCP" />
-    <Content Include="certificadosAfip\BliboxHomoCSR" />
-    <Content Include="certificadosAfip\certificate.pfx" />
-    <Content Include="certificadosAfip\CertX509Blibox.pem" />
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />
@@ -1584,16 +1584,16 @@
     <Content Include="Views\Marcos\Details.cshtml" />
     <Content Include="Views\Marcos\Edit.cshtml" />
     <Content Include="Views\Marcos\Index.cshtml" />
-    <Content Include="Views\CtaCte_Clientes\Create.cshtml" />
-    <Content Include="Views\CtaCte_Clientes\Delete.cshtml" />
-    <Content Include="Views\CtaCte_Clientes\Details.cshtml" />
-    <Content Include="Views\CtaCte_Clientes\Edit.cshtml" />
-    <Content Include="Views\CtaCte_Clientes\Index.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Factura\Create.cshtml" />
     <Content Include="Views\Factura\Index.cshtml" />
     <Content Include="Views\NotaDebito\Create.cshtml" />
     <Content Include="Views\NotaDebito\Index.cshtml" />
+    <Content Include="Views\NotaCredito\Create.cshtml" />
+    <Content Include="Views\NotaCredito\Delete.cshtml" />
+    <Content Include="Views\NotaCredito\Details.cshtml" />
+    <Content Include="Views\NotaCredito\Edit.cshtml" />
+    <Content Include="Views\NotaCredito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
