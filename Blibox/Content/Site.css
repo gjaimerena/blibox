@@ -324,3 +324,11 @@ button > a:focus {
     font-size: 25px;
     padding-top: 5px;
 }
+
+.modal-dialog {
+    position: initial;
+}
+
+.alert.alert-dismissable {
+    font-size: 1.5em;
+}

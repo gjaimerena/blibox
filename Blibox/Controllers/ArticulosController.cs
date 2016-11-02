@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Blibox;
 using PagedList;
+using Blibox.Controllers;
 
 namespace Blibox.Models
 {
@@ -71,6 +72,7 @@ namespace Blibox.Models
                 default:
                     break;
             }
+
             return View(query.ToPagedList(page, pageSize));
         }
  
@@ -79,11 +81,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
+
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Articulo articulo = db.Articulo.Find(id);
             if (articulo == null)
             {
+
+
                 return HttpNotFound();
             }
             ViewBag.nrocomponentes = articulo.Componente.Count();
@@ -156,6 +161,7 @@ namespace Blibox.Models
                     }
                 
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("El articulo se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             else
