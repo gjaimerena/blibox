@@ -214,10 +214,32 @@ namespace Blibox.Logica.Facturacion
                     DetallesRespuesta.Add(det);
 
                 }
+
                 respuesta.Detalles = DetallesRespuesta;
             }
 
-            
+            int cantErrores = ((response.Errors == null) ? 0 : response.Errors.Length);
+
+            if (cantErrores > 0)
+            {
+
+                List<Error> ErroresRespuesta = new List<Error>();
+
+                for (int i = 0; i < cantErrores; i++)
+                {
+                    Error err = new Error
+                    {
+                        Codigo = response.Errors[i].Code,
+                        Mensaje = response.Errors[i].Msg
+                    };
+
+                    ErroresRespuesta.Add(err);
+
+                }
+
+                respuesta.Errores = ErroresRespuesta;
+            }
+
 
             //FALTA GUARDAR LOS EVENTOS Y ERRORES
             return respuesta;

@@ -226,8 +226,21 @@ namespace Blibox.Controllers
                 return RedirectToAction("Index");
                 //return View(form);
             }
+            else
+            {
+                // fue rechazada ver que hacer
+                foreach(Error err in resp.Errores)
+                {
+                    HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                }
+            }
 
-            return View(form);
+            //return View(form);
+            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+            ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
+            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion", "5");
+            ViewBag.art = "";
+            return View(new Encabezado_Factura());
         }
 
         // GET: Factura/Edit/5
