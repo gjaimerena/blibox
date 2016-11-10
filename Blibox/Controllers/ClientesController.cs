@@ -82,10 +82,12 @@ namespace Blibox.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create(Cliente cliente)
         {
+            cliente.Fecha_alta = DateTime.Now;
             if (ModelState.IsValid)
             {
                 // cliente.ID_cliente = db.Cliente.OrderByDescending(m => m.ID_cliente).FirstOrDefault().ID_cliente + 1;
                 cliente.TipoDocumento = 25; //valor para CUIT
+               
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");

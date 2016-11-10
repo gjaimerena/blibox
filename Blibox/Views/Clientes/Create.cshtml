@@ -450,12 +450,12 @@
                         </div>
 
                         <div class="dobleEntrada">
-                            @Html.LabelFor(model => model.Limite_credito, "Límite Crédito", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                            @Html.LabelFor(model => model.limite_credito, "Límite Crédito", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
                                     @Html.EditorFor(
-                                        model => model.Limite_credito,
+                                        model => model.limite_credito,
                                         new
                                         {
                                             htmlAttributes = new
@@ -471,7 +471,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <div class="dobleEntrada">
                             @Html.LabelFor(model => model.Fecha_alta, "Fecha de Alta", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
@@ -493,7 +493,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="form-group">
                         <div class="col-md-offset-2">
                             <input type="submit" value="Generar" class="btn btn-primary" />

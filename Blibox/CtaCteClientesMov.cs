@@ -15,8 +15,8 @@ namespace Blibox
     public partial class CtaCteClientesMov
     {
         public int id { get; set; }
-        public int id_ctacte { get; set; }
-        public System.DateTime fecha_movimiento { get; set; }
+        public int id_cliente { get; set; }
+        public Nullable<System.DateTime> fecha_movimiento { get; set; }
         public Nullable<decimal> importe_movimiento { get; set; }
         public Nullable<decimal> saldo { get; set; }
         public Nullable<int> nro_comprobante { get; set; }
@@ -25,6 +25,6 @@ namespace Blibox
         public string desc_credito { get; set; }
         public string concepto { get; set; }
     
-        public virtual CtaCte_Clientes CtaCte_Clientes { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

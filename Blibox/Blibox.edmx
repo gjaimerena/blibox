@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Blibox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Blibox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Articulo">
           <Key>
             <PropertyRef Name="ID_articulo" />
@@ -94,6 +94,7 @@
           <Property Name="Saldo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
           <Property Name="Referidos" Type="varchar" MaxLength="50" />
+          <Property Name="limite_credito" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ID_rubro" Type="int" />
           <Property Name="DiasFF" Type="int" />
           <Property Name="Dias_Cheque" Type="int" />
@@ -159,15 +160,6 @@
           <Property Name="Bocas" Type="int" />
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="CtaCte_Clientes">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_cliente" Type="int" Nullable="false" />
-          <Property Name="fecha_alta" Type="varchar" MaxLength="50" />
-          <Property Name="limite_credito" Type="decimal" Precision="18" Scale="2" />
-        </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
             <PropertyRef Name="ID_movimiento" />
@@ -186,8 +178,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_ctacte" Type="int" Nullable="false" />
-          <Property Name="fecha_movimiento" Type="datetime" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="datetime" />
           <Property Name="importe_movimiento" Type="decimal" Precision="18" Scale="2" />
           <Property Name="saldo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="nro_comprobante" Type="int" />
@@ -344,16 +336,6 @@
           <Property Name="ID_rubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descirpcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Observaciones" Type="nchar" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoDocumento">
           <Key>
@@ -518,18 +500,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCte_Clientes_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="CtaCte_Clientes">
-              <PropertyRef Name="id_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CtaCte_Proveedores_Proveedor">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
           <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
@@ -542,15 +512,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCteClientesMov_CtaCte_Clientes">
-          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="1" />
+        <Association Name="FK_CtaCteClientesMov_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="CtaCteClientesMov" Type="Self.CtaCteClientesMov" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CtaCte_Clientes">
-              <PropertyRef Name="id" />
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
             </Principal>
             <Dependent Role="CtaCteClientesMov">
-              <PropertyRef Name="id_ctacte" />
+              <PropertyRef Name="id_cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -719,7 +689,6 @@
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cortante" EntityType="Self.Cortante" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CtaCte_Clientes" EntityType="Self.CtaCte_Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CtaCteClientesMov" EntityType="Self.CtaCteClientesMov" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" Schema="dbo" store:Type="Tables" />
@@ -733,7 +702,6 @@
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoResponsables" EntityType="Self.TipoResponsables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
@@ -781,16 +749,12 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compras" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCte_Clientes_Cliente" Association="Self.FK_CtaCte_Clientes_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
-          </AssociationSet>
           <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCteClientesMov_CtaCte_Clientes" Association="Self.FK_CtaCteClientesMov_CtaCte_Clientes">
-            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+          <AssociationSet Name="FK_CtaCteClientesMov_Cliente" Association="Self.FK_CtaCteClientesMov_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
             <End Role="CtaCteClientesMov" EntitySet="CtaCteClientesMov" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -842,7 +806,8 @@
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Blibox" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -937,6 +902,7 @@
           <Property Name="Saldo" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Referidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="limite_credito" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ID_rubro" Type="Int32" />
           <Property Name="DiasFF" Type="Int32" />
           <Property Name="Dias_Cheque" Type="Int32" />
@@ -950,7 +916,7 @@
           <NavigationProperty Name="TipoDocumento1" Relationship="Self.FK_Cliente_TipoDocumento" FromRole="Cliente" ToRole="TipoDocumento" />
           <NavigationProperty Name="TipoResponsables" Relationship="Self.FK_Cliente_TipoResponsables" FromRole="Cliente" ToRole="TipoResponsables" />
           <NavigationProperty Name="Vendedor" Relationship="Self.FK_Cliente_Vendedor" FromRole="Cliente" ToRole="Vendedor" />
-          <NavigationProperty Name="CtaCte_Clientes" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="Cliente" ToRole="CtaCte_Clientes" />
+          <NavigationProperty Name="CtaCteClientesMov" Relationship="Self.FK_CtaCteClientesMov_Cliente" FromRole="Cliente" ToRole="CtaCteClientesMov" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Cliente" ToRole="Encabezado_Factura" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Cliente" FromRole="Cliente" ToRole="Pedido" />
         </EntityType>
@@ -1018,17 +984,6 @@
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Cortante" FromRole="Cortante" ToRole="Componente" />
         </EntityType>
-        <EntityType Name="CtaCte_Clientes">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_cliente" Type="Int32" Nullable="false" />
-          <Property Name="fecha_alta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="limite_credito" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCte_Clientes_Cliente" FromRole="CtaCte_Clientes" ToRole="Cliente" />
-          <NavigationProperty Name="CtaCteClientesMov" Relationship="Self.FK_CtaCteClientesMov_CtaCte_Clientes" FromRole="CtaCte_Clientes" ToRole="CtaCteClientesMov" />
-        </EntityType>
         <EntityType Name="CtaCte_Proveedores">
           <Key>
             <PropertyRef Name="ID_movimiento" />
@@ -1047,9 +1002,9 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_ctacte" Type="Int32" Nullable="false" />
-          <Property Name="fecha_movimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="DateTime" Precision="3" />
           <Property Name="importe_movimiento" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="saldo" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="nro_comprobante" Type="Int32" />
@@ -1057,7 +1012,7 @@
           <Property Name="desc_debito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="desc_credito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CtaCte_Clientes" Relationship="Self.FK_CtaCteClientesMov_CtaCte_Clientes" FromRole="CtaCteClientesMov" ToRole="CtaCte_Clientes" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCteClientesMov_Cliente" FromRole="CtaCteClientesMov" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -1224,16 +1179,6 @@
           <Property Name="Observaciones" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Rubro" FromRole="Rubro" ToRole="Cliente" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TipoDocumento">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -1393,14 +1338,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCte_Clientes_Cliente">
+        <Association Name="FK_CtaCteClientesMov_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="*" />
+          <End Role="CtaCteClientesMov" Type="Self.CtaCteClientesMov" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="ID_cliente" />
             </Principal>
-            <Dependent Role="CtaCte_Clientes">
+            <Dependent Role="CtaCteClientesMov">
               <PropertyRef Name="id_cliente" />
             </Dependent>
           </ReferentialConstraint>
@@ -1501,18 +1446,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCteClientesMov_CtaCte_Clientes">
-          <End Role="CtaCte_Clientes" Type="Self.CtaCte_Clientes" Multiplicity="1" />
-          <End Role="CtaCteClientesMov" Type="Self.CtaCteClientesMov" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CtaCte_Clientes">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="CtaCteClientesMov">
-              <PropertyRef Name="id_ctacte" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CtaCte_Proveedores_Proveedor">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
           <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
@@ -1577,7 +1510,6 @@
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" />
           <EntitySet Name="Cortante" EntityType="Self.Cortante" />
-          <EntitySet Name="CtaCte_Clientes" EntityType="Self.CtaCte_Clientes" />
           <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" />
           <EntitySet Name="CtaCteClientesMov" EntityType="Self.CtaCteClientesMov" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" />
@@ -1591,7 +1523,6 @@
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
           <EntitySet Name="Remito" EntityType="Self.Remito" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" />
           <EntitySet Name="TipoResponsables" EntityType="Self.TipoResponsables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
@@ -1635,9 +1566,9 @@
             <End Role="Vendedor" EntitySet="Vendedor" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCte_Clientes_Cliente" Association="Self.FK_CtaCte_Clientes_Cliente">
+          <AssociationSet Name="FK_CtaCteClientesMov_Cliente" Association="Self.FK_CtaCteClientesMov_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
+            <End Role="CtaCteClientesMov" EntitySet="CtaCteClientesMov" />
           </AssociationSet>
           <AssociationSet Name="FK_Encabezado_Factura_Cliente" Association="Self.FK_Encabezado_Factura_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1670,10 +1601,6 @@
           <AssociationSet Name="FK_Encabezado_Factura_Condicion_venta" Association="Self.FK_Encabezado_Factura_Condicion_venta">
             <End Role="Condicion_venta" EntitySet="Condicion_venta" />
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CtaCteClientesMov_CtaCte_Clientes" Association="Self.FK_CtaCteClientesMov_CtaCte_Clientes">
-            <End Role="CtaCte_Clientes" EntitySet="CtaCte_Clientes" />
-            <End Role="CtaCteClientesMov" EntitySet="CtaCteClientesMov" />
           </AssociationSet>
           <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
             <End Role="Proveedor" EntitySet="Proveedor" />
@@ -1785,6 +1712,7 @@
                 <ScalarProperty Name="Saldo" ColumnName="Saldo" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="Referidos" ColumnName="Referidos" />
+                <ScalarProperty Name="limite_credito" ColumnName="limite_credito" />
                 <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
                 <ScalarProperty Name="DiasFF" ColumnName="DiasFF" />
                 <ScalarProperty Name="Dias_Cheque" ColumnName="Dias_Cheque" />
@@ -1857,16 +1785,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtaCte_Clientes">
-            <EntityTypeMapping TypeName="Blibox.CtaCte_Clientes">
-              <MappingFragment StoreEntitySet="CtaCte_Clientes">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
-                <ScalarProperty Name="limite_credito" ColumnName="limite_credito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CtaCte_Proveedores">
             <EntityTypeMapping TypeName="Blibox.CtaCte_Proveedores">
               <MappingFragment StoreEntitySet="CtaCte_Proveedores">
@@ -1885,7 +1803,7 @@
             <EntityTypeMapping TypeName="Blibox.CtaCteClientesMov">
               <MappingFragment StoreEntitySet="CtaCteClientesMov">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_ctacte" ColumnName="id_ctacte" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
                 <ScalarProperty Name="fecha_movimiento" ColumnName="fecha_movimiento" />
                 <ScalarProperty Name="importe_movimiento" ColumnName="importe_movimiento" />
                 <ScalarProperty Name="saldo" ColumnName="saldo" />
@@ -2053,17 +1971,6 @@
                 <ScalarProperty Name="ID_rubro" ColumnName="ID_rubro" />
                 <ScalarProperty Name="Descirpcion" ColumnName="Descirpcion" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Blibox.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

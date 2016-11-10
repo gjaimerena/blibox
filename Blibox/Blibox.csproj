@@ -259,15 +259,13 @@
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCteClientesMov.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CtaCte_Clientes.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCte_Proveedores.cs">
@@ -342,9 +340,6 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoDocumento.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>

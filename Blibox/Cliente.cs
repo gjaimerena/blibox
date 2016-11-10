@@ -18,7 +18,7 @@ namespace Blibox
         public Cliente()
         {
             this.Articulo = new HashSet<Articulo>();
-            this.CtaCte_Clientes = new HashSet<CtaCte_Clientes>();
+            this.CtaCteClientesMov = new HashSet<CtaCteClientesMov>();
             this.Encabezado_Factura = new HashSet<Encabezado_Factura>();
             this.Pedido = new HashSet<Pedido>();
         }
@@ -39,6 +39,7 @@ namespace Blibox
         public Nullable<decimal> Saldo { get; set; }
         public string Observaciones { get; set; }
         public string Referidos { get; set; }
+        public Nullable<decimal> limite_credito { get; set; }
         public Nullable<int> ID_rubro { get; set; }
         public Nullable<int> DiasFF { get; set; }
         public Nullable<int> Dias_Cheque { get; set; }
@@ -55,7 +56,7 @@ namespace Blibox
         public virtual TipoResponsables TipoResponsables { get; set; }
         public virtual Vendedor Vendedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CtaCte_Clientes> CtaCte_Clientes { get; set; }
+        public virtual ICollection<CtaCteClientesMov> CtaCteClientesMov { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Encabezado_Factura> Encabezado_Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
