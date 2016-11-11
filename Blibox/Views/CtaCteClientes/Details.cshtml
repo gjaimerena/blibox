@@ -1,0 +1,90 @@
+﻿@model Blibox.CtaCteClientesMov
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CtaCteClientesMov</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_movimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_movimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.importe_movimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.importe_movimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.saldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nro_comprobante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_comprobante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_debito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_debito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_credito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_credito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.concepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.concepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Razon_Social)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Razon_Social)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

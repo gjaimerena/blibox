@@ -259,6 +259,7 @@
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CtaCteClientesController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
@@ -319,7 +320,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Controllers\ArticulosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
-    <Compile Include="Models\CtaCteClientes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
@@ -1589,6 +1589,12 @@
     <Content Include="Views\NotaCredito\Details.cshtml" />
     <Content Include="Views\NotaCredito\Edit.cshtml" />
     <Content Include="Views\NotaCredito\Index.cshtml" />
+    <Content Include="Views\CtaCteClientes\Create.cshtml" />
+    <Content Include="Views\CtaCteClientes\Delete.cshtml" />
+    <Content Include="Views\CtaCteClientes\Details.cshtml" />
+    <Content Include="Views\CtaCteClientes\Edit.cshtml" />
+    <Content Include="Views\CtaCteClientes\Index.cshtml" />
+    <Content Include="Views\CtaCteClientes\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
