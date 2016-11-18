@@ -49,7 +49,7 @@ body {
 }
 
 .container, .content {
-    background-color: white;
+    /*background-color: white;*/
     padding-bottom: 20px;
     min-height: 600px;
 }
@@ -192,9 +192,12 @@ table {
 .accion .glyphicon.glyphicon-edit,
 .accion .glyphicon.glyphicon-ok,
 .accion .glyphicon.glyphicon-floppy-disk,
-.accion .glyphicon.glyphicon-floppy-save {
+.accion .glyphicon.glyphicon-floppy-save,
+.accion .glyphicon.glyphicon-zoom-in,
+.accion .glyphicon.glyphicon-trash {
     
     font-size: 1.5em;
+    color: #008D4C;
 }
 
 a > .glyphicon:before {
@@ -295,10 +298,10 @@ input[type="radio"].styled:checked+label:after {
     padding-top: 0px;
 }
 
-.box-header {
+/*.box-header {
     background-color: #00a65a;
     color: white;
-}
+}*/
 
 button > a,
 button > a:hover,
@@ -331,4 +334,59 @@ button > a:focus {
 
 .alert.alert-dismissable {
     font-size: 1.5em;
+}
+
+.box.box-solid.box-blibox {
+  border: 1px solid #7CCAA6;
+}
+
+.box.box-solid.box-blibox > .box-header {
+        color: #fff;
+        background: #7CCAA6;
+        background-color: #7CCAA6;
+}
+
+.box.box-solid.box-componente > .box-header {
+  color: #fff;
+  background: #B8B8B8;
+  background-color: #B8B8B8;
+}
+
+
+.btn-new {
+  color: #fff;
+  background-color: #7CCAA6;
+  border-color: ##3BB87F;
+}
+
+
+.btn-search {
+  color: #fff;
+  background-color: #00A65A;
+  border-color: #008D4C;
+}
+
+.btn-add {
+  color: #fff;
+  background-color: #00A65A;
+  border-color: #008D4C;
+}
+
+.btn-addmore {
+  color: #D4E15B;
+  background-color: #2C3B41;
+  border-color: #d4e15b;
+}
+
+.btn-cancel {
+  color: #fff;
+ background-color: #5F6061;
+  border-color: #ADABAB;
+}
+
+button.btn.btn-addmore:hover{
+    color: #D4E15B;
+}
+button.btn.btn-addmore:focus{
+    color: #D4E15B;
 }

@@ -24,7 +24,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <button type="button" class="btn btn-info ">@Html.ActionLink("NUEVO ARTICULO", "Create")</button>
+                <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO ARTICULO", "Create")</button>
             </div>
 
             @{ string currentFilter = ViewBag.CurrentFilter;
@@ -38,7 +38,7 @@
                 <form class="form-inline">
                     <div class="form-group">
                         <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
-                        <button type="submit" class="btn btn-info">Buscar</button>
+                        <button type="submit" class="btn btn-search">Buscar</button>
                     </div>
                    
                 </form>
@@ -66,7 +66,7 @@
        
         <br />
 
-        <div class="box">
+        <div class="box box-blibox box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Articulos</h3>
             </div>
@@ -105,7 +105,7 @@
                         <td> @Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
                         <td class="accion">
                             <a href="@Url.Action("Details", new { id = item.ID_articulo })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <i class="glyphicon glyphicon-zoom-in"></i>
                                 <span class="sr-only">Ver</span>
                             </a>
                             <a href="@Url.Action("Edit", new { id = item.ID_articulo })"  title="Editar">
@@ -113,7 +113,7 @@
                                 <span class="sr-only">Editar</span>
                             </a>
                             <a href="@Url.Action("Delete", new { id = item.ID_articulo })" title="Eliminar">
-                                <i class="glyphicon glyphicon-remove"></i>
+                                <i class="glyphicon glyphicon-trash"></i>
                                 <span class="sr-only">Eliminar</span>
                             </a>
                         </td>

@@ -12,19 +12,18 @@ namespace Blibox
     using System;
     using System.Collections.Generic;
     
-    public partial class CtaCteClientesMov
+    public partial class CtaCteClientes
     {
         public int id { get; set; }
         public int id_cliente { get; set; }
         public Nullable<System.DateTime> fecha_movimiento { get; set; }
-        public Nullable<decimal> importe_movimiento { get; set; }
         public Nullable<decimal> saldo { get; set; }
-        public Nullable<int> nro_comprobante { get; set; }
         public string observacion { get; set; }
-        public string desc_debito { get; set; }
-        public string desc_credito { get; set; }
+        public Nullable<decimal> importe { get; set; }
+        public int tipoMovimiento { get; set; }
         public string concepto { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual TipoMovCtaCte TipoMovCtaCte { get; set; }
     }
 }

@@ -266,7 +266,7 @@
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
-    <Compile Include="CtaCteClientesMov.cs">
+    <Compile Include="CtaCteClientes.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCte_Proveedores.cs">
@@ -293,6 +293,7 @@
     <Compile Include="Matriz.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CtaCteClienteMovimientos.cs" />
     <Compile Include="Models\DetalleCustom.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -341,6 +342,9 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="TipoDocumento.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoMovCtaCte.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoResponsables.cs">
@@ -1463,6 +1467,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\validador\bootstrap.js" />
+    <Content Include="Scripts\validador\formValidation.js" />
+    <Content Include="Scripts\validador\formValidation.min.js" />
+    <Content Include="Scripts\validador\formValidation2.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

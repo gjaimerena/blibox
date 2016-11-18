@@ -37,7 +37,7 @@ namespace Blibox
         public virtual DbSet<CondicionIVA> CondicionIVA { get; set; }
         public virtual DbSet<Cortante> Cortante { get; set; }
         public virtual DbSet<CtaCte_Proveedores> CtaCte_Proveedores { get; set; }
-        public virtual DbSet<CtaCteClientesMov> CtaCteClientesMov { get; set; }
+        public virtual DbSet<CtaCteClientes> CtaCteClientes { get; set; }
         public virtual DbSet<Detalle_factura> Detalle_factura { get; set; }
         public virtual DbSet<Encabezado_Factura> Encabezado_Factura { get; set; }
         public virtual DbSet<IVA> IVA { get; set; }
@@ -50,6 +50,7 @@ namespace Blibox
         public virtual DbSet<Remito> Remito { get; set; }
         public virtual DbSet<Rubro> Rubro { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
+        public virtual DbSet<TipoMovCtaCte> TipoMovCtaCte { get; set; }
         public virtual DbSet<TipoResponsables> TipoResponsables { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
     }
