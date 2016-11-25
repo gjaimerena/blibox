@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<section class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -21,232 +21,234 @@
     <!-- Main content -->
     <section class="content">
 
+        <div class="box box-blibox box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Detalle del cliente</h3>
+            </div>
 
-        <div class="box box-default">
-            <form class="form-horizontal" style="padding:10px;">
-                <h4> Detalle del vendedor</h4>
-                <hr />
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Razon Social</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+            <div class="box-body">
+                <form class="form-horizontal" style="padding:10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Razon Social</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Razon_Social)" readonly />
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Razon_Social)" readonly />
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">CUIT</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">CUIT</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Documento)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Documento)" readonly />
-
                     </div>
-                </div>
 
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Domicilio</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Domicilio</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Domicilio)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Domicilio)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Localidad</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Localidad</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Localidad)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Localidad)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Provincia</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Provincia</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Provincia)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Provincia)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Codigo postal</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Codigo postal</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Codigo_Postal)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Codigo_Postal)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Telefono</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Telefono</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Telefono)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Telefono)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Email</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Email)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Email)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Rubro</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Rubro</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Rubro.Descirpcion)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Rubro.Descirpcion)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Limite Credito</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Limite Credito</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.limite_credito)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Limite_credito)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">IVA</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            %
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">IVA</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                %
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.TipoResponsables.Descripcion)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.TipoDocumento1.Descripcion)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Fecha Alta</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fecha Alta</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_alta)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_alta)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Vendedor</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Vendedor</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Vendedor.Apellido)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Vendedor.ID_vendedor)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Comision vendedor</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Comision vendedor</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Comision_vendedor)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Comision_vendedor)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Saldo</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Saldo</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Saldo)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Saldo)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Referidos</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Referidos</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Referidos)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Referidos)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Dias FF</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Dias FF</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.DiasFF)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.DiasFF)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Dias Cheque</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Dias Cheque</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Dias_Cheque)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Dias_Cheque)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Grupo mailing</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Grupo mailing</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Grupo_mailing)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Grupo_mailing)" readonly />
-
                     </div>
-                </div>
+                </form>
+            </div>
 
-            </form>
-            <br />
         </div>
 
         <p>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_cliente })</button> |
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+            <button type="button" class="btn btn-add">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_cliente })</button> |
+            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
         </p>
-
-
-
-       
     </section>
+
+
+
+
+</section>
 </div><!-- /.content-wrapper -->

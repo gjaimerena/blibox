@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Blibox;
 using PagedList;
+using Blibox.Controllers;
 
 namespace Blibox.Models
 {
@@ -90,6 +91,7 @@ namespace Blibox.Models
                
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("Se generó con éxito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
 
@@ -122,12 +124,13 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ID_cliente,Razon_Social,Contacto,Domicilio,Localidad,Provincia,Codigo_Postal, Telefono,Email, ID_vendedor,Comision_vendedor, CondicionIVA, TipoResponsable, Saldo, Observaciones, Referidos, limite_credito,ID_rubro, DiasFF, Dias_Cheque, Grupo_mailing, Fecha_alta, TipoDocumento, Documento,id_ctacte")]Cliente cliente)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("Se actualizó con éxito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
@@ -159,6 +162,7 @@ namespace Blibox.Models
             Cliente cliente = db.Cliente.Find(id);
             db.Cliente.Remove(cliente);
             db.SaveChanges();
+            HelperController.Instance.agregarMensaje("Se eliminó con éxito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
 

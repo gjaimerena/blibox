@@ -14,13 +14,14 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="box box-default">
-            @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
-                @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="box box-blibox box-solid">
                 <div class="box-header with-border">
+
                     <h3 class="box-title">Nuevo Cliente</h3>
                 </div><!-- /.box-header -->
 
@@ -132,7 +133,9 @@
                                             {
                                                 @class = "form-control",
                                                 @id = "provincia",
-                                                data_fv_row = ".dobleEntrada"
+                                                data_fv_row = ".dobleEntrada",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la provincia",
+                                                required = "required",
                                             }
                                         })
                                 </div>
@@ -152,7 +155,9 @@
                                             {
                                                 @class = "form-control",
                                                 @id = "codigoPostal",
-                                                data_fv_row = ".dobleEntrada"
+                                                data_fv_row = ".dobleEntrada",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el código postal",
+                                                required = "required",
                                             }
                                         })
                                 </div>
@@ -174,7 +179,11 @@
                                             {
                                                 @class = "form-control",
                                                 @id = "telefono",
-                                                data_fv_row = ".dobleEntrada"
+                                                data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el teléfono",
+                                                required = "required",
                                             }
                                         })
                                 </div>
@@ -194,7 +203,13 @@
                                             {
                                                 @class = "form-control",
                                                 @id = "email",
-                                                data_fv_row = ".dobleEntrada"
+                                                data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el email",
+                                                required = "required",
+                                                data_fv_emailAddress_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar un formato válido de email (ejemplo@ejemplo.com)",
+                                                data_fv_emailAddress = "true",
                                             }
                                         })
                                 </div>
@@ -216,7 +231,9 @@
                                         {
                                             @class = "form-control",
                                             @id = "idVendedor",
-                                            data_fv_row = ".dobleEntrada"
+                                            data_fv_row = ".dobleEntrada",
+                                            data_fv_stringlength_min = 0,
+                                            data_fv_stringlength = "true",
                                         })
                                 </div>
                             </div>
@@ -255,10 +272,13 @@
                                     @Html.DropDownListFor(
                                         model => model.TipoResponsable,
                                         (SelectList)ViewBag.TipoResponsables,
-                                        htmlAttributes: new {
+                                        htmlAttributes: new
+                                        {
                                             @class = "form-control",
                                             @id = "tipoResponsables",
-                                            data_fv_row = ".dobleEntrada"
+                                            data_fv_row = ".dobleEntrada",
+                                            data_fv_stringlength_min = 0,
+                                            data_fv_stringlength = "true",
                                         })
                                 </div>
                             </div>
@@ -281,7 +301,10 @@
                                                 data_fv_row = ".dobleEntrada",
                                                 type = "number",
                                                 data_fv_numeric = "true",
-                                                data_fv_numeric_message = "<i class='glyphicon glyphicon-alert-sign'></i> El documento debe ser numérico"
+                                                data_fv_numeric_message = "<i class='glyphicon glyphicon-alert-sign'></i> El cuit debe ser numérico",
+                                                data_fv_notempty = "true",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-alert-sign'></i> Debe ingresar el CUIT",
+
                                             }
                                         })
                                 </div>
@@ -328,6 +351,8 @@
                                                 @class = "form-control",
                                                 @id = "observaciones",
                                                 data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
                                             }
                                         })
                                 </div>
@@ -350,6 +375,8 @@
                                                 @class = "form-control",
                                                 @id = "referidos",
                                                 data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
                                             }
                                         })
 
@@ -367,11 +394,13 @@
                                     @Html.DropDownList(
                                         "ID_rubro",
                                         null,
-                                        htmlAttributes : new
+                                        htmlAttributes: new
                                         {
                                             @class = "form-control",
                                             @id = "id_rubro",
                                             data_fv_row = ".dobleEntrada",
+                                            data_fv_stringlength_min = 0,
+                                            data_fv_stringlength = "true",
                                         })
                                 </div>
                             </div>
@@ -394,6 +423,8 @@
                                                 @class = "form-control",
                                                 @id = "diasFF",
                                                 data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
                                             }
                                         })
 
@@ -441,6 +472,8 @@
                                                 @class = "form-control",
                                                 @id = "grupoMailing",
                                                 data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
                                             }
                                         })
 
@@ -463,6 +496,8 @@
                                                 @class = "form-control",
                                                 @id = "limiteCredito",
                                                 data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
                                             }
                                         })
 
@@ -472,39 +507,36 @@
                         </div>
                     </div>
                     @*<div class="form-group">
-                        <div class="dobleEntrada">
-                            @Html.LabelFor(model => model.Fecha_alta, "Fecha de Alta", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                                    @Html.EditorFor(
-                                        model => model.Fecha_alta,
-                                        new
-                                        {
-                                            htmlAttributes = new
+                            <div class="dobleEntrada">
+                                @Html.LabelFor(model => model.Fecha_alta, "Fecha de Alta", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                                        @Html.EditorFor(
+                                            model => model.Fecha_alta,
+                                            new
                                             {
-                                                @class = "form-control",
-                                                @id = "fechaAlta",
-                                                data_fv_row = ".dobleEntrada",
-                                            }
-                                        })
+                                                htmlAttributes = new
+                                                {
+                                                    @class = "form-control",
+                                                    @id = "fechaAlta",
+                                                    data_fv_row = ".dobleEntrada",
+                                                }
+                                            })
 
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>*@
-                    <div class="form-group">
-                        <div class="col-md-offset-2">
-                            <input type="submit" value="Generar" class="btn btn-primary" />
-                        </div>
-                    </div>
+                        </div>*@
+
                 </div>
-            }
-        </div>
-        <div>
-            <button type="button" class="btn btn-info">@Html.ActionLink("Volver", "Index")</button>
-        </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Generar" class="btn btn-add" /> |
+                <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+            </div>
+        }
 
     </section>
 </div><!-- /.content-wrapper -->
