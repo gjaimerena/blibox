@@ -218,7 +218,7 @@
                             </div>*@
                     </div><!-- /.form-group -->
                     <div class="form-group">
-                      
+                        <div class="dobleEntrada">
                             <label class="control-label col-md-2">Stock</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(
@@ -228,24 +228,27 @@
                                     {
                                         @class = "form-control",
                                         @id = "Stock",
+                                        data_fv_row = ".dobleEntrada"
                                     }
                                 })
                             </div><!-- /.col -->
-                        
-                       
+                        </div>
+                        <div class="dobleEntrada">
+
                             <label class="control-label col-md-2 no-clear-md">Stock Minimo</label>
                             <div class="col-md-4">
-                            @Html.EditorFor(
+                                @Html.EditorFor(
                             model => model.Stock_minimo, new
                             {
                                 htmlAttributes = new
                                 {
                                     @class = "form-control",
                                     @id = "Stock_minimo",
+                                    data_fv_row = ".dobleEntrada"
                                 }
                             })
                             </div>
-                        
+                        </div>
 
                     </div><!-- /.form-group -->
                     <div class="form-group">
@@ -334,13 +337,13 @@
                 </div>
             </div>
 
-                    <div>
-                        <em data-bind="validationMessage: detalle"></em>
-                    </div>
+            <div>
+                <em data-bind="validationMessage: detalle"></em>
+            </div>
 
-                        <button data-bind="click: agregarDetalle" class="btn btn-addmore">Agregar Componente</button>
+            <button data-bind="click: agregarDetalle" class="btn btn-addmore">Agregar Componente</button>
 
-                        <br /><br />
+                    <br /><br />
 
                         <div data-bind="foreach: detalle">
                             <div class="box box-componente box-solid">
@@ -452,81 +455,81 @@
                                 </div>
                             </div>
                         </div>
-               
-                    <br />
 
-                    <div class="form-group">
-                       
+                        <br />
+
+                        <div class="form-group">
+
                             <input type="submit" value="Generar" data-bind="enable: canCreate()" class="btn btn-add" /> |
                             <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
-                        
 
-                    </div>
 
-                
+                        </div>
+
+
 
 
 
 
         }
 
-        </section>
-        </div><!-- /.content-wrapper -->
+    </section>
+</div><!-- /.content-wrapper -->
 
 <script>
-$(document).ready(function() {
-    $('#form')
-        .formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                Stock: {
-                    validators: {
-                        numeric: {
-                            message: 'El importe no es numerico',
-                            // The default separators
-                            thousandsSeparator: '',
-                            decimalSeparator: ','
+    $(document).ready(function () {
+        $('#form')
+            .formValidation({
+                framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    Stock: {
+                        validators: {
+                            numeric: {
+                                message: 'El importe no es numerico',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: ','
+                            },
+                            notEmpty: {
+                                message: 'El campo es requerido'
+                            }
                         },
-                        notEmpty: {
-                            message: 'El campo es requerido'
-                        }
+                    },
+                    Stock_minimo: {
+                        validators: {
+                            numeric: {
+                                message: 'El importe no es numerico',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: ','
+                            },
+                            notEmpty: {
+                                message: 'El campo es requerido'
+                            }
+                        },
                     }
                 },
-                Stock_minimo: {
-                    validators: {
-                        numeric: {
-                            message: 'El importe no es numerico',
-                            // The default separators
-                            thousandsSeparator: '',
-                            decimalSeparator: ','
-                        },
-                        notEmpty: {
-                            message: 'El campo es requerido'
-                        }
-                    }
-                }
-            },
 
-        })
+            })
 
 
-});
+    });
 </script>
 
-        <script type="text/javascript">
+<script type="text/javascript">
     validarForm('#form');
     inicializarDatePicker('#fechaPrecioLista', false, false);
-        </script>
-        <script src="~/Scripts/ArticuloCreateViewModel.js"></script>
-        <script src="~/Scripts/knockout-3.4.0.js"></script>
-        <script src="~/Scripts/knockout.validation.js"></script>
+</script>
+<script src="~/Scripts/ArticuloCreateViewModel.js"></script>
+<script src="~/Scripts/knockout-3.4.0.js"></script>
+<script src="~/Scripts/knockout.validation.js"></script>
 
-        <script type="text/javascript">
+<script type="text/javascript">
     // catálogo de productos que se utiliza para llenar el <select /> de productos de cada detalle
     var materiales = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Mat_Descripcion))');
 
@@ -547,5 +550,5 @@ $(document).ready(function() {
     // aplicamos el viewModel a nuestra vista.
     ko.applyBindings(viewModel);
 
-        </script>
+</script>
 
