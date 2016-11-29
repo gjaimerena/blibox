@@ -1,6 +1,10 @@
 ﻿@model PagedList.IPagedList<Blibox.Material>
 @using PagedList.Mvc;
 
+
+@{
+    ViewBag.Title = "Index";
+}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -16,78 +20,80 @@
     <!-- Main content -->
     <section class="content">
 
-        <p>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("NUEVO MATERIAL", "Create")</button>
-        </p>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO MATERIAL", "Create")</button>
+            </div>
 
-        @{ string currentFilter = ViewBag.CurrentFilter;
+            @{ string currentFilter = ViewBag.CurrentFilter;
             string currentSort = ViewBag.CurrentSort;
             if (string.IsNullOrEmpty(currentSort))
             {
                 currentSort = "id";
             } }
+            <div class="col-md-4"></div>
+            <div class="search-box col-md-4">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                        <button type="submit" class="btn btn-search">Buscar</button>
+                    </div>
 
-        <div class="search-box">
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
-                </div>
-                <button type="submit" class="btn btn-info">Buscar</button>
-            </form>
+                </form>
+            </div>
         </div>
+
         <br />
-
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Materiales</h3>
-            </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>@Html.DisplayName("ID Material")</th>
-                    <th>@Html.DisplayName("Descripcion")</th>
-                    <th>@Html.DisplayName("Peso")</th>
-                    <th>@Html.DisplayName("Observaciones")</th>
-                    <th>OPCIONES</th>
-                </tr>
-                @foreach (var item in Model)
-                {
+        <div class="box box-blibox box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Materiales</h3>
+                </div>
+                <table class="table table-bordered">
                     <tr>
-                        <td>@Html.DisplayFor(model => item.ID_material)</td>
-                        <td>@Html.DisplayFor(model => item.Descripcion)</td>
-                        <td>@Html.DisplayFor(model => item.Peso)</td>
-                        <td>@Html.DisplayFor(model => item.Observaciones)</td>
-                        <td>
-                           
-                            <a href="@Url.Action("Details", new { id = item.ID_material })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-eye-open"></i>
-                                <span class="sr-only">Ver</span>
-                            </a>
-                            <a href="@Url.Action("Edit", new { id = item.ID_material })" title="Editar">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                <span class="sr-only">Editar</span>
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = item.ID_material })" title="Eliminar">
-                                <i class="glyphicon glyphicon-remove"></i>
-                                <span class="sr-only">Eliminar</span>
-                            </a>
-                        
-                        </td>
+                        <th>@Html.DisplayName("ID Material")</th>
+                        <th>@Html.DisplayName("Descripcion")</th>
+                        <th>@Html.DisplayName("Peso")</th>
+                        <th>@Html.DisplayName("Observaciones")</th>
+                        <th>OPCIONES</th>
                     </tr>
-                }
-            </table>
-        </div>
-        @if (Model.PageCount > 1)
-        {
-            <div class="pager">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new
-           {
-               page,
-               sortOrder = ViewBag.currentSort,
-               q = ViewBag.CurrentFilter
-           }))
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            </div>
-        }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => item.ID_material)</td>
+                            <td>@Html.DisplayFor(model => item.Descripcion)</td>
+                            <td>@Html.DisplayFor(model => item.Peso)</td>
+                            <td>@Html.DisplayFor(model => item.Observaciones)</td>
+                            <td class="accion">
 
+                                <a href="@Url.Action("Details", new { id = item.ID_material })" title="Ver" class="">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                    <span class="sr-only">Ver</span>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.ID_material })" title="Editar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span class="sr-only">Editar</span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ID_material })" title="Eliminar">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span class="sr-only">Eliminar</span>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            @if (Model.PageCount > 1)
+            {
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+               {
+                   page,
+                   sortOrder = ViewBag.currentSort,
+                   q = ViewBag.CurrentFilter
+               }))
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+            }
+        </div>
     </section>
 </div><!-- /.content-wrapper -->
