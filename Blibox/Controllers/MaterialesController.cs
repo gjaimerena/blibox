@@ -75,6 +75,7 @@ namespace Blibox.Controllers
             {
                 db.Material.Add(material);
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("El material se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
 
@@ -107,6 +108,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(material).State = EntityState.Modified;
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("El material se edito con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             return View(material);
@@ -135,6 +137,7 @@ namespace Blibox.Controllers
             Material material = db.Material.Find(id);
             db.Material.Remove(material);
             db.SaveChanges();
+            HelperController.Instance.agregarMensaje("El material se elimino con exito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
 

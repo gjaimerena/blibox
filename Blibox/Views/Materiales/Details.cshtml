@@ -14,58 +14,67 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="box box-default">
-            <form class="form-horizontal" style="padding:10px;">
-                <h4> Detalle del material</h4>
-                <hr />
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Id Material</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
-                        </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_material)" readonly />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Descripcion</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
-                        </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Peso</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
-                        </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Peso)" readonly />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Observaciones</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
-                        </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
-                    </div>
-                </div>
-               
+        <div class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Detalle del Material</h3>
 
-            </form>
-            <br />
-        </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <div class="box-body">
+                <form class="form-horizontal" style="padding:10px;">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Id Material</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_material)" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Descripcion</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Peso</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Peso)" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Observaciones</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+                        </div>
+                    </div>
 
-        <p>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_material })</button> |
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
-        </p>
 
-    </section>
+                </form>
+                <br />
+            </div>
+            </div>
+            <p>
+                <button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_material })</button> |
+                <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+            </p>
+
+</section>
 </div><!-- /.content-wrapper -->
 
 
