@@ -1,0 +1,69 @@
+﻿@model Blibox.Models.LoginViewModel
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+       
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+             
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                       
+                       
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="login-box">
+                            <div class="login-logo">
+                                <a href="../../index2.html"><b>BLIBOX</b>&nbsp;SA</a>
+                            </div><!-- /.login-logo -->
+                            <div class="login-box-body">
+                                <p class="login-box-msg">Inicio de Sesi&oacute;n</p>
+                                <form action="../../index2.html" method="post">
+                                    <div class="form-group has-feedback">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nombre de usuario" })
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                            @*<div class="checkbox icheck">
+
+                                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                                        @Html.Label("Recordarme")
+
+                                                </div>*@
+                                        </div><!-- /.col -->
+                                        <div class="col-xs-4">
+                                            <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+                                        </div><!-- /.col -->
+                                    </div>
+                                </form>
+
+                                @*<a href="#">I forgot my password</a><br>
+                                    <a href="register.html" class="text-center">Register a new membership</a>*@
+                            </div><!-- /.login-box-body -->
+                        </div><!-- /.login-box -->
+                 
+                    }
+             
+         
+
+
+            @*<div class="col-md-4">
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>*@
+       
+    </section>
+</div><!-- /.content-wrapper -->

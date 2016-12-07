@@ -390,3 +390,18 @@ button.btn.btn-addmore:hover{
 button.btn.btn-addmore:focus{
     color: #D4E15B;
 }
+
+.login-page, .register-page {
+  background: #92D0A1;
+}
+
+.btn-options {
+  color: #fff;
+  background-color: #00A65A;
+  border-color: #008D4C;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+    background-color: #318E63;
+    padding: 10px;
+}

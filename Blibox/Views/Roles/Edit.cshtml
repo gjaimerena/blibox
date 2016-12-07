@@ -1,0 +1,74 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Roles")"><i class="fa fa-dashboard"></i> Cuentas de usuario</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        @*<h2>Edición de Roles</h2>*@
+        @Html.ActionLink("LISTADO DE ROLES", "Index", null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("ADMINISTRAR ROLES DE USUARIO", "ManageUserRoles", null, new { @class = "btn btn-addmore" })
+        
+        <hr />
+        @*@Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")*@
+        @*<hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div>
+                Role name
+            </div>
+            <p>
+                @Html.TextBoxFor(model => model.Name)
+            </p>
+            <input type="submit" value="Save" />
+        }*@
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edición del Rol</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    @using (Html.BeginForm())
+            {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Id)
+
+                        <div class="box-body">
+                            <div class="row form-group">
+                                <div class="col-md-8">
+                                    <label>Nomre del Rol</label>
+                                    @Html.TextBoxFor(model => model.Name, null, new { @class = "form-control" })
+                                </div>
+
+
+                            </div>
+                        </div>
+                            <!-- /.box-body -->
+                        <div class="box-footer">
+                            <input type="submit" value="Actualizar" class="btn btn-add" />
+                        </div>
+
+
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+</div><!-- /.content-wrapper -->

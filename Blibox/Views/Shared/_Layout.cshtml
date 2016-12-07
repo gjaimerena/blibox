@@ -60,26 +60,28 @@ clientes.">
 
     <!-- jQuery 2.1.4 -->
     <script src="~/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-
+   
 
 </head>
 
-
+@if (User.Identity.IsAuthenticated)
+{
 <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
+      
+            <div class="cabecera">
+                <!-- Codigo cabecera -->
+                @* vista parcial que define la cabecera *@
+                @* Header y metodo de autenticacion *@
+                @Html.Partial("~/Views/Shared/_Header.cshtml")
+                @*@Html.Action("GetAutenticationData", "Account")*@    @*cargo Header con la auteticacion*@
 
-        <div class="cabecera">
-            <!-- Codigo cabecera -->
-            @* vista parcial que define la cabecera *@
-            @* Header y metodo de autenticacion *@
-            @Html.Partial("~/Views/Shared/_Header.cshtml")
-            @*@Html.Action("GetAutenticationData", "Account")*@    @*cargo Header con la auteticacion*@
-
-        </div>
-        <div class="menulateral">
-            <!-- Codigo menu -->
-            @Html.Partial("~/Views/Shared/_SideBar.cshtml")
-        </div>
+            </div>
+            <div class="menulateral">
+                <!-- Codigo menu -->
+                @Html.Partial("~/Views/Shared/_SideBar.cshtml")
+            </div>
+        
 
         <!-- jQuery UI 1.11.4 -->
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -171,49 +173,9 @@ clientes.">
 
     <script>
 
-        //$("#comp_on1").click(function () {
-
-        //    //Agergar conponentes
-        //    if ($("#comp_on1").attr("value") == "Agregar Componente") {
-        //        $("#componente1").toggle();
-        //        $("#comp_on1").attr('value', 'Agregar Componente 2');
-        //       // $("#compDelete1").visible = false;
-        //    }
-        //    else if ($("#comp_on1").attr("value") == "Agregar Componente 2") {
-        //        $("#componente2").toggle();
-        //        $("#comp_on1").attr('value', 'Agregar Componente 3');
-        //        $("#compDelete1").hide();
-        //    }
-        //    else if ($("#comp_on1").attr("value") == "Agregar Componente 3") {
-        //        $("#componente3").toggle();
-        //        $("#comp_on1").toggle();
-        //        $("#compDelete2").hide();
-        //    }
-
-        //})
-
-        //$("#compDelete1").click(function () {
-        //   $("#comp_on1").attr('value', 'Agregar Componente');
-        //   $("#componente1").toggle();
-        //})
-
-        //$("#compDelete2").click(function () {
-        //    $("#comp_on1").attr('value', 'Agregar Componente 2');
-        //    $("#compDelete1").show();
-        //    $("#componente2").toggle();
-        // })
-
-        //$("#compDelete3").click(function () {
-        //    $("#comp_on1").attr('value', 'Agregar Componente 3');
-        //    $("#comp_on1").toggle();
-        //    $("#compDelete2").show();
-        //    $("#componente3").toggle();
-        //})
-
-
         $(function () {
             //Initialize Select2 Elements
-            $(".select2").select2();
+           // $(".select2").select2();
 
             //Datemask dd/mm/yyyy
             $("#datemask").inputmask("dd/mm/yyyy", { "placeholder": "dd/mm/yyyy" });
@@ -272,8 +234,14 @@ clientes.">
             });
         });
 
-
-
     </script>
+   
 </body>
+        }
+        else
+        {
+            @RenderBody()
+           
+        }
+@RenderSection("scripts", required: false)
 </html>

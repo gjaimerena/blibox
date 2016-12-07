@@ -14,6 +14,7 @@ using Blibox.Logica.Model;
 
 namespace Blibox.Controllers
 {
+    [AuthorizeOrRedirect(Roles = "Administrador")]
     public class FacturaController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

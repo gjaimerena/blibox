@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Roles")"><i class="fa fa-dashboard"></i> Cuentas de usuario</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+
+        <h2>Administracion de Roles y Usuarios</h2>
+        @Html.ActionLink("NUEVO USUARIO", "Register","Account", null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("NUEVO ROL", "Create", null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("ADMINISTRAR ROLES DE USUARIO", "ManageUserRoles", null, new { @class = "btn btn-addmore" })
+
+
+        @*@Html.ActionLink("NUEVO ROL", "Create") | @Html.ActionLink("ADMINISTRAR ROLES DE USUARIO", "ManageUserRoles")*@
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">LISTADO DE ROLES</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Rol</th>
+                                    <th>Opciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model)
+                                {
+                                    <tr>
+                                        <td><strong>@role.Name </strong></td>
+                                        <td>
+                                            <span onclick="return confirm('Estas seguro de eliminar el rol?')"><a href="/Roles/Delete?RoleName=@role.Name" class="delLink" style="color:red;">Eliminar</a></span> |
+                                            @Html.ActionLink("Editar", "Edit", new { roleName = @role.Name })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>    
+                </div>      
+            
+            
+            <div class="col-md-6">
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">LISTADO DE USUARIOS</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Opciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.users != null)
+                                {
+                                    foreach (var user in ViewBag.users)
+                                    {
+                                        <tr>
+                                            <td>@user.userName </td>
+                                            <td>@user.rol </td>
+                                            <td>
+                                                <span onclick="return confirm('Estas seguro de eliminar al usuario?')"><a href="/Account/Delete?idUser=@user.idUser" class="delLink" style="color:red;">Eliminar</a></span>
+                                              
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>      
+            
+            
+                
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->

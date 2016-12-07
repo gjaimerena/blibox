@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Blibox.Controllers
 {
+    [AuthorizeOrRedirect(Roles = "Administrador")]
     public class CtaCteClientesController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

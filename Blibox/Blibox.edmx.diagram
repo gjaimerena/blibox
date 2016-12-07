@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3bb15452bd634bfea5598b3678fbf251" Name="Diagram1">
         <EntityTypeShape EntityType="Blibox.Articulo" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.AspNetRoles" Width="1.5" PointX="12.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.AspNetRoles" Width="1.5" PointX="12.25" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Blibox.AspNetUserClaims" Width="1.5" PointX="17.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Blibox.AspNetUserLogins" Width="1.5" PointX="17.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Blibox.AspNetUsers" Width="1.5" PointX="15" PointY="1.375" IsExpanded="true" />

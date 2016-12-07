@@ -259,10 +259,13 @@
     <Compile Include="Condicion_venta.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CtaCteClientesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -293,22 +296,23 @@
     <Compile Include="Matriz.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorizeOrRedirectAttribute.cs" />
     <Compile Include="Models\CtaCteClienteMovimientos.cs" />
     <Compile Include="Models\DetalleCustom.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
+    <None Include="App_Start\IdentityConfig.cs_" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <None Include="Controllers\AccountController2.cs_" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
     <Compile Include="Models\itemFactura.cs" />
     <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <None Include="Controllers\ManageController.cs_" />
     <Compile Include="Controllers\MarcosController.cs" />
     <Compile Include="Controllers\MaterialesController.cs" />
     <Compile Include="Controllers\MatricesController.cs" />
@@ -324,6 +328,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Pedido.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -353,6 +358,7 @@
     <Compile Include="Vendedor.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Content Include="Views\Error\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blibox.Context.tt">
@@ -398,6 +404,7 @@
     <Content Include="Content\dist\css\skins\_all-skins.css" />
     <Content Include="Content\dist\css\skins\_all-skins.min.css" />
     <Content Include="Content\dist\img\Add.png" />
+    <Content Include="Content\dist\img\admin_icon.jpg" />
     <Content Include="Content\dist\img\avatar.png" />
     <Content Include="Content\dist\img\avatar04.png" />
     <Content Include="Content\dist\img\avatar2.png" />
@@ -412,6 +419,7 @@
     <Content Include="Content\dist\img\gigolo2.jpg" />
     <Content Include="Content\dist\img\icons.png" />
     <Content Include="Content\dist\img\logo.jpg" />
+    <Content Include="Content\dist\img\operator_icon.jpg" />
     <Content Include="Content\dist\img\photo1.png" />
     <Content Include="Content\dist\img\photo2.png" />
     <Content Include="Content\dist\img\photo3.jpg" />
@@ -1490,18 +1498,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account2\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account2\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account2\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account2\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account2\ForgotPassword.cshtml" />
+    <Content Include="Views\Account2\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account2\Login.cshtml" />
+    <Content Include="Views\Account2\Register.cshtml" />
+    <Content Include="Views\Account2\ResetPassword.cshtml" />
+    <Content Include="Views\Account2\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account2\SendCode.cshtml" />
+    <Content Include="Views\Account2\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -1603,6 +1611,19 @@
     <Content Include="Views\CtaCteClientes\Edit.cshtml" />
     <Content Include="Views\CtaCteClientes\Index.cshtml" />
     <Content Include="Views\CtaCteClientes\Buscar.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\ManageUserRoles.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

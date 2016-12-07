@@ -258,10 +258,21 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="@Url.Action("ChangePassword", "Manage")" class="btn btn-primary btn-flat">Editar Cuenta</a>
+                                <a href="@Url.Action("Manage", "Account")" class="btn btn-options btn-flat">Editar Cuenta</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-primary btn-flat">Cerrar sesion</a>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                @Html.AntiForgeryToken()
+
+                                
+                                    @*<li>
+                                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    </li>*@
+                                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-options btn-flat">CERRAR SESIÓN</a>
+                                
+                                }
+                                @*<a href="#" class="btn btn-options btn-flat">Cerrar sesión</a>*@
                             </div>
                         </li>
                     </ul>

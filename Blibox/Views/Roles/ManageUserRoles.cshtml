@@ -1,0 +1,253 @@
+﻿<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Roles")"><i class="fa fa-dashboard"></i> Cuentas de Usuario</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <h3>Administración de Roles de Usuario</h3>
+            @Html.ActionLink("NUEVO ROL", "Create",null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("ADMINISTRAR ROLES DE USUARIO", "ManageUserRoles",null, new { @class = "btn btn-addmore" })
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Asignacion de Roles a Usuarios</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm("RoleAddToUser", "Roles"))
+            {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="box-body">
+                                <div class="row form-group">
+                                    <div class="col-md-8">
+                                        <label>Usuario</label>
+                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                                    </div>
+
+
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-8">
+                                        <label>Rol</label>
+                                        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccione...", new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <input type="submit" value="Asignar" class="btn btn-add" />
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+                
+
+
+                @*<h2>Asignacion de Roles a Usuarios</h2>
+                @using (Html.BeginForm("RoleAddToUser", "Roles"))
+            {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @*<p>
+                    Usuario : @Html.TextBox("UserName")
+                    Rol: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccionar ...")
+                </p>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Usuario</label>
+                            @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                        </div>
+
+
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Rol</label>
+                            @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccione...", new { @class = "form-control" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Asignar" class="btn btn-add" />
+                    </div>
+                }
+
+
+                <hr />*@
+                @*<h3>Consulta Roles Asignados</h3>
+            @using (Html.BeginForm("GetRoles", "Roles"))
+            {
+                @Html.AntiForgeryToken()
+
+                @*<p>
+                    Usuario : @Html.TextBox("UserName")
+                    <input type="submit" value="Consultar" class="btn btn-add"/>
+                </p>
+
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <label>Usuario</label>
+                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del usuario" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Consultar" class="btn btn-add" />
+                </div>
+
+
+            }*@
+
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Eliminar Roles a Usuarios</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="box-body">
+                                <div class="row form-group">
+                                    <div class="col-md-8">
+                                        <label>Usuario</label>
+                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                                    </div>
+
+
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-8">
+                                        <label>Rol</label>
+                                        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccione...", new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <input type="submit" value="Eliminar" class="btn btn-add" />
+                                </div>
+                        }
+                    </div>
+                </div>
+
+
+
+              
+                  
+
+                    
+                </div>
+                @*<h3>Eliminar Roles a Usuarios</h3>
+            @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <label>Usuario</label>
+                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                    </div>
+
+
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        <label>Rol</label>
+                        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Seleccione...", new { @class = "form-control" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Eliminar" class="btn btn-add" />
+                </div>
+            }*@
+                <div class="row">
+                    
+
+
+
+
+                    <div class="col-md-6">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Consulta Roles Asignados</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            @using (Html.BeginForm("GetRoles", "Roles"))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="row col-md-8">
+                                            <label>Usuario</label>
+                                            @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del usuario" })
+                                        </div>
+
+                                    </div>
+
+
+                                    <hr />
+
+                                    @if (ViewBag.RolesForThisUser != null)
+                                    {
+
+                                        <div class="form-group">
+                                            <div class="col-md-8" style="background-color:rgb(212, 225, 79);">
+
+                                                <label>Roles del usuario </label>
+                                                <ol>
+                                                    @foreach (string s in ViewBag.RolesForThisUser)
+                                                    {
+                                                        <li>@s</li>
+                                                    }
+                                                </ol>
+                                            </div>
+
+                                        </div>
+
+                                    }
+                                </div>
+                            <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <input type="submit" value="Consultar" class="btn btn-add" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+    </section>
+</div><!-- /.content-wrapper -->
