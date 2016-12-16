@@ -265,6 +265,7 @@
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
+    <Compile Include="Controllers\reportesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Cortante.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
@@ -305,6 +306,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="certificadosAfip\2048\bliboxCert.crt" />
+    <Content Include="certificadosAfip\2048\BliboxCSR" />
+    <Content Include="certificadosAfip\2048\bliboxprivate" />
+    <Content Include="certificadosAfip\2048\certBlibox.pfx" />
     <None Include="Controllers\AccountController2.cs_" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
     <Compile Include="Models\itemFactura.cs" />
@@ -328,6 +333,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Models\reporteFactura.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Pedido.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
@@ -358,7 +364,11 @@
     <Compile Include="Vendedor.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Content Include="Scripts\site.js" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Proveedor\CreateTemplate.cshtml" />
+    <Content Include="Views\Matrices\CreateTemplate.cshtml" />
+    <Content Include="Views\Reportes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blibox.Context.tt">

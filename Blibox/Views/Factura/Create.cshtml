@@ -30,7 +30,7 @@
             @Html.AntiForgeryToken()
 
         <!-- SELECT2 EXAMPLE -->
-            <div class="box box-default">
+            <div class="box box-blibox box-solid">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="box-header with-border">
                     <h3 class="box-title">Nueva Factura</h3>
@@ -152,13 +152,13 @@
                     </div>
 
 
-                    <button type="button" id="btnAdd" data-filas='0' class="btn btn-primary">Agregar Articulo</button>
+                    <button type="button" id="btnAdd" data-filas='0' class="btn btn-addmore">Agregar Articulo</button>
 
 
                     <br /><br />
 
                     <table class="table table-striped table-bordered table-condensed" id="tblData">
-                        <thead>
+                        <thead style="background-color: #2c3b41; color: #d4e15b;">
                             <tr>
                                 <th>@Html.DisplayName("Articulo")</th>
                                 <th>@Html.DisplayName("Cantidad")</th>
@@ -197,8 +197,8 @@
        
 
         <div>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Cancelar", "Index")</button>
-            <input type="submit" value="Generar" class="btn btn-success" />
+            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+            <input type="submit" value="Generar" class="btn btn-new" />
         </div>
         }
     </section>

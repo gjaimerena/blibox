@@ -14,71 +14,75 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="box box-default">
+        <div class="box box-blibox box-solid">
 
-            @using (Html.BeginForm())
+            <div class="box-header with-border">
+                <h3 class="box-title">Marcos</h3>
+            </div>
+            <div class="box-body">
+                @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                <div class="form-horizontal" style="padding:10px;">
-                    <h4>Marco</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @*<div class="form-group">
-                            @Html.LabelFor(model => model.ID_marco, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="form-horizontal" style="padding:10px;">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @*<div class="form-group">
+                        @Html.LabelFor(model => model.ID_marco, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            @Html.EditorFor(model => model.ID_marco, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ID_marco, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
                             <div class="col-md-4 input-group">
                                 <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                @Html.EditorFor(model => model.ID_marco, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ID_marco, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                             </div>
-                        </div>*@
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Ancho, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                                @Html.EditorFor(model => model.Ancho, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Ancho, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Largo, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                                @Html.EditorFor(model => model.Largo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Largo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <input type="submit" value="Generar" class="btn btn-new" />
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Ancho, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Ancho, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Ancho, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Largo, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Largo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Largo, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-2">
-                            <input type="submit" value="Generar" class="btn btn-default" />
-                        </div>
-                    </div>
+                }
                 </div>
-            }
             </div>
             <div>
-                <button type="button" class="btn btn-info">@Html.ActionLink("Volver", "Index")</button>
+                <button type="button" class="btn btn-cancel">@Html.ActionLink("Volver", "Index")</button>
             </div>
     </section>
 </div><!-- /.content-wrapper -->

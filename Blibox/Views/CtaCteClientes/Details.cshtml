@@ -8,7 +8,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("Index", "CtaCteClientes")"><i class="fa fa-dashboard"></i> Cta Cte </a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -16,7 +16,7 @@
     <section class="content">
         <div class="col-md-6">
 
-            <div class="box box-warning">
+            <div class="box box-blibox box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title">Detalles del movimiento</h3>
                 </div>
@@ -61,7 +61,7 @@
 
                     <p>
                         @*<button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.id })</button> |*@
-                        <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+                        <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
                     </p>
                 </div>
 

@@ -19,28 +19,40 @@
     <!-- Main content -->
     <section class="content">
 
-        <h3>Estas seguro de eliminar dicho articulo?</h3>
-        <div>
-            <h4>Articulo</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </dt>
+        <div class="box box-blibox box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Estas seguro de eliminar dicho articulo?</h3>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Descripcion)
-                </dd>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Costo)
-                </dt>
+            <div class="box-body">
+                <h4>Articulo</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Costo)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Descripcion)
+                    </dd>
 
-                @*<dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Costo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Costo)
+                    </dd>
+
+                    @*<dt>
                     @Html.DisplayNameFor(model => model.IVA)
                 </dt>
 
@@ -48,31 +60,31 @@
                     @Html.DisplayFor(model => model.IVA)
                 </dd>*@
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Precio_lista)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Precio_lista)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Precio_lista)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Precio_lista)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Precio_fecha)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Precio_fecha)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Precio_fecha)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Precio_fecha)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Stock)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Stock)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Stock)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Stock)
+                    </dd>
 
-                @*<dt>
+                    @*<dt>
                     @Html.DisplayNameFor(model => model.Fazon)
                 </dt>
 
@@ -80,73 +92,77 @@
                     @Html.DisplayFor(model => model.Fazon)
                 </dd>*@
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Stock_minimo)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Stock_minimo)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Stock_minimo)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Stock_minimo)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Cant_x_bulto)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cant_x_bulto)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Cant_x_bulto)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cant_x_bulto)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Tamaño_caja)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tamaño_caja)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Tamaño_caja)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tamaño_caja)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Tiraje_term_x_hora)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tiraje_term_x_hora)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Tiraje_term_x_hora)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tiraje_term_x_hora)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Tiraje_troquel_x_hora)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tiraje_troquel_x_hora)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Tiraje_troquel_x_hora)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tiraje_troquel_x_hora)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Observaciones)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observaciones)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Observaciones)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observaciones)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Cliente.Razon_Social)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cliente.Razon_Social)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Cliente.Razon_Social)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cliente.Razon_Social)
+                    </dd>
 
-            </dl>
+                </dl>
 
-            @using (Html.BeginForm())
+                @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                <div class="form-actions no-color">
-                    <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-                    <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
-                </div>
-            }
-        </div>
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+                        <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+                    </div>
+                }
+            </div>
+
+           </div>
+                
+                    
     </section>
 </div><!-- /.content-wrapper -->

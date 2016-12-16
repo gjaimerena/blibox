@@ -19,69 +19,74 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="box box-default">
-            <form class="form-horizontal" style="padding:10px;">
-                <h4>¿Estas seguro de eliminar esta matriz?</h4>
-                <hr />
+        <div class="box box-blibox box-solid">
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Codigo</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+            <div class="box-header with-border">
+                <h3 class="box-title">¿Desea eliminar la matriz?</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <form class="form-horizontal" style="padding:10px;">
+
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Codigo</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Codigo)" readonly />
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Codigo)" readonly />
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Descripcion</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Descripcion</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
-
                     </div>
-                </div>
 
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Sector</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Sector</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Sector)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Sector)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Bocas</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Bocas</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Bocas)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Bocas)" readonly />
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">Observaciones</label>
-                    <div class="col-md-4 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Observaciones</label>
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                            </div>
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+
                         </div>
-                        <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
-
                     </div>
-                </div>
 
 
 
-            </form>
+                </form>
+            </div>
             <br />
         </div>
 
@@ -91,60 +96,12 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Eliminar" class="btn btn-danger" /> 
-                <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+                <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
             </div>
         }
 
        
 
-        @*<h3>Are you sure you want to delete this?</h3>
-        <div>
-            <h4>Matriz</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Codigo)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Codigo)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Descripcion)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Sector)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Sector)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Bocas)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Bocas)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Observaciones)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Observaciones)
-                </dd>
-
-            </dl>
-
-           
-        </div>*@
+     
     </section>
 </div><!-- /.content-wrapper -->

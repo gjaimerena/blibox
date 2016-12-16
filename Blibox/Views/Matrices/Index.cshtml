@@ -14,7 +14,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("Index", "Matrices")"><i class="fa fa-dashboard"></i> Matrices</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -23,7 +23,7 @@
 
 
         <p>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("NUEVA MATRIZ", "Create")</button>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVA MATRIZ", "Create")</button>
         </p>
 
        @{ string currentFilter = ViewBag.CurrentFilter;
@@ -38,12 +38,12 @@
             <div class="form-group">
                 <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
             </div>
-            <button type="submit" class="btn btn-info">Buscar</button>
+            <button type="submit" class="btn btn-search">Buscar</button>
         </form>
     </div>
     <br />
 
-        <div class="box">
+        <div class="box box-blibox box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Matrices</h3>
             </div>
@@ -66,10 +66,10 @@
                         <td>@Html.DisplayFor(model => item.Sector)</td>
                         <td>@Html.DisplayFor(model => item.Observaciones)</td>
                         
-                        <td>
+                        <td class="accion">
                             
                             <a href="@Url.Action("Details", new { id = item.ID_matriz })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <i class="glyphicon glyphicon-zoom-in"></i>
                                 <span class="sr-only">Ver</span>
                             </a>
                             <a href="@Url.Action("Edit", new { id = item.ID_matriz })" title="Editar">
@@ -77,7 +77,7 @@
                                 <span class="sr-only">Editar</span>
                             </a>
                             <a href="@Url.Action("Delete", new { id = item.ID_matriz })" title="Eliminar">
-                                <i class="glyphicon glyphicon-remove"></i>
+                                <i class="glyphicon glyphicon-trash"></i>
                                 <span class="sr-only">Eliminar</span>
                             </a>
 
@@ -98,7 +98,7 @@
                sortOrder = ViewBag.currentSort,
                q = ViewBag.CurrentFilter
            }))
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             </div>
         }
 

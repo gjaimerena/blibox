@@ -52,7 +52,7 @@
                    @if (User.IsInRole("Administrador"))
                    {
                      @:<li><a href="@Url.Action("Index", "CtaCteClientes")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Movimientos Cta Cte</></a></li>
-                     @:<li><a href="@Url.Action("Index", "Compras")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Compras</></a></li>
+                     @*@:<li><a href="@Url.Action("Index", "Compras")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Compras</></a></li>*@
                    }
                     <li><a href="@Url.Action("Index", "Pedidos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Pedidos</></a></li>
                     <li><a href="@Url.Action("Index", "Matrices")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Matrices</></a></li>
@@ -89,7 +89,7 @@
           
 
 
-          @:  <li class="treeview">
+          @*@:  <li class="treeview">
                 <a href="#" style="color: #fff">
                     <i class="fa fa-calculator"></i> <span>Presupuestos</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -111,14 +111,14 @@
           @:          <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Bajas</></a></li>
           @:          <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Impresion</></a></li>
           @:      </ul>
-        @:    </li>
+        @:    </li>*@
 
         @:    <li class="treeview">
                 <a href="#" style="color: #fff">
                     <i class="fa fa-bar-chart"></i> <span>Consultas</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
        @:         <ul class="treeview-menu">
-      @:              <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Total de Ventas por Periodo</></a></li>
+      @:              <li><a href="@Url.Action("Index", "Reportes")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Total de Ventas por Periodo</></a></li>
          @:           <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Total Ventas por Cliente</></a></li>
         @:            <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Detalle Ventas por Articulo</></a></li>
        @:             <li><a href="@Url.Action("", "")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Detalle Facturas por Periodo</></a></li>

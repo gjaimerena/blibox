@@ -9,7 +9,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("Index", "Vendedores")"><i class="fa fa-dashboard"></i> Vendedores</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -18,114 +18,121 @@
         @{
             ViewBag.Title = "Delete";
         }
+        <div class="box box-blibox box-solid">
 
-        <h2>Eliminar Vendedor</h2>
+            <div class="box-header with-border">
+                <h3 class="box-title">¿Eliminar Vendedor?</h3>
+            </div><!-- /.box-header -->
 
-       
-        <div>
-            <h4>Datos del vendedor</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </dt>
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Nombre)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Apellido)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Apellido)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Apellido)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Apellido)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Domicilio)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Domicilio)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Domicilio)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Domicilio)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Localidad)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Localidad)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Localidad)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Localidad)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Provincia)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Provincia)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Provincia)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Provincia)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Telefono)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Telefono)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Telefono)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Celular)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Celular)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Celular)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Celular)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Email)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Email)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Fecha_alta)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Fecha_alta)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Fecha_alta)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Fecha_alta)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Observacion)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observacion)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Observacion)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observacion)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Codigo_postal)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Codigo_postal)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Codigo_postal)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Codigo_postal)
+                    </dd>
 
-            </dl>
+                </dl>
 
-            @using (Html.BeginForm())
+                @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                <div class="form-actions no-color">
-                    <input type="submit" value="Delete" class="btn btn-danger" /> |
-                    <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
-                    
-                </div>
-            }
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                        <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
+
+                    </div>
+                }    
+            </div>
         </div>
+
+
+              
+                    
+                 
+               
     </section>
 </div><!-- /.content-wrapper -->

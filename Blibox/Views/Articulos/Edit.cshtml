@@ -341,7 +341,7 @@
                     <br />
                     @if (Model != null && Model.Componente != null && Model.Componente.Count < 3)
                     {
-                        <button type="button" class="btn btn-success ">@Html.ActionLink("Agregar Componente", "AgregarComponente", new { Id = Model.ID_articulo })</button>
+                        <button type="button" class="btn btn-addmore ">@Html.ActionLink("Agregar Componente", "AgregarComponente", new { Id = Model.ID_articulo })</button>
                     }
 
                     <br /><br />
@@ -449,7 +449,7 @@
 
                     <div class="form-group">
                         <div class="box-footer">
-                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                            <input type="submit" value="Actualizar" class="btn btn-add" />
                         </div>
                     </div>
                 </div><!-- /.box-body -->
@@ -457,7 +457,7 @@
         }
 
         <div>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("Volver", "Index")</button>
+            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
         </div>
 
     </section>

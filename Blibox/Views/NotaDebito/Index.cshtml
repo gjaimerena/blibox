@@ -12,7 +12,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> NOTA DE DEBITO</a></li>
+            <li><a href="@Url.Action("Index", "NotaDebito")"><i class="fa fa-dashboard"></i> Facturación</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -20,7 +20,7 @@
     <section class="content">
 
         <p>
-            <button type="button" class="btn btn-info ">@Html.ActionLink("NUEVA NOTA DE DEBITO", "Create")</button>
+            <button type="button" class="btn btn-add ">@Html.ActionLink("NUEVA NOTA DE DEBITO", "Create")</button>
         </p>
 
         @*@using (Html.BeginForm())
@@ -52,20 +52,19 @@
                 <div class="form-group">
                     <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
-                <button type="submit" class="btn btn-info">Buscar</button>
+                <button type="submit" class="btn btn-search">Buscar</button>
             </form>
         </div>
         <br />
 
-        <div class="box">
+        <div class="box box-blibox box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Notas deDebito</h3>
+                <h3 class="box-title">Notas de Debito</h3>
             </div>
             <table class="table table-striped table-bordered table-condensed">
                 <tr>
                     <th>@Html.DisplayName("Nro Comprobante")</th>
                     <th>@Html.DisplayName("Fecha")</th>
-                   
                     <th>@Html.DisplayName("IVA")</th>
                     <th>@Html.DisplayName("Total")</th>
                     <th>@Html.DisplayName("Cliente")</th>
@@ -85,14 +84,14 @@
                         <td>@Html.DisplayFor(model => item.Cliente.Documento)</td>
                         <td>@Html.DisplayFor(model => item.Vendedor.Apellido)</td>
                         <td> @Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
-                        <td>
+                        <td class="accion">
                             @*<button type="button" class="btn btn-primary ">@Html.ActionLink("Edit", "Edit", new { id = item.Nro_factura })</button> |
                                 <button type="button" class="btn btn-primary ">@Html.ActionLink("Ver Detalle", "Details", new { id = item.Nro_factura })</button> |
                                 <button type="button" class="btn btn-primary ">@Html.ActionLink("Delete", "Delete", new { id = item.Nro_factura })</button>*@
 
                             <a href="~/Extensions/FacturaHandler.ashx?nroFactura=@item.Nro_factura&tipoCbte=2">
                                 @*<a href="@Url.Action("Details", new { id = item.Nro_factura })" title="Ver" class="">*@
-                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <i class="glyphicon glyphicon-zoom-in"></i>
                                 <span class="sr-only">Ver</span>
                             </a>
                         </td>
@@ -112,7 +111,7 @@
                sortOrder = ViewBag.currentSort,
                q = ViewBag.CurrentFilter
            }))
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             </div>
         }
 
