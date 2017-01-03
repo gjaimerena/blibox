@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Blibox.Controllers
 {
-    [AuthorizeOrRedirect(Roles = "Administrador")]
+    [AuthorizeOrRedirect(Roles = "Superusuario")]
     public class RolesController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
