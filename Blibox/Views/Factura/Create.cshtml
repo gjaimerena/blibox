@@ -251,8 +251,9 @@
                                        readonly="true"
                                        data-fv-notempty-message = "<i class='glyphicon glyphicon-info-sign'></i> Debe cargar articulos",
                                        data-fv-greaterthan-value="0"
+                                       data-fv-greaterthan-inclusive="false"
                                        data-fv-greaterthan="true"
-                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> Los dias de fondo fijo deben ser numericos"
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
                                        data-fv-row=".dobleEntrada" />
                             </div>
                         </div>
@@ -268,8 +269,9 @@
                                        required="true"
                                        readonly="true"
                                        data-fv-notempty-message = "<i class='glyphicon glyphicon-info-sign'></i> Debe cargar articulos",
-                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> Los dias de fondo fijo deben ser numericos"
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
                                        data-fv-greaterthan-value="0"
+                                       data-fv-greaterthan-inclusive="false"
                                        data-fv-greaterthan="true"
                                        data-fv-row=".dobleEntrada" />
                             </div>
@@ -310,6 +312,7 @@
         $("#ID_cliente option:selected").each(function () {
             strSelected += $(this)[0].value;
         });
+        debugger;
         $.ajax({
             type: "POST",
             url: "@Url.Action("obtenerDatosCliente", "Factura")",
@@ -343,6 +346,7 @@
     }
 
     validarForm('#form');
+    //$('#ID_cliente').change();
     onChangeCliente();
 
     function onChangeArticulo(idArticulo, idPrecioUnitario) {

@@ -170,8 +170,11 @@ function Edit(){
     $(".btnDelete").bind("click", Delete);
 };
 
-function Delete(){ 
+function Delete() {
     var par = $(this).parent().parent(); //tr 
+    var idPrecioUnitario = $($(par.children()[2])[0].innerHTML).attr('id')
+    $('#' + idPrecioUnitario).val(0);//seteo el precio en 0 asi actualiza el total
+    $('#' + idPrecioUnitario).change();
     par.remove(); 
 };
 

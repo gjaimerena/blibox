@@ -346,7 +346,7 @@ namespace Blibox.Controllers
             BliboxEntities db2 = new BliboxEntities();
             db2.Configuration.ProxyCreationEnabled = false;
             ClienteJson clientejson = new ClienteJson();
-            if (cliente == null)
+            if (cliente != null)
             {
 
                 clientejson = new ClienteJson
