@@ -55,7 +55,7 @@ namespace Blibox.Logica.Facturacion
             
 
 
-            DateTime fechaActual = DateTime.Now;
+            string fechaActual = DateTime.Now.ToString("yyyyMMdd");
             //Genero FeDetReq con tantos registro como indique en la cabecera
             for (int i = 0; i < nroRegistros; i++) {
 
@@ -66,7 +66,7 @@ namespace Blibox.Logica.Facturacion
                 feCAEReq.FeDetReq[i].DocNro = detalles[i].DocNro;
                 feCAEReq.FeDetReq[i].CbteDesde = Cbte;
                 feCAEReq.FeDetReq[i].CbteHasta = Cbte;
-                feCAEReq.FeDetReq[i].CbteFch = fechaActual.Year.ToString() + fechaActual.Month.ToString() + fechaActual.Day.ToString(); //detalles[i].CbteFch;
+                feCAEReq.FeDetReq[i].CbteFch = fechaActual; //detalles[i].CbteFch;
                 feCAEReq.FeDetReq[i].ImpTotal = detalles[i].ImpTotal;
                 feCAEReq.FeDetReq[i].ImpTotConc = detalles[i].ImpTotConc;
                 feCAEReq.FeDetReq[i].ImpNeto = detalles[i].ImpNeto;

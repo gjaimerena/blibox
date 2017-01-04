@@ -20,8 +20,11 @@ namespace Blibox.Controllers
         // GET: CtaCteClientes
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10 )
         {
-
-            int id_cliente = Convert.ToInt32(Request["ID_cliente"]);
+            int id_cliente = 0;
+            if (Request["ID_cliente"] != null)
+            {
+                Int32.TryParse(Request["ID_cliente"], out id_cliente);
+            }
 
             string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
             string fechahasta = (Request["Fecha Hasta"] == null) ? "" : Request["Fecha Hasta"].ToString();
@@ -43,32 +46,56 @@ namespace Blibox.Controllers
 
             var query = db.CtaCteClientes.Include(c => c.Cliente).Include(c => c.TipoMovCtaCte);
 
-            if (fechadesde != "" || fechahasta != "")
+            if (id_cliente != 0)
             {
-                query = query.Where(f => (f.fecha_movimiento >= desde) && (f.fecha_movimiento <= hasta) && (f.id_cliente==id_cliente));
-
-                if (query.ToList().Count == 0)
-                {
-                    HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
-                }
-                //else
-                //{
-                //    HelperController.Instance.agregarMensaje("Movimiento cargado con exito", HelperController.CLASE_EXITO);
-                //}
+                query = query.Where(f => (f.id_cliente == id_cliente));
             }
 
-            query = query.OrderBy(m => m.id);
+            if (fechadesde != "" && fechahasta == "")
+            {
+                query = query.Where(f => (f.fecha_movimiento >= desde));
+            }
+            if (fechadesde == "" && fechahasta != "")
+            {
+                query = query.Where(f => (f.fecha_movimiento <= hasta));
+            }
+            if ((fechadesde != "") && (fechahasta != ""))
+            {
+                query = query.Where(f => (f.fecha_movimiento >= desde) && (f.fecha_movimiento <= hasta));
+            }
+
+            if (query.ToList().Count == 0)
+            {
+                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+            }
+
+            //ordeno de forma ascendiente por fecha de movimiento
+            query = query.OrderBy(m => m.fecha_movimiento);
 
             List<Models.CtaCteClienteMovimientos> movs = new List<Models.CtaCteClienteMovimientos>();
             List<CtaCteClientes> queryList = query.ToList();
 
+            decimal saldoAcumulador = 0;
+
             foreach (CtaCteClientes item in queryList)
             {
+                // uso saldo para acumular los importes y obtener los distintos saldos para los movimientos
+                if (item.tipoMovimiento == 1)
+                {
+                    saldoAcumulador = saldoAcumulador - item.importe.Value;
+                }
+                else
+                {
+                    saldoAcumulador = saldoAcumulador + item.importe.Value;
+                }
+                
+
+                //creo movimientos
                 Models.CtaCteClienteMovimientos mov = new Models.CtaCteClienteMovimientos();
                 mov.id = item.id;
                 mov.fecha = item.fecha_movimiento.Value;
                 mov.concepto = item.concepto;
-                mov.saldo = (item.saldo.HasValue) ? item.saldo.Value : 0; 
+                mov.saldo = saldoAcumulador;
                 if (item.tipoMovimiento == 1)
                 {
                     mov.debito = (item.importe.HasValue) ? item.importe.Value : 0;
@@ -104,13 +131,15 @@ namespace Blibox.Controllers
         }
 
         // GET: CtaCteClientes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, decimal saldo)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CtaCteClientes ctaCteClientesMov = db.CtaCteClientes.Find(id);
+
+            ctaCteClientesMov.saldo = saldo;
             if (ctaCteClientesMov == null)
             {
                 return HttpNotFound();
@@ -127,33 +156,27 @@ namespace Blibox.Controllers
         }
 
         // POST: CtaCteClientes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CtaCteClientes ctaCteClientesMov)
         {
-            
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //ATENCION!!!
+                    //EL SALDO DE MOV CTA CTE ESTA EN DESUSO, SOLO SE USA EL SALDO DEL CLIENTE
                     Cliente cliente = db.Cliente.Where(m => m.ID_cliente == ctaCteClientesMov.id_cliente).FirstOrDefault();
                     ctaCteClientesMov.Cliente = cliente;
+
                     //si no se le asigno salgo al crear cliente se inicializa en cero
                     if (ctaCteClientesMov.Cliente.Saldo == null) ctaCteClientesMov.Cliente.Saldo = new decimal();
 
-                    //traigo el saldo del cliente para aplicar el debito o credito correspondiente
-                    if (ctaCteClientesMov.saldo == null) ctaCteClientesMov.saldo = ctaCteClientesMov.Cliente.Saldo;
-
                     if (ctaCteClientesMov.tipoMovimiento == 1)
                     {
-                        ctaCteClientesMov.saldo = ctaCteClientesMov.saldo + ctaCteClientesMov.importe;
+                        ctaCteClientesMov.Cliente.Saldo = ctaCteClientesMov.Cliente.Saldo + ctaCteClientesMov.importe;
                     }
-                    else ctaCteClientesMov.saldo = ctaCteClientesMov.saldo - ctaCteClientesMov.importe;
-
-                    //actualizo nuevo saldo del cliente
-                    ctaCteClientesMov.Cliente.Saldo = ctaCteClientesMov.saldo;
+                    else ctaCteClientesMov.Cliente.Saldo = ctaCteClientesMov.Cliente.Saldo - ctaCteClientesMov.importe;
 
                     db.CtaCteClientes.Add(ctaCteClientesMov);
                     db.SaveChanges();
@@ -191,8 +214,6 @@ namespace Blibox.Controllers
         }
 
         // POST: CtaCteClientes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CtaCteClientes ctaCteClientes)
@@ -241,8 +262,5 @@ namespace Blibox.Controllers
             }
             base.Dispose(disposing);
         }
-
-     
-     
     }
 }

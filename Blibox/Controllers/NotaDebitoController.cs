@@ -222,6 +222,32 @@ namespace Blibox.Controllers
                 encFactura.Detalle_factura = detFactura;
 
                 db.Encabezado_Factura.Add(encFactura);
+
+                int nro_factura = db.Encabezado_Factura.Max(m => m.Nro_factura) + 1;
+
+                //Si la factura es Cta Cte se genera el movimiento
+                if (encFactura.ID_condicon_venta == 1) //CTA CTE
+                {
+                    CtaCteClientes mov = new CtaCteClientes
+                    {
+                        tipoMovimiento = 1, //debito
+                        id_cliente = idCliente,
+                        concepto = "Factura Nº " + nro_factura,
+                        fecha_movimiento = encFactura.Fecha,
+                        importe = encFactura.Total,
+                    };
+
+                    //actualizo saldo cliente
+                    Cliente cliente = db.Cliente.Where(m => m.ID_cliente == idCliente).FirstOrDefault();
+                    mov.Cliente = cliente;
+                    mov.Cliente.Saldo = mov.Cliente.Saldo - encFactura.Total;
+
+                    db.CtaCteClientes.Add(mov);
+                }
+
+
+
+
                 db.SaveChanges();
 
 

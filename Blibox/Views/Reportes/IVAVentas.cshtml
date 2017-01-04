@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<Blibox.Models.reporteFactura>
+﻿
+@model PagedList.IPagedList<Blibox.Models.reporteIvaVentas>
 @using PagedList.Mvc;
 @*@model IEnumerable<Blibox.Cliente>*@
 
@@ -7,12 +8,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Reportes <small>Total de Ventas</small>
+            Reportes <small>IVA VENTAS</small>
         </h1>
 
         <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "reportes")"><i class="fa fa-dashboard"></i>Reportes</a></li>
-            <li class="active">Total de ventas</li>
+            <li><a href="@Url.Action("Index", "reportes")"><i class="fa fa-dashboard"></i>Reportes </a></li>
+            <li class="active">IVA Ventas</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -27,7 +28,7 @@
 
         <div class="box box-blibox box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Consulta de Total de Ventas</h3>
+                <h3 class="box-title">Consulta IVA Ventas</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -40,26 +41,7 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
                 <form id="formIndex" method="post" class="form-inline">
 
-                    @*<div class="form-group">
-                            <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
-                        </div>*@
-                    <div class="col-md-2">
-                        @Html.Label("Seleccione Cliente")
-                        @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente,"Todos", htmlAttributes: new { @class = "form-control" })
-                        @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
-                    </div>
-
-                    <div class="col-md-2">
-                        @Html.Label("Seleccione Vendedor")
-                        @Html.DropDownList("ID_vendedor", (SelectList)ViewBag.ID_vendedor, "Todos", htmlAttributes: new { @class = "form-control" })
-                        @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
-                    </div>
-
-                    @*<div class="col-md-2">
-                        @Html.Label("Seleccione Articulo")
-                        <select class="form-control" id="Articulos" name="Articulos" />
-
-                    </div>*@
+                   
 
                     <div class="col-md-2">
                         <div class="form-group">
@@ -69,22 +51,22 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 @Html.Editor("Fecha Desde",
-                                       new
-                                       {
-                                           htmlAttributes = new
-                                           {
-                                               id = "fechadesde",
-                                               @class = "form-control  pull-right",
-                                              // data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha inicial",
-                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
-                                               data_fv_date_format = "DD/MM/YYYY",
-                                               data_fv_date = true,
-                                               //required = "required",
-                                               //placeholder = DateTime.Now.ToString("dd/MM/yyyy"),
-                                               type = "text",
-                                               data_fv_row = ".dobleEntrada"
-                                           }
-                                       })
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            id = "fechadesde",
+                                            @class = "form-control  pull-right",
+                                            // data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha inicial",
+                                            data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                            data_fv_date_format = "DD/MM/YYYY",
+                                            data_fv_date = true,
+                                            //required = "required",
+                                            //placeholder = DateTime.Now.ToString("dd/MM/yyyy"),
+                                            type = "text",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
 
 
 
@@ -100,22 +82,22 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 @Html.Editor("Fecha Hasta",
-                                       new
-                                       {
-                                           htmlAttributes = new
-                                           {
-                                               id = "fechahasta",
-                                               @class = "form-control  pull-right",
-                                            //   data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha final",
-                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
-                                               data_fv_date_format = "DD/MM/YYYY",
-                                               data_fv_date = true,
-                                              // required = "required",
-                                              // placeholder = DateTime.Now.ToString("dd/MM/yyyy"),
-                                               type = "text",
-                                               data_fv_row = ".dobleEntrada"
-                                           }
-                                       })
+            new
+            {
+                htmlAttributes = new
+                {
+                    id = "fechahasta",
+                    @class = "form-control  pull-right",
+                    //   data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha final",
+                    data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                    data_fv_date_format = "DD/MM/YYYY",
+                    data_fv_date = true,
+                    // required = "required",
+                    // placeholder = DateTime.Now.ToString("dd/MM/yyyy"),
+                    type = "text",
+                    data_fv_row = ".dobleEntrada"
+                }
+            })
 
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
@@ -133,10 +115,10 @@
             </div>
         </div>
         <br />
-      
+
         <div class="box box-blibox box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Reporte Total de Ventas</h3>
+                <h3 class="box-title">Rpoerte IVA Ventas</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>
@@ -151,13 +133,10 @@
                         <th>@Html.DisplayName("Fecha")</th>
                         <th>@Html.DisplayName("Tipo")</th>
                         <th>@Html.DisplayName("Factura Nº")</th>
-                        <th>@Html.DisplayName("Remirto Nº")</th>
-                        
-                        <th>@Html.DisplayName("Cliente Nº")</th>
+                        <th>@Html.DisplayName("Id Clientes")</th>
                         <th>@Html.DisplayName("Razon Social")</th>
-                        <th>@Html.DisplayName("Vendedor")</th>
-                        <th>@Html.DisplayName("CV")</th>
-                        <th>@Html.DisplayName("Importe")</th>
+                        <th>@Html.DisplayName("Subtotal")</th>
+                        <th>@Html.DisplayName("Iva")</th>
                     </tr>
                     @foreach (var item in Model)
                     {
@@ -165,14 +144,11 @@
                             <td>@item.fecha.ToString("dd/MM/yyyy")</td>
                             <td>@item.tipo</td>
                             <td>@item.nroFactura</td>
-                            <td>@item.nroRemito</td>
-                           
-                            <td>@item.nroCliente</td>
+                            <td>@item.idCliente</td>
                             <td>@item.razonSocial</td>
-                            <td>@item.vendedor</td>
-                            <td>@item.cv</td>
-                            <td>@item.importe</td>
-                    </tr>
+                            <td>@item.subTotal</td>
+                            <td>@item.iva</td>
+                        </tr>
                     }
 
 
@@ -181,30 +157,45 @@
         </div>
 
         @if (Model.PageCount > 1)
-            {
+        {
             <div class="pager">
                 @Html.PagedListPager(Model, page => Url.Action("Index", new
-                   {
-                       page,
-                       sortOrder = ViewBag.currentSort,
-                       q = ViewBag.CurrentFilter
-                   }))
+           {
+               page,
+               sortOrder = ViewBag.currentSort,
+               q = ViewBag.CurrentFilter
+           }))
                 Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             </div>
         }
 
-        <hr/>
-        <div class="col-md-9 col-sm-6 col-xs-12">
+        <hr />
+        <div class="col-md-6 col-sm-6 col-xs-12">
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="ion ion-ios-cart-outline"></i></span>
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Ventas</span>
-                        <span class="info-box-number">@ViewBag.Total</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Subtotal</span>
+                    <span class="info-box-number">
+                        @if (ViewBag.Subtotal != null)
+                    { @ViewBag.Subtotal}
+                </span>
+
+            </div>
+        </div>
+    </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">IVA Ventas</span>
+                    <span class="info-box-number">@if (ViewBag.IvaVentas != null)
+                    { @ViewBag.IvaVentas}</span>
+
                 </div>
-                <!-- /.info-box-content -->
             </div>
         </div>
 
@@ -213,11 +204,13 @@
 
 
 
-</section>
+
+    </section>
 </div><!-- /.content-wrapper -->
 
+
 <script type="text/javascript">
-    inicializarDatePicker('#fechadesde', false, false);
+inicializarDatePicker('#fechadesde', false, false);
     inicializarDatePicker('#fechahasta', false, false);
 
     $('#fechadesde').change(function () {
@@ -265,6 +258,7 @@
 
     //onChangeCliente();
 </script>
+
 
 
 

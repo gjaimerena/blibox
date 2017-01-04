@@ -22,10 +22,10 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="row">
-            <div class="col-md-4">
+      
+            <p>
                 <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO ARTICULO", "Create")</button>
-            </div>
+            </p>
 
             @{ string currentFilter = ViewBag.CurrentFilter;
             string currentSort = ViewBag.CurrentSort;
@@ -33,17 +33,16 @@
             {
                 currentSort = "id";
             } }
-            <div class="col-md-4"></div>
-            <div class="search-box col-md-4">
+           <div class="search-box">
                 <form class="form-inline">
                     <div class="form-group">
-                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
-                        <button type="submit" class="btn btn-search">Buscar</button>
+                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                     </div>
-                   
+                    <button type="submit" class="btn btn-search">Buscar</button>
                 </form>
             </div>
-        </div>
+
+       
         
 
         @*@using (Html.BeginForm())

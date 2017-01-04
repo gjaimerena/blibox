@@ -45,7 +45,7 @@
                 </div>*@
                             <div class="col-md-2">
                                 @Html.Label("Seleccione Cliente")
-                                @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente, htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente,"Todos", htmlAttributes: new { @class = "form-control" })
                                 @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
                             </div>
                             <div class="col-md-2">
@@ -66,7 +66,7 @@
                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
                                                data_fv_date_format = "DD/MM/YYYY",
                                                data_fv_date = true,
-                                               required = "required",
+                                               //required = "required",
                                                placeholder = "dd/mm/yyyy",
                                                type = "text",
                                                data_fv_row = ".dobleEntrada"
@@ -97,7 +97,7 @@
                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
                                                data_fv_date_format = "DD/MM/YYYY",
                                                data_fv_date = true,
-                                               required = "required",
+                                               //required = "required",
                                                placeholder = "dd/mm/yyyy",
                                                type = "text",
                                                data_fv_row = ".dobleEntrada"
@@ -160,7 +160,7 @@
 
                                 <td class="accion">
 
-                                    <a href="@Url.Action("Details", new { id = item.id })" title="Ver" class="">
+                                    <a href="@Url.Action("Details", new { id = item.id, saldo = item.saldo })" title="Ver" class="">
                                         <i class="glyphicon glyphicon-zoom-in"></i>
                                         <span class="sr-only">Ver</span>
                                     </a>
@@ -196,7 +196,7 @@
                 }
 
         <p>
-            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO MOVIMIENTO", "Create")</button>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO RECIBO", "Create")</button>
         </p>
 
 </section>

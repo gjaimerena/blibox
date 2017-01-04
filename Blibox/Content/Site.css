@@ -264,6 +264,7 @@ h3 {
 
 .form-control {
     border-width: 2px;
+    width: 100% !important;
 }
 
 @media (min-width: 768px) {
@@ -356,7 +357,7 @@ button > a:focus {
 .btn-new {
   color: #fff;
   background-color: #7CCAA6;
-  border-color: ##3BB87F;
+  border-color: #3BB87F;
 }
 
 
@@ -427,4 +428,9 @@ button.btn.btn-addmore:focus{
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #ddd;
+}
+
+
+.content-wrapper {
+    min-height: 900px !important;
 }

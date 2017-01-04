@@ -314,7 +314,7 @@
 
                     <div class="form-group">
                         <div class="dobleEntrada">
-                            @Html.Label("Saldo", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @*@Html.Label("Saldo", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
@@ -332,6 +332,27 @@
                                                 data_fv_numeric_message = "<i class='glyphicon glyphicon-alert-sign'></i> El saldo debe ser numérico"
                                             }
                                         })
+                                </div>
+                            </div>*@
+                            @Html.LabelFor(model => model.Grupo_mailing, "Grupo Mailing", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                                    @Html.EditorFor(
+                                        model => model.Grupo_mailing,
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control",
+                                                @id = "grupoMailing",
+                                                data_fv_row = ".dobleEntrada",
+                                                data_fv_stringlength_min = 0,
+                                                data_fv_stringlength = "true",
+                                            }
+                                        })
+
+
                                 </div>
                             </div>
                         </div>
@@ -457,7 +478,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <div class="dobleEntrada">
                             @Html.LabelFor(model => model.Grupo_mailing, "Grupo Mailing", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
@@ -505,7 +526,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     @*<div class="form-group">
                             <div class="dobleEntrada">
                                 @Html.LabelFor(model => model.Fecha_alta, "Fecha de Alta", htmlAttributes: new { @class = "control-label col-md-2" })

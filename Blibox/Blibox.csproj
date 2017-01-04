@@ -334,6 +334,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Models\reporteFactura.cs" />
+    <Compile Include="Models\reporteIvaVentas.cs" />
+    <Compile Include="Models\reporteVentasXArticulo.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Pedido.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
@@ -369,6 +371,8 @@
     <Content Include="Views\Proveedor\CreateTemplate.cshtml" />
     <Content Include="Views\Matrices\CreateTemplate.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Reportes\DetalleXArticulo.cshtml" />
+    <Content Include="Views\Reportes\IVAVentas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blibox.Context.tt">
