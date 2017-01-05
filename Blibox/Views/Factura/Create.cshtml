@@ -25,130 +25,192 @@
     <!-- Main content -->
     <section class="content">
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
         {
             @Html.AntiForgeryToken()
 
         <!-- SELECT2 EXAMPLE -->
             <div class="box box-blibox box-solid">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="box-header with-border">
                     <h3 class="box-title">Nueva Factura</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Seleccione Cliente</label>
-                                <div>
-                                    @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente, htmlAttributes: new { @class = "form-control", onchange = "onChangeCliente();" })
-                                    @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
-                                    @Html.ValidationMessageFor(model => model.ID_cliente, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>CUIT</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cliente.Documento, new { htmlAttributes = new { @class = "form-control", @id = "CUIT", @readonly = "readonly" } })
-                                    @*@Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })*@
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Tipo IVA</label>
-                                @Html.EditorFor(model => model.Cliente.TipoResponsables.Descripcion, new { htmlAttributes = new { @class = "form-control", @id = "TipoResp", @readonly = "readonly" } })
-
-                            </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Seleccione Cliente</label>
+                            <div class="col-md-4">
+                                @Html.DropDownList(
+                                    "ID_cliente",
+                                    (SelectList)ViewBag.ID_cliente,
+                                    htmlAttributes: new
+                                    {
+                                        @class = "form-control",
+                                        onchange = "onChangeCliente();",
+                                        @id = "ID_cliente",
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe elegir el cliente",
+                                        required = "required",
+                                        data_fv_row = ".dobleEntrada"
+                                    })
+                            </div>
                         </div><!-- /.col -->
 
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>IVA</label>
-                                @Html.DropDownList("iva", (SelectList)ViewBag.CondicionIVA, htmlAttributes: new { @class = "form-control" })
-                                @*@Html.EditorFor(model => model.Cliente.CondicionIVA, new { htmlAttributes = new { @class = "form-control", @id = "iva" } })*@
-
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Condicion venta</label>
-                                @Html.DropDownList("ID_condicion_venta", (SelectList)ViewBag.CondicionVenta, htmlAttributes: new { @class = "form-control" })
-
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">CUIT</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Cliente.Documento,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "CUIT",
+                                            @readonly = "readonly",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el cuit",
+                                            required = "required",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Tipo IVA</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Cliente.TipoResponsables.Descripcion,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "TipoResp",
+                                            @readonly = "readonly",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el tipo de responsable",
+                                            required = "required",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">IVA</label>
+                            <div class="col-md-4">
+                                @Html.DropDownList(
+                                    "iva",
+                                    (SelectList)ViewBag.CondicionIVA,
+                                    htmlAttributes: new
+                                    {
+                                        @class = "form-control",
+                                        @id = "iva",
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe elegir la condicion de iva",
+                                        required = "required",
+                                        data_fv_row = ".dobleEntrada"
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Condicion venta</label>
+                            <div class="col-md-4">
+                                @Html.DropDownList(
+                                    "ID_condicion_venta",
+                                    (SelectList)ViewBag.CondicionVenta,
+                                    htmlAttributes: new
+                                    {
+                                        @class = "form-control",
+                                        @id = "iva",
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe elegir la condicion de venta",
+                                        required = "required",
+                                        data_fv_row = ".dobleEntrada"
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Orden Compra</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.OrdenCompra,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "ordenCompra",
+                                            type = "number",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> La orden de compra debe ser numerica",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Pago Efec. Dias</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Cliente.DiasFF,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "ordenCompra",
+                                            @Value = "0",
+                                            type = "numeric",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Los dias de fondo fijo deben ser numericos",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Pago Cheque en Dias</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Cliente.Dias_Cheque,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "diasCheque",
+                                            type = "numeric",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Los dias del cheque debe ser numerico",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
 
-                        @*<div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Factura Nº</label>
-                                    <div>
-                                        @Html.Editor(((int)ViewBag.NroFacturaNew).ToString(), new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Nro_factura, "", new { @class = "text-danger" })
-                                    </div>
-                                </div><!-- /.form-group -->
-                            </div><!-- /.col -->*@
-
-                        @*<div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Fecha Emision Factura:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control  pull-right", id = "reservation" } })
-                                        @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
-                                    </div><!-- /.input group -->
-                                </div><!-- /.form group -->
-                            </div><!-- /.col -->*@
-                        @*<div class="col-md-2">
-                            <div class="form-group">
-                                <label>Remito</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Nro_remito, new { htmlAttributes = new { @Value = "0", @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Nro_remito, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->*@
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Orden Compra</label>
-                                <div>
-                                    @Html.EditorFor(model => model.OrdenCompra, new { htmlAttributes = new { @Value = "0", @class = "form-control", @id = "orden" } })
-                                    @Html.ValidationMessageFor(model => model.OrdenCompra, "", new { @class = "text-danger" })
-                                </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Descuento</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Descuento,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @id = "descuento",
+                                            @Value = "0",
+                                            type = "numeric",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El descuento debe ser numerico",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Pago Efec. Dias</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cliente.DiasFF, new { htmlAttributes = new { @Value = "0", @class = "form-control", @id = "DiasFF" } })
-                                    @Html.ValidationMessageFor(model => model.Cliente.DiasFF, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Pago Cheque en Dias</label>
-                                <div>
-                                    @Html.EditorFor(model => model.Cliente.Dias_Cheque, new { htmlAttributes = new { @Value = "0", @class = "form-control", @id = "Dias_Cheque" } })
-                                    @Html.ValidationMessageFor(model => model.Cliente.Dias_Cheque, "", new { @class = "text-danger" })
-                                </div>
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Descuento</label>
-                                @Html.EditorFor(model => model.Descuento, new { htmlAttributes = new { @Value = "0", @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-
                     </div>
 
 
@@ -175,31 +237,59 @@
 
                     <!--Fin agregar item-->
                     <br />
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Subtotal: </label>
-                            <input type="text" class="form-control" id="subtotal" name="subtotal" />
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label ">Subtotal: </label>
+                            <div class="col-md-4">
+                                <input 
+                                       type="text" 
+                                       class="form-control" 
+                                       id="subtotal" 
+                                       name="subtotal"
+                                       min="0"
+                                       required="true"
+                                       readonly="true"
+                                       data-fv-notempty-message = "<i class='glyphicon glyphicon-info-sign'></i> Debe cargar articulos",
+                                       data-fv-greaterthan-value="0"
+                                       data-fv-greaterthan-inclusive="false"
+                                       data-fv-greaterthan="true"
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
+                                       data-fv-row=".dobleEntrada" />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Total: </label>
+                            <div class="col-md-4">
+                                <input 
+                                       type="text" 
+                                       class="form-control" 
+                                       id="total" 
+                                       name="total"
+                                       min="0"
+                                       required="true"
+                                       readonly="true"
+                                       data-fv-notempty-message = "<i class='glyphicon glyphicon-info-sign'></i> Debe cargar articulos",
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
+                                       data-fv-greaterthan-value="0"
+                                       data-fv-greaterthan-inclusive="false"
+                                       data-fv-greaterthan="true"
+                                       data-fv-row=".dobleEntrada" />
+                            </div>
                         </div>
                     </div>
-                    <div class="row ">
-                        <div class="col-md-2">
-                            <label>Total: </label>
-                            <input type="text" class="form-control" id="total" name="total" />
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <div class="box-footer">
-                            
+
                         </div>
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
-       
 
-        <div>
-            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
-            <input type="submit" value="Generar" class="btn btn-new" />
-        </div>
+            <div>
+                <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+                <input type="submit" value="Generar" class="btn btn-new" />
+            </div>
         }
     </section>
 </div><!-- /.content-wrapper -->
@@ -217,14 +307,12 @@
         $('#PrecioTotal' + id).val(strSelected * cantidad)
     }
 
-
-
     function onChangeCliente() {
-
         var strSelected = "";
         $("#ID_cliente option:selected").each(function () {
             strSelected += $(this)[0].value;
         });
+        debugger;
         $.ajax({
             type: "POST",
             url: "@Url.Action("obtenerDatosCliente", "Factura")",
@@ -233,13 +321,10 @@
             dataType: "json",
             success: function (data) {
                 if (data != null) {
-
-
                     $('#CUIT').val(data.Documento);
                     $('#TipoResp').val(data.TipoResponsable)
                     $("#DiasFF").val(data.DiasFF);
                     $("#Dias_Cheque").val(data.Dias_Cheque);
-
 
                     var select = $("#Articulos");
 
@@ -249,17 +334,56 @@
                         option.innerHTML = data.Articulos[articulo].Descripcion;
                         option.value = data.Articulos[articulo].ID_articulo;
                         select.append(option);
-
                     }
-
                 }
             },
             error: function (request, status, error) {
-                alert(request.responseText);
+                console.log(error);
+                console.log(request.responseText);
+            }
+        });
+        $('.btnDelete').click();
+    }
+
+    validarForm('#form');
+    //$('#ID_cliente').change();
+    onChangeCliente();
+
+    function onChangeArticulo(idArticulo, idPrecioUnitario) {
+        var strSelected = "";
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("obtenerPrecioUnitario", "Factura")",
+            data: "{'idArticulo': " + strSelected + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    console.log(data);
+                    console.log(idPrecioUnitario);
+                    /*
+                    $('#CUIT').val(data.Documento);
+                    $('#TipoResp').val(data.TipoResponsable)
+                    $("#DiasFF").val(data.DiasFF);
+                    $("#Dias_Cheque").val(data.Dias_Cheque);
+
+                    var select = $("#Articulos");
+
+                    for (var articulo in data.Articulos) {
+
+                        var option = document.createElement('option');
+                        option.innerHTML = data.Articulos[articulo].Descripcion;
+                        option.value = data.Articulos[articulo].ID_articulo;
+                        select.append(option);
+                    }
+                    */
+                }
+            },
+            error: function (request, status, error) {
+                console.log(error);
+                console.log(request.responseText);
             }
         });
     }
 
-    onChangeCliente();
 </script>
-

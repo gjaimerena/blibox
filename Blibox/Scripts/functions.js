@@ -25,6 +25,7 @@
                     option2.value = data[articulo].ID_articulo;
                     selectPreciosUnitarios.append(option2);
                 }
+                selectArticulos.change();
             }
         },
         error: function (request, status, error) {
@@ -38,11 +39,25 @@ function setPrecioUnitario(idOrigen, idArticulos, idDestino) {
     $('#'+ idArticulos + " option:selected").each(function () {
         strSelected += $(this)[0].value;
     });
-
-    var precioUnitario = $('#' + idOrigen + ' option[value="' + strSelected + '"]').text();
-
+    var precioUnitario = 0;
+    $.ajax({
+        type: "POST",
+        url: "obtenerPrecioUnitario",
+        data: "{'idArticulo': " + strSelected + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false, //FIXME: no usar async false, tratar de devolver el valor de data y asignarlo en precioUnitario
+        success: function (data) {
+            if (data != null) {
+                precioUnitario = data;
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
     $('#'+ idDestino).val(precioUnitario);
-            
+    
 }
 
 function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
@@ -118,8 +133,6 @@ function Add() {
     });
 
     obtenerArticulos(idArticulos, idPreciosUnitarios);
-    setPrecioUnitario(idPreciosUnitarios, idArticulos, idPrecioUnitario);
-    calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal);
 };
 
 function Save(){ 
@@ -157,8 +170,11 @@ function Edit(){
     $(".btnDelete").bind("click", Delete);
 };
 
-function Delete(){ 
+function Delete() {
     var par = $(this).parent().parent(); //tr 
+    var idPrecioUnitario = $($(par.children()[2])[0].innerHTML).attr('id')
+    $('#' + idPrecioUnitario).val(0);//seteo el precio en 0 asi actualiza el total
+    $('#' + idPrecioUnitario).change();
     par.remove(); 
 };
 

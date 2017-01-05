@@ -363,22 +363,31 @@ namespace Blibox.Controllers
 
             BliboxEntities db2 = new BliboxEntities();
             db2.Configuration.ProxyCreationEnabled = false;
-            ClienteJson clientejson = new ClienteJson
+            ClienteJson clientejson = new ClienteJson();
+            if (cliente != null)
             {
-                Documento = cliente.Documento,
 
-                ID_cliente = cliente.ID_cliente,
-                Razon_Social = cliente.Razon_Social,
-                TipoDocumento = cliente.TipoDocumento,
-                TipoResponsable = db.TipoResponsables.Where(m => m.Codigo == cliente.TipoResponsable).FirstOrDefault().Descripcion,
-                DiasFF = cliente.DiasFF,
-                Dias_Cheque = cliente.Dias_Cheque,
-                Articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList(),
-                CondicionIVA = cliente.CondicionIVA
+                clientejson = new ClienteJson
+                {
+                    Documento = cliente.Documento,
 
-            };
+                    ID_cliente = cliente.ID_cliente,
+                    Razon_Social = cliente.Razon_Social,
+                    TipoDocumento = cliente.TipoDocumento,
+                    TipoResponsable = db.TipoResponsables.Where(m => m.Codigo == cliente.TipoResponsable).FirstOrDefault().Descripcion,
+                    DiasFF = cliente.DiasFF,
+                    Dias_Cheque = cliente.Dias_Cheque,
+                    Articulos = db2.Articulo.Where(m => m.ID_cliente == idCliente).ToList(),
+                    CondicionIVA = cliente.CondicionIVA
 
-            ViewBag.art = clientejson.Articulos;
+                };
+
+                ViewBag.art = clientejson.Articulos;
+            }
+            else
+            {
+                ViewBag.art = new List<Articulo>();
+            }
 
             return Json(clientejson, JsonRequestBehavior.AllowGet);
         }

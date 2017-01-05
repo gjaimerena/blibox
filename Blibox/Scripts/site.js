@@ -39,7 +39,7 @@ function validarForm(id) {
             });
     });
 }
-
+/*
 function inicializarDatePicker(id, fechaMinima, fechaMaxima) {
     if (fechaMinima = '')
         fechaMinima = false
@@ -57,7 +57,37 @@ function inicializarDatePicker(id, fechaMinima, fechaMaxima) {
                 format: 'dd/mm/yyyy',
                 startDate: fechaMinima,
                 endDate: fechaMaxima,
-                linked: true,
+                linked: true })
+            .on('changeDate', function (e) {
+                console.log('asdsa');
+                // Revalidate the date field
+                $('#form').formValidation('revalidateField', id);//'[name="'+id.substring(1)+'"]');
             })
-    })
+        });
+}
+*/
+
+function inicializarDatePicker(id, fechaMinima, fechaMaxima) {
+    if (fechaMinima == '')
+        fechaMinima = false;
+    if (fechaMaxima == '')
+        fechaMaxima = false;
+    var idBusqueda =  id;
+    $(idBusqueda)
+        .ready(function () {
+            $(idBusqueda)
+                .datepicker({
+                    startView: 3,
+                    maxViewMode: 3,
+                    language: "es",
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    startDate: fechaMinima,
+                    endDate: fechaMaxima,
+                })
+                .on('changeDate', function (e) {
+                    // Revalidate the date field
+                    $('#form').formValidation('revalidateField', id.substring(1));
+                });
+        });
 }
