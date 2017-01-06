@@ -18,6 +18,7 @@ namespace Blibox
         public TipoMovCtaCte()
         {
             this.CtaCteClientes = new HashSet<CtaCteClientes>();
+            this.CtaCteProveedores = new HashSet<CtaCteProveedores>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,7 @@ namespace Blibox
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CtaCteClientes> CtaCteClientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CtaCteProveedores> CtaCteProveedores { get; set; }
     }
 }

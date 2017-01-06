@@ -160,19 +160,6 @@
           <Property Name="Bocas" Type="int" />
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="CtaCte_Proveedores">
-          <Key>
-            <PropertyRef Name="ID_movimiento" />
-          </Key>
-          <Property Name="ID_movimiento" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ID_Proveedor" Type="int" />
-          <Property Name="Razon_social" Type="varchar" MaxLength="50" />
-          <Property Name="Saldo" Type="int" />
-          <Property Name="Fecha_movimiento" Type="date" />
-          <Property Name="Concepto" Type="nchar" MaxLength="10" />
-          <Property Name="Importe_movimiento" Type="int" />
-          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="CtaCteClientes">
           <Key>
             <PropertyRef Name="id" />
@@ -185,6 +172,19 @@
           <Property Name="importe" Type="decimal" Precision="18" Scale="2" />
           <Property Name="tipoMovimiento" Type="int" Nullable="false" />
           <Property Name="concepto" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CtaCteProveedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_proveedor" Type="int" Nullable="false" />
+          <Property Name="saldo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="fecha_movimiento" Type="date" Nullable="false" />
+          <Property Name="concepto" Type="varchar" MaxLength="50" />
+          <Property Name="importe" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tipo_movimiento" Type="int" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -304,19 +304,19 @@
             <PropertyRef Name="ID_proveedor" />
           </Key>
           <Property Name="ID_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Razon_social" Type="nvarchar" MaxLength="50" />
-          <Property Name="Contacto" Type="nvarchar" MaxLength="50" />
-          <Property Name="Domicilio" Type="nvarchar" MaxLength="50" />
-          <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
-          <Property Name="Provincia" Type="nvarchar" MaxLength="50" />
-          <Property Name="Telefono" Type="int" />
-          <Property Name="Celular" Type="int" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Razon_social" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contacto" Type="varchar" MaxLength="50" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="50" />
+          <Property Name="Localidad" Type="varchar" MaxLength="50" />
+          <Property Name="Provincia" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Celular" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Fecha_alta" Type="date" />
-          <Property Name="IVA" Type="nchar" MaxLength="10" />
-          <Property Name="CUIT" Type="int" />
-          <Property Name="Saldo" Type="int" />
-          <Property Name="Observaciones" Type="nvarchar" MaxLength="50" />
+          <Property Name="IVA" Type="varchar" MaxLength="50" />
+          <Property Name="CUIT" Type="bigint" />
+          <Property Name="Saldo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Remito">
           <Key>
@@ -505,18 +505,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCte_Proveedores_Proveedor">
-          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
-          <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Proveedor">
-              <PropertyRef Name="ID_proveedor" />
-            </Principal>
-            <Dependent Role="CtaCte_Proveedores">
-              <PropertyRef Name="ID_Proveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CtaCteClientes_TipoMovCtaCte">
           <End Role="TipoMovCtaCte" Type="Self.TipoMovCtaCte" Multiplicity="1" />
           <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
@@ -538,6 +526,30 @@
             </Principal>
             <Dependent Role="CtaCteClientes">
               <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCteProveedores_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="CtaCteProveedores" Type="Self.CtaCteProveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="ID_proveedor" />
+            </Principal>
+            <Dependent Role="CtaCteProveedores">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCteProveedores_TipoMovCtaCte">
+          <End Role="TipoMovCtaCte" Type="Self.TipoMovCtaCte" Multiplicity="1" />
+          <End Role="CtaCteProveedores" Type="Self.CtaCteProveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovCtaCte">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CtaCteProveedores">
+              <PropertyRef Name="tipo_movimiento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -706,8 +718,8 @@
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cortante" EntityType="Self.Cortante" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CtaCteClientes" EntityType="Self.CtaCteClientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CtaCteProveedores" EntityType="Self.CtaCteProveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Encabezado_Factura" EntityType="Self.Encabezado_Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IVA" EntityType="Self.IVA" Schema="dbo" store:Type="Tables" />
@@ -767,10 +779,6 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compras" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
-            <End Role="Proveedor" EntitySet="Proveedor" />
-            <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
-          </AssociationSet>
           <AssociationSet Name="FK_CtaCteClientes_TipoMovCtaCte" Association="Self.FK_CtaCteClientes_TipoMovCtaCte">
             <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
@@ -778,6 +786,14 @@
           <AssociationSet Name="FK_CtaCteClientesMov_Cliente" Association="Self.FK_CtaCteClientesMov_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CtaCteProveedores_Proveedor" Association="Self.FK_CtaCteProveedores_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="CtaCteProveedores" EntitySet="CtaCteProveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CtaCteProveedores_TipoMovCtaCte" Association="Self.FK_CtaCteProveedores_TipoMovCtaCte">
+            <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
+            <End Role="CtaCteProveedores" EntitySet="CtaCteProveedores" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1006,20 +1022,6 @@
           <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Cortante" FromRole="Cortante" ToRole="Componente" />
         </EntityType>
-        <EntityType Name="CtaCte_Proveedores">
-          <Key>
-            <PropertyRef Name="ID_movimiento" />
-          </Key>
-          <Property Name="ID_movimiento" Type="Guid" Nullable="false" />
-          <Property Name="ID_Proveedor" Type="Int32" />
-          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Saldo" Type="Int32" />
-          <Property Name="Fecha_movimiento" Type="DateTime" Precision="0" />
-          <Property Name="Concepto" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Importe_movimiento" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Proveedor" Relationship="Self.FK_CtaCte_Proveedores_Proveedor" FromRole="CtaCte_Proveedores" ToRole="Proveedor" />
-        </EntityType>
         <EntityType Name="CtaCteClientes">
           <Key>
             <PropertyRef Name="id" />
@@ -1034,6 +1036,21 @@
           <Property Name="concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCteClientesMov_Cliente" FromRole="CtaCteClientes" ToRole="Cliente" />
           <NavigationProperty Name="TipoMovCtaCte" Relationship="Self.FK_CtaCteClientes_TipoMovCtaCte" FromRole="CtaCteClientes" ToRole="TipoMovCtaCte" />
+        </EntityType>
+        <EntityType Name="CtaCteProveedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" />
+          <Property Name="saldo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="fecha_movimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tipo_movimiento" Type="Int32" Nullable="false" />
+          <Property Name="observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK_CtaCteProveedores_Proveedor" FromRole="CtaCteProveedores" ToRole="Proveedor" />
+          <NavigationProperty Name="TipoMovCtaCte" Relationship="Self.FK_CtaCteProveedores_TipoMovCtaCte" FromRole="CtaCteProveedores" ToRole="TipoMovCtaCte" />
         </EntityType>
         <EntityType Name="Detalle_factura">
           <Key>
@@ -1165,21 +1182,21 @@
             <PropertyRef Name="ID_proveedor" />
           </Key>
           <Property Name="ID_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Telefono" Type="Int32" />
-          <Property Name="Celular" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Fecha_alta" Type="DateTime" Precision="0" />
-          <Property Name="IVA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CUIT" Type="Int32" />
-          <Property Name="Saldo" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IVA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="Int64" />
+          <Property Name="Saldo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Compras" Relationship="Self.FK_Compras_Proveedor" FromRole="Proveedor" ToRole="Compras" />
-          <NavigationProperty Name="CtaCte_Proveedores" Relationship="Self.FK_CtaCte_Proveedores_Proveedor" FromRole="Proveedor" ToRole="CtaCte_Proveedores" />
+          <NavigationProperty Name="CtaCteProveedores" Relationship="Self.FK_CtaCteProveedores_Proveedor" FromRole="Proveedor" ToRole="CtaCteProveedores" />
         </EntityType>
         <EntityType Name="Remito">
           <Key>
@@ -1215,6 +1232,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CtaCteClientes" Relationship="Self.FK_CtaCteClientes_TipoMovCtaCte" FromRole="TipoMovCtaCte" ToRole="CtaCteClientes" />
+          <NavigationProperty Name="CtaCteProveedores" Relationship="Self.FK_CtaCteProveedores_TipoMovCtaCte" FromRole="TipoMovCtaCte" ToRole="CtaCteProveedores" />
         </EntityType>
         <EntityType Name="TipoResponsables">
           <Key>
@@ -1475,18 +1493,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCte_Proveedores_Proveedor">
-          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
-          <End Role="CtaCte_Proveedores" Type="Self.CtaCte_Proveedores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Proveedor">
-              <PropertyRef Name="ID_proveedor" />
-            </Principal>
-            <Dependent Role="CtaCte_Proveedores">
-              <PropertyRef Name="ID_Proveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CtaCteClientes_TipoMovCtaCte">
           <End Role="TipoMovCtaCte" Type="Self.TipoMovCtaCte" Multiplicity="1" />
           <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
@@ -1496,6 +1502,30 @@
             </Principal>
             <Dependent Role="CtaCteClientes">
               <PropertyRef Name="tipoMovimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCteProveedores_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="CtaCteProveedores" Type="Self.CtaCteProveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="ID_proveedor" />
+            </Principal>
+            <Dependent Role="CtaCteProveedores">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CtaCteProveedores_TipoMovCtaCte">
+          <End Role="TipoMovCtaCte" Type="Self.TipoMovCtaCte" Multiplicity="1" />
+          <End Role="CtaCteProveedores" Type="Self.CtaCteProveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovCtaCte">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CtaCteProveedores">
+              <PropertyRef Name="tipo_movimiento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1551,8 +1581,8 @@
           <EntitySet Name="Condicion_venta" EntityType="Self.Condicion_venta" />
           <EntitySet Name="CondicionIVA" EntityType="Self.CondicionIVA" />
           <EntitySet Name="Cortante" EntityType="Self.Cortante" />
-          <EntitySet Name="CtaCte_Proveedores" EntityType="Self.CtaCte_Proveedores" />
           <EntitySet Name="CtaCteClientes" EntityType="Self.CtaCteClientes" />
+          <EntitySet Name="CtaCteProveedores" EntityType="Self.CtaCteProveedores" />
           <EntitySet Name="Detalle_factura" EntityType="Self.Detalle_factura" />
           <EntitySet Name="Encabezado_Factura" EntityType="Self.Encabezado_Factura" />
           <EntitySet Name="IVA" EntityType="Self.IVA" />
@@ -1644,13 +1674,17 @@
             <End Role="Condicion_venta" EntitySet="Condicion_venta" />
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCte_Proveedores_Proveedor" Association="Self.FK_CtaCte_Proveedores_Proveedor">
-            <End Role="Proveedor" EntitySet="Proveedor" />
-            <End Role="CtaCte_Proveedores" EntitySet="CtaCte_Proveedores" />
-          </AssociationSet>
           <AssociationSet Name="FK_CtaCteClientes_TipoMovCtaCte" Association="Self.FK_CtaCteClientes_TipoMovCtaCte">
             <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CtaCteProveedores_Proveedor" Association="Self.FK_CtaCteProveedores_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="CtaCteProveedores" EntitySet="CtaCteProveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CtaCteProveedores_TipoMovCtaCte" Association="Self.FK_CtaCteProveedores_TipoMovCtaCte">
+            <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
+            <End Role="CtaCteProveedores" EntitySet="CtaCteProveedores" />
           </AssociationSet>
           <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura1" Association="Self.FK_Detalle_factura_Encabezado_Factura1">
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
@@ -1831,20 +1865,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CtaCte_Proveedores">
-            <EntityTypeMapping TypeName="Blibox.CtaCte_Proveedores">
-              <MappingFragment StoreEntitySet="CtaCte_Proveedores">
-                <ScalarProperty Name="ID_movimiento" ColumnName="ID_movimiento" />
-                <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
-                <ScalarProperty Name="Razon_social" ColumnName="Razon_social" />
-                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
-                <ScalarProperty Name="Fecha_movimiento" ColumnName="Fecha_movimiento" />
-                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
-                <ScalarProperty Name="Importe_movimiento" ColumnName="Importe_movimiento" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CtaCteClientes">
             <EntityTypeMapping TypeName="Blibox.CtaCteClientes">
               <MappingFragment StoreEntitySet="CtaCteClientes">
@@ -1856,6 +1876,20 @@
                 <ScalarProperty Name="importe" ColumnName="importe" />
                 <ScalarProperty Name="tipoMovimiento" ColumnName="tipoMovimiento" />
                 <ScalarProperty Name="concepto" ColumnName="concepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CtaCteProveedores">
+            <EntityTypeMapping TypeName="Blibox.CtaCteProveedores">
+              <MappingFragment StoreEntitySet="CtaCteProveedores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="saldo" ColumnName="saldo" />
+                <ScalarProperty Name="fecha_movimiento" ColumnName="fecha_movimiento" />
+                <ScalarProperty Name="concepto" ColumnName="concepto" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="tipo_movimiento" ColumnName="tipo_movimiento" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

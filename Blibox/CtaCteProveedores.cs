@@ -12,17 +12,18 @@ namespace Blibox
     using System;
     using System.Collections.Generic;
     
-    public partial class CtaCte_Proveedores
+    public partial class CtaCteProveedores
     {
-        public System.Guid ID_movimiento { get; set; }
-        public Nullable<int> ID_Proveedor { get; set; }
-        public string Razon_social { get; set; }
-        public Nullable<int> Saldo { get; set; }
-        public Nullable<System.DateTime> Fecha_movimiento { get; set; }
-        public string Concepto { get; set; }
-        public Nullable<int> Importe_movimiento { get; set; }
-        public string Observaciones { get; set; }
+        public int id { get; set; }
+        public int id_proveedor { get; set; }
+        public Nullable<decimal> saldo { get; set; }
+        public System.DateTime fecha_movimiento { get; set; }
+        public string concepto { get; set; }
+        public decimal importe { get; set; }
+        public int tipo_movimiento { get; set; }
+        public string observaciones { get; set; }
     
         public virtual Proveedor Proveedor { get; set; }
+        public virtual TipoMovCtaCte TipoMovCtaCte { get; set; }
     }
 }

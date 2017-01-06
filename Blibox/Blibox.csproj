@@ -260,7 +260,9 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\CtaCteClientesController.cs" />
+    <Compile Include="Controllers\CtaCteProveedoresController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
@@ -273,7 +275,7 @@
     <Compile Include="CtaCteClientes.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
-    <Compile Include="CtaCte_Proveedores.cs">
+    <Compile Include="CtaCteProveedores.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Detalle_factura.cs">
@@ -298,18 +300,63 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthorizeOrRedirectAttribute.cs" />
+    <Compile Include="Models\CtaCteProveedorMovimientos.cs" />
     <Compile Include="Models\CtaCteClienteMovimientos.cs" />
     <Compile Include="Models\DetalleCustom.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Pedido.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Presupuesto.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proveedor.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Remito.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rubro.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDocumento.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoMovCtaCte.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoResponsables.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendedor.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
     <None Include="App_Start\IdentityConfig.cs_" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Blibox.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Blibox.edmx</DependentUpon>
+      <LastGenOutput>Blibox.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Blibox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Blibox.edmx</DependentUpon>
+      <LastGenOutput>Blibox.cs</LastGenOutput>
+    </Content>
     <Content Include="certificadosAfip\2048\bliboxCert.crt" />
     <Content Include="certificadosAfip\2048\BliboxCSR" />
     <Content Include="certificadosAfip\2048\bliboxprivate" />
     <Content Include="certificadosAfip\2048\certBlibox.pfx" />
+    <EntityDeploy Include="Blibox.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Blibox.edmx.diagram">
+      <DependentUpon>Blibox.edmx</DependentUpon>
+    </Content>
     <None Include="Controllers\AccountController2.cs_" />
     <Compile Include="Controllers\Articulos2Controller.cs" />
     <Compile Include="Models\itemFactura.cs" />
@@ -337,35 +384,8 @@
     <Compile Include="Models\reporteIvaVentas.cs" />
     <Compile Include="Models\reporteVentasXArticulo.cs" />
     <Compile Include="Models\Users.cs" />
-    <Compile Include="Pedido.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Presupuesto.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proveedor.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Remito.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Rubro.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="TipoDocumento.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TipoMovCtaCte.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TipoResponsables.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Vendedor.cs">
-      <DependentUpon>Blibox.tt</DependentUpon>
-    </Compile>
     <Content Include="Scripts\site.js" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Proveedor\CreateTemplate.cshtml" />
@@ -373,18 +393,14 @@
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Reportes\DetalleXArticulo.cshtml" />
     <Content Include="Views\Reportes\IVAVentas.cshtml" />
+    <Content Include="Views\CtaCteProveedores\Create.cshtml" />
+    <Content Include="Views\CtaCteProveedores\Delete.cshtml" />
+    <Content Include="Views\CtaCteProveedores\Details.cshtml" />
+    <Content Include="Views\CtaCteProveedores\Edit.cshtml" />
+    <Content Include="Views\CtaCteProveedores\Index.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Blibox.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Blibox.edmx</DependentUpon>
-      <LastGenOutput>Blibox.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Blibox.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Blibox.edmx</DependentUpon>
-      <LastGenOutput>Blibox.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
@@ -1348,13 +1364,6 @@
     <Content Include="certificadosAfip\BliboxHomoCSR" />
     <Content Include="certificadosAfip\certificate.pfx" />
     <Content Include="certificadosAfip\CertX509Blibox.pem" />
-    <EntityDeploy Include="Blibox.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Blibox.edmx.diagram">
-      <DependentUpon>Blibox.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />
@@ -1624,7 +1633,6 @@
     <Content Include="Views\CtaCteClientes\Details.cshtml" />
     <Content Include="Views\CtaCteClientes\Edit.cshtml" />
     <Content Include="Views\CtaCteClientes\Index.cshtml" />
-    <Content Include="Views\CtaCteClientes\Buscar.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />

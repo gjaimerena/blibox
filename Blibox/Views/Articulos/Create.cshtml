@@ -382,7 +382,7 @@
                                             <div class="col-md-4">
                                                 <input type="number" required="required"
                                                        class="form-control"
-                                                       min="0" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
+                                                       min="1" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
                                                 <em data-bind="validationMessage: Bocas"></em>
                                             </div>
                                         </div>
@@ -413,7 +413,9 @@
                                             <div class="col-md-4">
                                                 <input type="number"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso' }" />
+                                                       required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente[' + $index() + '].Peso' }" 
+                                                      
+                                                       readonly/>
                                                 <em data-bind="validationMessage: Peso"></em>
                                             </div>
                                         </div>
@@ -423,7 +425,7 @@
                                             <label class="col-md-2 control-label no-clear-md">Marco</label>
                                             <div class="col-md-4">
 
-                                                <select required="required" class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco' }"></select>
+                                                <select required="required" onchange="onChangeMarco(this)" class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente[' + $index() + '].ID_marco' }"></select>
                                                 <em data-bind="validationMessage: ID_marco"></em>
                                             </div>
                                         </div><!-- /.dobleEntrada -->
@@ -433,7 +435,7 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label no-clear-md">Matriz</label>
                                             <div class="col-md-4">
-                                                <select required="required" class="form-control" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz' }"></select>
+                                                <select required="required" class="form-control" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz', id: 'Componente[' + $index() + '].ID_matriz'}"></select>
                                                 <em data-bind="validationMessage: ID_matriz"></em>
                                             </div>
                                         </div>
@@ -551,4 +553,41 @@
     ko.applyBindings(viewModel);
 
 </script>
+<script>
+    function onChangeMarco(sel) {
+        
+        
+        var strSelected = sel.value;
+        
+        debugger;
+        @*$.ajax({
+            type: "POST",
+            url: "@Url.Action("obtenermarco", "Articulos")",
+            data: "{'idCliente': " + strSelected + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                $('#CUIT').val(data.Documento);
+                $('#TipoResp').val(data.TipoResponsable)
+                $("#DiasFF").val(data.DiasFF);
+                $("#Dias_Cheque").val(data.Dias_Cheque);
 
+                var select = $("#Articulos");
+
+                for (var articulo in data.Articulos) {
+
+                    var option = document.createElement('option');
+                    option.innerHTML = data.Articulos[articulo].Descripcion;
+                    option.value = data.Articulos[articulo].ID_articulo;
+                    select.append(option);
+                }
+            }
+        },
+        error: function (request, status, error) {
+            console.log(error);
+            console.log(request.responseText);
+        }*@
+    };
+    
+</script>

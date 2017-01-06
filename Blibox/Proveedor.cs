@@ -18,7 +18,7 @@ namespace Blibox
         public Proveedor()
         {
             this.Compras = new HashSet<Compras>();
-            this.CtaCte_Proveedores = new HashSet<CtaCte_Proveedores>();
+            this.CtaCteProveedores = new HashSet<CtaCteProveedores>();
         }
     
         public int ID_proveedor { get; set; }
@@ -27,18 +27,18 @@ namespace Blibox
         public string Domicilio { get; set; }
         public string Localidad { get; set; }
         public string Provincia { get; set; }
-        public Nullable<int> Telefono { get; set; }
-        public Nullable<int> Celular { get; set; }
+        public string Telefono { get; set; }
+        public string Celular { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> Fecha_alta { get; set; }
         public string IVA { get; set; }
-        public Nullable<int> CUIT { get; set; }
-        public Nullable<int> Saldo { get; set; }
+        public Nullable<long> CUIT { get; set; }
+        public Nullable<decimal> Saldo { get; set; }
         public string Observaciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compras> Compras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CtaCte_Proveedores> CtaCte_Proveedores { get; set; }
+        public virtual ICollection<CtaCteProveedores> CtaCteProveedores { get; set; }
     }
 }

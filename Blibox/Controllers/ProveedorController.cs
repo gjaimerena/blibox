@@ -146,7 +146,7 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_proveedor,Razon_social,Contacto,Domicilio,Localidad,Provincia,Telefono,Celular,Email,Fecha_alta,IVA,CUIT,Saldo,Observaciones")] Proveedor proveedor)
+        public ActionResult Edit(Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {

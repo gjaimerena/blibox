@@ -1,35 +1,33 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Blibox;
-using PagedList;
-using System.Globalization;
 
 namespace Blibox.Controllers
 {
     [AuthorizeOrRedirect(Roles = "Administrador")]
-    public class CtaCteClientesController : Controller
+    public class CtaCteProveedoresController : Controller
     {
         private BliboxEntities db = new BliboxEntities();
 
         // GET: CtaCteClientes
-        public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10 )
+        public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
-            int id_cliente = 0;
-            if (Request["ID_cliente"] != null)
+            int id_proveedor = 0;
+            if (Request["ID_proveedor"] != null)
             {
-                Int32.TryParse(Request["ID_cliente"], out id_cliente);
+                Int32.TryParse(Request["ID_proveedor"], out id_proveedor);
             }
 
             string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
             string fechahasta = (Request["Fecha Hasta"] == null) ? "" : Request["Fecha Hasta"].ToString();
             DateTime? desde = null, hasta = null;
-            
+
             if (fechadesde != "") desde = DateTime.ParseExact(fechadesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             if (fechahasta != "") hasta = DateTime.ParseExact(fechahasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
@@ -44,11 +42,11 @@ namespace Blibox.Controllers
 
             ViewBag.CurrentSort = sortOrder;
 
-            var query = db.CtaCteClientes.Include(c => c.Cliente).Include(c => c.TipoMovCtaCte);
+            var query = db.CtaCteProveedores.Include(p => p.Proveedor);
 
-            if (id_cliente != 0)
+            if (id_proveedor != 0)
             {
-                query = query.Where(f => (f.id_cliente == id_cliente));
+                query = query.Where(f => (f.id_proveedor == id_proveedor));
             }
 
             if (fechadesde != "" && fechahasta == "")
@@ -72,38 +70,39 @@ namespace Blibox.Controllers
             //ordeno de forma ascendiente por fecha de movimiento
             query = query.OrderBy(m => m.fecha_movimiento);
 
-            List<Models.CtaCteClienteMovimientos> movs = new List<Models.CtaCteClienteMovimientos>();
-            List<CtaCteClientes> queryList = query.ToList();
+            List<Models.CtaCteProveedorMovimientos> movs = new List<Models.CtaCteProveedorMovimientos>();
+            List<CtaCteProveedores> queryList = query.ToList();
 
             decimal saldoAcumulador = 0;
 
-            foreach (CtaCteClientes item in queryList)
+            foreach (CtaCteProveedores item in queryList)
             {
                 // uso saldo para acumular los importes y obtener los distintos saldos para los movimientos
-                if (item.tipoMovimiento == 1)
+                if (item.tipo_movimiento == 1)
                 {
-                    saldoAcumulador = saldoAcumulador - item.importe.Value;
+                    saldoAcumulador = saldoAcumulador - item.importe;
                 }
                 else
                 {
-                    saldoAcumulador = saldoAcumulador + item.importe.Value;
+                    saldoAcumulador = saldoAcumulador + item.importe;
                 }
-                
+
 
                 //creo movimientos
-                Models.CtaCteClienteMovimientos mov = new Models.CtaCteClienteMovimientos();
+                Models.CtaCteProveedorMovimientos mov = new Models.CtaCteProveedorMovimientos();
                 mov.id = item.id;
-                mov.fecha = item.fecha_movimiento.Value;
+                mov.fecha = item.fecha_movimiento;
+                mov.razonSocial = item.Proveedor.Razon_social;
                 mov.concepto = item.concepto;
                 mov.saldo = saldoAcumulador;
-                if (item.tipoMovimiento == 1)
+                if (item.tipo_movimiento == 1)
                 {
-                    mov.debito = (item.importe.HasValue) ? item.importe.Value : 0;
+                    mov.debito = item.importe;
                     mov.credito = 0;
                 }
                 else
                 {
-                    mov.credito = (item.importe.HasValue) ? item.importe.Value : 0;
+                    mov.credito = item.importe;
                     mov.debito = 0;
                 }
 
@@ -121,13 +120,13 @@ namespace Blibox.Controllers
             //        ).OrderBy(m => m.id);
             //}
 
-            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+            ViewBag.ID_proveedor = new SelectList(db.Proveedor ,"ID_proveedor", "Razon_Social");
 
-           
-            
+
+
 
             return View(movs.ToPagedList(page, pageSize));
-          
+
         }
 
         // GET: CtaCteClientes/Details/5
@@ -150,15 +149,15 @@ namespace Blibox.Controllers
         // GET: CtaCteClientes/Create
         public ActionResult Create()
         {
-            ViewBag.id_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
-            ViewBag.tipoMovimiento = new SelectList(db.TipoMovCtaCte, "id", "descripcion");
+            ViewBag.id_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_social");
+            ViewBag.tipo_movimiento = new SelectList(db.TipoMovCtaCte, "id", "descripcion");
             return View();
         }
 
         // POST: CtaCteClientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CtaCteClientes ctaCteClientesMov)
+        public ActionResult Create(CtaCteProveedores mov)
         {
             if (ModelState.IsValid)
             {
@@ -166,19 +165,19 @@ namespace Blibox.Controllers
                 {
                     //ATENCION!!!
                     //EL SALDO DE MOV CTA CTE ESTA EN DESUSO, SOLO SE USA EL SALDO DEL CLIENTE
-                    Cliente cliente = db.Cliente.Where(m => m.ID_cliente == ctaCteClientesMov.id_cliente).FirstOrDefault();
-                    ctaCteClientesMov.Cliente = cliente;
+                    Proveedor proveedor = db.Proveedor.Where(m => m.ID_proveedor == mov.id_proveedor).FirstOrDefault();
+                    mov.Proveedor = proveedor;
 
                     //si no se le asigno salgo al crear cliente se inicializa en cero
-                    if (ctaCteClientesMov.Cliente.Saldo == null) ctaCteClientesMov.Cliente.Saldo = new decimal();
+                    if (mov.Proveedor.Saldo == null) mov.Proveedor.Saldo = 0;
 
-                    if (ctaCteClientesMov.tipoMovimiento == 1)
+                    if (mov.tipo_movimiento == 1)
                     {
-                        ctaCteClientesMov.Cliente.Saldo = ctaCteClientesMov.Cliente.Saldo - ctaCteClientesMov.importe;
+                        mov.Proveedor.Saldo = mov.Proveedor.Saldo - mov.importe;
                     }
-                    else ctaCteClientesMov.Cliente.Saldo = ctaCteClientesMov.Cliente.Saldo + ctaCteClientesMov.importe;
+                    else mov.Proveedor.Saldo = mov.Proveedor.Saldo + mov.importe;
 
-                    db.CtaCteClientes.Add(ctaCteClientesMov);
+                    db.CtaCteProveedores.Add(mov);
                     db.SaveChanges();
                     HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
                 }
@@ -187,13 +186,13 @@ namespace Blibox.Controllers
                     HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
                     throw;
                 }
-               
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", ctaCteClientesMov.id_cliente);
-            ViewBag.tipo_mov = new SelectList(db.TipoMovCtaCte, "id", "descripcion", ctaCteClientesMov.tipoMovimiento);
-            return View(ctaCteClientesMov);
+            ViewBag.id_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_social", mov.id_proveedor);
+            ViewBag.tipo_movimiento = new SelectList(db.TipoMovCtaCte, "id", "descripcion", mov.tipo_movimiento);
+            return View(mov);
         }
 
         // GET: CtaCteClientes/Edit/5

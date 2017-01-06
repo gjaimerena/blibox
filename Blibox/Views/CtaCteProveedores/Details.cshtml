@@ -1,0 +1,159 @@
+﻿@model Blibox.CtaCteClientes
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "CtaCteClientes")"><i class="fa fa-dashboard"></i> Cta Cte </a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="col-md-6">
+
+            <div class="box box-blibox box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Detalles del movimiento</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <!-- text input -->
+                    <div class="form-group">
+                        <label>Id Movimiento</label>
+                        @Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+
+                    </div>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        @Html.EditorFor(model => model.Cliente.Razon_Social, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha del Movimiento</label>
+                        @Html.EditorFor(model => model.fecha_movimiento, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Concepto</label>
+                        @Html.EditorFor(model => model.concepto, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo Movimiento</label>
+                        @Html.EditorFor(model => model.TipoMovCtaCte.descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Importe</label>
+                        @Html.EditorFor(model => model.importe, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Saldo</label>
+                        @Html.EditorFor(model => model.saldo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                    </div>
+
+
+                    <p>
+                        @*<button type="button" class="btn btn-info ">@Html.ActionLink("Editar", "Edit", new { id = Model.id })</button> |*@
+                        <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
+                    </p>
+                </div>
+
+                
+            </div>
+
+            </div>
+
+
+      
+
+
+</section>
+</div><!-- /.content-wrapper -->
+
+@*<div>
+
+        <h4>CtaCteClientesMov</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.fecha_movimiento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fecha_movimiento)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.importe_movimiento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.importe_movimiento)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.saldo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.saldo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.nro_comprobante)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nro_comprobante)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.observacion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.observacion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.desc_debito)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.desc_debito)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.desc_credito)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.desc_credito)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.concepto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.concepto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cliente.Razon_Social)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cliente.Razon_Social)
+            </dd>
+
+        </dl>
+    </div>*@
+

@@ -1,0 +1,212 @@
+﻿@model Blibox.CtaCteProveedores
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Cta Cte Proveedores</a></li>
+            <li class="active">Nuevo Recibo
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nuevo Recibo</h3>
+                </div>
+                <div class="box-body">
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+            {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                           
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                    <label for="id_proveedor">Proveedor</label>
+                                    @Html.DropDownList("id_proveedor", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <div class="dobleEntrada">
+                                      <label for="fecha_movimiento">Fecha del Movimiento</label>
+                                      <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                                            @Html.EditorFor(
+                                        model => model.fecha_movimiento,
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                id = "fecha_movimiento",
+                                                @class = "form-control  pull-right",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha de movimiento",
+                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                                data_fv_date_format = "DD/MM/YYYY",
+                                                data_fv_date = true,
+                                                required = "required",
+                                                placeholder = "dd/mm/yyyy",
+                                                type = "text",
+                                                data_fv_row = ".dobleEntrada"
+                                            }
+                                        })
+
+
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                     <label for="concepto">Concepto</label>
+                                         @Html.EditorFor(model => model.concepto, new
+                                           {
+                                               htmlAttributes = new {
+                                                   @class = "form-control",
+                                                   @id = "concepto",
+                                               }
+                                           })
+                             </div>
+
+                            <div class="form-group">
+                                <label for="tipo_movimiento">Tipo Movimiento</label>
+                                
+                                    @Html.DropDownList("tipo_movimiento", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.tipo_movimiento, "", new { @class = "text-danger" })
+                               
+                            </div>
+
+                            <div class="form-group">
+                                <label for="importe">Importe</label>
+                                @Html.EditorFor(model => model.importe, new
+                                {
+                                    htmlAttributes = new {
+                                    @class = "form-control",
+                                    @id = "importe",
+                                    }
+                                })
+                                    @*@Html.ValidationMessageFor(model => model.importe, "", new { @class = "text-danger" })*@
+                               
+                            </div>
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.saldo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.saldo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.saldo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+
+
+
+                            <div class="form-group">
+                                <label for="observacion">Observación</label>
+                                
+                                    @Html.EditorFor(model => model.observaciones, new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               @class = "form-control",
+                                               @id = "observacion",
+
+                                           }
+                                       })
+                            </div>
+
+                            <div class="form-group">
+                                
+                                    <input type="submit" value="Crear" class="btn btn-success" />
+                               
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary">@Html.ActionLink("Volver", "Index")</button>
+            </div>
+
+</section>
+</div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    inicializarDatePicker('#fecha_movimiento', false, false);
+   
+    $('#fecha_movimiento').change(function () {
+        $('#form').formValidation('revalidateField', 'fecha_movimiento');
+        //Change code!
+    });
+</script>
+
+<script>
+$(document).ready(function() {
+    $('#form')
+        .formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                importe: {
+                    validators: {
+                        numeric: {
+                            message: 'El importe no es numerico',
+                            // The default separators
+                            thousandsSeparator: '',
+                            decimalSeparator: ','
+                        },
+                        notEmpty: {
+                            message: 'El campo es requerido'
+                        }
+                    }
+                },
+                observacion: {
+                    validators: {
+                        stringLength: {
+                           
+                        }
+                        //notEmpty: {
+                        //    message: 'El campor es requerido'
+                        //}
+                    }
+                },
+                id_cliente: {
+                    validators: {
+                        stringLength: {
+                           
+                        }
+                        //notEmpty: {
+                        //    message: 'El campor es requerido'
+                        //}
+                    }
+                },
+                tipoMovimiento: {
+                    validators: {
+                        stringLength: {
+                           
+                        }
+                        //notEmpty: {
+                        //    message: 'El campor es requerido'
+                        //}
+                    }
+                },
+                
+                concepto: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El campo es requerido'
+                        }
+                    }
+                },
+            },
+           
+        })
+       
+    
+});
+</script>

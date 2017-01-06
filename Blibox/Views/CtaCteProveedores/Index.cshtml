@@ -1,0 +1,222 @@
+﻿@model PagedList.IPagedList<Blibox.Models.CtaCteProveedorMovimientos>
+@using PagedList.Mvc;
+@*@model IEnumerable<Blibox.Cliente>*@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+           Cuenta Corriente <small>Movimientos</small>
+        </h1>
+        
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "CtaCteProveedores")"><i class="fa fa-dashboard"></i>Cta Cte</a></li>
+            <li class="active">Movimientos Proveeedores</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+            
+            @{ string currentFilter = ViewBag.CurrentFilter;
+            string currentSort = ViewBag.CurrentSort;
+            if (string.IsNullOrEmpty(currentSort))
+            {
+                currentSort = "id";
+            } }
+                
+                <div class="box box-blibox box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Consulta de Movimientos</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
+                        <form id="formIndex" method="post" class="form-inline">
+
+                            @*<div class="form-group">
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                </div>*@
+                            <div class="col-md-2">
+                                @Html.Label("Seleccione Proveedor")
+                                @Html.DropDownList("ID_proveedor", (SelectList)ViewBag.ID_proveedor, "Todos", htmlAttributes: new { @class = "form-control" })
+                                @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Fecha Desde</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.Editor("Fecha Desde",
+                                       new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               id = "fechadesde",
+                                               @class = "form-control  pull-right",
+                                               data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha inicial",
+                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                               data_fv_date_format = "DD/MM/YYYY",
+                                               data_fv_date = true,
+                                               //required = "required",
+                                               placeholder = "dd/mm/yyyy",
+                                               type = "text",
+                                               data_fv_row = ".dobleEntrada"
+                                           }
+                                       })
+
+
+
+
+                                    </div><!-- /.input group -->
+                                </div><!-- /.form group -->
+                            </div><!-- /.col -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Fecha Hasta</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.Editor("Fecha Hasta",
+                                       new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               id = "fechahasta",
+                                               @class = "form-control  pull-right",
+                                               data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha final",
+                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                               data_fv_date_format = "DD/MM/YYYY",
+                                               data_fv_date = true,
+                                               //required = "required",
+                                               placeholder = "dd/mm/yyyy",
+                                               type = "text",
+                                               data_fv_row = ".dobleEntrada"
+                                           }
+                                       })
+
+                                    </div><!-- /.input group -->
+                                </div><!-- /.form group -->
+                            </div><!-- /.col -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <br/>
+                                    <div class="input-group">
+                                        <button type="submit" class="btn btn-search">Buscar</button>
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <br />
+
+                <div class="box box-blibox box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Movimientos</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>@Html.DisplayName("Fecha")</th>
+                                <th>@Html.DisplayName("Razon Social")</th>
+                                <th>@Html.DisplayName("Concepto")</th>
+                                <th>@Html.DisplayName("Debito")</th>
+
+                                <th>@Html.DisplayName("Credito")</th>
+                                <th>@Html.DisplayName("Saldo")</th>
+                              
+                                <th  width="5%">OPCIONES</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                <td>@item.fecha.ToString("dd/MM/yyyy")</td>
+                                <td>@Html.DisplayFor(model => item.razonSocial)</td>
+
+                                <td>@Html.DisplayFor(model => item.concepto)</td>
+                                <td>
+                                    @if (item.debito != 0) { 
+                                    @Html.DisplayFor(model => item.debito)}
+                                </td>
+                                <td>@if (item.credito != 0)
+                                {
+                                    @Html.DisplayFor(model => item.credito)}</td>
+                                <td>@Html.DisplayFor(model => item.saldo)</td>
+                                
+
+                                <td class="accion">
+
+                                    <a href="@Url.Action("Details", new { id = item.id, saldo = item.saldo })" title="Ver" class="">
+                                        <i class="glyphicon glyphicon-zoom-in"></i>
+                                        <span class="sr-only">Ver</span>
+                                    </a>
+                                    @*<a href="@Url.Action("Edit", new { id = item.id })" title="Editar">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <span class="sr-only">Editar</span>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                        <span class="sr-only">Eliminar</span>
+                                    </a>*@
+
+                                </td>
+                            </tr>
+                            }
+
+
+                        </table>
+                    </div>
+                </div>
+
+                @if (Model.PageCount > 1)
+            {
+                    <div class="pager">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new
+               {
+                   page,
+                   sortOrder = ViewBag.currentSort,
+                   q = ViewBag.CurrentFilter
+               }))
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    </div>
+                }
+
+        <p>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO RECIBO", "Create")</button>
+        </p>
+
+</section>
+</div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    inicializarDatePicker('#fechadesde', false, false);
+    inicializarDatePicker('#fechahasta', false, false);
+
+    $('#fechadesde').change(function () {
+        $('#formIndex').formValidation('revalidateField', 'fechadesde');
+        //Change code!
+    });
+    $('#fechahasta').change(function () {
+        $('#formIndex').formValidation('revalidateField', 'fechahasta');
+        //Change code!
+    });
+</script>
+
+

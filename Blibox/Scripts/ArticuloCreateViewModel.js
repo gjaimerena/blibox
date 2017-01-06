@@ -15,6 +15,7 @@
     ko.validatedObservable(self);
 };
 
+
 var articuloViewModel = function () {
     var self = this;
 
