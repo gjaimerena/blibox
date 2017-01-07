@@ -153,12 +153,12 @@ namespace Blibox.Models
                     if (articulo.Componente == null || articulo.Componente.Count == 0)
                     {
                         ModelState.AddModelError("Detalle", "Debe agregar al menos un componente para el articulo");
+                        HelperController.Instance.agregarMensaje("Debe agregar al menos un componente para el articulo", HelperController.CLASE_ERROR);
                     }
                     else
                     {
                         db.Articulo.Add(articulo);
-                       // return RedirectToAction("Index");
-                    }
+                }
                 
                 db.SaveChanges();
                 HelperController.Instance.agregarMensaje("El articulo se cargo con exito", HelperController.CLASE_EXITO);
@@ -168,6 +168,7 @@ namespace Blibox.Models
             {
                 getDropdownElements();
                 ViewBag.Peso = "0";
+                HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
             }
 
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
@@ -213,6 +214,11 @@ namespace Blibox.Models
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else
+            {
+
+                HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
             }
             getDropdownElements();
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);

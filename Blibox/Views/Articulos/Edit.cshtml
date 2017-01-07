@@ -436,9 +436,11 @@
                                                 @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @class = "form-control" })
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-danger pull-right">@Html.ActionLink("Eliminar", "eliminarComponente", new { Id = item.ID_componente })</button>
-                                        </div>
+                                        <!-- ko if: $index()!=0 -->
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-danger pull-right">@Html.ActionLink("Eliminar", "eliminarComponente", new { Id = item.ID_componente })</button>
+                                            </div>
+                                        <!-- /ko -->
                                     </div>
                                 </div>
                             </div> <!-- /.box-body -->

@@ -338,10 +338,10 @@
             </div>
 
             <div>
-                <em data-bind="validationMessage: detalle"></em>
+                <em data-bind="validationMessage: detalle" ></em>
             </div>
 
-            <button data-bind="click: agregarDetalle" class="btn btn-addmore">Agregar Componente</button>
+            <button data-bind="click: agregarDetalle" class="btn btn-addmore" id="agregarComponente">Agregar Componente</button>
 
                     <br /><br />
 
@@ -356,7 +356,7 @@
                                             <label class="col-md-2 control-label">Material</label>
                                             <div class="col-md-4">
                                                 <select required="required"
-                                                        data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material' }"
+                                                        data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material', onchange: 'calcularPeso('+$index()+')' }"
                                                         class="form-control"></select>
                                                 <em data-bind="validationMessage: ID_material"></em>
                                             </div>
@@ -382,7 +382,7 @@
                                             <div class="col-md-4">
                                                 <input type="number" required="required"
                                                        class="form-control"
-                                                       min="1" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas' }" />
+                                                       min="1" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas', id: 'Componente[' + $index() + '].Bocas', onchange: 'calcularPeso('+$index()+')', required: 'true'  }" />
                                                 <em data-bind="validationMessage: Bocas"></em>
                                             </div>
                                         </div>
@@ -391,7 +391,7 @@
                                             <div class="col-md-4">
                                                 <input type="number"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor' }" />
+                                                       required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor', id: 'Componente[' + $index() + '].Espesor', onchange: 'calcularPeso('+$index()+')'  }" />
                                                 <em data-bind="validationMessage: Espesor"></em>
                                             </div>
                                         </div>
@@ -425,7 +425,7 @@
                                             <label class="col-md-2 control-label no-clear-md">Marco</label>
                                             <div class="col-md-4">
 
-                                                <select required="required" onchange="onChangeMarco(this)" class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente[' + $index() + '].ID_marco' }"></select>
+                                                <select required="required"  class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente[' + $index() + '].ID_marco', onchange: 'calcularPeso('+$index()+')' }"></select>
                                                 <em data-bind="validationMessage: ID_marco"></em>
                                             </div>
                                         </div><!-- /.dobleEntrada -->
@@ -450,9 +450,12 @@
                                                 <em data-bind="validationMessage: ID_cortante"></em>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <button class="btn btn-danger pull-right" data-bind="click: $root.eliminarDetalle">Eliminar</button>
-                                        </div>
+                                        <!-- ko if: $index()!=0 -->
+                                            <div class="col-md-6">
+                                                <button class="btn btn-danger pull-right" data-bind="click: $root.eliminarDetalle">Eliminar</button>
+                                            </div>
+                                        <!-- /ko -->
+
                                     </div><!-- /.form-group -->
                                 </div>
                             </div>
@@ -467,12 +470,6 @@
 
 
                         </div>
-
-
-
-
-
-
         }
 
     </section>
@@ -480,6 +477,7 @@
 
 <script>
     $(document).ready(function () {
+
         $('#form')
             .formValidation({
                 framework: 'bootstrap',
@@ -554,40 +552,51 @@
 
 </script>
 <script>
-    function onChangeMarco(sel) {
-        
-        
-        var strSelected = sel.value;
-        
-        debugger;
-        @*$.ajax({
+
+    $('#agregarComponente').click();
+    function calcularPeso(numeroComponente) {
+        var idComponete = "Componente["+numeroComponente+"]";
+        var marco = "";
+        $("#" + idComponete + ".marco option:selected").each(function () {
+            marco += $(this)[0].value;
+        });
+        var material = "";
+        $("#" + idComponete + ".material option:selected").each(function () {
+            material += $(this)[0].value;
+        });
+        var bocas = document.getElementById("Componente[0].Bocas").value;
+        var espesor= document.getElementById("Componente[0].Espesor").value;
+       /* $.ajax({
             type: "POST",
-            url: "@Url.Action("obtenermarco", "Articulos")",
-            data: "{'idCliente': " + strSelected + "}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data != null) {
-                $('#CUIT').val(data.Documento);
-                $('#TipoResp').val(data.TipoResponsable)
-                $("#DiasFF").val(data.DiasFF);
-                $("#Dias_Cheque").val(data.Dias_Cheque);
+            url: "Url.Action("calcularPeso", "Articulos")",
+           /* data: "{'marcoId': " + marco + ", 'materialId': " + material + ", peso}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    $('#CUIT').val(data.Documento);
+                    $('#TipoResp').val(data.TipoResponsable)
+                    $("#DiasFF").val(data.DiasFF);
+                    $("#Dias_Cheque").val(data.Dias_Cheque);
 
-                var select = $("#Articulos");
+                    var select = $("#Articulos");
 
-                for (var articulo in data.Articulos) {
+                    for (var articulo in data.Articulos) {
 
-                    var option = document.createElement('option');
-                    option.innerHTML = data.Articulos[articulo].Descripcion;
-                    option.value = data.Articulos[articulo].ID_articulo;
-                    select.append(option);
+                        var option = document.createElement('option');
+                        option.innerHTML = data.Articulos[articulo].Descripcion;
+                        option.value = data.Articulos[articulo].ID_articulo;
+                        select.append(option);
+                    }
                 }
+            },
+            error: function (request, status, error) {
+                console.log(error);
+                console.log(request.responseText);
             }
-        },
-        error: function (request, status, error) {
-            console.log(error);
-            console.log(request.responseText);
-        }*@
-    };
-    
+
+    });
+    */
+    }
+
 </script>
