@@ -19,9 +19,15 @@ namespace Blibox.Controllers
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
             int id_proveedor = 0;
-            if (Request["ID_proveedor"] != null)
+            if (Request["ID_proveedor"] != null && Request["ID_proveedor"].ToString() != "")
             {
                 Int32.TryParse(Request["ID_proveedor"], out id_proveedor);
+            }
+            else
+            {
+                ViewBag.ID_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_Social");
+                List<Models.CtaCteProveedorMovimientos> movimientos = new List<Models.CtaCteProveedorMovimientos>();
+                return View(movimientos.ToPagedList(page, pageSize));
             }
 
             string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
@@ -136,14 +142,14 @@ namespace Blibox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CtaCteClientes ctaCteClientesMov = db.CtaCteClientes.Find(id);
+            CtaCteProveedores ctaCteProveedoresMov = db.CtaCteProveedores.Find(id);
 
-            ctaCteClientesMov.saldo = saldo;
-            if (ctaCteClientesMov == null)
+            ctaCteProveedoresMov.saldo = saldo;
+            if (ctaCteProveedoresMov == null)
             {
                 return HttpNotFound();
             }
-            return View(ctaCteClientesMov);
+            return View(ctaCteProveedoresMov);
         }
 
         // GET: CtaCteClientes/Create

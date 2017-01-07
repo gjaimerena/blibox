@@ -1,4 +1,4 @@
-﻿@model Blibox.CtaCteClientes
+﻿@model Blibox.CtaCteProveedores
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -8,7 +8,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "CtaCteClientes")"><i class="fa fa-dashboard"></i> Cta Cte </a></li>
+            <li><a href="@Url.Action("Index", "CtaCteProveedores")"><i class="fa fa-dashboard"></i> Cta Cte </a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -30,8 +30,8 @@
 
                     </div>
                     <div class="form-group">
-                        <label>Cliente</label>
-                        @Html.EditorFor(model => model.Cliente.Razon_Social, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                        <label>Razon social</label>
+                        @Html.EditorFor(model => model.Proveedor.Razon_social, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                     </div>
                     <div class="form-group">
                         <label>Fecha del Movimiento</label>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label>Observaciones</label>
-                        @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                        @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                     </div>
 
 

@@ -21,9 +21,16 @@ namespace Blibox.Controllers
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10 )
         {
             int id_cliente = 0;
-            if (Request["ID_cliente"] != null)
+            
+            if (Request["ID_cliente"] != null && Request["ID_cliente"].ToString() != "")
             {
                 Int32.TryParse(Request["ID_cliente"], out id_cliente);
+            }
+            else
+            {
+                ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+                List<Models.CtaCteClienteMovimientos> movimientos = new List<Models.CtaCteClienteMovimientos>();
+                return View(movimientos.ToPagedList(page, pageSize));
             }
 
             string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
