@@ -56,7 +56,10 @@ function setPrecioUnitario(idOrigen, idArticulos, idDestino) {
             alert(request.responseText);
         }
     });
-    $('#'+ idDestino).val(precioUnitario);
+    $('#' + idDestino).val(precioUnitario);
+    //$('#' + idDestino).change();
+    $('#form').formValidation('revalidateField', idDestino);
+
     
 }
 
@@ -84,6 +87,8 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
         if (parseInt(iva) == 6) porcIva = 0.27;
 
         $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva))));
+        $('#form').formValidation('revalidateField', 'subtotal');
+        $('#form').formValidation('revalidateField', 'total');
     })
 
 }
@@ -107,13 +112,14 @@ function Add() {
     $("#tblData tbody").append("<tr class='dato'>" +
         "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
         "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
+        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true'  /></td>" +
+        //"<td><input class = 'form-control' type='number' step='any'  id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'></td>"+
+        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true' /></td>" +
         "<td><i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></td>" +
         "</tr>");
     $(".btnSave").bind("click", Save);
     $(".btnDelete").bind("click", Delete);
-
+    
 
     $('#' + idArticulos).change(function () {
         setPrecioUnitario(idPreciosUnitarios, idArticulos, idPrecioUnitario);
@@ -133,6 +139,22 @@ function Add() {
     });
 
     obtenerArticulos(idArticulos, idPreciosUnitarios);
+
+        var validador = {
+            row: '.dobleEntrada',   // The title is placed inside a <div class="col-xs-4"> element
+            validators: {
+                greaterthan: {
+                    message: 'The title is required',
+                    min: 0
+                },
+                notEmpty: {
+                    message: 'asd'
+                }
+            }
+        };
+    $('#form').formValidation('addField', idPrecioUnitario, validador);
+    $('#form').formValidation('addField', idPrecioTotal, validador);
+
 };
 
 function Save(){ 
