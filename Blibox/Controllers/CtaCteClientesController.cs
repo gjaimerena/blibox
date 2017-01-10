@@ -116,6 +116,8 @@ namespace Blibox.Controllers
 
                 movs.Add(mov);
             }
+
+            ViewBag.Total = saldoAcumulador;
             //habilitar si se desea implementar la busqueda de movimientos
             //if (!String.IsNullOrEmpty(q))
             //{

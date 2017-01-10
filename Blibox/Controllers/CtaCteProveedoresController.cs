@@ -79,6 +79,8 @@ namespace Blibox.Controllers
             List<Models.CtaCteProveedorMovimientos> movs = new List<Models.CtaCteProveedorMovimientos>();
             List<CtaCteProveedores> queryList = query.ToList();
 
+            
+
             decimal saldoAcumulador = 0;
 
             foreach (CtaCteProveedores item in queryList)
@@ -114,6 +116,8 @@ namespace Blibox.Controllers
 
                 movs.Add(mov);
             }
+
+            ViewBag.Total = saldoAcumulador;
             //habilitar si se desea implementar la busqueda de movimientos
             //if (!String.IsNullOrEmpty(q))
             //{

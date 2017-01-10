@@ -202,7 +202,8 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Total Ventas</span>
-                        <span class="info-box-number">@ViewBag.Total</span>
+                        <span class="info-box-number">@if (ViewBag.Total != null)
+                        {@ViewBag.Total}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

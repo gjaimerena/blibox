@@ -45,7 +45,7 @@
                 </div>*@
                             <div class="col-md-2">
                                 @Html.Label("Seleccione Cliente")
-                                @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente,"Todos", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente,"Seleccione...", htmlAttributes: new { @class = "form-control" })
                                 @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
                             </div>
                             <div class="col-md-2">
@@ -198,6 +198,26 @@
         <p>
             <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO RECIBO", "Create")</button>
         </p>
+
+        <hr />
+
+        @if (ViewBag.Total != null)
+        {
+            <div class="col-md-9 col-sm-6 col-xs-12">
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Saldo deudor</span>
+                        <span class="info-box-number">@if (ViewBag.Total != null)
+                        {@ViewBag.Total}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+        }
 
 </section>
 </div><!-- /.content-wrapper -->
