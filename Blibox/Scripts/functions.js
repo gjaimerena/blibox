@@ -1,4 +1,4 @@
-﻿function obtenerArticulos(idArticulos, idPreciosUnitarios ) {
+﻿function obtenerArticulos(idArticulos, idPreciosUnitarios) {
     var strSelected = "";
     $("#ID_cliente option:selected").each(function () {
         strSelected += $(this)[0].value;
@@ -11,7 +11,7 @@
         dataType: "json",
         success: function (data) {
             if (data != null) {
-                var selectArticulos = $('#'+idArticulos);
+                var selectArticulos = $('#' + idArticulos);
                 var selectPreciosUnitarios = $('#' + idPreciosUnitarios);
 
                 for (var articulo in data) {
@@ -36,7 +36,7 @@
 
 function setPrecioUnitario(idOrigen, idArticulos, idDestino) {
     var strSelected = "";
-    $('#'+ idArticulos + " option:selected").each(function () {
+    $('#' + idArticulos + " option:selected").each(function () {
         strSelected += $(this)[0].value;
     });
     var precioUnitario = 0;
@@ -56,16 +56,27 @@ function setPrecioUnitario(idOrigen, idArticulos, idDestino) {
             alert(request.responseText);
         }
     });
-    $('#'+ idDestino).val(precioUnitario);
-    
+    $('#' + idDestino).val(precioUnitario);
+
 }
 
 function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
     var cantidad = $('#' + idCantidad).val();
     var precioUnitario = $('#' + idPrecioUnitario).val();
-    $('#' + idPrecioTotal).val(cantidad * precioUnitario);
+    var idtotal = parseFloat(cantidad * precioUnitario);
+    if (idtotal == 0) {
+        $('#' + idPrecioTotal).val('El total debe ser mayor a cero');
+    }
+    else if (isNaN(idtotal)) {
+        $('#' + idPrecioTotal).val('Error, valide los datos ingresados');//or a message of your choice
+    }
+    else {
+        $('#' + idPrecioTotal).val(idtotal.toFixed(2));
+    }
 
-   
+
+
+
     $("#subtotal").val(0);
     $('#tblData tr.dato').each(function () { //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
 
@@ -75,15 +86,29 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
         var porcIva = 0;
         subtotal = parseFloat(subtotal) + parseFloat(dato); //numero de la celda 3
 
-        $('#subtotal').val(parseFloat(subtotal)); //numero de la celda 3
-        if (iva <= 3) {
-            porcIva = 0;
+        if (isNaN(subtotal)) {
+            $('#subtotal').val(0);
+            $('#total').val(0);
         }
-        if (parseInt(iva) == 4) porcIva = 0.105;
-        if (parseInt(iva) == 5) porcIva = 0.21;
-        if (parseInt(iva) == 6) porcIva = 0.27;
+        else {
+            $('#subtotal').val(parseFloat(subtotal).toFixed(2)); //numero de la celda 3
+            if (iva <= 3) {
+                porcIva = 0;
+            }
+            if (parseInt(iva) == 4) porcIva = 0.105;
+            if (parseInt(iva) == 5) porcIva = 0.21;
+            if (parseInt(iva) == 6) porcIva = 0.27;
 
-        $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva))));
+            total = parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva)));
+            $('#total').val(total.toFixed(2));
+        }
+
+
+
+        $('#form').formValidation('revalidateField', 'total');
+        $('#form').formValidation('revalidateField', 'subtotal');
+
+
     })
 
 }
@@ -97,7 +122,7 @@ function Add() {
     var idPrecioUnitario = 'precioUnitario' + fila;
     var idPrecioTotal = 'precioTotal' + fila;
     var idPreciosUnitarios = 'preciosUnitarios' + fila;
-        
+
 
     var nameArticulos = 'articulos[' + fila + '].articulo';
     var nameCantidad = 'articulos[' + fila + '].cantidad';
@@ -106,9 +131,9 @@ function Add() {
 
     $("#tblData tbody").append("<tr class='dato'>" +
         "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
+        "<td><input class = 'form-control' type='text' value='0' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
+        "<td><input class = 'form-control' type='text' value='0' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' /></td>" +
+        "<td><input class = 'form-control' type='text' value='0' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' /></td>" +
         "<td><i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></td>" +
         "</tr>");
     $(".btnSave").bind("click", Save);
@@ -135,10 +160,10 @@ function Add() {
     obtenerArticulos(idArticulos, idPreciosUnitarios);
 };
 
-function Save(){ 
+function Save() {
     var par = $(this).parent().parent();  //tr
-    var tdArticulo = par.children("td:nth-child(1)"); 
-    var tdCantidad = par.children("td:nth-child(2)"); 
+    var tdArticulo = par.children("td:nth-child(1)");
+    var tdCantidad = par.children("td:nth-child(2)");
     var tdPrecioU = par.children("td:nth-child(3)");
     var tdPrecioT = par.children("td:nth-child(4)");
     var tdButtons = par.children("td:nth-child(5)");
@@ -148,12 +173,12 @@ function Save(){
     tdPrecioU.children().attr('readonly', 'readonly');
     tdPrecioT.children().attr('readonly', 'readonly');
     tdButtons.html("<i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></i><i class='btnEdit glyphiconAddItem glyphicon glyphicon-pencil'></i>");
-    $(".btnEdit").bind("click", Edit); 
+    $(".btnEdit").bind("click", Edit);
     $(".btnDelete").bind("click", Delete);
 
 };
 
-function Edit(){ 
+function Edit() {
     var par = $(this).parent().parent(); //tr 
     var tdArticulo = par.children("td:nth-child(1)");
     var tdCantidad = par.children("td:nth-child(2)");
@@ -166,7 +191,7 @@ function Edit(){
     tdPrecioT.children().attr('readonly', false);
     tdButtons.html("<i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i>");
     $(".btnSave").bind("click", Save);
-    $(".btnEdit").bind("click", Edit); 
+    $(".btnEdit").bind("click", Edit);
     $(".btnDelete").bind("click", Delete);
 };
 
@@ -175,7 +200,7 @@ function Delete() {
     var idPrecioUnitario = $($(par.children()[2])[0].innerHTML).attr('id')
     $('#' + idPrecioUnitario).val(0);//seteo el precio en 0 asi actualiza el total
     $('#' + idPrecioUnitario).change();
-    par.remove(); 
+    par.remove();
 };
 
 $(function () { //Add, Save, Edit and Delete functions code 
@@ -184,4 +209,3 @@ $(function () { //Add, Save, Edit and Delete functions code
     $("#btnAdd").bind("click", Add);
 });
 
-  
