@@ -68,11 +68,14 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
     var precioUnitario = $('#' + idPrecioUnitario).val();
     $('#' + idPrecioTotal).val(cantidad * precioUnitario);
 
+    if (cantidad == 0 || precioUnitario == 0) {
+        $('#' + idPrecioTotal).val("Cantidad y PU debe ser mayor a 0");
+    }
    
-    $("#subtotal").val(0);
+    var subtotal = $("#subtotal").val(0);
     $('#tblData tr.dato').each(function () { //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
 
-        var subtotal = $("#subtotal").val();
+        subtotal = $("#subtotal").val();
         var dato = $(this).find('td:eq(3) input').val();
         var iva = parseInt($("#iva").val());
         var porcIva = 0;
@@ -87,9 +90,20 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
         if (parseInt(iva) == 6) porcIva = 0.27;
 
         $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva))));
-        $('#form').formValidation('revalidateField', 'subtotal');
-        $('#form').formValidation('revalidateField', 'total');
+        
     })
+
+    if (isNaN(subtotal)) {
+        $("#subtotal").val(0);
+        $("#total").val(0);
+        $("#btnAdd").attr("disabled", true);
+    }
+    else{
+        $("#btnAdd").removeAttr("disabled");
+    }
+
+    $('#form').formValidation('revalidateField', 'subtotal');
+    $('#form').formValidation('revalidateField', 'total');
 
 }
 
@@ -111,10 +125,10 @@ function Add() {
 
     $("#tblData tbody").append("<tr class='dato'>" +
         "<td><select class = 'form-control' id='" + idArticulos + "' name='" + nameArticulos + "' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true'  /></td>" +
+        "<td><input class = 'form-control' type='text' value='1' onkeypress='return validateFloatKeyPress(this,event);' id='" + idCantidad + "' name ='" + nameCantidad + "' class='precio' /></td>" +
+        "<td><input class = 'form-control' type='text' onkeypress='return validateFloatKeyPress(this,event);' id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'  class='precio' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true'  /></td>" +
         //"<td><input class = 'form-control' type='number' step='any'  id='" + idPrecioUnitario + "' name ='" + namePrecioUnitario + "'></td>"+
-        "<td><input class = 'form-control' type='number' step='any' value='1' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true' /></td>" +
+        "<td><input class = 'form-control' type='text' onkeypress='return validateFloatKeyPress(this,event);' id='" + idPrecioTotal + "' name ='" + namePrecioTotal + "' readonly='readonly' class='precioTotal' min='0' data-fv-greaterthan-message=\"<i class='glyphicon glyphicon-info-sign'></i> El monto no puede ser menor a 0\" data-fv-greaterthan-value='0' data-fv-greaterthan-inclusive='false' data-fv-greaterthan='true' /></td>" +
         "<td><i class='btnSave glyphiconAddItem glyphicon glyphicon-floppy-disk'></i><i class='btnDelete glyphiconAddItem glyphicon glyphicon-remove'></td>" +
         "</tr>");
     $(".btnSave").bind("click", Save);
@@ -206,4 +220,31 @@ $(function () { //Add, Save, Edit and Delete functions code
     $("#btnAdd").bind("click", Add);
 });
 
-  
+function validateFloatKeyPress(el, evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    var number = el.value.split('.');
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    //just one dot
+    if (number.length > 1 && charCode == 46) {
+        return false;
+    }
+    //get the carat position
+    var caratPos = getSelectionStart(el);
+    var dotPos = el.value.indexOf(".");
+    if (caratPos > dotPos && dotPos > -1 && (number[1].length > 1)) {
+        return false;
+    }
+    return true;
+}
+
+//thanks: http://javascript.nwbox.com/cursor_position/
+function getSelectionStart(o) {
+    if (o.createTextRange) {
+        var r = document.selection.createRange().duplicate()
+        r.moveEnd('character', o.value.length)
+        if (r.text == '') return o.value.length
+        return o.value.lastIndexOf(r.text)
+    } else return o.selectionStart
+}
