@@ -72,11 +72,18 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_marco,Descripcion,Ancho,Largo,Observaciones")] Marco marco)
         {
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+
             if (ModelState.IsValid)
             {
                 db.Marco.Add(marco);
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
             }
 
             return View(marco);
@@ -104,11 +111,18 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID_marco,Descripcion,Ancho,Largo,Observaciones")] Marco marco)
         {
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+
             if (ModelState.IsValid)
             {
                 db.Entry(marco).State = EntityState.Modified;
                 db.SaveChanges();
+                HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
             }
             return View(marco);
         }

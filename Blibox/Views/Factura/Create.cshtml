@@ -253,7 +253,7 @@
                                        data-fv-greaterthan-value="0"
                                        data-fv-greaterthan-inclusive="false"
                                        data-fv-greaterthan="true"
-                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser menor a 0"
                                        data-fv-row=".dobleEntrada" />
                             </div>
                         </div>
@@ -269,7 +269,7 @@
                                        required="true"
                                        readonly="true"
                                        data-fv-notempty-message = "<i class='glyphicon glyphicon-info-sign'></i> Debe cargar articulos",
-                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser igual a 0"
+                                       data-fv-greaterthan-message="<i class='glyphicon glyphicon-info-sign'></i> La factura no puede ser menor a 0"
                                        data-fv-greaterthan-value="0"
                                        data-fv-greaterthan-inclusive="false"
                                        data-fv-greaterthan="true"
@@ -304,7 +304,8 @@
         // var art = $("#articulo option:selected").val();
         var cantidad = $('#Cantidad' + id).val();
 
-        $('#PrecioTotal' + id).val(strSelected * cantidad)
+        $('#PrecioTotal' + id).val(strSelected * cantidad);
+        $('#form').formValidation('revalidateField', 'PrecioTotal');
     }
 
     function onChangeCliente() {
@@ -312,7 +313,6 @@
         $("#ID_cliente option:selected").each(function () {
             strSelected += $(this)[0].value;
         });
-        debugger;
         $.ajax({
             type: "POST",
             url: "@Url.Action("obtenerDatosCliente", "Factura")",

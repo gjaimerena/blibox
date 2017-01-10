@@ -20,55 +20,94 @@
                 <h3 class="box-title">Marcos</h3>
             </div>
             <div class="box-body">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal" style="padding:10px;">
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @*<div class="form-group">
-                        @Html.LabelFor(model => model.ID_marco, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                            @Html.EditorFor(model => model.ID_marco, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ID_marco, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Descripcion</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Descripcion,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @text = "text",
+                                            @id = "descripcion",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la descripcion",
+                                            required = "required",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
+                            </div><!-- /.col -->
                         </div>
-                    </div>*@
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
-                            <div class="col-md-4 input-group">
-                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Ancho</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Ancho,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            //@type = "float",
+                                            @id = "ancho",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el ancho",
+                                            required = "required",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ser numerico",
+                                            data_fv_numeric_decimalseparator = ",",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Ancho, htmlAttributes: new { @class = "control-label col-md-1" })
-                            <div class="col-md-4 input-group">
-                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                @Html.EditorFor(model => model.Ancho, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Ancho, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Largo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Largo,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            //@type= "float",
+                                            @id = "largo",
+                                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el largo",
+                                            required = "required",
+                                            data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ser numerico",
+                                            data_fv_numeric_decimalseparator = ",",
+                                            data_fv_numeric = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Largo, htmlAttributes: new { @class = "control-label col-md-1" })
-                            <div class="col-md-4 input-group">
-                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                @Html.EditorFor(model => model.Largo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Largo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-1" })
-                            <div class="col-md-4 input-group">
-                                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Observaciones</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                    model => model.Observaciones,
+                                    new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            @text = "text",
+                                            @id = "observaciones",
+                                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar las observaciones",
+                                            data_fv_stringlength_min = "0",
+                                            data_fv_stringlength = "true",
+                                            data_fv_row = ".dobleEntrada"
+                                        }
+                                    })
                             </div>
                         </div>
 
@@ -79,10 +118,13 @@
                         </div>
                     </div>
                 }
-                </div>
             </div>
-            <div>
-                <button type="button" class="btn btn-cancel">@Html.ActionLink("Volver", "Index")</button>
-            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-cancel">@Html.ActionLink("Volver", "Index")</button>
+        </div>
     </section>
 </div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    validarForm('#form');
+</script>
