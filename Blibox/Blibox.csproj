@@ -267,6 +267,7 @@
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\NotaCreditoController.cs" />
     <Compile Include="Controllers\NotaDebitoController.cs" />
+    <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\reportesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Cortante.cs">
@@ -276,6 +277,9 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="CtaCteProveedores.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Detalle_factura.cs">
@@ -318,6 +322,9 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Rubro.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoDocumento.cs">
@@ -399,6 +406,11 @@
     <Content Include="Views\CtaCteProveedores\Edit.cshtml" />
     <Content Include="Views\CtaCteProveedores\Index.cshtml" />
     <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Pedidos\Create.cshtml" />
+    <Content Include="Views\Pedidos\Delete.cshtml" />
+    <Content Include="Views\Pedidos\Details.cshtml" />
+    <Content Include="Views\Pedidos\Edit.cshtml" />
+    <Content Include="Views\Pedidos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
