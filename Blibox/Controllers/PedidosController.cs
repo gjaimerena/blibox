@@ -105,7 +105,22 @@ namespace Blibox.Controllers
             {
                 articulosColeccion.Add(new Articulo { ID_articulo = articulos.ElementAt(i).ID_articulo, Descripcion = articulos.ElementAt(i).Descripcion });
             }
+            List<SelectListItem> sino = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Si", Value = "S", Selected = ( pedido.Armado == "S") },
+                new SelectListItem { Text = "No", Value = "N", Selected = ( pedido.Armado == "N" )}
 
+            };
+            List<SelectListItem> boc= new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Elegir una opcion..." },
+                new SelectListItem { Text = "B", Value = "B", Selected = ( pedido.Armado == "B") },
+                new SelectListItem { Text = "C", Value = "C", Selected = ( pedido.Armado == "C" )}
+
+            };
+
+            ViewBag.armado = sino;
+            ViewBag.tipoCaja = boc;
             //ViewBag.articulo = articulosColeccion;
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", pedido.ID_cliente);
 
