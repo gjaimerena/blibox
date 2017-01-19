@@ -116,9 +116,9 @@ namespace Blibox.Controllers
             string ID_condicion_venta = form["ID_condicion_venta"];
             // DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
             //int Remito = Convert.ToInt32(form["Nro_remito"]);
-            int OrdenCompra = Convert.ToInt32(form["OrdenCompra"]);
-            int DiasFF = Convert.ToInt32(form["Cliente.DiasFF"]);
-            int DiasCheque = Convert.ToInt32(form["Cliente.Dias_Cheque"]);
+            int OrdenCompra = form["OrdenCompra"]!="" ? Convert.ToInt32(form["OrdenCompra"]) : 0;
+            int DiasFF = form["Cliente.DiasFF"] != "" ? Convert.ToInt32(form["Cliente.DiasFF"]) : 0;
+            int DiasCheque = form["Cliente.Dias_Cheque"] != "" ? Convert.ToInt32(form["Cliente.Dias_Cheque"]) : 0;  
             Decimal Descuento = Convert.ToDecimal(form["Descuento"].Replace('.', ','));
             Double subtotal = Convert.ToDouble(form["subtotal"].Replace('.', ','));
             Double total = Convert.ToDouble(form["total"].Replace('.', ','));

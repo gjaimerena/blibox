@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,8 +15,90 @@ namespace Blibox.Controllers
 
         private BliboxEntities db = new BliboxEntities();
 
+        // GET: CtaCteClientes
+        public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
+        {
+            int id_proveedor = 0;
+            if (Request["ID_proveedor"] != null && Request["ID_proveedor"].ToString() != "")
+            {
+                Int32.TryParse(Request["ID_proveedor"], out id_proveedor);
+            }
+            else
+            {
+                ViewBag.ID_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_Social");
+                List<Compras> movimientos = new List<Compras>();
+                return View(movimientos.ToPagedList(page, pageSize));
+            }
+
+            string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
+            string fechahasta = (Request["Fecha Hasta"] == null) ? "" : Request["Fecha Hasta"].ToString();
+            DateTime? desde = null, hasta = null;
+
+            if (fechadesde != "") desde = DateTime.ParseExact(fechadesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            if (fechahasta != "") hasta = DateTime.ParseExact(fechahasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
+
+            page = page > 0 ? page : 1;
+            pageSize = pageSize > 0 ? pageSize : 10;
+
+            //ViewBag.IdSortParam = sortOrder == "id" ? "id_desc" : "id";
+            //ViewBag.DescripcionSort = sortOrder == "descripcion" ? "descripcion_desc" : "descripcion";
+            //ViewBag.DateSortParam = sortOrder == "date" ? "date_desc" : "date";
+
+            ViewBag.CurrentSort = sortOrder;
+
+            var query = db.Compras.Select(c=> c);
+
+            if (id_proveedor != 0)
+            {
+                query = query.Where(f => (f.ID_proveedor == id_proveedor));
+            }
+
+            if (fechadesde != "" && fechahasta == "")
+            {
+                query = query.Where(f => (f.Fecha_compra >= desde));
+            }
+            if (fechadesde == "" && fechahasta != "")
+            {
+                query = query.Where(f => (f.Fecha_compra <= hasta));
+            }
+            if ((fechadesde != "") && (fechahasta != ""))
+            {
+                query = query.Where(f => (f.Fecha_compra >= desde) && (f.Fecha_compra <= hasta));
+            }
+
+            if (query.ToList().Count == 0)
+            {
+                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+            }
+
+            //ordeno de forma ascendiente por fecha de movimiento
+            query = query.OrderBy(m => m.Fecha_compra);
+
+            //habilitar si se desea implementar la busqueda de movimientos
+            //if (!String.IsNullOrEmpty(q))
+            //{
+            //    query = query.Where(s =>
+            //        s.id.ToString().Contains(q) ||
+            //        s.concepto.Contains(q) ||
+            //        s.fecha_movimiento.ToString().Contains(q) ||
+            //        s.nro_comprobante.ToString().Contains(q) 
+
+            //        ).OrderBy(m => m.id);
+            //}
+
+            ViewBag.ID_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_Social");
+
+            ViewBag.Total = query.Sum(m => m.Total);
+
+
+            return View(query.ToPagedList(page, pageSize));
+
+        }
+
         // GET: CtaCteClientes/Create
-        public ActionResult Index()
+        public ActionResult Create()
         {
             ViewBag.ID_proveedor = new SelectList(db.Proveedor, "ID_proveedor", "Razon_social");
            
@@ -24,7 +108,7 @@ namespace Blibox.Controllers
         // POST: CtaCteClientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Compras compra)
+        public ActionResult Create(Compras compra)
         {
             if (ModelState.IsValid)
             {

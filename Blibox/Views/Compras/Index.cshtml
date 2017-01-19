@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Blibox.Models.CtaCteClienteMovimientos>
+﻿@model PagedList.IPagedList<Blibox.Compras>
 @using PagedList.Mvc;
 @*@model IEnumerable<Blibox.Cliente>*@
 
@@ -7,12 +7,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-           Cuenta Corriente <small>Movimientos</small>
+           Compras <small>Proveedores</small>
         </h1>
         
         <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "CtaCteClientes")"><i class="fa fa-dashboard"></i>Administracion</a></li>
-            <li class="active">Cta Cte Clientes</li>
+            <li><a href="@Url.Action("Index", "Compras")"><i class="fa fa-dashboard"></i>Compras</a></li>
+            <li class="active">Compras</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -27,7 +27,7 @@
                 
                 <div class="box box-blibox box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Consulta de Movimientos</h3>
+                        <h3 class="box-title">Consulta de Compras a Proveedores</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -44,8 +44,8 @@
                     <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>*@
                             <div class="col-md-2">
-                                @Html.Label("Seleccione Cliente")
-                                @Html.DropDownList("ID_cliente", (SelectList)ViewBag.ID_cliente,"Seleccione...", htmlAttributes: new { @class = "form-control" })
+                                @Html.Label("Seleccione Proveedor")
+                                @Html.DropDownList("ID_proveedor", (SelectList)ViewBag.ID_proveedor, "Seleccione...", htmlAttributes: new { @class = "form-control" })
                                 @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
                             </div>
                             <div class="col-md-2">
@@ -135,46 +135,38 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>@Html.DisplayName("Fecha")</th>
-                                <th>@Html.DisplayName("Concepto")</th>
-                                <th>@Html.DisplayName("Debito")</th>
+                                <th>@Html.DisplayName("Razon Social")</th>
+                                <th>@Html.DisplayName("Nº factura")</th>
+                                <th>@Html.DisplayName("Cantidad")</th>
 
-                                <th>@Html.DisplayName("Credito")</th>
-                                <th>@Html.DisplayName("Saldo")</th>
+                                <th>@Html.DisplayName("Neto")</th>
+                                <th>@Html.DisplayName("Iva")</th>
+                                <th>@Html.DisplayName("Total")</th>
+                                <th>@Html.DisplayName("Observaciones")</th>
+
                               
-                                <th  width="5%">OPCIONES</th>
+                               
                             </tr>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                <td>@item.fecha.ToString("dd/MM/yyyy")</td>
-                                <td>@Html.DisplayFor(model => item.concepto)</td>
-                                <td>
-                                    @if (item.debito != 0) { 
-                                    @Html.DisplayFor(model => item.debito)}
-                                </td>
-                                <td>@if (item.credito != 0)
-                                {
-                                    @Html.DisplayFor(model => item.credito)}</td>
-                                <td>@Html.DisplayFor(model => item.saldo)</td>
                                 
+                                    <td>@item.Fecha_compra.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(model => item.Proveedor.Razon_social)</td>
 
-                                <td class="accion">
-
-                                    <a href="@Url.Action("Details", new { id = item.id, saldo = item.saldo })" title="Ver" class="">
-                                        <i class="glyphicon glyphicon-zoom-in"></i>
-                                        <span class="sr-only">Ver</span>
-                                    </a>
-                                    @*<a href="@Url.Action("Edit", new { id = item.id })" title="Editar">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        <span class="sr-only">Editar</span>
-                                    </a>
-                                    <a href="@Url.Action("Delete", new { id = item.id })" title="Eliminar">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                        <span class="sr-only">Eliminar</span>
-                                    </a>*@
-
-                                </td>
-                            </tr>
+                                    <td>@Html.DisplayFor(model => item.Nro_factura)</td>
+                                
+                                    <td>@if (item.Cantidad != null) { @Html.DisplayFor(model => item.Cantidad)}</td>
+                                
+                                    <td>@if (item.Neto != null){@Html.DisplayFor(model => item.Neto)}</td>
+                                
+                                    <td>@if (item.IVA != null) {@Html.DisplayFor(model => item.IVA)}</td>
+                                
+                                    <td>@if (item.Total != null){@Html.DisplayFor(model => item.Total)}</td>
+                                
+                                    <td>@Html.DisplayFor(model => item.Observaciones)</td>
+                                                                  
+                                </tr>
                             }
 
 
@@ -196,28 +188,24 @@
                 }
 
         <p>
-            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO MOVIMIENTO", "Create")</button>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVA COMPRA", "Create")</button>
         </p>
+@if (ViewBag.Total != null) { 
+        <div class="col-md-9 col-sm-6 col-xs-12">
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
 
-        <hr />
-
-        @if (ViewBag.Total != null)
-        {
-            <div class="col-md-9 col-sm-6 col-xs-12">
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Saldo deudor</span>
-                        <span class="info-box-number">@if (ViewBag.Total != null)
-                        {@ViewBag.Total}</span>
-                    </div>
-                    <!-- /.info-box-content -->
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Compras</span>
+                    <span class="info-box-number">@if (ViewBag.Total != null)
+                    {@ViewBag.Total}</span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
-        }
+        </div>
+}
 
 </section>
 </div><!-- /.content-wrapper -->
