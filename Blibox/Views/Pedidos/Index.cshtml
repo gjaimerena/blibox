@@ -1,0 +1,134 @@
+﻿@model PagedList.IPagedList<Blibox.Pedido>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Pedidos")"><i class="fa fa-dashboard"></i> Pedidos</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO Pedido", "Create")</button>
+            </div>
+
+            @{ string currentFilter = ViewBag.CurrentFilter;
+            string currentSort = ViewBag.CurrentSort;
+            if (string.IsNullOrEmpty(currentSort))
+            {
+                currentSort = "id";
+            } }
+            <div class="col-md-4"></div>
+            <div class="search-box col-md-4">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                        <button type="submit" class="btn btn-search">Buscar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <br />
+        <div class="box box-blibox box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Pedidos</h3>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>@Html.DisplayName("N° Pedido")</th>
+                        <th>@Html.DisplayName("Cliente")</th>
+                        <th>@Html.DisplayName("N° Articulo")</th>
+                        <th>@Html.DisplayName("Articulo")</th>
+                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
+                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
+                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
+                        <th>@Html.DisplayName("Pedido")</th>
+                        <th>@Html.DisplayName("Entregado")</th>
+                        <th>@Html.DisplayName("Faltantes")</th>
+
+                        <th>OPCIONES</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{
+                                int cantidadPedida = item.cantidad_pedida ?? 0;
+                                int cantidadEntregada = (item.cantidad_entregada) ?? 0;
+                                int cantidadRestante = cantidadPedida - cantidadEntregada;
+                            }
+                            <td>@Html.DisplayFor(model => item.ID_pedido)</td>
+                            <td>@Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
+                            <td>@Html.DisplayFor(model => item.ID_articulo)</td>
+                            <td>@Html.DisplayFor(model => item.Articulo.Descripcion)</td>
+                            @{
+                                string material;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    material = "-";
+                                    if (item.Articulo.Componente.Count() >= i + 1)
+                                    {
+                                        var pesoRestante = item.Articulo.Componente.ElementAt(i).Material.Peso * cantidadRestante;
+                                        material = item.Articulo.Componente.ElementAt(i).Material.Descripcion + " / ";
+                                        material += item.Articulo.Componente.ElementAt(i).Bocas + " / ";
+                                        material += item.Articulo.Componente.ElementAt(i).Espesor + " / ";
+                                        material += pesoRestante;
+                                    }
+                                    <td>@Html.DisplayFor(model => material)</td>
+                                }
+                                
+                            }
+                            <!-- materia, bocas, espesor, peso necesario-->
+                            
+                            <td>@Html.DisplayFor(model => item.cantidad_pedida)</td>
+                            <td>@Html.DisplayFor(model => item.cantidad_entregada)</td>
+                            
+                            <td>@cantidadRestante</td>
+                            <td class="accion">
+
+                                <a href="@Url.Action("Details", new { id = item.ID_pedido })" title="Ver" class="">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                    <span class="sr-only">Ver</span>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.ID_pedido })" title="Editar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span class="sr-only">Editar</span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ID_pedido })" title="Eliminar">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span class="sr-only">Eliminar</span>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            @if (Model.PageCount > 1)
+            {
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+               {
+                   page,
+                   sortOrder = ViewBag.currentSort,
+                   q = ViewBag.CurrentFilter
+               }))
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+            }
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->
