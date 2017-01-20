@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using Blibox;
 using PagedList;
+using ClosedXML.Excel;
+using System.IO;
+using System.Reflection;
 
 namespace Blibox.Controllers
 {
@@ -41,7 +44,59 @@ namespace Blibox.Controllers
                  
                     ).OrderBy(m => m.ID_pedido);
             }
-            return View(query.ToPagedList(page, pageSize));
+
+            List<Models.Pedidos> pedidos = new List<Models.Pedidos>();
+
+            foreach (Pedido item in query)
+            {
+                int cantidadPedida = item.cantidad_pedida ?? 0;
+                int cantidadEntregada = (item.cantidad_entregada) ?? 0;
+                int cantidadRestante = cantidadPedida - cantidadEntregada;
+
+                string componente1 = "", componente2= "", componente3 = "";
+
+                for (int i = 0; i < 3; i++)
+                {
+                    string comp = "-";
+                    if (item.Articulo.Componente.Count() >= i + 1)
+                    {
+                        var pesoRestante = item.Articulo.Componente.ElementAt(i).Material.Peso * cantidadRestante;
+                        comp = item.Articulo.Componente.ElementAt(i).Material.Descripcion + " / ";
+                        comp += item.Articulo.Componente.ElementAt(i).Marco.Ancho+"x"+ item.Articulo.Componente.ElementAt(i).Marco.Largo + " / ";
+                        comp += item.Articulo.Componente.ElementAt(i).Espesor + " / ";
+                        comp += pesoRestante;
+                    }
+                    if (i == 0) componente1 = comp;
+                    if (i == 1) componente2 = comp;
+                    if (i == 2) componente3 = comp;
+
+                }
+
+                Models.Pedidos pedido = new Models.Pedidos
+                {
+                    idPedido = item.ID_pedido,
+                    cliente = item.Cliente.Razon_Social,
+                    idArticulo = item.ID_articulo,
+                    descArticulo = item.Articulo.Descripcion,
+                    componente1 = componente1,
+                    componente2 = componente2,
+                    componente3 = componente3,
+                    cantEntregada = cantidadEntregada,
+                    cantPedida = cantidadPedida,
+                    cantRestante = cantidadRestante
+                };
+
+                pedidos.Add(pedido);
+
+                List<Models.MaterialNecesario> mat = new List<Models.MaterialNecesario>();
+
+               
+
+            }
+
+
+            HttpContext.Session["query"] = pedidos;
+            return View(pedidos.ToPagedList(page, pageSize));
         }
 
         // GET: Pedidos/Details/5
@@ -197,6 +252,77 @@ namespace Blibox.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ExportData()
+        {
+            
+            DataTable dt = new DataTable();
+            dt.TableName = "Pedidos";
+            List<Models.Pedidos> pedidos = (List<Models.Pedidos>)HttpContext.Session["query"];
+            dt = ToDataTable(pedidos);
+
+            dt.Columns["descArticulo"].ColumnName = "Articulo";
+            dt.Columns["componente1"].ColumnName = "Componente 1 (Mat/Marco/Espesor/Kgs restantes)";
+            dt.Columns["componente2"].ColumnName = "Componente 2 (Mat/Marco/Espesor/Kgs restantes)";
+            dt.Columns["componente3"].ColumnName = "Componente 3 (Mat/Marco/Espesor/Kgs restantes)";
+            dt.Columns["cantPedida"].ColumnName = "Cantidad Pedida";
+            dt.Columns["cantEntregada"].ColumnName = "Cantidad Entregada";
+            dt.Columns["cantRestante"].ColumnName = "Cantidad Restante";
+            dt.Columns["idArticulo"].ColumnName = "Cod Articulo";
+            dt.Columns["cliente"].ColumnName = "Cliente";
+            dt.Columns["idPedido"].ColumnName = "Id Pedido";
+
+            
+
+            dt.AcceptChanges();
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+                
+                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                wb.Style.Font.Bold = true;
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename= Pedidos.xlsx");
+
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream, false);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return RedirectToAction("Index", "Pedidos");
+        }
+
+        private DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
         }
     }
 }

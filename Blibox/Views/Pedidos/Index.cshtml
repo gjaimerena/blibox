@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Blibox.Pedido>
+﻿@model PagedList.IPagedList<Blibox.Models.Pedidos>
 @using PagedList.Mvc;
 
 
@@ -20,95 +20,76 @@
     <!-- Main content -->
     <section class="content">
 
-        <div class="row">
-            <div class="col-md-4">
-                <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO Pedido", "Create")</button>
-            </div>
+        <p>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO PEDIDO", "Create")</button>
+        </p>
 
-            @{ string currentFilter = ViewBag.CurrentFilter;
+        @{ string currentFilter = ViewBag.CurrentFilter;
             string currentSort = ViewBag.CurrentSort;
             if (string.IsNullOrEmpty(currentSort))
             {
                 currentSort = "id";
             } }
-            <div class="col-md-4"></div>
-            <div class="search-box col-md-4">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
-                        <button type="submit" class="btn btn-search">Buscar</button>
-                    </div>
-
-                </form>
-            </div>
+        <div class="search-box">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                </div>
+                <button type="submit" class="btn btn-search">Buscar</button>
+            </form>
         </div>
 
         <br />
         <div class="box box-blibox box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Pedidos</h3>
+                    <h3 class="box-title">Pedidos </h3>
                 </div>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-condensed">
                     <tr>
                         <th>@Html.DisplayName("N° Pedido")</th>
                         <th>@Html.DisplayName("Cliente")</th>
                         <th>@Html.DisplayName("N° Articulo")</th>
                         <th>@Html.DisplayName("Articulo")</th>
-                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
-                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
-                        <th>@Html.DisplayName("Material (Desc / bocas / espesor / kgs restantes)")</th>
+                        <th>@Html.DisplayName("Componente 1")</th>
+                        <th>@Html.DisplayName("Componente 2")</th>
+                        <th>@Html.DisplayName("Componente 3")</th>
                         <th>@Html.DisplayName("Pedido")</th>
                         <th>@Html.DisplayName("Entregado")</th>
                         <th>@Html.DisplayName("Faltantes")</th>
 
-                        <th>OPCIONES</th>
+                        <th style="width: 8%;">OPCIONES</th>
                     </tr>
+                   
                     @foreach (var item in Model)
                     {
                         <tr>
-                            @{
-                                int cantidadPedida = item.cantidad_pedida ?? 0;
-                                int cantidadEntregada = (item.cantidad_entregada) ?? 0;
-                                int cantidadRestante = cantidadPedida - cantidadEntregada;
-                            }
-                            <td>@Html.DisplayFor(model => item.ID_pedido)</td>
-                            <td>@Html.DisplayFor(model => item.Cliente.Razon_Social)</td>
-                            <td>@Html.DisplayFor(model => item.ID_articulo)</td>
-                            <td>@Html.DisplayFor(model => item.Articulo.Descripcion)</td>
-                            @{
-                                string material;
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    material = "-";
-                                    if (item.Articulo.Componente.Count() >= i + 1)
-                                    {
-                                        var pesoRestante = item.Articulo.Componente.ElementAt(i).Material.Peso * cantidadRestante;
-                                        material = item.Articulo.Componente.ElementAt(i).Material.Descripcion + " / ";
-                                        material += item.Articulo.Componente.ElementAt(i).Bocas + " / ";
-                                        material += item.Articulo.Componente.ElementAt(i).Espesor + " / ";
-                                        material += pesoRestante;
-                                    }
-                                    <td>@Html.DisplayFor(model => material)</td>
-                                }
-                                
-                            }
+                            <td>@Html.DisplayFor(model => item.idPedido)</td>
+                            <td>@Html.DisplayFor(model => item.cliente)</td>
+                            <td>@Html.DisplayFor(model => item.idArticulo)</td>
+                            <td>@Html.DisplayFor(model => item.descArticulo)</td>
+                           
+                            <td>@Html.DisplayFor(model => item.componente1)</td>
+                            <td>@Html.DisplayFor(model => item.componente2)</td>
+                            <td>@Html.DisplayFor(model => item.componente3)</td>
+                           
                             <!-- materia, bocas, espesor, peso necesario-->
                             
-                            <td>@Html.DisplayFor(model => item.cantidad_pedida)</td>
-                            <td>@Html.DisplayFor(model => item.cantidad_entregada)</td>
+                            <td>@Html.DisplayFor(model => item.cantPedida)</td>
+                            <td>@Html.DisplayFor(model => item.cantEntregada)</td>
+                            <td>@Html.DisplayFor(model => item.cantRestante)</td>
                             
-                            <td>@cantidadRestante</td>
+                          
                             <td class="accion">
 
-                                <a href="@Url.Action("Details", new { id = item.ID_pedido })" title="Ver" class="">
+                                <a href="@Url.Action("Details", new { id = item.idPedido })" title="Ver" class="">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                     <span class="sr-only">Ver</span>
                                 </a>
-                                <a href="@Url.Action("Edit", new { id = item.ID_pedido })" title="Editar">
+                                <a href="@Url.Action("Edit", new { id = item.idPedido })" title="Editar">
                                     <i class="glyphicon glyphicon-edit"></i>
                                     <span class="sr-only">Editar</span>
                                 </a>
-                                <a href="@Url.Action("Delete", new { id = item.ID_pedido })" title="Eliminar">
+                                <a href="@Url.Action("Delete", new { id = item.idPedido })" title="Eliminar">
                                     <i class="glyphicon glyphicon-trash"></i>
                                     <span class="sr-only">Eliminar</span>
                                 </a>
@@ -117,6 +98,11 @@
                         </tr>
                     }
                 </table>
+
+            * Los Componentes estan indicados de la forma:  "Material / bocas / espesor / kgs restantes"
+           
+
+
             @if (Model.PageCount > 1)
             {
                 <div class="pager">
@@ -130,5 +116,15 @@
                 </div>
             }
         </div>
+
+        @using (Html.BeginForm("ExportData", "Pedidos", FormMethod.Post))
+            {
+            <input type="submit" name="btnexportPedido" value="Exportar" id="exportPedido" class="btn btn-add" />
+        }
+
+        @using (Html.BeginForm("HistoricoPedidos", "Pedidos", FormMethod.Post))
+            {
+            <input type="submit" name="btnpedidocumplido" value="Pedidos Cumplidos" id="pedidocumplido" class="btn btn-add" />
+        }
     </section>
 </div><!-- /.content-wrapper -->
