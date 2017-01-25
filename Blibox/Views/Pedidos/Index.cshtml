@@ -21,7 +21,7 @@
     <section class="content">
 
         <p>
-            <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO PEDIDO", "Create")</button>
+            <button type="button" class="btn btn-add ">@Html.ActionLink("NUEVO PEDIDO", "Create")</button>
         </p>
 
         @{ string currentFilter = ViewBag.CurrentFilter;
@@ -30,20 +30,122 @@
             {
                 currentSort = "id";
             } }
-        <div class="search-box">
+        @*<div class="search-box">
             <form class="form-inline">
                 <div class="form-group">
                     <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                 </div>
                 <button type="submit" class="btn btn-search">Buscar</button>
             </form>
-        </div>
+        </div>*@
 
+        <div class="box box-blibox">
+            <div class="box-header with-border">
+                <h3 class="box-title">Consulta de Pedidos</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                </div>
+            </div>
+            <div class="box-body">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <form id="formIndex" method="post" class="form-inline">
+
+                    @*<div class="form-group">
+                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                    </div>*@
+                    <div class="col-md-2">
+                        @Html.Label("Estado del pedido")
+                        @Html.DropDownList("estado_pedido", (SelectList)ViewBag.estado_pedido, "Seleccione...", htmlAttributes: new { @class = "form-control" })
+                        @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                    </div>
+                    <div class="col-md-2">
+                        @Html.Label("Palabra clave")
+                        @Html.Editor("palabra_clave", new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.DropDownListFor(model => model.ID_cliente,"ID_cliente", null, htmlAttributes: new { @class = "form-control" })*@
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Fecha Desde</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.Editor("Fecha Desde",
+                                       new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               id = "fechadesde",
+                                               @class = "form-control  pull-right",
+                                               data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha inicial",
+                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                               data_fv_date_format = "DD/MM/YYYY",
+                                               data_fv_date = true,
+                                               //required = "required",
+                                               placeholder = "dd/mm/yyyy",
+                                               type = "text",
+                                               data_fv_row = ".dobleEntrada"
+                                           }
+                                       })
+
+
+
+
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Fecha Hasta</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.Editor("Fecha Hasta",
+                                       new
+                                       {
+                                           htmlAttributes = new
+                                           {
+                                               id = "fechahasta",
+                                               @class = "form-control  pull-right",
+                                               data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha final",
+                                               data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                               data_fv_date_format = "DD/MM/YYYY",
+                                               data_fv_date = true,
+                                               //required = "required",
+                                               placeholder = "dd/mm/yyyy",
+                                               type = "text",
+                                               data_fv_row = ".dobleEntrada"
+                                           }
+                                       })
+
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <br />
+                            <div class="input-group">
+                                <button type="submit" class="btn btn-search">Buscar</button>
+                            </div><!-- /.col -->
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+       
         <br />
         <div class="box box-blibox box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title">Pedidos </h3>
                 </div>
+            <div class="box-body">
                 <table class="table table-bordered table-condensed">
                     <tr>
                         <th>@Html.DisplayName("N° Pedido")</th>
@@ -59,7 +161,7 @@
 
                         <th style="width: 8%;">OPCIONES</th>
                     </tr>
-                   
+
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -67,18 +169,18 @@
                             <td>@Html.DisplayFor(model => item.cliente)</td>
                             <td>@Html.DisplayFor(model => item.idArticulo)</td>
                             <td>@Html.DisplayFor(model => item.descArticulo)</td>
-                           
+
                             <td>@Html.DisplayFor(model => item.componente1)</td>
                             <td>@Html.DisplayFor(model => item.componente2)</td>
                             <td>@Html.DisplayFor(model => item.componente3)</td>
-                           
+
                             <!-- materia, bocas, espesor, peso necesario-->
-                            
+
                             <td>@Html.DisplayFor(model => item.cantPedida)</td>
                             <td>@Html.DisplayFor(model => item.cantEntregada)</td>
                             <td>@Html.DisplayFor(model => item.cantRestante)</td>
-                            
-                          
+
+
                             <td class="accion">
 
                                 <a href="@Url.Action("Details", new { id = item.idPedido })" title="Ver" class="">
@@ -98,10 +200,20 @@
                         </tr>
                     }
                 </table>
-
-            * Los Componentes estan indicados de la forma:  "Material / bocas / espesor / kgs restantes"
-           
-
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    * Los Componentes estan indicados de la forma:  "Material / bocas / espesor / kgs restantes"
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-2">
+                    @using (Html.BeginForm("ExportData", "Pedidos", FormMethod.Post))
+                    {
+                        <input type="submit" name="btnexportPedido" value="Exportar" id="exportPedido" class="btn btn-new" />
+                    }
+                </div>
+            </div>
+            <br />
 
             @if (Model.PageCount > 1)
             {
@@ -117,14 +229,70 @@
             }
         </div>
 
-        @using (Html.BeginForm("ExportData", "Pedidos", FormMethod.Post))
-            {
-            <input type="submit" name="btnexportPedido" value="Exportar" id="exportPedido" class="btn btn-add" />
-        }
+        
 
-        @using (Html.BeginForm("HistoricoPedidos", "Pedidos", FormMethod.Post))
+        <br />
+
+        @if (ViewBag.matNecesarios != null) { 
+            <div class="box box-success collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Materiales Necesarios para Pedidos Pendientes </h3>
+                    <div class="box-tools pull-right">
+                        <button id="btnCollapse2" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <th>@Html.DisplayName("Id Material")</th>
+                            <th>@Html.DisplayName("Material")</th>
+                            <th>@Html.DisplayName("Espesor")</th>
+                            <th>@Html.DisplayName("Cantidad (kg)")</th>
+
+                        </tr>
+
+                        @foreach (var item in ViewBag.matNecesarios)
+                        {
+                            <tr>
+                                <td>@item.idmaterial</td>
+                                <td>@item.material</td>
+                                <td>@item.espesor</td>
+                                <td>@item.kilos</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+         }
+
+            @if (Model.PageCount > 1)
             {
-            <input type="submit" name="btnpedidocumplido" value="Pedidos Cumplidos" id="pedidocumplido" class="btn btn-add" />
-        }
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+               {
+                   page,
+                   sortOrder = ViewBag.currentSort,
+                   q = ViewBag.CurrentFilter
+               }))
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                </div>
+            }
+      
+
+        
     </section>
 </div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    inicializarDatePicker('#fechadesde', false, false);
+    inicializarDatePicker('#fechahasta', false, false);
+
+    $('#fechadesde').change(function () {
+        $('#formIndex').formValidation('revalidateField', 'fechadesde');
+        //Change code!
+    });
+    $('#fechahasta').change(function () {
+        $('#formIndex').formValidation('revalidateField', 'fechahasta');
+        //Change code!
+    });
+</script>
