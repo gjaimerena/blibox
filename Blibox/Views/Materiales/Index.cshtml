@@ -19,7 +19,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-
+        <br />
         <div class="row">
             <div class="col-md-4">
                 <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVO MATERIAL", "Create")</button>
@@ -31,14 +31,12 @@
             {
                 currentSort = "id";
             } }
-            <div class="col-md-4"></div>
-            <div class="search-box col-md-4">
+            <div style="text-align: right;" class="search-box col-md-8">
                 <form class="form-inline">
                     <div class="form-group">
-                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
-                        <button type="submit" class="btn btn-search">Buscar</button>
+                        <input  type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
                     </div>
-
+                    <button type="submit" class="btn btn-search">Buscar</button>
                 </form>
             </div>
         </div>
@@ -48,6 +46,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Materiales</h3>
                 </div>
+                <div class="box-body">
                 <table class="table table-bordered">
                     <tr>
                         <th>@Html.DisplayName("ID Material")</th>
@@ -82,18 +81,19 @@
                         </tr>
                     }
                 </table>
-            @if (Model.PageCount > 1)
+                    </div>
+                @if (Model.PageCount > 1)
             {
-                <div class="pager">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+                    <div class="pager">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new
                {
                    page,
                    sortOrder = ViewBag.currentSort,
                    q = ViewBag.CurrentFilter
                }))
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                </div>
-            }
-        </div>
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    </div>
+                }
+            </div>
     </section>
 </div><!-- /.content-wrapper -->

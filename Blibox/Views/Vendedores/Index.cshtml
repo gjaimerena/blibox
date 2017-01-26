@@ -49,68 +49,70 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Articulos</h3>
             </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>@Html.DisplayName("Nombre")</th>
-                    <th>@Html.DisplayName("Apellido")</th>
-                    <th>@Html.DisplayName("Domicilio")</th>
-                    <th>@Html.DisplayName("Localidad")</th>
-                    <th>@Html.DisplayName("Codigo postal")</th>
-                    <th>@Html.DisplayName("Provincia")</th>
-                    <th>@Html.DisplayName("Telefono")</th>
-                    <th>@Html.DisplayName("Celular")</th>
-                    @*<th>@Html.DisplayNameFor(model => model.Fazon)</th>
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>@Html.DisplayName("Nombre")</th>
+                        <th>@Html.DisplayName("Apellido")</th>
+                        <th>@Html.DisplayName("Domicilio")</th>
+                        <th>@Html.DisplayName("Localidad")</th>
+                        <th>@Html.DisplayName("Codigo postal")</th>
+                        <th>@Html.DisplayName("Provincia")</th>
+                        <th>@Html.DisplayName("Telefono")</th>
+                        <th>@Html.DisplayName("Celular")</th>
+                        @*<th>@Html.DisplayNameFor(model => model.Fazon)</th>
                     <th>@Html.DisplayNameFor(model => model.Stock_minimo)</th>
                     <th>@Html.DisplayNameFor(model => model.Cant_x_bulto)</th>
                     <th>@Html.DisplayNameFor(model => model.Tamaño_caja)</th>
                     <th>@Html.DisplayNameFor(model => model.Tiraje_term_x_hora)</th>
                     <th>@Html.DisplayNameFor(model => model.Tiraje_troquel_x_hora)</th>*@
-                    <th>@Html.DisplayName("Email")</th>
-                   
-                    <th>@Html.DisplayName("Observacion")</th>
-                    <th>OPCIONES</th>
-                </tr>
-                @foreach (var item in Model)
+                        <th>@Html.DisplayName("Email")</th>
+
+                        <th>@Html.DisplayName("Observacion")</th>
+                        <th>OPCIONES</th>
+                    </tr>
+                    @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(model => item.Nombre)</td>
-                        <td>@Html.DisplayFor(model => item.Apellido)</td>
-                        <td>@Html.DisplayFor(model => item.Domicilio)</td>
-                        <td>@Html.DisplayFor(model => item.Localidad)</td>
-                        <td>@Html.DisplayFor(model => item.Codigo_postal)</td>
-                        <td>@Html.DisplayFor(model => item.Provincia)</td>
-                        <td>@Html.DisplayFor(model => item.Telefono)</td>
-                        <td>@Html.DisplayFor(model => item.Celular)</td>
-                        @*<td>@Html.DisplayFor(model => item.Fazon)</td>
+                        <tr>
+                            <td>@Html.DisplayFor(model => item.Nombre)</td>
+                            <td>@Html.DisplayFor(model => item.Apellido)</td>
+                            <td>@Html.DisplayFor(model => item.Domicilio)</td>
+                            <td>@Html.DisplayFor(model => item.Localidad)</td>
+                            <td>@Html.DisplayFor(model => item.Codigo_postal)</td>
+                            <td>@Html.DisplayFor(model => item.Provincia)</td>
+                            <td>@Html.DisplayFor(model => item.Telefono)</td>
+                            <td>@Html.DisplayFor(model => item.Celular)</td>
+                            @*<td>@Html.DisplayFor(model => item.Fazon)</td>
                         <td>@Html.DisplayFor(model => item.Stock_minimo)</td>
                         <td>@Html.DisplayFor(model => item.Cant_x_bulto)</td>
                         <td>@Html.DisplayFor(model => item.Tamaño_caja)</td>
                         <td>@Html.DisplayFor(model => item.Tiraje_term_x_hora)</td>
                         <td>@Html.DisplayFor(model => item.Tiraje_troquel_x_hora)</td>*@
-                        <td>@Html.DisplayFor(model => item.Email)</td>
-                        
-                        <td> @Html.DisplayFor(model => item.Observacion)</td>
-                        <td class="accion">
-                           
-                            <a href="@Url.Action("Details", new { id = item.ID_vendedor })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-zoom-in"></i>
-                                <span class="sr-only">Ver</span>
-                            </a>
-                            <a href="@Url.Action("Edit", new { id = item.ID_vendedor })" title="Editar">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                <span class="sr-only">Editar</span>
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = item.ID_vendedor })" title="Eliminar">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span class="sr-only">Eliminar</span>
-                            </a>
+                            <td>@Html.DisplayFor(model => item.Email)</td>
 
-                        </td>
-                    </tr>
+                            <td> @Html.DisplayFor(model => item.Observacion)</td>
+                            <td class="accion">
+
+                                <a href="@Url.Action("Details", new { id = item.ID_vendedor })" title="Ver" class="">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                    <span class="sr-only">Ver</span>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.ID_vendedor })" title="Editar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span class="sr-only">Editar</span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ID_vendedor })" title="Eliminar">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span class="sr-only">Eliminar</span>
+                                </a>
+
+                            </td>
+                        </tr>
                 }
 
 
-            </table>
+                </table>
+            </div>
         </div>      
 
         @if (Model.PageCount > 1)

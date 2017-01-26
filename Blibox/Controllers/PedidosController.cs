@@ -25,8 +25,9 @@ namespace Blibox.Controllers
             int estado = 0;
 
             List<SelectListItem> estado_pedido = new List<SelectListItem>();
+
+            estado_pedido.Add(new SelectListItem() { Text = "Pendiente", Value = "2", Selected = true });
             estado_pedido.Add(new SelectListItem() { Text = "Cumplido", Value = "1" });
-            estado_pedido.Add(new SelectListItem() { Text = "Pendiente", Value = "2" });
 
             ViewBag.estado_pedido = new SelectList(estado_pedido, "Value", "Text");
 
@@ -35,12 +36,12 @@ namespace Blibox.Controllers
             {
                 Int32.TryParse(Request["estado_pedido"], out estado);
             }
-            else
-            {
-               // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
-                List<Models.Pedidos> lista_pedidos = new List<Models.Pedidos>();
-                return View(lista_pedidos.ToPagedList(page, pageSize));
-            }
+            //else
+            //{
+            //   // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+            //    List<Models.Pedidos> lista_pedidos = new List<Models.Pedidos>();
+            //    return View(lista_pedidos.ToPagedList(page, pageSize));
+            //}
 
             string palabra_clave = (Request["palabra_clave"] == null) ? "" : Request["palabra_clave"].ToString();
 
@@ -67,7 +68,7 @@ namespace Blibox.Controllers
             }
 
             List<Models.materialNecesario> matNecesario = null;
-            if (estado == 2) matNecesario = new List<Models.materialNecesario>();
+            if (estado != 1) matNecesario = new List<Models.materialNecesario>();
             List<Models.Pedidos> pedidos = new List<Models.Pedidos>();
 
             foreach (Pedido item in query)
@@ -77,7 +78,7 @@ namespace Blibox.Controllers
                 int cantidadEntregada = (item.cantidad_entregada) ?? 0;
                 int cantidadRestante = cantidadPedida - cantidadEntregada;
 
-                if ((estado == 1) && (cantidadRestante == 0) || (estado == 2) && (cantidadRestante != 0))
+                if ((estado == 1) && (cantidadRestante == 0) || (estado != 2) && (cantidadRestante != 0))
                 {
                     string componente1 = "", componente2 = "", componente3 = "";
 
@@ -95,7 +96,7 @@ namespace Blibox.Controllers
                             comp += componente.Espesor + " / ";
                             comp += pesoRestante;
 
-                            if (estado == 2)
+                            if (estado != 1)
                             {
                                 
                                 //si en la lista de material necesario ya existe el material y ademas es del mismo espesor sumo la cantidad requerida

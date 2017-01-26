@@ -47,48 +47,50 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Matrices</h3>
             </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>@Html.DisplayName("Codigo")</th>
-                    <th>@Html.DisplayName("Descripcion")</th>
-                    <th>@Html.DisplayName("Bocas")</th>
-                    <th>@Html.DisplayName("Sector")</th>
-                    <th>@Html.DisplayName("Observaciones")</th>
-                   
-                    <th>OPCIONES</th>
-                </tr>
-                @foreach (var item in Model)
-                {
+            <div class="box-body">
+                <table class="table table-bordered">
                     <tr>
-                        <td>@Html.DisplayFor(model => item.Codigo)</td>
-                        <td>@Html.DisplayFor(model => item.Descripcion)</td>
-                        <td>@Html.DisplayFor(model => item.Bocas)</td>
-                        <td>@Html.DisplayFor(model => item.Sector)</td>
-                        <td>@Html.DisplayFor(model => item.Observaciones)</td>
-                        
-                        <td class="accion">
-                            
-                            <a href="@Url.Action("Details", new { id = item.ID_matriz })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-zoom-in"></i>
-                                <span class="sr-only">Ver</span>
-                            </a>
-                            <a href="@Url.Action("Edit", new { id = item.ID_matriz })" title="Editar">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                <span class="sr-only">Editar</span>
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = item.ID_matriz })" title="Eliminar">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span class="sr-only">Eliminar</span>
-                            </a>
+                        <th>@Html.DisplayName("Codigo")</th>
+                        <th>@Html.DisplayName("Descripcion")</th>
+                        <th>@Html.DisplayName("Bocas")</th>
+                        <th>@Html.DisplayName("Sector")</th>
+                        <th>@Html.DisplayName("Observaciones")</th>
 
-                        </td>
+                        <th>OPCIONES</th>
                     </tr>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>@Html.DisplayFor(model => item.Codigo)</td>
+                            <td>@Html.DisplayFor(model => item.Descripcion)</td>
+                            <td>@Html.DisplayFor(model => item.Bocas)</td>
+                            <td>@Html.DisplayFor(model => item.Sector)</td>
+                            <td>@Html.DisplayFor(model => item.Observaciones)</td>
+
+                            <td class="accion">
+
+                                <a href="@Url.Action("Details", new { id = item.ID_matriz })" title="Ver" class="">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                    <span class="sr-only">Ver</span>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.ID_matriz })" title="Editar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span class="sr-only">Editar</span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ID_matriz })" title="Eliminar">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span class="sr-only">Eliminar</span>
+                                </a>
+
+                            </td>
+                        </tr>
                 }
 
 
-            </table>
-        </div>
+                </table>
 
+            </div>
+        </div>
         @if (Model.PageCount > 1)
         {
             <div class="pager">

@@ -8,8 +8,14 @@ namespace Blibox.Controllers
 {
     public class HomeController : Controller
     {
+        private BliboxEntities db = new BliboxEntities();
+
         public ActionResult Index()
         {
+
+
+
+
             return View();
         }
 

@@ -51,7 +51,7 @@ body {
 .container, .content {
     /*background-color: white;*/
     padding-bottom: 20px;
-    min-height: 600px;
+    min-height: 950px;
 }
 
 .h1, .h2, .h3, h1, h2, h3 {
@@ -433,4 +433,10 @@ button.btn.btn-addmore:focus{
 
 .content-wrapper {
     min-height: 900px !important;
+}
+
+.small-box .icon {
+    
+    top: 0px;
+   
 }

@@ -43,49 +43,51 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Proveedores</h3>
             </div>
-            <table class="table table-bordered">
-                <tr>
-                    <th>@Html.DisplayName("ID Proveedor")</th>
-                    <th>@Html.DisplayName("Razon social")</th>
-                    <th>@Html.DisplayName("CUIT")</th>
-                    <th>@Html.DisplayName("Contacto")</th>
-                    <th>@Html.DisplayName("Celular")</th>
-                    <th>@Html.DisplayName("Telefono")</th>
-                    <th>@Html.DisplayName("Email")</th>
-                    <th>@Html.DisplayName("Observaciones")</th>
-                    <th>OPCIONES</th>
-                </tr>
-
-                @foreach (var item in Model)
-            {
+            <div class="box-body">
+                <table class="table table-bordered">
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.ID_proveedor)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Razon_social)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CUIT)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Celular)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
-                        <td class="accion">
-                           
-                            <a href="@Url.Action("Details", new { id = item.ID_proveedor })" title="Ver" class="">
-                                <i class="glyphicon glyphicon-zoom-in"></i>
-                                <span class="sr-only">Ver</span>
-                            </a>
-                            <a href="@Url.Action("Edit", new { id = item.ID_proveedor })" title="Editar">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                <span class="sr-only">Editar</span>
-                            </a>
-                            <a href="@Url.Action("Delete", new { id = item.ID_proveedor })" title="Eliminar">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span class="sr-only">Eliminar</span>
-                            </a>
-                        </td>
+                        <th>@Html.DisplayName("ID Proveedor")</th>
+                        <th>@Html.DisplayName("Razon social")</th>
+                        <th>@Html.DisplayName("CUIT")</th>
+                        <th>@Html.DisplayName("Contacto")</th>
+                        <th>@Html.DisplayName("Celular")</th>
+                        <th>@Html.DisplayName("Telefono")</th>
+                        <th>@Html.DisplayName("Email")</th>
+                        <th>@Html.DisplayName("Observaciones")</th>
+                        <th>OPCIONES</th>
                     </tr>
-                }
 
-            </table>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.ID_proveedor)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Razon_social)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CUIT)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Celular)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Observaciones)</td>
+                            <td class="accion">
+
+                                <a href="@Url.Action("Details", new { id = item.ID_proveedor })" title="Ver" class="">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                    <span class="sr-only">Ver</span>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.ID_proveedor })" title="Editar">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span class="sr-only">Editar</span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ID_proveedor })" title="Eliminar">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span class="sr-only">Eliminar</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
         </div>
 
         @if (Model.PageCount > 1)

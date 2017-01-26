@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            @ViewBag.Message
+            Administración <small> Pedidos</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="@Url.Action("Index","Pedidos")"><i class="fa fa-dashboard"></i> Pedidos</a></li>
@@ -20,9 +20,9 @@
     <!-- Main content -->
     <section class="content">
 
-        <p>
+        @*<p>
             <button type="button" class="btn btn-add ">@Html.ActionLink("NUEVO PEDIDO", "Create")</button>
-        </p>
+        </p>*@
 
         @{ string currentFilter = ViewBag.CurrentFilter;
             string currentSort = ViewBag.CurrentSort;
@@ -39,7 +39,7 @@
             </form>
         </div>*@
 
-        <div class="box box-blibox">
+        <div class="box box-blibox box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Consulta de Pedidos</h3>
 
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
                 <form id="formIndex" method="post" class="form-inline">
 
                     @*<div class="form-group">
@@ -200,36 +200,41 @@
                         </tr>
                     }
                 </table>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    * Los Componentes estan indicados de la forma:  "Material / bocas / espesor / kgs restantes"
-                </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-2">
-                    @using (Html.BeginForm("ExportData", "Pedidos", FormMethod.Post))
-                    {
-                        <input type="submit" name="btnexportPedido" value="Exportar" id="exportPedido" class="btn btn-new" />
-                    }
-                </div>
-            </div>
-            <br />
 
-            @if (Model.PageCount > 1)
+
+
+                @if (Model.PageCount > 1)
             {
-                <div class="pager">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+                    <div class="pager">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new
                {
                    page,
                    sortOrder = ViewBag.currentSort,
                    q = ViewBag.CurrentFilter
                }))
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                </div>
-            }
-        </div>
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    </div>
+                }
 
-        
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6" style="text-align:left;">
+                        <button type="button" class="btn btn-add ">@Html.ActionLink("NUEVO PEDIDO", "Create")</button>
+                        @** Los Componentes estan indicados de la forma:  "Material / bocas / espesor / kgs restantes"*@
+                    </div>
+                    @*<div class="col-md-4"></div>*@
+                    <div class="col-md-6" style="text-align:right;">
+                        @using (Html.BeginForm("ExportData", "Pedidos", FormMethod.Post))
+                        {
+                            <input type="submit" name="btnexportPedido" value="Exportar" id="exportPedido" class="btn btn-new" />
+                        }
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
 
         <br />
 
@@ -278,7 +283,7 @@
                 </div>
             }
       
-
+       
         
     </section>
 </div><!-- /.content-wrapper -->
