@@ -356,7 +356,7 @@
                                             <label class="col-md-2 control-label">Material</label>
                                             <div class="col-md-4">
                                                 <select required="required"
-                                                        data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material', onchange: 'calcularPeso('+$index()+')' }"
+                                                        data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material', id: 'Componente' + $index() + 'IDmaterial', onchange: 'calcularPeso('+$index()+')' }"
                                                         class="form-control"></select>
                                                 <em data-bind="validationMessage: ID_material"></em>
                                             </div>
@@ -413,7 +413,7 @@
                                             <div class="col-md-4">
                                                 <input type="number"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente[' + $index() + '].Peso' }" 
+                                                       required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
                                                       
                                                        readonly/>
                                                 <em data-bind="validationMessage: Peso"></em>
@@ -425,7 +425,7 @@
                                             <label class="col-md-2 control-label no-clear-md">Marco</label>
                                             <div class="col-md-4">
 
-                                                <select required="required"  class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente[' + $index() + '].ID_marco', onchange: 'calcularPeso('+$index()+')' }"></select>
+                                                <select required="required"  class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente' + $index() + 'IDmarco', onchange: 'calcularPeso('+$index()+')' }"></select>
                                                 <em data-bind="validationMessage: ID_marco"></em>
                                             </div>
                                         </div><!-- /.dobleEntrada -->
@@ -555,39 +555,30 @@
 
     $('#agregarComponente').click();
     function calcularPeso(numeroComponente) {
-        var idComponete = "Componente["+numeroComponente+"]";
+        var idComponete = "Componente[" + numeroComponente + "]";
+        var idComponeteSinParentesis = "Componente" + numeroComponente + "";
         var marco = "";
-        $("#" + idComponete + ".marco option:selected").each(function () {
+        $("#" + idComponeteSinParentesis + "IDmarco option:selected").each(function () {
             marco += $(this)[0].value;
         });
         var material = "";
-        $("#" + idComponete + ".material option:selected").each(function () {
+        $("#" + idComponeteSinParentesis + "IDmaterial option:selected").each(function () {
             material += $(this)[0].value;
         });
         var bocas = document.getElementById("Componente[0].Bocas").value;
-        var espesor= document.getElementById("Componente[0].Espesor").value;
-       /* $.ajax({
+        var espesor = document.getElementById("Componente[0].Espesor").value;
+        
+        console.log("{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}");
+        $.ajax({
             type: "POST",
-            url: "Url.Action("calcularPeso", "Articulos")",
-           /* data: "{'marcoId': " + marco + ", 'materialId': " + material + ", peso}",
+            url: "@Url.Action("calcularPeso", "Articulos")",
+            data: "{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
                 if (data != null) {
-                    $('#CUIT').val(data.Documento);
-                    $('#TipoResp').val(data.TipoResponsable)
-                    $("#DiasFF").val(data.DiasFF);
-                    $("#Dias_Cheque").val(data.Dias_Cheque);
-
-                    var select = $("#Articulos");
-
-                    for (var articulo in data.Articulos) {
-
-                        var option = document.createElement('option');
-                        option.innerHTML = data.Articulos[articulo].Descripcion;
-                        option.value = data.Articulos[articulo].ID_articulo;
-                        select.append(option);
-                    }
+                    $("#" + idComponeteSinParentesis + "Peso").val(data.peso);
+                    debugger;
                 }
             },
             error: function (request, status, error) {
@@ -596,7 +587,8 @@
             }
 
     });
-    */
-    }
+    
+}
 
 </script>
+

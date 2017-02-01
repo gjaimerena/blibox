@@ -13,7 +13,7 @@ using Blibox.Controllers;
 namespace Blibox.Models
 {
 
-    
+
 
     public class ArticulosController : Controller
     {
@@ -25,7 +25,7 @@ namespace Blibox.Models
 
         private BliboxEntities db = new BliboxEntities();
         private List<SelectListItem> items = new List<SelectListItem>();
-      
+
 
         // GET: Articulos
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
@@ -45,8 +45,8 @@ namespace Blibox.Models
 
             if (!String.IsNullOrEmpty(q))
             {
-                query = query.Where(s => 
-                    s.ID_articulo.ToString().Contains(q) || 
+                query = query.Where(s =>
+                    s.ID_articulo.ToString().Contains(q) ||
                     s.Descripcion.Contains(q) ||
                     s.Precio_fecha.Value.ToString().Contains(q) ||
                     s.Precio_lista.ToString().Contains(q) ||
@@ -54,7 +54,7 @@ namespace Blibox.Models
                     s.ID_cliente.ToString().Contains(q)
                     ).OrderBy(m => m.ID_articulo);
             }
-   
+
             switch (sortOrder)
             {
                 case "id":
@@ -75,7 +75,7 @@ namespace Blibox.Models
 
             return View(query.ToPagedList(page, pageSize));
         }
- 
+
         // GET: Articulos/Details/5
         public ActionResult Details(int? id)
         {
@@ -150,16 +150,16 @@ namespace Blibox.Models
 
             if (ModelState.IsValid)
             {
-                    if (articulo.Componente == null || articulo.Componente.Count == 0)
-                    {
-                        ModelState.AddModelError("Detalle", "Debe agregar al menos un componente para el articulo");
-                        HelperController.Instance.agregarMensaje("Debe agregar al menos un componente para el articulo", HelperController.CLASE_ERROR);
-                    }
-                    else
-                    {
-                        db.Articulo.Add(articulo);
+                if (articulo.Componente == null || articulo.Componente.Count == 0)
+                {
+                    ModelState.AddModelError("Detalle", "Debe agregar al menos un componente para el articulo");
+                    HelperController.Instance.agregarMensaje("Debe agregar al menos un componente para el articulo", HelperController.CLASE_ERROR);
                 }
-                
+                else
+                {
+                    db.Articulo.Add(articulo);
+                }
+
                 db.SaveChanges();
                 HelperController.Instance.agregarMensaje("El articulo se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
@@ -190,7 +190,7 @@ namespace Blibox.Models
 
             getDropdownElements();
             ViewBag.Peso = "0";
-            
+
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
             return View(articulo);
         }
@@ -210,7 +210,7 @@ namespace Blibox.Models
                 for (int i = 0; i < articulo.Componente.Count; i++)
                 {
                     db.Entry(articulo.Componente.ElementAt(i)).State = EntityState.Modified;
-                        
+
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -246,7 +246,7 @@ namespace Blibox.Models
         public ActionResult DeleteConfirmed(int id)
         {
             Articulo articulo = db.Articulo.Find(id);
-            
+
             var componentes = db.Componente.Where(m => m.ID_articulo == articulo.ID_articulo);
             foreach (var comp in componentes)
             {
@@ -258,9 +258,10 @@ namespace Blibox.Models
                 db.Articulo.Remove(articulo);
                 db.SaveChanges();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e);
-                
+
             }
 
             return RedirectToAction("Index");
@@ -275,10 +276,11 @@ namespace Blibox.Models
             base.Dispose(disposing);
         }
 
-        private SelectList ComboComponentes() {
-            
-            
-            SelectListItem l0 = new SelectListItem { Text = "Ninguno", Value="Ninguno" };
+        private SelectList ComboComponentes()
+        {
+
+
+            SelectListItem l0 = new SelectListItem { Text = "Ninguno", Value = "Ninguno" };
             SelectListItem l1 = new SelectListItem { Text = "1", Value = "1" };
             SelectListItem l2 = new SelectListItem { Text = "2", Value = "2" };
             SelectListItem l3 = new SelectListItem { Text = "3", Value = "3" };
@@ -292,10 +294,10 @@ namespace Blibox.Models
 
             //Return the list of selectlistitems as a selectlist
             return new SelectList(newList, "Value", "Text", "Ninguno");
-            
+
         }
 
-      
+
         public ActionResult eliminarComponente(int Id)
         {
             Componente comp = db.Componente.Where(m => m.ID_componente == Id).FirstOrDefault();
@@ -309,10 +311,30 @@ namespace Blibox.Models
 
         public ActionResult AgregarComponente(int Id)
         {
-            db.Componente.Add(new Componente { ID_articulo = Id});
+            db.Componente.Add(new Componente { ID_articulo = Id });
             db.SaveChanges();
             // return RedirectToAction("Edit","Articulos", art.ID_articulo.ToString()); ;
             return RedirectToAction("Edit", "Articulos", new { id = Id });
+        }
+
+        [HttpPost]
+        public ActionResult calcularPeso(int? marcoId, int? materialId, int? bocas, int? espesor)
+        {
+            PesoJson pesojson = new PesoJson();
+            Marco marco = db.Marco.Where(m => m.ID_marco == marcoId).FirstOrDefault();
+            Material material = db.Material.Where(m => m.ID_material == materialId).FirstOrDefault();
+            double formula = 0;
+            if (bocas > 0)
+            {
+                formula = (double)(marco.Ancho * marco.Largo * material.Peso * (espesor / 1000)) / (bocas * 1000) ?? 0;
+            }
+            double componentePeso = Math.Round(formula, 2);
+            pesojson = new PesoJson
+            {
+                peso = componentePeso,
+            };
+
+            return Json(pesojson, JsonRequestBehavior.AllowGet);
         }
 
 

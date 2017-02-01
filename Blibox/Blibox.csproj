@@ -287,6 +287,7 @@
     <Compile Include="CtaCteProveedores.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="C__MigrationHistory.cs" />
     <Compile Include="Detalle_factura.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -314,6 +315,7 @@
     <Compile Include="Models\DetalleCustom.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Models\JsonClient\PesoJson.cs" />
     <Compile Include="Models\MaterialNecesario.cs" />
     <Compile Include="Models\materialNecesario1.cs" />
     <Compile Include="Models\Pedidos.cs" />
@@ -332,6 +334,7 @@
     <Compile Include="Rubro.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs" />
     <Compile Include="TipoDocumento.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -413,6 +416,7 @@
     <Content Include="Views\Pedidos\Details.cshtml" />
     <Content Include="Views\Pedidos\Edit.cshtml" />
     <Content Include="Views\Pedidos\Index.cshtml" />
+    <Content Include="Views\Pedidos\Entregar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

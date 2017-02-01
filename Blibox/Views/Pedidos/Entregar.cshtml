@@ -1,0 +1,277 @@
+﻿@model Blibox.Pedido
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Message
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Pedidos</a></li>
+            <li class="active">@ViewBag.Message</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="box box-blibox box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Entregar Pedido @Html.DisplayFor(model => model.ID_pedido)</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group ">
+                        <div class="dobleEntrada">
+                            @Html.LabelFor(model => model.ID_cliente, "Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cliente.Razon_Social)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            @Html.LabelFor(model => model.Articulo, "Articulo:", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Articulo.Descripcion)" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+
+                            <label class="col-md-2 control-label">Cantidad pedida:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.cantidad_pedida)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada hidden">
+                            @Html.LabelFor(model => model.cantidad_entregada, "Cantidad entregada:", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="@Html.DisplayFor(model => model.cantidad_entregada)" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dobleEntrada hidden">
+                            @Html.LabelFor(model => model.Fecha_pedido, "Fecha pedido:", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_pedido)" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Orden de compra:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Orden_compra)" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Armado:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Armado)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2  no-clear-md">Fecha Armado:</label>
+                            <div class="col-md-4 input">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_armado)" readonly />
+                                <!--i class="input-group-addon fa fa-calendar"></!i-->
+                            </div><!-- /.input group -->
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="dobleEntrada">
+                            <label class="control-label col-md-2">Fecha Entrega:</label>
+                            <div class="col-md-4 input">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_entrega)" readonly />
+                                <!--i class="input-group-addon fa fa-calendar"></!i-->
+                            </div><!-- /.input group -->
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Precio:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Precio)" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Observaciones:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Impreso:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Impreso)" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Vendedor:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_vendedor)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Importe matriz:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Importe_matriz)" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label">Tipo caja:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Tipo_caja)" readonly />
+                            </div>
+                        </div>
+                        <div class="dobleEntrada">
+                            <label class="col-md-2 control-label no-clear-md">Codigo articulo cliente:</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Codigo_articulo_interno_cliente)" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="dobleEntrada">
+
+                            @Html.LabelFor(model => model.Fecha_pedido, "Fecha entrega:", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(
+                                     model => model.Fecha_pedido,
+                                      new
+                                      {
+                                          htmlAttributes = new
+                                          {
+                                              @id = "fechaPedido",
+                                              data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha de la entrega",
+                                              data_fv_notempty = "true",
+                                              required = "required",
+                                              data_fv_row = ".dobleEntrada",
+                                              value = DateTime.Now,
+                                              @class = "form-control",
+                                          }
+                                      })
+                            </div>
+                        </div>
+
+                                <div class="dobleEntrada ">
+                                    @Html.LabelFor(model => model.cantidad_entregada, "Cantidad entregada:", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                                    <div class="col-md-4">
+
+                                        @Html.EditorFor(
+                                     model => model.cantidad_entregada,
+                                      new
+                                      {
+                                          htmlAttributes = new
+                                          {
+                                              @id = "cantidadEntregada",
+                                              data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la cantidad entregada",
+                                              data_fv_notempty = "true",
+                                              data_fv_lessthan_message = "<i class='glyphicon glyphicon-info-sign'></i> La cantidad entregada debe ser menor a lo que falta entregar",
+                                              data_fv_lessthan_value = @ViewBag.faltante,
+                                              data_fv_lessthan = "true",
+                                              required = "required",
+                                              data_fv_row = ".dobleEntrada",
+                                              value = 0,
+                                              @class = "form-control",
+                                          }
+                                        })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.EditorFor(
+                            model => model.ID_pedido,
+                            new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control hidden",
+                                    @text = "hidden",
+                                    @id = "ID_pedido",
+                                }
+                            })
+                            </div>
+                            <input type="submit" value="Generar" class="btn btn-add" /> |
+                            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+                        </div>
+                    </div>
+
+
+
+        }
+    </section>
+
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    inicializarDatePicker('#Fecha_armado', false, false);
+    inicializarDatePicker('#Fecha_entrega', false, false);
+    validarForm('#form');
+
+    inicializarDatePicker('#fechaPedido', false, false);
+    function onChangeCliente() {
+        var strSelected = "";
+        $("#id_cliente option:selected").each(function () {
+            strSelected += $(this)[0].value;
+        });
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("obtenerDatosCliente", "Factura")",
+            data: "{'idCliente': " + strSelected + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    /*
+                    $('#CUIT').val(data.Documento);
+                    $('#TipoResp').val(data.TipoResponsable)
+                    $("#DiasFF").val(data.DiasFF);
+                    $("#Dias_Cheque").val(data.Dias_Cheque);
+                    */
+                    var select = $("#Articulo");
+                    select.empty();
+                    for (var articulo in data.Articulos) {
+
+                        var option = document.createElement('option');
+                        option.innerHTML = data.Articulos[articulo].Descripcion;
+                        option.value = data.Articulos[articulo].ID_articulo;
+                        select.append(option);
+                    }
+                }
+            },
+            error: function (request, status, error) {
+                console.log(error);
+                console.log(request.responseText);
+            }
+        });
+    };
+
+    $('#armado')
+        .on('change', function () {
+            var idDestino = 'Fecha_armado';
+            var enabled = $(this).val() === "S";
+            $('#form').formValidation('enableFieldValidators', idDestino, enabled);
+            $('#' + idDestino).attr('disabled', !enabled);
+        })
+        .change();
+
+</script>
