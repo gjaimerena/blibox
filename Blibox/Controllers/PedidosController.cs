@@ -280,6 +280,62 @@ namespace Blibox.Controllers
             return View(pedido);
         }
 
+        // GET: Pedidos/Entregar/5
+        public ActionResult Entregar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pedido pedido = db.Pedido.Find(id);
+            if (pedido == null)
+            {
+                return HttpNotFound();
+            }
+            if (pedido.cantidad_pedida == pedido.cantidad_entregada)
+            {
+                HelperController.Instance.agregarMensaje("Ya se entrego todo el pedido", HelperController.CLASE_ERROR);
+                return RedirectToAction("Index");
+            }
+            int entregada = pedido.cantidad_entregada ?? 0;
+            ViewBag.faltante = pedido.cantidad_pedida - entregada;
+            getDropdownElements(pedido);
+            return View(pedido);
+        }
+
+        // POST: Pedidos/Entregar/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Entregar(FormCollection form)
+        {
+
+            int idPedido = Convert.ToInt32(form["ID_pedido"]);
+            int cantidadEntregada = Convert.ToInt32(form["cantidad_entregada"]);
+            DateTime fecha = Convert.ToDateTime(form["Fecha_pedido"]);
+
+            //actualizo entregado
+            Pedido pedido = db.Pedido.Where(m => m.ID_pedido == idPedido).FirstOrDefault();
+            Remito remito = new Remito();
+            remito.ID_pedido = pedido.ID_pedido;
+            remito.Fecha = fecha;
+            remito.Cantidad = cantidadEntregada;
+
+            db.Remito.Add(remito);
+            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                pedido.cantidad_entregada = pedido.cantidad_pedida - (pedido.cantidad_entregada + cantidadEntregada);
+                db.Entry(pedido).State = EntityState.Modified;
+                db.SaveChanges();
+                HelperController.Instance.agregarMensaje("El pedido se edito con exito", HelperController.CLASE_EXITO);
+                return RedirectToAction("Index");
+            }
+            getDropdownElements(pedido);
+            return View(pedido);
+        }
+
         // GET: Pedidos/Delete/5
         public ActionResult Delete(int? id)
         {

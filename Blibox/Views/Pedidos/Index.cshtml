@@ -191,6 +191,10 @@
                                     <i class="glyphicon glyphicon-edit"></i>
                                     <span class="sr-only">Editar</span>
                                 </a>
+                                <a href="@Url.Action("Entregar", new { id = item.idPedido })" title="Entregar">
+                                    <i class="glyphicon glyphicon-send"></i>
+                                    <span class="sr-only">Entregar</span>
+                                </a>
                                 <a href="@Url.Action("Delete", new { id = item.idPedido })" title="Eliminar">
                                     <i class="glyphicon glyphicon-trash"></i>
                                     <span class="sr-only">Eliminar</span>
