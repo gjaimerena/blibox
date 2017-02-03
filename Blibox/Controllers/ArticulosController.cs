@@ -319,6 +319,31 @@ namespace Blibox.Models
             return RedirectToAction("Edit", "Articulos", new { id = Id });
         }
 
+        [HttpPost]
+        public ActionResult calcularPeso(int? marcoId, int? materialId, int? bocas, int? espesor)
+        {
+            PesoJson pesojson = new PesoJson();
+            Marco marco = db.Marco.Where(m => m.ID_marco == marcoId).FirstOrDefault();
+            Material material = db.Material.Where(m => m.ID_material == materialId).FirstOrDefault();
+            double formula = 0;
+            if (bocas > 0)
+            {
+                double esp = (espesor != null) ? Convert.ToDouble(espesor) : 0;
+                double constante = 1000;
+                double ancho = (marco.Ancho != null) ? Convert.ToDouble(marco.Ancho): 0;
+                double largo = (marco.Largo != null) ? Convert.ToDouble(marco.Largo): 0;
+                double peso = (material.Peso != null) ? Convert.ToDouble(material.Peso): 0;
+                double boca = (bocas != null) ? Convert.ToDouble(bocas) : 0;
 
+                formula = (double)(ancho * largo * peso * (esp / constante)) / (boca * constante);
+            }
+            double componentePeso = Math.Round(formula, 2);
+            pesojson = new PesoJson
+            {
+                peso = componentePeso,
+            };
+
+            return Json(pesojson, JsonRequestBehavior.AllowGet);
+        }
     }
 }

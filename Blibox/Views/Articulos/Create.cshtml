@@ -382,7 +382,9 @@
                                             <div class="col-md-4">
                                                 <input type="number" required="required"
                                                        class="form-control"
-                                                       min="1" max="999999999" data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas', id: 'Componente[' + $index() + '].Bocas', onchange: 'calcularPeso('+$index()+')', required: 'true'  }" />
+                                                       min="1" 
+                                                       max="999999999" 
+                                                       data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas', id: 'Componente[' + $index() + '].Bocas', onchange: 'calcularPeso('+$index()+')', required: 'true'  }" />
                                                 <em data-bind="validationMessage: Bocas"></em>
                                             </div>
                                         </div>
@@ -391,7 +393,10 @@
                                             <div class="col-md-4">
                                                 <input type="number"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor', id: 'Componente[' + $index() + '].Espesor', onchange: 'calcularPeso('+$index()+')'  }" />
+                                                       required="required" 
+                                                       min="0" 
+                                                       max="999999999" 
+                                                       data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor', id: 'Componente[' + $index() + '].Espesor', onchange: 'calcularPeso('+$index()+')'  }" />
                                                 <em data-bind="validationMessage: Espesor"></em>
                                             </div>
                                         </div>
@@ -411,9 +416,12 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                <input type="number"
+                                                <input type="text"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
+                                                       required="required" 
+                                                       @*min="0" 
+                                                       max="999999999"*@ 
+                                                       data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
                                                       
                                                        readonly/>
                                                 <em data-bind="validationMessage: Peso"></em>
@@ -577,7 +585,8 @@
             dataType: "json",
             success: function (data) {
                 if (data != null) {
-                    $("#" + idComponeteSinParentesis + "Peso").val(data.peso);
+                    var peso = data.peso.toString().replace(".", ",")
+                    $("#" + idComponeteSinParentesis + "Peso").val(peso);
                     debugger;
                 }
             },
