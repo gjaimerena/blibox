@@ -59,7 +59,10 @@ clientes.">
     </style>
 
     <!-- jQuery 2.1.4 -->
-    <script src="~/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    @*<script src="~/plugins/jQuery/jQuery-2.1.4.min.js"></script>*@
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
    
 
 </head>
@@ -235,6 +238,8 @@ clientes.">
         });
 
     </script>
+
+    @Html.Raw(TempData["Noti"]);
    
 </body>
         }

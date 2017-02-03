@@ -70,7 +70,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encontraron resultados para la consulta.", "CTA CTE PROVEEDORES", type: ToastType.Warning, position: Position.TopCenter);
+              //  HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
 
             //ordeno de forma ascendiente por fecha de movimiento
@@ -189,11 +190,13 @@ namespace Blibox.Controllers
 
                     db.CtaCteProveedores.Add(mov);
                     db.SaveChanges();
-                    HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
+                    TempData["Noti"] = Notification.Show("Movimiento generado exitosamente", "CTA CTE PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
+                   // HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
                 }
                 catch (Exception ex)
                 {
-                    HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
+                    TempData["Noti"] = Notification.Show("Error al intentar generar movimiento, intente nuevamente", "CTA CTE PROVEEDORES", type: ToastType.Error, position: Position.TopCenter);
+                    // HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
                     throw;
                 }
 

@@ -45,9 +45,6 @@ namespace Blibox.Controllers
                     ).OrderBy(m => m.ID_matriz);
             }
 
-
-
-
             return View(query.ToPagedList(page, pageSize));
         }
         //public ActionResult Index(String searchString, String Items)
@@ -57,9 +54,7 @@ namespace Blibox.Controllers
         //    items.Add(new SelectListItem() { Text = "Codigo", Value = "Codigo" });
         //    items.Add(new SelectListItem() { Text = "Descripcion", Value = "Descripcion" });
 
-
         //    ViewBag.Items = items;
-
 
         //    var matrices = from a in db.Matriz
         //                   select a;
@@ -89,12 +84,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MATRICES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Matriz matriz = db.Matriz.Find(id);
             if (matriz == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a una matriz", "MATRICES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(matriz);
         }
@@ -117,6 +114,7 @@ namespace Blibox.Controllers
               //  matriz.ID_matriz = db.Matriz.OrderByDescending(m => m.ID_matriz).FirstOrDefault().ID_matriz + 1;
                 db.Matriz.Add(matriz);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Matriz generada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
 
@@ -128,12 +126,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MATRICES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Matriz matriz = db.Matriz.Find(id);
             if (matriz == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a una matriz", "MATRICES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(matriz);
         }
@@ -149,6 +149,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(matriz).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Matriz modificada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(matriz);
@@ -177,6 +178,7 @@ namespace Blibox.Controllers
             Matriz matriz = db.Matriz.Find(id);
             db.Matriz.Remove(matriz);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Matriz eliminada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 

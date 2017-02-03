@@ -120,6 +120,7 @@ namespace Blibox.Models
             {
                 db.Proveedor.Add(proveedor);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Proveedor generado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
 
@@ -131,12 +132,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "PROVEEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Proveedor proveedor = db.Proveedor.Find(id);
             if (proveedor == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un proveedor", "PROVEEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(proveedor);
         }
@@ -152,6 +155,7 @@ namespace Blibox.Models
             {
                 db.Entry(proveedor).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Pedido modificado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(proveedor);
@@ -162,12 +166,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "PROVEEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Proveedor proveedor = db.Proveedor.Find(id);
             if (proveedor == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un proveedor", "PROVEEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(proveedor);
         }
@@ -180,6 +186,7 @@ namespace Blibox.Models
             Proveedor proveedor = db.Proveedor.Find(id);
             db.Proveedor.Remove(proveedor);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Pedido eliminado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 

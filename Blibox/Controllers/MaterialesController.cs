@@ -48,12 +48,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MATERIALES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Material material = db.Material.Find(id);
             if (material == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un material", "MATERIALES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(material);
         }
@@ -75,7 +77,8 @@ namespace Blibox.Controllers
             {
                 db.Material.Add(material);
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El material se cargo con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Material generado exitosamente", "MATERIALES", type: ToastType.Success, position: Position.TopCenter);
+                // HelperController.Instance.agregarMensaje("El material se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
 
@@ -87,12 +90,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MATERIALES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Material material = db.Material.Find(id);
             if (material == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un material", "MATERIALES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(material);
         }
@@ -108,7 +113,8 @@ namespace Blibox.Controllers
             {
                 db.Entry(material).State = EntityState.Modified;
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El material se edito con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Material modificado exitosamente", "MATERIALES", type: ToastType.Success, position: Position.TopCenter);
+                // HelperController.Instance.agregarMensaje("El material se edito con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             return View(material);
@@ -137,7 +143,8 @@ namespace Blibox.Controllers
             Material material = db.Material.Find(id);
             db.Material.Remove(material);
             db.SaveChanges();
-            HelperController.Instance.agregarMensaje("El material se elimino con exito", HelperController.CLASE_EXITO);
+            TempData["Noti"] = Notification.Show("Material eliminado exitosamente", "MATERIALES", type: ToastType.Success, position: Position.TopCenter);
+            //HelperController.Instance.agregarMensaje("El material se elimino con exito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
 

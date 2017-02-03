@@ -10,10 +10,9 @@ using Blibox;
 using PagedList;
 using Blibox.Controllers;
 
+
 namespace Blibox.Models
 {
-
-    
 
     public class ArticulosController : Controller
     {
@@ -22,11 +21,9 @@ namespace Blibox.Models
         private ICollection<Marco> marcoColeccion = new HashSet<Marco>();
         private ICollection<Matriz> matrizcoleccion = new HashSet<Matriz>();
         private ICollection<Cortante> cortantesColeccion = new HashSet<Cortante>();
-
         private BliboxEntities db = new BliboxEntities();
         private List<SelectListItem> items = new List<SelectListItem>();
       
-
         // GET: Articulos
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
@@ -153,22 +150,25 @@ namespace Blibox.Models
                     if (articulo.Componente == null || articulo.Componente.Count == 0)
                     {
                         ModelState.AddModelError("Detalle", "Debe agregar al menos un componente para el articulo");
-                        HelperController.Instance.agregarMensaje("Debe agregar al menos un componente para el articulo", HelperController.CLASE_ERROR);
-                    }
+                        TempData["Noti"] = Notification.Show("Debe agregar al menos un componente para el articulo", "ATENCION", type: ToastType.Warning);
+                        //HelperController.Instance.agregarMensaje("Debe agregar al menos un componente para el articulo", HelperController.CLASE_ERROR);
+                }
                     else
                     {
                         db.Articulo.Add(articulo);
                 }
                 
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El articulo se cargo con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("El articulo fue generado con éxito", "ALTA DE ARTICULOS", type: ToastType.Success);
+                //HelperController.Instance.agregarMensaje("El articulo se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             else
             {
                 getDropdownElements();
                 ViewBag.Peso = "0";
-                HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ToString(), "ERROR", type: ToastType.Error);
+                //HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
             }
 
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
@@ -180,12 +180,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("El id del articulo es nulo", "ARTICULO", type: ToastType.Warning);
+                return RedirectToAction("Index");
             }
             Articulo articulo = db.Articulo.Find(id);
             if (articulo == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("El id del articulo es inexistente", "ARTICULO", type: ToastType.Warning);
+                return RedirectToAction("Index"); 
             }
 
             getDropdownElements();
@@ -213,12 +215,13 @@ namespace Blibox.Models
                         
                 }
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Articulo modificado exitosamente", "REALIZADO", type: ToastType.Success);
                 return RedirectToAction("Index");
             }
             else
             {
-
-                HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
+                TempData["Noti"] = Notification.Show(errors[0].ToString(), "ERROR", type: ToastType.Error);
+              //  HelperController.Instance.agregarMensaje(, HelperController.CLASE_ERROR);
             }
             getDropdownElements();
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
@@ -230,12 +233,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("El id del articulo es nulo", "ARTICULO", type: ToastType.Warning);
+                return RedirectToAction("Index");
             }
             Articulo articulo = db.Articulo.Find(id);
             if (articulo == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("El id del articulo es inexistente", "ARTICULO", type: ToastType.Warning);
+                return RedirectToAction("Index");
             }
             return View(articulo);
         }
@@ -257,10 +262,11 @@ namespace Blibox.Models
             {
                 db.Articulo.Remove(articulo);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("El articulo fue dado de baja", "BAJA DE ARTICULOS", type: ToastType.Success);
+               
             }
             catch (Exception e) {
-                Console.WriteLine(e);
-                
+                TempData["Noti"] = Notification.Show("No se pudo elimianr el articulo, verifique que no haya pedidos que lo utilicen", "BAJA DE ARTICULOS", type: ToastType.Error);
             }
 
             return RedirectToAction("Index");
@@ -277,7 +283,6 @@ namespace Blibox.Models
 
         private SelectList ComboComponentes() {
             
-            
             SelectListItem l0 = new SelectListItem { Text = "Ninguno", Value="Ninguno" };
             SelectListItem l1 = new SelectListItem { Text = "1", Value = "1" };
             SelectListItem l2 = new SelectListItem { Text = "2", Value = "2" };
@@ -288,7 +293,6 @@ namespace Blibox.Models
             newList.Add(l1);
             newList.Add(l2);
             newList.Add(l3);
-
 
             //Return the list of selectlistitems as a selectlist
             return new SelectList(newList, "Value", "Text", "Ninguno");

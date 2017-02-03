@@ -90,12 +90,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "VENDEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Vendedor vendedor = db.Vendedor.Find(id);
             if (vendedor == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un vendedor", "VENDEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(vendedor);
         }
@@ -119,6 +121,7 @@ namespace Blibox.Controllers
                   
                 db.Vendedor.Add(vendedor);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Vendedor generado exitosamente", "VENDEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
 
@@ -130,12 +133,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "VENDEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Vendedor vendedor = db.Vendedor.Find(id);
             if (vendedor == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un vendedor", "VENDEDORES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(vendedor);
         }
@@ -151,6 +156,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(vendedor).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Vendedor modificado exitosamente", "VENDEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(vendedor);
@@ -179,6 +185,7 @@ namespace Blibox.Controllers
             Vendedor vendedor = db.Vendedor.Find(id);
             db.Vendedor.Remove(vendedor);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Vendedor eliminado exitosamente", "VENDEDORES", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 

@@ -8,6 +8,7 @@ namespace Blibox
 {
     public static class Extensions
     {
+
         /// <summary>
         /// Used to determine the direction of the sort identifier used when filtering lists
         /// </summary>

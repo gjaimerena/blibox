@@ -15,7 +15,7 @@ namespace Blibox.Controllers
 
         private BliboxEntities db = new BliboxEntities();
 
-        // GET: CtaCteClientes
+        // GET: Compras
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
             int id_proveedor = 0;
@@ -70,7 +70,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encontraron resultados para la consulta.", "COMPRAS", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
 
             //ordeno de forma ascendiente por fecha de movimiento
@@ -140,11 +141,13 @@ namespace Blibox.Controllers
 
 
                     db.SaveChanges();
-                    HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
+                    //HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
+                    TempData["Noti"] = Notification.Show("Movimiento generado exitosamente", "COMPRAS", type: ToastType.Success, position: Position.TopCenter);
                 }
                 catch (Exception ex)
                 {
-                    HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
+                    // HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
+                    TempData["Noti"] = Notification.Show("Error al intentar generar movimiento, intente nuevamente", "COMPRAS", type: ToastType.Error, position: Position.TopCenter);
                     throw;
                 }
 

@@ -47,12 +47,15 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cortante cortante = db.Cortante.Find(id);
             if (cortante == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a una cortante", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(cortante);
         }
@@ -74,6 +77,7 @@ namespace Blibox.Controllers
             {
                 db.Cortante.Add(cortante);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Cortante generada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
 
@@ -85,12 +89,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("ID nulo", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Cortante cortante = db.Cortante.Find(id);
             if (cortante == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a una cortante", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(cortante);
         }
@@ -106,6 +112,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(cortante).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Cortante modificada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(cortante);
@@ -116,12 +123,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("ID nulo", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Cortante cortante = db.Cortante.Find(id);
             if (cortante == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a una cortante", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(cortante);
         }
@@ -134,6 +143,7 @@ namespace Blibox.Controllers
             Cortante cortante = db.Cortante.Find(id);
             db.Cortante.Remove(cortante);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Cortante eliminada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 

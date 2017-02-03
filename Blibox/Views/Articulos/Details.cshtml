@@ -306,3 +306,8 @@
 
 </section>
 </div><!-- /.content-wrapper -->
+
+@if (ViewBag.Notification != null)
+{
+    @Html.Raw(ViewBag.Notification);
+}

@@ -46,9 +46,6 @@ namespace Blibox.Models
                     ).OrderBy(m => m.ID_cliente);
             }
 
-
-
-
             return View(query.ToPagedList(page, pageSize));
         }
         
@@ -91,10 +88,12 @@ namespace Blibox.Models
                
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("Se generó con éxito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Cliente generado con éxito", "ALTA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("Se generó con éxito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
 
+           
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", cliente.ID_vendedor);
             ViewBag.TipoResponsables = new SelectList(db.TipoResponsables, "Codigo", "Descripcion",cliente.TipoResponsable);
@@ -106,12 +105,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id de cliente nulo", "EDICION DE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Cliente cliente = db.Cliente.Find(id);
             if (cliente == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("El Id no coresponde a un cliente", "EDICION DE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
             ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", cliente.ID_vendedor);
@@ -130,7 +131,8 @@ namespace Blibox.Models
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("Se actualizó con éxito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Cliente actualizado con éxito", "EDICION DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("Se actualizó con éxito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             ViewBag.ID_rubro = new SelectList(db.Rubro, "ID_rubro", "Descirpcion", cliente.ID_rubro);
@@ -144,12 +146,14 @@ namespace Blibox.Models
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id de cliente nulo", "BAJA DE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Cliente cliente = db.Cliente.Find(id);
             if (cliente == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("El Id no coresponde a un cliente", "BAJA DE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(cliente);
         }
@@ -162,7 +166,8 @@ namespace Blibox.Models
             Cliente cliente = db.Cliente.Find(id);
             db.Cliente.Remove(cliente);
             db.SaveChanges();
-            HelperController.Instance.agregarMensaje("Se eliminó con éxito", HelperController.CLASE_EXITO);
+            TempData["Noti"] = Notification.Show("Cliente dado de baja con éxito", "BAJA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
+            //HelperController.Instance.agregarMensaje("Se eliminó con éxito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
 

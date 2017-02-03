@@ -193,7 +193,8 @@ namespace Blibox.Controllers
             {
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El pedido se cargo con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Pedido generado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("El pedido se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             } else
             {
@@ -202,8 +203,9 @@ namespace Blibox.Controllers
                            .ToList();
                     foreach(var error in errors)
                     {
-                        // cut for brevity, need to add back more code from original
-                        HelperController.Instance.agregarMensaje(error.ToString(), HelperController.CLASE_ERROR);
+                    // cut for brevity, need to add back more code from original
+                    TempData["Noti"] = Notification.Show("Error: " + errors[0][0].ToString(), "PEDIDOS", type: ToastType.Error, position: Position.TopCenter);
+                    //HelperController.Instance.agregarMensaje(error.ToString(), HelperController.CLASE_ERROR);
 
                     }
                 HelperController.Instance.agregarMensaje(errors.ToString(), HelperController.CLASE_ERROR);
@@ -270,7 +272,8 @@ namespace Blibox.Controllers
             {
                 db.Entry(pedido).State = EntityState.Modified;
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El pedido se edito con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Pedido modificado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
+                // HelperController.Instance.agregarMensaje("El pedido se edito con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             getDropdownElements(pedido);
@@ -301,7 +304,8 @@ namespace Blibox.Controllers
             Pedido pedido = db.Pedido.Find(id);
             db.Pedido.Remove(pedido);
             db.SaveChanges();
-            HelperController.Instance.agregarMensaje("El pedido se elimino con exito", HelperController.CLASE_EXITO);
+            TempData["Noti"] = Notification.Show("Pedido elimiando exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
+            //HelperController.Instance.agregarMensaje("El pedido se elimino con exito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
 

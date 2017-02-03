@@ -72,7 +72,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encontraron resultado para la consulta", "REPORTES", type: ToastType.Success, position: Position.TopCenter);
+               // HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
 
 
@@ -175,7 +176,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encontraron resultado para la consulta", "REPORTES", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
             else
             {
@@ -259,7 +261,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encontraron resultado para la consulta", "REPORTES", type: ToastType.Success, position: Position.TopCenter);
+                // HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
             else
             {

@@ -81,7 +81,7 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
         var porcIva = 0;
         subtotal = parseFloat(subtotal) + parseFloat(dato); //numero de la celda 3
 
-        $('#subtotal').val(parseFloat(subtotal)); //numero de la celda 3
+        $('#subtotal').val(Math.round(subtotal * 100) / 100); //numero de la celda 3
         if (iva <= 3) {
             porcIva = 0;
         }
@@ -89,14 +89,14 @@ function calcularPrecioTotal(idCantidad, idPrecioUnitario, idPrecioTotal) {
         if (parseInt(iva) == 5) porcIva = 0.21;
         if (parseInt(iva) == 6) porcIva = 0.27;
 
-        $('#total').val(parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva))));
-        
+        var total = parseFloat(subtotal) + (parseFloat(subtotal) * (parseFloat(porcIva)));
+        $('#total').val(Math.round(total * 100) / 100);
     })
 
     if (isNaN(subtotal)) {
         $("#subtotal").val(0);
         $("#total").val(0);
-        $("#btnAdd").attr("disabled", true);
+       // $("#btnAdd").attr("disabled", true);
     }
     else{
         $("#btnAdd").removeAttr("disabled");

@@ -20,7 +20,7 @@ namespace Blibox.Controllers
         private BliboxEntities db = new BliboxEntities();
 
         // GET: Factura
-        // GET: Clientes
+        
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
 
@@ -51,11 +51,7 @@ namespace Blibox.Controllers
 
             return View(query.ToPagedList(page, pageSize));
         }
-        //public ActionResult Index()
-        //{
-        //    var encabezado_Factura = db.Encabezado_Factura.Include(e => e.Cliente).Include(e => e.Condicion_venta).Include(e => e.Detalle_factura).Include(e => e.Vendedor);
-        //    return View(encabezado_Factura.ToList());
-        //}
+        
 
         // GET: Factura/Details/5
         public ActionResult Details(int? id)
@@ -240,7 +236,7 @@ namespace Blibox.Controllers
                 }
 
                 db.SaveChanges();
-              
+                TempData["Noti"] = Notification.Show("Factura generada exitosamente", "FACTURACION", type: ToastType.Success, position: Position.TopCenter);
                 // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
                 return RedirectToAction("Index");
                 //return View(form);
@@ -250,7 +246,8 @@ namespace Blibox.Controllers
                 // fue rechazada ver que hacer
                 foreach(Error err in resp.Errores)
                 {
-                    HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                    TempData["Noti"] = Notification.Show("Error "+err.Codigo+" - "+err.Mensaje, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+                    //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
                 }
             }
 
@@ -263,69 +260,69 @@ namespace Blibox.Controllers
         }
 
         // GET: Factura/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
-            if (encabezado_Factura == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
-            ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion", encabezado_Factura.ID_condicon_venta);
-            ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura", encabezado_Factura.Nro_factura);
-            ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", encabezado_Factura.ID_vendedor);
-            return View(encabezado_Factura);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
+        //    if (encabezado_Factura == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+        //    ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion", encabezado_Factura.ID_condicon_venta);
+        //    ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura", encabezado_Factura.Nro_factura);
+        //    ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", encabezado_Factura.ID_vendedor);
+        //    return View(encabezado_Factura);
+        //}
 
-        // POST: Factura/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Encabezado_Factura encabezado_Factura)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(encabezado_Factura).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
-            ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion", encabezado_Factura.ID_condicon_venta);
-            ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura", encabezado_Factura.Nro_factura);
-            ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", encabezado_Factura.ID_vendedor);
-            return View(encabezado_Factura);
-        }
+        //// POST: Factura/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Encabezado_Factura encabezado_Factura)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(encabezado_Factura).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
+        //    ViewBag.ID_condicon_venta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion", encabezado_Factura.ID_condicon_venta);
+        //    ViewBag.Nro_factura = new SelectList(db.Detalle_factura, "Nro_factura", "Nro_factura", encabezado_Factura.Nro_factura);
+        //    ViewBag.ID_vendedor = new SelectList(db.Vendedor, "ID_vendedor", "Nombre", encabezado_Factura.ID_vendedor);
+        //    return View(encabezado_Factura);
+        //}
 
-        // GET: Factura/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
-            if (encabezado_Factura == null)
-            {
-                return HttpNotFound();
-            }
-            return View(encabezado_Factura);
-        }
+        //// GET: Factura/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
+        //    if (encabezado_Factura == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(encabezado_Factura);
+        //}
 
-        // POST: Factura/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
-            db.Encabezado_Factura.Remove(encabezado_Factura);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Factura/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Encabezado_Factura encabezado_Factura = db.Encabezado_Factura.Find(id);
+        //    db.Encabezado_Factura.Remove(encabezado_Factura);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

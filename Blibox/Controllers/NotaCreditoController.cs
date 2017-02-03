@@ -246,13 +246,26 @@ namespace Blibox.Controllers
                 }
 
                 db.SaveChanges();
-
+                TempData["Noti"] = Notification.Show("Nota de crédito generada exitosamente", "NOTAS DE CREDITO", type: ToastType.Success, position: Position.TopCenter);
 
                 // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", encabezado_Factura.ID_cliente);
                 return RedirectToAction("Index");
                 //return View(form);
             }
+            else
+            {
+                // fue rechazada ver que hacer
+                foreach (Error err in resp.Errores)
+                {
+                    TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "NOTAS DE CREDITO", type: ToastType.Error, position: Position.TopCenter);
+                    //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                }
 
+            }
+            ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
+            ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
+            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion", "5");
+            ViewBag.art = "";
             return View(form);
         }
 

@@ -73,7 +73,8 @@ namespace Blibox.Controllers
 
             if (query.ToList().Count == 0)
             {
-                HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
+                TempData["Noti"] = Notification.Show("No se encuentran resultado para la consulta", "CTA CTE CLIENTES", type: ToastType.Warning, position: Position.TopCenter);
+               // HelperController.Instance.agregarMensaje("No se encuentran resultado para la consulta.", HelperController.CLASE_ADVERTENCIA);
             }
 
             //ordeno de forma ascendiente por fecha de movimiento
@@ -132,9 +133,6 @@ namespace Blibox.Controllers
 
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
 
-           
-            
-
             return View(movs.ToPagedList(page, pageSize));
           
         }
@@ -189,11 +187,13 @@ namespace Blibox.Controllers
 
                     db.CtaCteClientes.Add(ctaCteClientesMov);
                     db.SaveChanges();
-                    HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
+                    TempData["Noti"] = Notification.Show("Movimiento generado exitosamente", "CTA CTE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
+                    //HelperController.Instance.agregarMensaje("Movimiento generado exitosamente", HelperController.CLASE_EXITO);
                 }
                 catch (Exception ex)
                 {
-                    HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
+                    TempData["Noti"] = Notification.Show("Error al intentar generar movimiento, intente nuevamente", "CTA CTE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                    //HelperController.Instance.agregarMensaje("Error al intentar generar movimiento, intente nuevamente", HelperController.CLASE_ERROR);
                     throw;
                 }
                
@@ -231,6 +231,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(ctaCteClientes).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Movimiento modificado exitosamente", "CTA CTE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             ViewBag.id_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", ctaCteClientes.id_cliente);

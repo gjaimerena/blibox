@@ -49,12 +49,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Marco marco = db.Marco.Find(id);
             if (marco == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un marco", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(marco);
         }
@@ -78,12 +80,14 @@ namespace Blibox.Controllers
             {
                 db.Marco.Add(marco);
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Marco generado exitosamente", "MARCOS", type: ToastType.Success, position: Position.TopCenter);
+                //                HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
             else
             {
-                HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
+                TempData["Noti"] = Notification.Show(errors[0][0].ErrorMessage, "MARCOS", type: ToastType.Error, position: Position.TopCenter);
+               // HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
             }
 
             return View(marco);
@@ -94,12 +98,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Marco marco = db.Marco.Find(id);
             if (marco == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un marco", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(marco);
         }
@@ -117,12 +123,14 @@ namespace Blibox.Controllers
             {
                 db.Entry(marco).State = EntityState.Modified;
                 db.SaveChanges();
-                HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
+                // HelperController.Instance.agregarMensaje("Se ha grabado con exito", HelperController.CLASE_EXITO);
+                TempData["Noti"] = Notification.Show("Marco modificado exitosamente", "MARCOS", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             else
             {
-                HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
+                TempData["Noti"] = Notification.Show(errors[0][0].ErrorMessage, "MARCOS", type: ToastType.Error, position: Position.TopCenter);
+              //  HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
             }
             return View(marco);
         }
@@ -132,12 +140,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("ID nulo", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Marco marco = db.Marco.Find(id);
             if (marco == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un marco", "MARCOS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(marco);
         }
@@ -150,6 +160,7 @@ namespace Blibox.Controllers
             Marco marco = db.Marco.Find(id);
             db.Marco.Remove(marco);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Marco eliminado exitosamente", "MARCOS", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 

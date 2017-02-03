@@ -25,6 +25,7 @@
     <!-- Main content -->
     <section class="content">
 
+       
         @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
         {
             @Html.AntiForgeryToken()
@@ -387,3 +388,5 @@
     }
 
 </script>
+
+@Html.Raw(ViewBag.Message)

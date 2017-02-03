@@ -44,12 +44,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "RUBROS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Rubro rubro = db.Rubro.Find(id);
             if (rubro == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un rubro", "RUBROS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(rubro);
         }
@@ -71,6 +73,7 @@ namespace Blibox.Controllers
             {
                 db.Rubro.Add(rubro);
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Rubro generado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
 
@@ -82,12 +85,14 @@ namespace Blibox.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Noti"] = Notification.Show("Id nulo", "RUBROS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             Rubro rubro = db.Rubro.Find(id);
             if (rubro == null)
             {
-                return HttpNotFound();
+                TempData["Noti"] = Notification.Show("Id no asociado a un rubro", "RUBROS", type: ToastType.Warning, position: Position.TopCenter);
+                return RedirectToAction("Index");
             }
             return View(rubro);
         }
@@ -103,6 +108,7 @@ namespace Blibox.Controllers
             {
                 db.Entry(rubro).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Rubro modificado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(rubro);
@@ -131,6 +137,7 @@ namespace Blibox.Controllers
             Rubro rubro = db.Rubro.Find(id);
             db.Rubro.Remove(rubro);
             db.SaveChanges();
+            TempData["Noti"] = Notification.Show("Rubro eliminado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
             return RedirectToAction("Index");
         }
 
