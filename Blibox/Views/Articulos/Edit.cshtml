@@ -374,13 +374,13 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Material</label>
                                             <div class="col-md-4">
-                                                @Html.DropDownList("Componente[" + i + "].ID_material", new SelectList(ViewBag.Mat_Descripcion, "ID_material", "Descripcion", item.ID_material), htmlAttributes: new { @class = "form-control" })
+                                                @Html.DropDownList("Componente[" + i + "].ID_material", new SelectList(ViewBag.Mat_Descripcion, "ID_material", "Descripcion", item.ID_material), htmlAttributes: new { @id = "Componente" + i + "IDmaterial", @class = "form-control", onchange = "calcularPeso(" + i + ")" })
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString(), new { htmlAttributes = new { @Value = item.Peso, @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString().Replace(".",","), new { htmlAttributes = new { @Value = item.Peso, @id = "Componente" + i + "Peso", @class = "form-control" } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -403,13 +403,13 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Bocas</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @Value = item.Bocas, @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @Value = item.Bocas, @id = "Componente[" + i + "].Bocas", @class = "form-control", onchange = "calcularPeso(" + i + ")" } })
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
-                                            <label class="control-label col-md-2 no-clear-md">Espesor</label>
+                                            <label class="control-label col-md-2 no-clear-md">Espesor</label>                 
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @Value = item.Espesor, @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @Value = item.Espesor, @id = "Componente[" + i + "].Espesor", @class = "form-control", onchange = "calcularPeso(" + i + ")" } })
                                                 @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
                                             </div>
                                         </div>
@@ -418,13 +418,13 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2">Matriz</label>
                                             <div class="col-md-4">
-                                                @Html.DropDownList("Componente[" + i + "].ID_matriz", new SelectList(ViewBag.Matriz, "ID_matriz", "Codigo", item.ID_matriz), htmlAttributes: new { @class = "form-control" })
+                                                @Html.DropDownList("Componente[" + i + "].ID_matriz", new SelectList(ViewBag.Matriz, "ID_matriz", "Codigo", item.ID_matriz), htmlAttributes: new { @id = "Componente" + i + "IDmatriz", @class = "form-control" })
                                             </div>
                                         </div><!-- /.col -->
                                         <div class="dobleEntrada">
                                             <label class="no-clear-md col-md-2 control-label">Cortante</label>
                                             <div class="col-md-4">
-                                                @Html.DropDownList("Componente[" + i + "].ID_cortante", new SelectList(ViewBag.cortante, "ID_cortante", "Descripcion", item.ID_cortante), htmlAttributes: new { @class = "form-control" })
+                                                @Html.DropDownList("Componente[" + i + "].ID_cortante", new SelectList(ViewBag.cortante, "ID_cortante", "Descripcion", item.ID_cortante), htmlAttributes: new { @id = "Componente" + i + "IDcortante", @class = "form-control" })
                                                 @*@Html.DropDownList("Cortante_codigo1", (SelectList)ViewBag.cortante)*@
                                             </div>
                                         </div><!-- /.col -->
@@ -433,7 +433,7 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Marco</label>
                                             <div class="col-md-4">
-                                                @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @class = "form-control" })
+                                                @Html.DropDownList("Componente[" + i + "].ID_marco", new SelectList(ViewBag.Marco, "ID_marco", "Descripcion", item.ID_marco), htmlAttributes: new { @id = "Componente" + i + "IDmarco", @class = "form-control", onchange = "calcularPeso(" + i + ")" })
                                             </div>
                                         </div>
                                         <!-- ko if: $index()!=0 -->
@@ -466,7 +466,59 @@
 </div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
+    window.onload = function () {
+        //funciones a ejecutar
+        var comp = "Componente0Peso";
+        var peso = $("#" + comp).val().toString().replace(".", ",");
+        $("#" + comp).val(peso);
+        var comp = "Componente1Peso";
+        var peso = $("#" + comp).val().toString().replace(".", ",");
+        $("#" + comp).val(peso);
+        var comp = "Componente2Peso";
+        var peso = $("#" + comp).val().toString().replace(".", ",");
+        $("#" + comp).val(peso);
+    };
     validarForm('#form');
     inicializarDatePicker('#fechaPrecioLista', false, false);
+</script>
+<script>
+
+    //$('#agregarComponente').click();
+    function calcularPeso(numeroComponente) {
+        var idComponete = "Componente[" + numeroComponente + "]";
+        var idComponeteSinParentesis = "Componente" + numeroComponente + "";
+        var marco = "";
+        $("#" + idComponeteSinParentesis + "IDmarco option:selected").each(function () {
+            marco += $(this)[0].value;
+        });
+        var material = ""; 
+        $("#" + idComponeteSinParentesis + "IDmaterial option:selected").each(function () {
+            material += $(this)[0].value;
+        });
+        var bocas = document.getElementById("Componente[" + numeroComponente + "].Bocas").value;
+        var espesor = document.getElementById("Componente[" + numeroComponente + "].Espesor").value;
+
+        console.log("{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}");
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("calcularPeso", "Articulos")",
+            data: "{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    var peso = data.peso.toString().replace(".", ",")
+                    $("#" + idComponeteSinParentesis + "Peso").val(peso);
+                    debugger;
+                }
+            },
+            error: function (request, status, error) {
+                console.log(error);
+                console.log(request.responseText);
+            }
+
+    });
+
+}
 </script>
 

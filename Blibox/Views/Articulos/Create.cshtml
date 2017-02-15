@@ -573,8 +573,8 @@
         $("#" + idComponeteSinParentesis + "IDmaterial option:selected").each(function () {
             material += $(this)[0].value;
         });
-        var bocas = document.getElementById("Componente[0].Bocas").value;
-        var espesor = document.getElementById("Componente[0].Espesor").value;
+        var bocas = document.getElementById("Componente[" + numeroComponente + "].Bocas").value;
+        var espesor = document.getElementById("Componente[" + numeroComponente + "].Espesor").value;
         
         console.log("{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}");
         $.ajax({
