@@ -215,7 +215,7 @@ namespace Blibox.Models
                         
                 }
                 db.SaveChanges();
-                TempData["Noti"] = Notification.Show("Articulo modificado exitosamente", "REALIZADO", type: ToastType.Success);
+                TempData["Noti"] = Notification.Show("Articulo modificado exitosamente", "REALIZADO", type: ToastType.Success,position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             else

@@ -14,7 +14,7 @@
     </section>
     <!-- Main content -->
     <section class="content">
-        <div class="box box-info box-solid">
+        <div class="box box-blibox box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Detalle de Pedido</h3>
                 <div class="box-tools pull-right">
@@ -145,9 +145,65 @@
                 </div>
             </div>
         </div>
+
+        <br />
+
+        @if (ViewBag.entregas != null)
+        {
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Entregas Parciales</h3>
+                    <div class="box-tools pull-right">
+                        <button id="btnCollapse2" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                           
+                            <th>@Html.DisplayName("Id Remito")</th>
+                            <th>@Html.DisplayName("Fecha")</th>
+                            <th>@Html.DisplayName("Cantidad (kg)")</th>
+
+                        </tr>
+
+                        @foreach (var item in ViewBag.entregas)
+                        {
+                            <tr>
+                               
+                                <td>@item.ID_remito</td>
+                                <td>@item.Fecha</td>
+                                <td>@item.Cantidad</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+
+        <hr />
+        <div class="col-md-9 col-sm-6 col-xs-12">
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Cantidad Pendiente</span>
+                    <span class="info-box-number">@if (ViewBag.pendientes != null)
+                    { @ViewBag.pendientes }</span>
+
+                </div>
+
+                <!-- /.info-box-content -->
+
+            </div>
+
+        </div>
+
         <div class="form-group">
-            <input type="submit" value="Generar" class="btn btn-add" /> |
-            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
+            <button type="button" class="btn btn-new ">@Html.ActionLink("Editar", "Edit", new { id = Model.ID_pedido })</button> 
+            <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>
         </div>
     </section>
 </div><!-- /.content-wrapper -->

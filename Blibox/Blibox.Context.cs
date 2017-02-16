@@ -49,6 +49,7 @@ namespace Blibox
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<Remito> Remito { get; set; }
         public virtual DbSet<Rubro> Rubro { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoMovCtaCte> TipoMovCtaCte { get; set; }
         public virtual DbSet<TipoResponsables> TipoResponsables { get; set; }

@@ -318,6 +318,7 @@
     <Compile Include="Models\DetalleCustom.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Models\EntregasParcialesPedidos.cs" />
     <Compile Include="Models\JsonClient\PesoJson.cs" />
     <Compile Include="Models\MaterialNecesario.cs" />
     <Compile Include="Models\materialNecesario1.cs" />
@@ -337,7 +338,9 @@
     <Compile Include="Rubro.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoDocumento.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
@@ -368,13 +371,6 @@
     <Content Include="certificadosAfip\2048\BliboxCSR" />
     <Content Include="certificadosAfip\2048\bliboxprivate" />
     <Content Include="certificadosAfip\2048\certBlibox.pfx" />
-    <EntityDeploy Include="Blibox.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Blibox.edmx.diagram">
-      <DependentUpon>Blibox.edmx</DependentUpon>
-    </Content>
     <Compile Include="Models\itemFactura.cs" />
     <Compile Include="Models\JsonClient\ClienteJson.cs" />
     <Compile Include="Controllers\CortantesController.cs" />
@@ -1391,6 +1387,13 @@
     <Content Include="certificadosAfip\CertX509Blibox.pem" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <EntityDeploy Include="Blibox.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Blibox.edmx.diagram">
+      <DependentUpon>Blibox.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />

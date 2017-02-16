@@ -421,7 +421,7 @@
                                                        required="required" 
                                                        @*min="0" 
                                                        max="999999999"*@ 
-                                                       data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
+                                                       data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso', disabled  }" 
                                                       
                                                        readonly/>
                                                 <em data-bind="validationMessage: Peso"></em>

@@ -174,11 +174,11 @@
                         </div>
 
                                 <div class="dobleEntrada ">
-                                    @Html.LabelFor(model => model.cantidad_entregada, "Cantidad entregada:", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                                    @Html.LabelFor(model => model.cantidad_entregada, "Cantidad a entregar:", htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
                                     <div class="col-md-4">
 
-                                        @Html.EditorFor(
-                                     model => model.cantidad_entregada,
+                                        @Html.Editor(
+                                      "cantidadEntregada", 
                                       new
                                       {
                                           htmlAttributes = new
@@ -194,7 +194,7 @@
                                               value = 0,
                                               @class = "form-control",
                                           }
-                                        })
+                                      })
                                     </div>
                                 </div>
                             </div>

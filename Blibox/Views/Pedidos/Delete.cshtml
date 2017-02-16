@@ -1,4 +1,4 @@
-﻿@model Blibox.Material
+﻿@model Blibox.Pedido
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -8,7 +8,7 @@
             @ViewBag.Message
         </h1>
         <ol class="breadcrumb">
-            <li><a href="@Url.Action("Index", "Materiales")"><i class="fa fa-dashboard"></i> Materiales</a></li>
+            <li><a href="@Url.Action("Index", "Pedidos")"><i class="fa fa-dashboard"></i> Pedidos</a></li>
             <li class="active">@ViewBag.Message</li>
         </ol>
     </section>
@@ -16,49 +16,41 @@
     <section class="content">
         <div class="box box-info box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">¿Estas seguro de eliminar este material?</h3>
+                <h3 class="box-title">¿Estas seguro de eliminar este pedido?</h3>
             </div>
             <div class="box box-default">
                 <form class="form-horizontal" style="padding:10px;">
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Id Material</label>
+                        <label class="col-sm-1 control-label">Id Pedido</label>
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-database fa-fw" aria-hidden="true"></i>
                             </div>
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_material)" readonly />
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_pedido)" readonly />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Descripcion</label>
+                        <label class="col-sm-1 control-label">Descripción Articulo</label>
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-database fa-fw" aria-hidden="true"></i>
                             </div>
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Descripcion)" readonly />
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Articulo.Descripcion)" readonly />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Peso</label>
+                        <label class="col-sm-1 control-label">Cliente</label>
                         <div class="col-md-4 input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-database fa-fw" aria-hidden="true"></i>
                             </div>
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Peso)" readonly />
+                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Cliente.Razon_Social)" readonly />
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Observaciones</label>
-                        <div class="col-md-4 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-database fa-fw" aria-hidden="true"></i>
-                            </div>
-                            <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
-                        </div>
-                    </div>
+                    
 
                 </form>
                 <br />

@@ -148,37 +148,39 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="col-md-5">
-                                        <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Peso, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                    <div class="col-md-5">
-                                        <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Material: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Material.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Peso: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Peso, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Marco: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Ciclos: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Ciclos, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Bocas: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Bocas, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Espesor: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Espesor, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <label>Matriz: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Cortante: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                    <div class="col-md-4">
+                                        <label>Color: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
                             </div>
@@ -203,37 +205,39 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="col-md-5">
-                                        <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Peso, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                    <div class="col-md-5">
-                                        <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Material: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Material.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Peso: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Peso, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Marco: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Ciclos: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Ciclos, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Bocas: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Bocas, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Espesor: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Espesor, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <label>Matriz: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(1).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Cortante: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                    <div class="col-md-4">
+                                        <label>Color: </label>@Html.EditorFor(model => model.Componente.ElementAt(1).Color, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
                             </div>
@@ -257,37 +261,39 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="col-md-5">
-                                        <label>Material: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Material.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Peso: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Peso, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                    <div class="col-md-5">
-                                        <label>Marco: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    </div><!-- /.col -->
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Ciclos: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Ciclos, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Material: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Material.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Bocas: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Bocas, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Peso: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Peso, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Espesor: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Espesor, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Marco: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Matriz: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Ciclos: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Ciclos, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Bocas: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Bocas, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Cortante: </label>@Html.DisplayFor(model => model.Componente.ElementAt(2).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Espesor: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Espesor, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <label>Matriz: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Matriz.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
-                                        <label>Color: </label>@Html.DisplayFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control" } })
+                                        <label>Cortante: </label>@Html.EditorFor(model => model.Componente.ElementAt(2).Cortante.Codigo, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                    </div><!-- /.col -->
+                                    <div class="col-md-4">
+                                        <label>Color: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Color, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
                                     </div><!-- /.col -->
                                 </div>
                             </div>

@@ -194,7 +194,8 @@ table {
 .accion .glyphicon.glyphicon-floppy-disk,
 .accion .glyphicon.glyphicon-floppy-save,
 .accion .glyphicon.glyphicon-zoom-in,
-.accion .glyphicon.glyphicon-trash {
+.accion .glyphicon.glyphicon-trash,
+.accion .glyphicon glyphicon-send {
     
     font-size: 1.5em;
     color: #008D4C;

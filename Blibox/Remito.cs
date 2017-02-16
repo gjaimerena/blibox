@@ -16,7 +16,7 @@ namespace Blibox
     {
         public int ID_remito { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<int> ID_pedido { get; set; }
+        public int ID_pedido { get; set; }
         public Nullable<int> Cantidad { get; set; }
     
         public virtual Pedido Pedido { get; set; }

@@ -380,7 +380,7 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString().Replace(".",","), new { htmlAttributes = new { @Value = item.Peso, @id = "Componente" + i + "Peso", @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString().Replace(".",","), new { htmlAttributes = new { @Value = item.Peso, @id = "Componente" + i + "Peso", @class = "form-control", @disabled = "" } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->

@@ -31,7 +31,7 @@ namespace Blibox
         public static string Show(string message, string title = "",
             ToastType type = ToastType.Info,
             Position position = Position.TopRight,
-            int timeOut = 5000,
+            int timeOut = 2500,
             bool closeButton = true,
             bool progressBar = true,
             bool newestOnTop = true,

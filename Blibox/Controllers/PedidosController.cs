@@ -11,6 +11,7 @@ using PagedList;
 using ClosedXML.Excel;
 using System.IO;
 using System.Reflection;
+using Blibox.Models;
 
 namespace Blibox.Controllers
 {
@@ -172,6 +173,25 @@ namespace Blibox.Controllers
                 return HttpNotFound();
             }
             getDropdownElements(pedido);
+
+
+            List<EntregasParcialesPedidos> entregas = new List<EntregasParcialesPedidos>();
+            int cantidadEntregada = 0;
+            foreach (Remito remito in pedido.Remito)
+            {
+                EntregasParcialesPedidos entrega = new EntregasParcialesPedidos
+                {
+                    ID_pedido = pedido.ID_pedido,
+                    ID_remito = remito.ID_remito,
+                    Fecha = remito.Fecha,
+                    Cantidad = remito.Cantidad
+                };
+                entregas.Add(entrega);
+                cantidadEntregada = cantidadEntregada + remito.Cantidad.Value;
+            }
+
+            ViewBag.entregas = entregas;
+            ViewBag.pendientes = pedido.cantidad_pedida - cantidadEntregada;
             return View(pedido);
         }
 
@@ -214,6 +234,7 @@ namespace Blibox.Controllers
             getDropdownElements(pedido);
             return View(pedido);
         }
+
         private void getDropdownElements(Pedido pedido)
         {
             List<Articulo> articulos = db.Articulo.Select(m => m).ToList();
@@ -245,6 +266,7 @@ namespace Blibox.Controllers
             ViewBag.ID_articulo = new SelectList(db.Articulo, "ID_articulo", "Descripcion", pedido.ID_articulo);
 
         }
+        
         // GET: Pedidos/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -294,7 +316,8 @@ namespace Blibox.Controllers
             }
             if (pedido.cantidad_pedida == pedido.cantidad_entregada)
             {
-                HelperController.Instance.agregarMensaje("Ya se entrego todo el pedido", HelperController.CLASE_ERROR);
+                TempData["Noti"] = Notification.Show("El pedido ya fue completado", "PEDIDOS", type: ToastType.Warning);
+                
                 return RedirectToAction("Index");
             }
             int entregada = pedido.cantidad_entregada ?? 0;
@@ -311,29 +334,43 @@ namespace Blibox.Controllers
         public ActionResult Entregar(FormCollection form)
         {
 
-            int idPedido = Convert.ToInt32(form["ID_pedido"]);
-            int cantidadEntregada = Convert.ToInt32(form["cantidad_entregada"]);
-            DateTime fecha = Convert.ToDateTime(form["Fecha_pedido"]);
-
-            //actualizo entregado
-            Pedido pedido = db.Pedido.Where(m => m.ID_pedido == idPedido).FirstOrDefault();
-            Remito remito = new Remito();
-            remito.ID_pedido = pedido.ID_pedido;
-            remito.Fecha = fecha;
-            remito.Cantidad = cantidadEntregada;
-
-            db.Remito.Add(remito);
-            db.SaveChanges();
-            if (ModelState.IsValid)
+            try
             {
-                pedido.cantidad_entregada = pedido.cantidad_pedida - (pedido.cantidad_entregada + cantidadEntregada);
-                db.Entry(pedido).State = EntityState.Modified;
-                db.SaveChanges();
-                HelperController.Instance.agregarMensaje("El pedido se edito con exito", HelperController.CLASE_EXITO);
+                int idPedido = Convert.ToInt32(form["ID_pedido"]);
+                int cantidadEntregada = Convert.ToInt32(form["cantidadEntregada"]);
+                DateTime fecha = Convert.ToDateTime(form["Fecha_pedido"]);
+
+                //actualizo entregado
+                Pedido pedido = db.Pedido.Where(m => m.ID_pedido == idPedido).FirstOrDefault();
+
+                Remito remito = new Remito();
+                remito.ID_pedido = pedido.ID_pedido;
+                remito.Fecha = fecha;
+                remito.Cantidad = cantidadEntregada;
+                pedido.Remito.Add(remito);
+
+                if (pedido.cantidad_entregada == null) pedido.cantidad_entregada = 0;
+                //db.Remito.Add(remito);
+                // db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    pedido.cantidad_entregada =  (pedido.cantidad_entregada + cantidadEntregada);
+                    
+                    db.Entry(pedido).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["Noti"] = Notification.Show("El pedido fue modificado con éxito", "PEDIDOS", type: ToastType.Success);
+
+                    return RedirectToAction("Index");
+                }
+                getDropdownElements(pedido);
+                return View(pedido);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("Hubo un error al intentar generar la entrega, intente nuevamente o consulte al administrador", "PEDIDOS", type: ToastType.Error);
                 return RedirectToAction("Index");
             }
-            getDropdownElements(pedido);
-            return View(pedido);
+           
         }
 
         // GET: Pedidos/Delete/5
@@ -358,9 +395,16 @@ namespace Blibox.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Pedido pedido = db.Pedido.Find(id);
+
+            var remitos = db.Remito.Where(m => m.ID_pedido == id);
+            foreach (var remito in remitos)
+            {
+                db.Remito.Remove(remito);
+            }
+
             db.Pedido.Remove(pedido);
             db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Pedido elimiando exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
+            TempData["Noti"] = Notification.Show("Pedido eliminado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
             //HelperController.Instance.agregarMensaje("El pedido se elimino con exito", HelperController.CLASE_EXITO);
             return RedirectToAction("Index");
         }
