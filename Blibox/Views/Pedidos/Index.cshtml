@@ -149,8 +149,9 @@
                 <table class="table table-bordered table-condensed">
                     <tr>
                         <th>@Html.DisplayName("N° Pedido")</th>
+                        <th>@Html.DisplayName("Fecha")</th>
                         <th>@Html.DisplayName("Cliente")</th>
-                        <th>@Html.DisplayName("N° Articulo")</th>
+                        <th>@Html.DisplayName("Id Art")</th>
                         <th>@Html.DisplayName("Articulo")</th>
                         <th>@Html.DisplayName("Componente 1")</th>
                         <th>@Html.DisplayName("Componente 2")</th>
@@ -166,6 +167,7 @@
                     {
                         <tr>
                             <td>@Html.DisplayFor(model => item.idPedido)</td>
+                            <td>@Html.DisplayFor(model => item.Fecha.ToString().Split(' ')[0])</td>
                             <td>@Html.DisplayFor(model => item.cliente)</td>
                             <td>@Html.DisplayFor(model => item.idArticulo)</td>
                             <td>@Html.DisplayFor(model => item.descArticulo)</td>

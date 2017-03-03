@@ -1,9 +1,6 @@
 ﻿@model PagedList.IPagedList<Blibox.Articulo>
 @using PagedList.Mvc;
 
-@*@model IEnumerable<Blibox.Articulo>*@
-
-
 @{
     ViewBag.Title = "Index";
 }
@@ -33,30 +30,13 @@
            <div class="search-box">
                 <form class="form-inline">
                     <div class="form-group">
-                        <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Buscar..." />
+                        <input type="text" name="q" value="@ViewBag.CurrentFilter" class="search-text form-control" placeholder="Buscar..." />
                     </div>
                     <button type="submit" class="btn btn-search">Buscar</button>
                 </form>
             </div>
-
- 
-        @*@using (Html.BeginForm())
-        {
-            <p>
-                BUSCADOR DE ARTICULOS:
-                <br />
-                @Html.DropDownList("Items")
-                <br />
-                @Html.TextBox("SearchString")
-
-                <button type="submit" class="btn btn-info">
-                    <span class="glyphicon glyphicon-search"></span> Buscar
-                </button>
-            </p>
-
-
-        }*@
-      
+        
+    
         <br />
         <div class="box box-blibox box-solid">
             <div class="box-header with-border">

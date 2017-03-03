@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using System.Globalization;
+using ClosedXML.Excel;
+using System.IO;
+using System.Reflection;
 
 namespace Blibox.Controllers
 {
@@ -16,6 +19,7 @@ namespace Blibox.Controllers
         // GET: CtaCteClientes
         public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
         {
+            // Obtengo datos de los filtros de busqueda //
             int id_cliente = 0;
             int id_vendedor = 0;
             if (Request["ID_cliente"] != null)
@@ -33,6 +37,8 @@ namespace Blibox.Controllers
 
             if (fechadesde != "") desde = DateTime.ParseExact(fechadesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             if (fechahasta != "") hasta = DateTime.ParseExact(fechahasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            //Fin de obtencion de datos de filtro de busqueda
 
             ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
 
@@ -95,6 +101,8 @@ namespace Blibox.Controllers
                 registro.vendedor = (item.Vendedor != null) ? item.Vendedor.Apellido: string.Empty;
                 reporte.Add(registro);
             }
+
+            HttpContext.Session["query"] = reporte;
             //habilitar si se desea implementar la busqueda de movimientos
             //if (!String.IsNullOrEmpty(q))
             //{
@@ -213,6 +221,7 @@ namespace Blibox.Controllers
 
             //        ).OrderBy(m => m.id);
             //}
+            HttpContext.Session["queryTotalxArticulo"] = reporte;
 
             ViewBag.id_articulo_desde = new SelectList(db.Articulo, "ID_articulo", "ID_articulo");
             ViewBag.id_articulo_hasta = new SelectList(db.Articulo, "ID_articulo", "ID_articulo");
@@ -290,6 +299,8 @@ namespace Blibox.Controllers
                 registro.iva = item.Total.Value - item.Subtotal.Value;
                 reporte.Add(registro);
             }
+
+            HttpContext.Session["queryivaventas"] = reporte;
             //habilitar si se desea implementar la busqueda de movimientos
             //if (!String.IsNullOrEmpty(q))
             //{
@@ -304,6 +315,160 @@ namespace Blibox.Controllers
 
             return View(reporte.ToPagedList(page, pageSize));
 
+        }
+
+        public ActionResult ExportDataTotalVentasXArticulo()
+        {
+
+            DataTable dt = new DataTable();
+            dt.TableName = "Reporte";
+            List<Models.reporteVentasXArticulo> reporte = (List<Models.reporteVentasXArticulo>)HttpContext.Session["queryTotalxArticulo"];
+            
+            dt = ToDataTable(reporte);
+
+            dt.Columns["tipo"].ColumnName = "tipo";
+            dt.Columns["nroFactura"].ColumnName = "Factura Nº";
+            dt.Columns["fecha"].ColumnName = "Fecha";
+            dt.Columns["idArticulo"].ColumnName = "Id Articulo";
+            dt.Columns["nombreArticulo"].ColumnName = "Articulo";
+            dt.Columns["cantidad"].ColumnName = "Cantidad";
+            dt.Columns["importe"].ColumnName = "Importe";
+
+            dt.AcceptChanges();
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+
+                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                wb.Style.Font.Bold = true;
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=TotalVentasXArticulo.xlsx");
+
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream, false);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return RedirectToAction("DetalleXArticulo", "reportes");
+        }
+
+        public ActionResult ExportDataTotalVentas()
+        {
+
+            DataTable dt = new DataTable();
+            dt.TableName = "Reporte";
+            List<Models.reporteFactura> reporte = (List<Models.reporteFactura>)HttpContext.Session["query"];
+
+            dt = ToDataTable(reporte);
+
+            dt.Columns["tipo"].ColumnName = "tipo";
+            dt.Columns["nroFactura"].ColumnName = "Factura Nº";
+            dt.Columns["fecha"].ColumnName = "Fecha";
+            dt.Columns["nroCliente"].ColumnName = "Cliente Nº";
+            dt.Columns["importe"].ColumnName = "Importe";
+            dt.Columns["nroRemito"].ColumnName = "Remito";
+            dt.Columns["vendedor"].ColumnName = "Vendedor";
+
+
+            dt.AcceptChanges();
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+
+                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                wb.Style.Font.Bold = true;
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=TotalVentas.xlsx");
+
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream, false);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return RedirectToAction("Index", "reportes");
+        }
+
+        public ActionResult ExportDataIVAVentas()
+        {
+
+            DataTable dt = new DataTable();
+            dt.TableName = "Iva_Ventas";
+            List<Models.reporteIvaVentas> reporte = (List<Models.reporteIvaVentas>)HttpContext.Session["queryivaventas"];
+
+            dt = ToDataTable(reporte);
+
+            dt.Columns["tipo"].ColumnName = "tipo";
+            dt.Columns["nroFactura"].ColumnName = "Factura Nº";
+            dt.Columns["fecha"].ColumnName = "Fecha";
+            dt.Columns["idCliente"].ColumnName = "Cliente Nº";
+            dt.Columns["razonSocial"].ColumnName = "Razon Social";
+            dt.Columns["subTotal"].ColumnName = "SubTotal";
+            dt.Columns["iva"].ColumnName = "IVA";
+
+            dt.AcceptChanges();
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+
+                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                wb.Style.Font.Bold = true;
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=IVAVentas.xlsx");
+
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream, false);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return RedirectToAction("IVAVentas", "reportes");
+        }
+
+        private DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
         }
     }
 }

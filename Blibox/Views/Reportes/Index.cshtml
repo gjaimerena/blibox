@@ -151,7 +151,7 @@
                         <th>@Html.DisplayName("Fecha")</th>
                         <th>@Html.DisplayName("Tipo")</th>
                         <th>@Html.DisplayName("Factura Nº")</th>
-                        <th>@Html.DisplayName("Remirto Nº")</th>
+                        <th>@Html.DisplayName("Remito Nº")</th>
                         
                         <th>@Html.DisplayName("Cliente Nº")</th>
                         <th>@Html.DisplayName("Razon Social")</th>
@@ -177,6 +177,34 @@
 
 
                 </table>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6" style="text-align:left;">
+                        
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Ventas</span>
+                                    <span class="info-box-number">
+                                        @if (ViewBag.Total != null)
+                                    {@ViewBag.Total}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </div>
+                    </div>
+                    @*<div class="col-md-4"></div>*@
+                    <div class="col-md-6" style="text-align:right;">
+                        @using (Html.BeginForm("ExportDataTotalVentas", "reportes", FormMethod.Post))
+                        {
+                            <input type="submit" name="btnexporttotalventas" value="Exportar" id="exporttotalventas" class="btn btn-new" />
+                        }
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -189,25 +217,15 @@
                        sortOrder = ViewBag.currentSort,
                        q = ViewBag.CurrentFilter
                    }))
-                Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @*Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
             </div>
         }
 
-        <hr/>
-        <div class="col-md-9 col-sm-6 col-xs-12">
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+       
+       
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Ventas</span>
-                        <span class="info-box-number">@if (ViewBag.Total != null)
-                        {@ViewBag.Total}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-        </div>
+        <hr/>
+        
 
 
 

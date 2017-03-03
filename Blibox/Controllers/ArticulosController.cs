@@ -25,9 +25,18 @@ namespace Blibox.Models
         private List<SelectListItem> items = new List<SelectListItem>();
       
         // GET: Articulos
-        public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
+        public ActionResult Index(string sortOrder, string currentFilter, string q, int page = 1, int pageSize = 10)
         {
             ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
+
+            if (q != null)
+            {
+                //page = 1;
+            }
+            else
+            {
+                q = currentFilter;
+            }
 
             page = page > 0 ? page : 1;
             pageSize = pageSize > 0 ? pageSize : 10;
@@ -37,6 +46,8 @@ namespace Blibox.Models
             //ViewBag.DateSortParam = sortOrder == "date" ? "date_desc" : "date";
 
             ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.CurrentFilter = q;
 
             var query = db.Articulo.OrderBy(m => m.ID_articulo);
 

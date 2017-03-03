@@ -166,23 +166,53 @@
 
 
                 </table>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6" style="text-align:left;">
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Ventas X Articulos</span>
+                                    <span class="info-box-number">
+                                        @if (ViewBag.Total != null)
+                                        {@ViewBag.Total}
+                                    </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-4"></div>*@
+                    <div class="col-md-6" style="text-align:right;">
+                        @using (Html.BeginForm("ExportDataTotalVentasXArticulo", "reportes", FormMethod.Post))
+                        {
+                            <input type="submit" name="btnexportventasxarticulo" value="Exportar" id="exportventasxarticulo" class="btn btn-new" />
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
 
         @if (Model.PageCount > 1)
         {
             <div class="pager">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new
+                @Html.PagedListPager(Model, page => Url.Action("DetalleXArticulo", new
            {
                page,
                sortOrder = ViewBag.currentSort,
                q = ViewBag.CurrentFilter
            }))
-                Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @*Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
             </div>
         }
 
-        <hr />
+        @*<hr />
         <div class="col-md-9 col-sm-6 col-xs-12">
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -194,12 +224,9 @@
                     <span class="info-box-number">@if (ViewBag.Total != null) { @ViewBag.Total }</span>
 
                 </div>
-
-<!-- /.info-box-content -->
-
             </div>
 
-        </div>
+        </div>*@
 
 
 

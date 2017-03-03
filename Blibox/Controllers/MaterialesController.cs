@@ -16,10 +16,13 @@ namespace Blibox.Controllers
         private BliboxEntities db = new BliboxEntities();
 
         // GET: Materiales
-        public ActionResult Index(string sortOrder, string q, int page = 1, int pageSize = 10)
+        public ActionResult Index(string sortOrder, string currentFilter, string q, int page = 1, int pageSize = 10)
         {
 
             ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
+            //para paginado
+            if (q == null) q = currentFilter;
+            ViewBag.CurrentFilter = q;
             page = page > 0 ? page : 1;
             pageSize = pageSize > 0 ? pageSize : 10;
             //ViewBag.IdSortParam = sortOrder == "id" ? "id_desc" : "id";

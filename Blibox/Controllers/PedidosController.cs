@@ -12,6 +12,7 @@ using ClosedXML.Excel;
 using System.IO;
 using System.Reflection;
 using Blibox.Models;
+using System.Globalization;
 
 namespace Blibox.Controllers
 {
@@ -26,137 +27,145 @@ namespace Blibox.Controllers
             int estado = 0;
 
             List<SelectListItem> estado_pedido = new List<SelectListItem>();
-
             estado_pedido.Add(new SelectListItem() { Text = "Pendiente", Value = "2", Selected = true });
             estado_pedido.Add(new SelectListItem() { Text = "Cumplido", Value = "1" });
 
             ViewBag.estado_pedido = new SelectList(estado_pedido, "Value", "Text");
 
-
-            if (Request["estado_pedido"] != null && Request["estado_pedido"].ToString() != "")
-            {
-                Int32.TryParse(Request["estado_pedido"], out estado);
-            }
-            //else
-            //{
-            //   // ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
-            //    List<Models.Pedidos> lista_pedidos = new List<Models.Pedidos>();
-            //    return View(lista_pedidos.ToPagedList(page, pageSize));
-            //}
-
+            if (Request["estado_pedido"] != null && Request["estado_pedido"].ToString() != "") Int32.TryParse(Request["estado_pedido"], out estado);
+            
             string palabra_clave = (Request["palabra_clave"] == null) ? "" : Request["palabra_clave"].ToString();
+
+            string fechadesde = (Request["Fecha Desde"] == null) ? "" : Request["Fecha Desde"].ToString();
+            string fechahasta = (Request["Fecha Hasta"] == null) ? "" : Request["Fecha Hasta"].ToString();
+            DateTime? desde = null, hasta = null;
+
+            if (fechadesde != "") desde = DateTime.ParseExact(fechadesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            if (fechahasta != "") hasta = DateTime.ParseExact(fechahasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             ViewBag.searchQuery = String.IsNullOrEmpty(q) ? "" : q;
             page = page > 0 ? page : 1;
             pageSize = pageSize > 0 ? pageSize : 10;
-            //ViewBag.IdSortParam = sortOrder == "id" ? "id_desc" : "id";
-            //ViewBag.DescripcionSort = sortOrder == "descripcion" ? "descripcion_desc" : "descripcion";
-            //ViewBag.DateSortParam = sortOrder == "date" ? "date_desc" : "date";
-
+            
             ViewBag.CurrentSort = sortOrder;
 
-            var query = db.Pedido.OrderBy(m => m.ID_pedido);
-
-            if (!String.IsNullOrEmpty(palabra_clave))
-            {
-                query = query.Where(s =>
-                    s.ID_pedido.ToString().Contains(palabra_clave) ||
-                    s.Cliente.Razon_Social.Contains(palabra_clave) ||
-                    s.Observaciones.Contains(palabra_clave) ||
-                    s.Precio.ToString().Contains(palabra_clave) 
-                 
-                    ).OrderBy(m => m.ID_pedido);
-            }
-
+            List<Models.Pedidos> pedidos = new List<Models.Pedidos>();
             List<Models.materialNecesario> matNecesario = null;
             if (estado != 1) matNecesario = new List<Models.materialNecesario>();
-            List<Models.Pedidos> pedidos = new List<Models.Pedidos>();
 
-            foreach (Pedido item in query)
+            var query = db.Pedido.Select(m=>m);
+
+            if (String.IsNullOrEmpty(palabra_clave) && (estado == 0) /*&& (fechadesde == "") && (fechahasta == "")*/)
             {
-
-                int cantidadPedida = item.cantidad_pedida ?? 0;
-                int cantidadEntregada = (item.cantidad_entregada) ?? 0;
-                int cantidadRestante = cantidadPedida - cantidadEntregada;
-
-                if ((estado == 1) && (cantidadRestante == 0) || (estado != 2) && (cantidadRestante != 0))
+                if ((HttpContext.Session["pedidos"] != null))
                 {
-                    string componente1 = "", componente2 = "", componente3 = "";
+                    pedidos = (List<Models.Pedidos>)HttpContext.Session["pedidos"];
+                    matNecesario = (List <Models.materialNecesario>) HttpContext.Session["matNecesario"];
+                }
+            }
+            else
+            {
+                if (fechadesde != "" && fechahasta == "") query = query.Where(f => (f.Fecha_pedido >= desde));
+                if (fechadesde == "" && fechahasta != "") query = query.Where(f => (f.Fecha_pedido <= hasta));
+                if ((fechadesde != "") && (fechahasta != "")) query = query.Where(f => (f.Fecha_pedido >= desde) && (f.Fecha_pedido <= hasta));
 
-                    
-                    for (int i = 0; i < 3; i++)
+                if (!String.IsNullOrEmpty(palabra_clave))
+                {
+                    query = query.Where(s =>
+                        s.ID_pedido.ToString().Contains(palabra_clave) ||
+                        s.Cliente.Razon_Social.Contains(palabra_clave) ||
+                        s.Observaciones.Contains(palabra_clave) ||
+                        s.Precio.ToString().Contains(palabra_clave)
+                        ).OrderBy(m => m.Fecha_pedido);
+                }
+
+               
+
+                foreach (Pedido item in query)
+                {
+                    int cantidadPedida = item.cantidad_pedida ?? 0;
+                    int cantidadEntregada = (item.cantidad_entregada) ?? 0;
+                    int cantidadRestante = cantidadPedida - cantidadEntregada;
+
+                    if ((estado == 1) && (cantidadRestante == 0) || (estado == 2) && (cantidadRestante != 0))
                     {
-                        string comp = "-";
-                        if (item.Articulo.Componente.Count() >= i + 1)
+                        string componente1 = "", componente2 = "", componente3 = "";
+
+                        for (int i = 0; i < 3; i++)
                         {
-                            Componente componente = item.Articulo.Componente.ElementAt(i);
-
-                            var pesoRestante = componente.Material.Peso * cantidadRestante;
-                            comp = componente.Material.Descripcion + " / ";
-                            comp += componente.Marco.Ancho + "x" + componente.Marco.Largo + " / ";
-                            comp += componente.Espesor + " / ";
-                            comp += pesoRestante;
-
-                            if (estado != 1)
+                            string comp = "-";
+                            if (item.Articulo.Componente.Count() >= i + 1)
                             {
-                                
-                                //si en la lista de material necesario ya existe el material y ademas es del mismo espesor sumo la cantidad requerida
-                                //sino creo un nuevo item en la lista ya que es otro material nuevo necesario.
-                                if (matNecesario.Exists(m => m.idmaterial == componente.Material.ID_material && m.espesor == Int32.Parse(componente.Espesor)))
+                                Componente componente = item.Articulo.Componente.ElementAt(i);
+
+                                var pesoRestante = componente.Material.Peso * cantidadRestante;
+                                comp = componente.Material.Descripcion + " / ";
+                                comp += componente.Marco.Ancho + "x" + componente.Marco.Largo + " / ";
+                                comp += componente.Espesor + " / ";
+                                comp += pesoRestante;
+
+                                if (estado != 1)
                                 {
-                                    int index = matNecesario.FindIndex(m => m.idmaterial == componente.Material.ID_material && m.espesor == Int32.Parse(componente.Espesor));
-                                    matNecesario[i].kilos = matNecesario[i].kilos + pesoRestante.Value;
-                                }
-                                else
-                                {
-                                    Models.materialNecesario newMat = new Models.materialNecesario
+
+                                    //si en la lista de material necesario ya existe el material y ademas es del mismo espesor sumo la cantidad requerida
+                                    //sino creo un nuevo item en la lista ya que es otro material nuevo necesario.
+                                    if (matNecesario.Exists(m => m.idmaterial == componente.Material.ID_material && m.espesor == Int32.Parse(componente.Espesor)))
                                     {
-                                        idmaterial = componente.ID_material.Value,
-                                        material = componente.Material.Descripcion,
-                                        espesor = Int32.Parse(componente.Espesor),
-                                        kilos = pesoRestante.Value
+                                        int index = matNecesario.FindIndex(m => m.idmaterial == componente.Material.ID_material && m.espesor == Int32.Parse(componente.Espesor));
+                                        matNecesario[i].kilos = matNecesario[i].kilos + pesoRestante.Value;
+                                    }
+                                    else
+                                    {
+                                        Models.materialNecesario newMat = new Models.materialNecesario
+                                        {
+                                            idmaterial = componente.ID_material.Value,
+                                            material = componente.Material.Descripcion,
+                                            espesor = Int32.Parse(componente.Espesor),
+                                            kilos = pesoRestante.Value
 
-                                    };
+                                        };
 
-                                    matNecesario.Add(newMat);
+                                        matNecesario.Add(newMat);
+                                    }
+
                                 }
-                                
+
                             }
+                            if (i == 0) componente1 = comp;
+                            if (i == 1) componente2 = comp;
+                            if (i == 2) componente3 = comp;
 
                         }
-                        if (i == 0) componente1 = comp;
-                        if (i == 1) componente2 = comp;
-                        if (i == 2) componente3 = comp;
 
+                        Models.Pedidos pedido = new Models.Pedidos
+                        {
+                            idPedido = item.ID_pedido,
+                            Fecha = item.Fecha_pedido.Value,
+                            cliente = item.Cliente.Razon_Social,
+                            idArticulo = item.ID_articulo,
+                            descArticulo = item.Articulo.Descripcion,
+                            componente1 = componente1,
+                            componente2 = componente2,
+                            componente3 = componente3,
+                            cantEntregada = cantidadEntregada,
+                            cantPedida = cantidadPedida,
+                            cantRestante = cantidadRestante
+                        };
+
+                        pedidos.Add(pedido);
                     }
-
-                    Models.Pedidos pedido = new Models.Pedidos
-                    {
-                        idPedido = item.ID_pedido,
-                        cliente = item.Cliente.Razon_Social,
-                        idArticulo = item.ID_articulo,
-                        descArticulo = item.Articulo.Descripcion,
-                        componente1 = componente1,
-                        componente2 = componente2,
-                        componente3 = componente3,
-                        cantEntregada = cantidadEntregada,
-                        cantPedida = cantidadPedida,
-                        cantRestante = cantidadRestante
-                    };
-
-                    pedidos.Add(pedido);
-
-                    
 
                 }
 
-            }
+                HttpContext.Session["pedido"] = pedidos;
+                HttpContext.Session["matNecesario"] = matNecesario;
 
+            }
 
             ViewBag.matNecesarios = matNecesario;
 
             //uso variable de sesion para poder exportar los datos  excel
-            HttpContext.Session["query"] = pedidos;
+           
             return View(pedidos.ToPagedList(page, pageSize));
         }
 
@@ -211,6 +220,7 @@ namespace Blibox.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (pedido.Fecha_pedido==null) pedido.Fecha_pedido = DateTime.Now;
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
                 TempData["Noti"] = Notification.Show("Pedido generado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
@@ -292,6 +302,7 @@ namespace Blibox.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (pedido.Fecha_pedido == null) pedido.Fecha_pedido = pedido.Fecha_armado; 
                 db.Entry(pedido).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["Noti"] = Notification.Show("Pedido modificado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
@@ -423,7 +434,7 @@ namespace Blibox.Controllers
             
             DataTable dt = new DataTable();
             dt.TableName = "Pedidos";
-            List<Models.Pedidos> pedidos = (List<Models.Pedidos>)HttpContext.Session["query"];
+            List<Models.Pedidos> pedidos = (List<Models.Pedidos>)HttpContext.Session["pedido"];
             dt = ToDataTable(pedidos);
 
             dt.Columns["descArticulo"].ColumnName = "Articulo";

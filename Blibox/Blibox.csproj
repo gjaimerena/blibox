@@ -1621,11 +1621,6 @@
     <Content Include="Views\Cortantes\Details.cshtml" />
     <Content Include="Views\Cortantes\Edit.cshtml" />
     <Content Include="Views\Cortantes\Index.cshtml" />
-    <Content Include="Views\Articulos2\Create.cshtml" />
-    <Content Include="Views\Articulos2\Delete.cshtml" />
-    <Content Include="Views\Articulos2\Details.cshtml" />
-    <Content Include="Views\Articulos2\Edit.cshtml" />
-    <Content Include="Views\Articulos2\Index.cshtml" />
     <Content Include="Views\Materiales\Create.cshtml" />
     <Content Include="Views\Materiales\Delete.cshtml" />
     <Content Include="Views\Materiales\Details.cshtml" />

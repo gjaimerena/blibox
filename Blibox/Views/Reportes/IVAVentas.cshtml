@@ -153,13 +153,52 @@
 
 
                 </table>
+
+                <hr />
+                <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:left;">
+                   
+                        @using (Html.BeginForm("ExportDataIVAVentas", "reportes", FormMethod.Post))
+                        {
+                            <input type="submit" name="btnexporttotalventas" value="Exportar" id="exporttotalventas" class="btn btn-new" />
+                        }
+                   
+                
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-blue"><i class="ion ion-ios-cart-outline"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Subtotal</span>
+                            <span class="info-box-number">
+                                @if (ViewBag.Subtotal != null)
+                                { @ViewBag.Subtotal}
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">IVA Ventas</span>
+                            <span class="info-box-number">
+                                @if (ViewBag.IvaVentas != null)
+                            { @ViewBag.IvaVentas}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
 
         @if (Model.PageCount > 1)
         {
             <div class="pager">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new
+                @Html.PagedListPager(Model, page => Url.Action("IVAVentas", new
            {
                page,
                sortOrder = ViewBag.currentSort,
@@ -169,35 +208,7 @@
             </div>
         }
 
-        <hr />
-        <div class="col-md-6 col-sm-6 col-xs-12">
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="ion ion-ios-cart-outline"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Subtotal</span>
-                    <span class="info-box-number">
-                        @if (ViewBag.Subtotal != null)
-                    { @ViewBag.Subtotal}
-                </span>
-
-            </div>
-        </div>
-    </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">IVA Ventas</span>
-                    <span class="info-box-number">@if (ViewBag.IvaVentas != null)
-                    { @ViewBag.IvaVentas}</span>
-
-                </div>
-            </div>
-        </div>
+       
 
 
 

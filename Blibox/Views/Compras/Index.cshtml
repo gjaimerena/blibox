@@ -19,11 +19,17 @@
     <section class="content">
             
             @{ string currentFilter = ViewBag.CurrentFilter;
-            string currentSort = ViewBag.CurrentSort;
-            if (string.IsNullOrEmpty(currentSort))
-            {
-                currentSort = "id";
-            } }
+                string currentSort = ViewBag.CurrentSort;
+
+                //string proveedorFilter =  ((int)ViewBag.proveedor).ToString();
+                //string fechadesdeFilter = ViewBag.fechaDesde;
+                //string fechahastaFilter = ViewBag.fechaHasta;
+
+                if (string.IsNullOrEmpty(currentSort))
+                {
+                    currentSort = "id";
+                }
+            }
                 
                 <div class="box box-blibox box-solid">
                     <div class="box-header with-border">
@@ -58,16 +64,18 @@
                                         @Html.Editor("Fecha Desde",
                                        new
                                        {
+                                          
                                            htmlAttributes = new
                                            {
                                                id = "fechadesde",
+                                              
                                                @class = "form-control  pull-right",
                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha inicial",
                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
                                                data_fv_date_format = "DD/MM/YYYY",
                                                data_fv_date = true,
                                                //required = "required",
-                                               placeholder = "dd/mm/yyyy",
+                                               // placeholder = "dd/mm/yyyy",
                                                type = "text",
                                                data_fv_row = ".dobleEntrada"
                                            }
@@ -92,6 +100,7 @@
                                            htmlAttributes = new
                                            {
                                                id = "fechahasta",
+                                               value = ViewBag.fechaHasta,
                                                @class = "form-control  pull-right",
                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha final",
                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",

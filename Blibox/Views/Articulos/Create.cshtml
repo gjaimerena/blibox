@@ -421,7 +421,7 @@
                                                        required="required" 
                                                        @*min="0" 
                                                        max="999999999"*@ 
-                                                       data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso', disabled  }" 
+                                                       data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
                                                       
                                                        readonly/>
                                                 <em data-bind="validationMessage: Peso"></em>
@@ -562,6 +562,7 @@
 <script>
 
     $('#agregarComponente').click();
+
     function calcularPeso(numeroComponente) {
         var idComponete = "Componente[" + numeroComponente + "]";
         var idComponeteSinParentesis = "Componente" + numeroComponente + "";

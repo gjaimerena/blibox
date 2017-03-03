@@ -8,6 +8,7 @@ namespace Blibox.Models
     public class Pedidos
     {
         public int idPedido { get; set; }
+        public DateTime Fecha { get; set; }
         public string cliente { get; set; }
         public int idArticulo { get; set; }
         public string descArticulo { get; set; }
