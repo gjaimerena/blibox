@@ -116,14 +116,22 @@ namespace Blibox.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_proveedor,Razon_social,Contacto,Domicilio,Localidad,Provincia,Telefono,Celular,Email,Fecha_alta,IVA,CUIT,Saldo,Observaciones")] Proveedor proveedor)
+        public ActionResult Create(Proveedor proveedor)//[Bind(Include = "ID_proveedor,Razon_social,Contacto,Domicilio,Localidad,Provincia,Telefono,Celular,Email,Fecha_alta,IVA,CUIT,Saldo,Observaciones")] Proveedor proveedor)
         {
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+
+            proveedor.Fecha_alta = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Proveedor.Add(proveedor);
                 db.SaveChanges();
                 TempData["Noti"] = Notification.Show("Proveedor generado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ToString(), "ERROR", type: ToastType.Error);
+
             }
 
             return View(proveedor);

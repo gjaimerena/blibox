@@ -29,6 +29,20 @@
                
 
                 @Html.Partial("~/Views/Proveedor/CreateTemplate.cshtml")
+                @Html.EditorFor(
+                    model => model.ID_proveedor,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "hidden",
+                            @id = "ID_cliente",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Proveedor no válido",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
+                    })
 
             }
         </div>

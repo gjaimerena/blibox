@@ -25,117 +25,165 @@
             </div><!-- /.box-header -->
             
             <div class="box-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Razon_social)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Razon_social)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Contacto)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Contacto)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Domicilio)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Domicilio)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Localidad)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Localidad)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Provincia)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Provincia)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Telefono)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Telefono)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Celular)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Celular)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Email)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Fecha_alta)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Fecha_alta)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.IVA)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.IVA)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.CUIT)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.CUIT)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Saldo)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Saldo)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Observaciones)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Observaciones)
-                    </dd>
-
-                </dl>
+                
 
                 @using (Html.BeginForm())
             {
                     @Html.AntiForgeryToken()
 
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Id proveedor</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.ID_proveedor)" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Razon Social</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Razon_social)" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Contacto</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Contacto)" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">CUIT</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-database fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.CUIT)" readonly />
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Domicilio</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Domicilio)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Localidad</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Localidad)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Provincia</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Provincia)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Telefono</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Telefono)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Celular</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-mobile fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Celular)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Email</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Email)" readonly />
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">IVA</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    %
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.IVA)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Fecha Alta</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Fecha_alta)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Saldo</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-money fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Saldo)" readonly />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Observacion</label>
+                            <div class="col-md-4 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                                </div>
+                                <input class="form-control" placeholder="@Html.DisplayFor(model => model.Observaciones)" readonly />
+
+                            </div>
+                        </div>
                     <div class="form-actions no-color">
                         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
                         <button type="button" class="btn btn-cancel ">@Html.ActionLink("Volver", "Index")</button>

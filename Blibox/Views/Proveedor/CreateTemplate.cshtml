@@ -58,12 +58,16 @@
                     model => model.Domicilio,
                     new
                     {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "domicilio",
-                    data_fv_row = ".dobleEntrada",
-                    }
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "domicilio",
+                            data_fv_row = ".dobleEntrada",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Domicilio no válido",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
                     })
                 </div>
             </div>
@@ -78,12 +82,16 @@
                     model => model.Localidad,
                     new
                     {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "localidad",
-                    data_fv_row = ".dobleEntrada",
-                    }
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "localidad",
+                            data_fv_row = ".dobleEntrada",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Localidad no válida",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
                     })
                 </div>
             </div>
@@ -100,12 +108,16 @@
                     model => model.Provincia,
                     new
                     {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "provincia",
-                    data_fv_row = ".dobleEntrada",
-                    }
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "provincia",
+                            data_fv_row = ".dobleEntrada",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Provincia no válida",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
                     })
                 </div>
             </div>
@@ -185,51 +197,6 @@
 
     <div class="form-group">
         <div class="dobleEntrada">
-            @Html.Label("Fecha alta", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
-                    @Html.EditorFor(
-                    model => model.Fecha_alta,
-                    new
-                    {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "fechaAlta",
-                    data_fv_row = ".dobleEntrada",
-                    type = "text",
-                    }
-                    })
-                </div>
-            </div>
-        </div>
-
-        <div class="dobleEntrada">
-            @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                    @Html.EditorFor(
-                    model => model.IVA,
-                    new
-                    {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "Iva",
-                    data_fv_row = ".dobleEntrada",
-                    type = "text",
-                    }
-                    })
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="dobleEntrada">
             @Html.LabelFor(model => model.CUIT, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 <div class="input-group">
@@ -250,29 +217,34 @@
                     })
                 </div>
             </div>
-        </div>
+            </div>
 
-        @*<div class="dobleEntrada">
-            @Html.LabelFor(model => model.Saldo, htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
-            <div class="col-md-4">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                    @Html.EditorFor(
-                    model => model.Saldo,
+            <div class="dobleEntrada">
+                @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                        @Html.EditorFor(
+                    model => model.IVA,
                     new
                     {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "saldo",
-                    data_fv_row = ".dobleEntrada",
-                    type = "text",
-                    }
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "Iva",
+                            data_fv_row = ".dobleEntrada",
+                            type = "text",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Iva no válido",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
                     })
+
+                    </div>
                 </div>
             </div>
-        </div>*@
-    </div>
+        </div>
 
     <div class="form-group">
         <div class="dobleEntrada">
@@ -284,29 +256,24 @@
                     model => model.Observaciones,
                     new
                     {
-                    htmlAttributes = new
-                    {
-                    @class = "form-control",
-                    @id = "observaciones",
-                    data_fv_row = ".dobleEntrada",
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "observaciones",
+                            data_fv_row = ".dobleEntrada",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Observaciones no válidas",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true",
                     type = "text",
-                    }
+                        }
                     })
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group">
-        @Html.EditorFor(
-                    model => model.ID_proveedor,
-                    new
-                    {
-                        htmlAttributes = new
-                        {
-                            @class = "hidden",
-                            @id = "ID_cliente",
-                        }
-                    })
+        
         <div class="col-md-offset-2">
             <input type="submit" value="Grabar" class="btn btn-new" />
         </div>
