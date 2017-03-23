@@ -134,7 +134,30 @@
                     <div class="form-group">
                         <div class="dobleEntrada">
                             <label class="control-label col-md-2">Fecha Precio Lista:</label>
-                            <div class="col-md-4 input">
+                            <div class="input col-md-4">
+                                
+                                @Html.EditorFor(
+                                        model => model.Precio_fecha,
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                id = "Precio_fecha",
+                                                @class = "form-control  pull-right",
+                                                data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la fecha de movimiento",
+                                                data_fv_date_message = "<i class='glyphicon glyphicon-info-sign'></i> El formato es inválido",
+                                                data_fv_date_format = "DD/MM/YYYY",
+                                                data_fv_date = true,
+                                                required = "required",
+                                                placeholder = "dd/mm/yyyy",
+                                                type = "text",
+                                                data_fv_row = ".dobleEntrada"
+                                            }
+                                        })
+
+
+                            </div>
+                            @*<div class="col-md-4 input">
                                 @Html.EditorFor(
                                  model => model.Precio_fecha,
                                  new
@@ -154,7 +177,7 @@
                                      }
                                  })
                                 <!--i class="input-group-addon fa fa-calendar"></!i-->
-                            </div><!-- /.input group -->
+                            </div><!-- /.input group -->*@
                         </div>
                         @*<div class="dobleEntrada">
                                 <label class="control-label col-md-2 no-clear-md">IVA</label>
@@ -531,7 +554,12 @@
 
 <script type="text/javascript">
     validarForm('#form');
-    inicializarDatePicker('#fechaPrecioLista', false, false);
+    inicializarDatePicker('#Precio_fecha', false, false);
+
+    $('#Precio_fecha').change(function () {
+        $('#form').formValidation('revalidateField', 'Precio_fecha');
+        //Change code!
+    });
 </script>
 <script src="~/Scripts/ArticuloCreateViewModel.js"></script>
 <script src="~/Scripts/knockout-3.4.0.js"></script>

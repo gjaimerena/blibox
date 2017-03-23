@@ -3,7 +3,11 @@ using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace Blibox
@@ -18,6 +22,7 @@ namespace Blibox
             #region IHttpHandler Members
             static Blibox.Encabezado_Factura factura = null;
             static string lblTipoCbte;
+            static string tipo;
 
             public bool IsReusable
             {
@@ -33,16 +38,33 @@ namespace Blibox
                 int nroFactura = Convert.ToInt32(context.Request.QueryString["nroFactura"]);
 
                 string tipoCbte = context.Request.QueryString["tipoCbte"];
-                
-                if (tipoCbte == "1") lblTipoCbte = "Factura: ";
-                if (tipoCbte == "2") lblTipoCbte = "Nota Débito: ";
-                if (tipoCbte == "3") lblTipoCbte = "Nota Crédito: ";
 
+                if (tipoCbte == "1")
+                {
+                    lblTipoCbte = "Factura: ";
+                    tipo = "01";
+                }
+                if (tipoCbte == "2")
+                {
+                    lblTipoCbte = "Nota Débito: ";
+                    tipo = "02";
+                }
+
+                if (tipoCbte == "3")
+                {
+                    lblTipoCbte = "Nota Crédito: ";
+                    tipo = "03";
+            }
                 using (BliboxEntities db = new BliboxEntities())
                 {
                     try
                     {
                         factura = db.Encabezado_Factura.Where(m => m.Nro_factura == nroFactura).FirstOrDefault();
+
+                    string codigoBarra = GenerarDatoCodigoBarra();
+
+
+                        GenerarCodigoBarraFactura(300, 56, codigoBarra);
                         byte[] pdf = this.GenerarPDF(lblTipoCbte);
 
                         VisualizarPDF(r, pdf);
@@ -56,7 +78,43 @@ namespace Blibox
 
             }
 
-            private byte[] GenerarPDF(string lblTipoCbte)
+        private string GenerarDatoCodigoBarra()
+        {
+            string codigo = "";
+
+            codigo = factura.Cliente.Documento;
+
+            tipo = factura.Tipo;
+            while (tipo.Length != 2) tipo = "0" + tipo;
+            codigo = codigo + tipo;
+
+            string ptoVenta = System.Configuration.ConfigurationManager.AppSettings["PuntoVenta"];
+            while (ptoVenta.Length != 4) ptoVenta = "0" + ptoVenta;
+            codigo = codigo + ptoVenta;
+
+            string CAE = factura.CAE;
+            while (CAE.Length != 14) CAE = "0" + CAE;
+            codigo = codigo + CAE;
+
+            codigo = codigo + factura.FechaVencimientoCAE.Value.ToString("yyyyMMdd");
+
+            int cv = codigoVerificador(codigo);
+
+            codigo = codigo + cv.ToString();
+
+            return codigo;
+            //El código de barras deberá contener los siguientes datos con su correspondiente orden:
+            //*Clave Unica de Identificación Tributaria (C.U.I.T.) del emisor de la factura(11 caracteres)
+            //* Código de tipo de comprobante(2 caracteres)
+            //* Punto de venta(4 caracteres)
+            //* Código de Autorización de Impresión(C.A.I.)(14 caracteres)
+
+            //* Fecha de vencimiento(8 caracteres)
+
+            //* Dígito verificador(1 carácter)
+        }
+
+        private byte[] GenerarPDF(string lblTipoCbte)
             {
                 byte[] pdf = null;
                 string path;
@@ -109,8 +167,14 @@ namespace Blibox
             res.Add(new ReportParameter("Cliente_IVA", factura.IVA.ToString()));
             res.Add(new ReportParameter("Total", factura.Total.ToString()));
 
+           
+            report.LocalReport.EnableExternalImages = true;
+            string imagePath = new Uri(@"E:\blibox\web\Blibox.Reports\images\codigo.png").AbsoluteUri;
+            res.Add(new ReportParameter("pathImage", imagePath));
+
             report.LocalReport.SetParameters(res);
 
+            report.LocalReport.Refresh();
             ReportDataSource dsFactura = new ReportDataSource("Factura", GetFacturaDetalle(factura.Detalle_factura.ToList()));
 
                 report.LocalReport.DataSources.Clear();
@@ -166,7 +230,125 @@ namespace Blibox
                 }
             }
 
-            #endregion
+        public void GenerarCodigoBarraFactura(int imgWidth, int imgHeight, string data)
+        {
+
+            //Read in the parameters
+            string strData = data;
+            int imageHeight = imgHeight;
+            int imageWidth = imgWidth;
+            string Forecolor = "000000";
+            string Backcolor = "FFFFFF";
+
+            //string strImageFormat = "PNG";
+
+            BarcodeLib.TYPE type = BarcodeLib.TYPE.Interleaved2of5;
+
+
+            System.Drawing.Image barcodeImage = null;
+            try
+            {
+                BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+                
+                b.Alignment = BarcodeLib.AlignmentPositions.CENTER;
+                b.LabelFont = new Font("Arial", 9f, FontStyle.Regular);
+                if (type != BarcodeLib.TYPE.UNSPECIFIED)
+                {
+                    b.IncludeLabel = true;
+
+                    //===== Encoding performed here =====
+                    barcodeImage = b.Encode(type, strData.Trim(), System.Drawing.ColorTranslator.FromHtml("#" + Forecolor), System.Drawing.ColorTranslator.FromHtml("#" + Backcolor), imageWidth, imageHeight);
+                    //===================================
+
+                    //===== Static Encoding performed here =====
+                    //barcodeImage = BarcodeLib.Barcode.DoEncode(type, this.txtData.Text.Trim(), this.chkGenerateLabel.Checked, this.btnForeColor.BackColor, this.btnBackColor.BackColor);
+                    //==========================================
+
+                   // Response.ContentType = "image/" + strImageFormat;
+                    //System.IO.MemoryStream MemStream = new System.IO.MemoryStream();
+
+                    barcodeImage.Save(@"E:\blibox\web\Blibox.Reports\images\codigo.png", ImageFormat.Png);
+
+                    //MemStream.WriteTo(Response.OutputStream);
+                }//if
+            }//try
+            catch (Exception ex)
+            {
+                //TODO: find a way to return this to display the encoding error message
+            }//catch
+            finally
+            {
+                if (barcodeImage != null)
+                {
+                    //Clean up / Dispose...
+                    barcodeImage.Dispose();
+                }
+            }//finally
+
         }
+
+        private int codigoVerificador(string codigo)
+        {
+
+            int sumadorImpares = 0;
+            int sumadorPares = 0;
+
+            for (int i=0; i<codigo.Length; i++)
+            {
+
+                int codigoInt = 0;
+                Int32.TryParse((codigo[i]).ToString(), out codigoInt);
+                if ((i % 2) == 0)
+                {
+                    //Paso 1
+                    sumadorImpares = sumadorImpares + codigoInt;
+                }
+                else
+                {
+                    //Paso 3
+                    sumadorPares = sumadorPares + codigoInt;
+                }
+            }
+
+            //Paso 2
+            sumadorImpares = sumadorImpares * 3;
+            //Paso4
+
+            int suma = sumadorImpares + sumadorPares;
+            int digitoVerificador = 0;
+            //paso5
+            for (int nro = 0; nro<=9 ; nro++)
+            {
+                if (((nro + suma) % 10) == 0)
+                {
+                    digitoVerificador = nro;
+                    break;
+                }
+            }
+
+            return digitoVerificador;
+
+            //Se considera para efectuar el cálculo el siguiente ejemplo:
+            //01234567890
+            //Etapa 1: Comenzar desde la izquierda, sumar todos los caracteres ubicados en las posiciones impares.
+            //0 + 2 + 4 + 6 + 8 + 0 = 20
+            //Etapa 2: Multiplicar la suma obtenida en la etapa 1 por el número 3.
+            //20 x 3 = 60
+            //Etapa 3: Comenzar desde la izquierda, sumar todos los caracteres que están ubicados en las posiciones pares.
+            //1 + 3 + 5 + 7 + 9 = 25
+            //Etapa 4: Sumar los resultados obtenidos en las etapas 2 y 3.
+            //60 + 25 = 85
+            //Etapa 5: Buscar el menor número que sumado al resultado obtenido en la etapa 4 dé un número múltiplo de 10.Este será el valor del dígito verificador del módulo 10.
+            //85 + 5 = 90
+            //De esta manera se llega a que el número 5 es el dígito verificador módulo 10 para el código 01234567890
+            //Siendo el resultado final:
+            //012345678905
+
+
+        }
+        #endregion
+
+        
+    }
   
 }
