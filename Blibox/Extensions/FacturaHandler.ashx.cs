@@ -65,7 +65,7 @@ namespace Blibox
 
 
                         GenerarCodigoBarraFactura(300, 56, codigoBarra);
-                        byte[] pdf = this.GenerarPDF(lblTipoCbte);
+                        byte[] pdf = this.GenerarPDF(lblTipoCbte, tipo);
 
                         VisualizarPDF(r, pdf);
                     }
@@ -114,17 +114,19 @@ namespace Blibox
             //* Dígito verificador(1 carácter)
         }
 
-        private byte[] GenerarPDF(string lblTipoCbte)
-            {
-                byte[] pdf = null;
-                string path;
-                ReportViewer report = new ReportViewer();
-                report.ProcessingMode = ProcessingMode.Remote;
+        private byte[] GenerarPDF(string lblTipoCbte, string tipo)
+        {
+            byte[] pdf = null;
+            string path;
+            ReportViewer report = new ReportViewer();
+            report.ProcessingMode = ProcessingMode.Remote;
 
-                var ubicacionReporte = string.Empty;
+            var ubicacionReporte = string.Empty;
 
-                path = ConfigurationManager.AppSettings["ReportFactura"];
-            //HttpContext.Current.Server.MapPath("ModeloFactura.rdlc");
+            path = ConfigurationManager.AppSettings["ReportFactura"];
+            string cuitBlibox = ConfigurationManager.AppSettings["CUITBLIBOX"];
+            string ordenCompra = (factura.OrdenCompra == null) ? "" : factura.OrdenCompra.ToString();
+            string remito = (factura.Nro_remito == null) ? "" : factura.Nro_remito.ToString();
             report.LocalReport.ReportPath = path;
 
 
@@ -134,15 +136,17 @@ namespace Blibox
             string nrocomprobante = factura.NroComprobante.ToString();
             //nro comprobante debe tener 8 digitos y 3 el pto venta
             while (nrocomprobante.Length < 8) nrocomprobante = "0" + nrocomprobante;
-            nrocomprobante = "001-" + nrocomprobante;
+            
 
             res.Add(new ReportParameter("NroComprobante", nrocomprobante));
             res.Add(new ReportParameter("lblTipoCbte", lblTipoCbte));
+            res.Add(new ReportParameter("lblCodigoCbte", "COD. " + tipo));
+            res.Add(new ReportParameter("Cliente_OrdenCompra", ordenCompra));
             //res.Add(new ReportParameter("tipoComprobante", "Remito"));
 
             DateTime fechaEmision = (factura.Fecha != null) ? (DateTime)factura.Fecha : DateTime.Now;
             res.Add(new ReportParameter("Fecha", fechaEmision.ToString("dd-MM-yyyy")));
-            res.Add(new ReportParameter("CUIT", "30-70774439-8"));
+            res.Add(new ReportParameter("CUIT", cuitBlibox));
 
             res.Add(new ReportParameter("Cliente_RazonSocial", factura.Cliente.Razon_Social));
             res.Add(new ReportParameter("Cliente_Domicilio", factura.Cliente.Domicilio + " - " + factura.Cliente.Localidad + " - " + factura.Cliente.Provincia));
@@ -151,7 +155,7 @@ namespace Blibox
 
             res.Add(new ReportParameter("Cliente_CUIT", factura.Cliente.Documento));
             res.Add(new ReportParameter("CondicionVenta", factura.Condicion_venta.Descripcion));
-            res.Add(new ReportParameter("Cliente_Remito", factura.Nro_remito.ToString()));
+            res.Add(new ReportParameter("Cliente_Remito", remito));
 
             //footer
             res.Add(new ReportParameter("CAE", factura.CAE));
@@ -169,7 +173,9 @@ namespace Blibox
 
            
             report.LocalReport.EnableExternalImages = true;
-            string imagePath = new Uri(@"E:\blibox\web\Blibox.Reports\images\codigo.png").AbsoluteUri;
+
+            string pathCodigoBarra = ConfigurationManager.AppSettings["pathCodigoBarra"];
+            string imagePath = new Uri(pathCodigoBarra).AbsoluteUri;
             res.Add(new ReportParameter("pathImage", imagePath));
 
             report.LocalReport.SetParameters(res);
@@ -196,9 +202,9 @@ namespace Blibox
                     DetalleCustom detalleCustom = new DetalleCustom
                     {
                         Articulo = det.Articulo.Descripcion,
-                        Cantidad = (det.Cantidad != null) ? (Decimal)det.Cantidad : 0,
-                        PrecioUnitario = (det.Precio_unitario != null) ? (Decimal)det.Precio_unitario : 0,
-                        PrecioTotal = (det.Precio_total != null) ? (Decimal)det.Precio_total : 0
+                        Cantidad = det.Cantidad,
+                        PrecioUnitario = det.Precio_unitario,
+                        PrecioTotal = det.Precio_total
 
                     };
 
@@ -264,10 +270,10 @@ namespace Blibox
                     //barcodeImage = BarcodeLib.Barcode.DoEncode(type, this.txtData.Text.Trim(), this.chkGenerateLabel.Checked, this.btnForeColor.BackColor, this.btnBackColor.BackColor);
                     //==========================================
 
-                   // Response.ContentType = "image/" + strImageFormat;
+                    // Response.ContentType = "image/" + strImageFormat;
                     //System.IO.MemoryStream MemStream = new System.IO.MemoryStream();
-
-                    barcodeImage.Save(@"E:\blibox\web\Blibox.Reports\images\codigo.png", ImageFormat.Png);
+                    string pathCodigoBarra = ConfigurationManager.AppSettings["pathCodigoBarra"];
+                    barcodeImage.Save(pathCodigoBarra, ImageFormat.Png);
 
                     //MemStream.WriteTo(Response.OutputStream);
                 }//if

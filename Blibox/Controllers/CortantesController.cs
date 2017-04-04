@@ -35,7 +35,7 @@ namespace Blibox.Controllers
             if (!String.IsNullOrEmpty(q))
             {
                 query = query.Where(s =>
-                    s.ID_cortante.ToString().Contains(q) ||
+                    s.Codigo.ToString().Contains(q) ||
                     s.Descripcion.Contains(q) ||
                      s.Sector.Contains(q) ||
                       s.Bocas.ToString().Contains(q) ||
@@ -79,13 +79,24 @@ namespace Blibox.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Cortante.Add(cortante);
-                db.SaveChanges();
-                TempData["Noti"] = Notification.Show("Cortante generada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
-                return RedirectToAction("Index");
-            }
+                int existe = db.Cortante.Where(m => m.Codigo == cortante.Codigo).ToList().Count;
 
+                if (existe == 0)
+                {
+                    db.Cortante.Add(cortante);
+                    db.SaveChanges();
+                    TempData["Noti"] = Notification.Show("Cortante generada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Noti"] = Notification.Show("El codigo ya existe, por favor ingrese otro valor", "CORTANTES", type: ToastType.Warning, position: Position.TopCenter);
+                    return View(cortante);
+                }
+                
+            }
             return View(cortante);
+
         }
 
         // GET: Cortantes/Edit/5

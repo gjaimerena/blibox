@@ -38,7 +38,7 @@ namespace Blibox.Controllers
             if (!String.IsNullOrEmpty(q))
             {
                 query = query.Where(s =>
-                    s.ID_matriz.ToString().Contains(q) ||
+                    //s.ID_matriz.ToString().Contains(q) ||
                     s.Descripcion.Contains(q) ||
                     s.Observaciones.Contains(q) ||
                     s.Sector.ToString().Contains(q) ||

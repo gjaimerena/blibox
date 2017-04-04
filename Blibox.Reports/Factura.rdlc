@@ -466,6 +466,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
+        <Top>0cm</Top>
         <Left>0.84666cm</Left>
         <Height>1.9273cm</Height>
         <Width>14.70642cm</Width>
@@ -1452,15 +1453,17 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Textbox Name="lblCodigoComprobante">
+            <Textbox Name="lblCodigoCbte">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>COD. 01</Value>
-                      <Style />
+                      <Value>=Parameters!lblCodigoCbte.Value</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style>
@@ -2064,6 +2067,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="pathImage">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="lblCodigoCbte">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
