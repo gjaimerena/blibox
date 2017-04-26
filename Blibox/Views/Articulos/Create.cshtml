@@ -543,6 +543,32 @@
                                 message: 'El campo es requerido'
                             }
                         },
+                    },
+                    Costo: {
+                        validators: {
+                            numeric: {
+                                message: 'El importe no es numerico',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: ','
+                            },
+                            notEmpty: {
+                                message: 'El campo es requerido'
+                            }
+                        },
+                    },
+                    Precio_lista: {
+                        validators: {
+                            numeric: {
+                                message: 'El importe no es numerico',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: ','
+                            },
+                            notEmpty: {
+                                message: 'El campo es requerido'
+                            }
+                        },
                     }
                 },
 
