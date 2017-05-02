@@ -115,6 +115,7 @@ namespace Blibox.Controllers
             // DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
             //int Remito = Convert.ToInt32(form["Nro_remito"]);
             int OrdenCompra = form["OrdenCompra"]!="" ? Convert.ToInt32(form["OrdenCompra"]) : 0;
+            int Nroremito = form["Nro_remito"] != "" ? Convert.ToInt32(form["Nro_remito"]) : 0;
             int DiasFF = form["Cliente.DiasFF"] != "" ? Convert.ToInt32(form["Cliente.DiasFF"]) : 0;
             int DiasCheque = form["Cliente.Dias_Cheque"] != "" ? Convert.ToInt32(form["Cliente.Dias_Cheque"]) : 0;  
             Decimal Descuento = Convert.ToDecimal(form["Descuento"].Replace('.', ','));
@@ -122,7 +123,7 @@ namespace Blibox.Controllers
             Double total = Convert.ToDouble(form["total"].Replace('.', ','));
 
             List<itemFactura> itemsFactura = new List<itemFactura>();
-            for (int i = 10; i < form.Count - 2; i = i + 4)
+            for (int i = 11; i < form.Count - 2; i = i + 4)
             {
                 itemFactura item = new itemFactura
                 {
@@ -184,7 +185,7 @@ namespace Blibox.Controllers
                     ID_condicon_venta = Convert.ToInt32(ID_condicion_venta),
                     IVA = Convert.ToDecimal(desc_Iva),
                     NroComprobante = Convert.ToInt32(resp.Detalles[0].CbteDesde),
-                    Nro_remito = 0,
+                    Nro_remito = Nroremito,
                     OrdenCompra = OrdenCompra,
                     Subtotal = Convert.ToDecimal(subtotal),
                     Total = Convert.ToDecimal(total),

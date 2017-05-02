@@ -23,9 +23,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>0.03528cm</Top>
-            <Left>5.6501cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.07362cm</Top>
+            <Left>5.63093cm</Left>
+            <Height>0.47669cm</Height>
             <Width>3.32369cm</Width>
             <Style>
               <Border>
@@ -54,9 +54,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Cliente_RazonSocial</rd:DefaultName>
-            <Top>0.03528cm</Top>
-            <Left>9.04435cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.07362cm</Top>
+            <Left>9.02518cm</Left>
+            <Height>0.47669cm</Height>
             <Width>5.3767cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -88,7 +88,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox22</rd:DefaultName>
-            <Top>0.47056cm</Top>
+            <Top>0.5089cm</Top>
             <Left>0.11748cm</Left>
             <Height>0.4cm</Height>
             <Width>2.8115cm</Width>
@@ -120,9 +120,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Cliente_Domicilio</rd:DefaultName>
-            <Top>0.47056cm</Top>
-            <Left>2.92898cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.48973cm</Top>
+            <Left>2.89064cm</Left>
+            <Height>0.47669cm</Height>
             <Width>11.18364cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -154,8 +154,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>0.87056cm</Top>
-            <Left>0.11748cm</Left>
+            <Top>0.98252cm</Top>
+            <Left>0.13078cm</Left>
             <Height>0.4cm</Height>
             <Width>2.12676cm</Width>
             <ZIndex>4</ZIndex>
@@ -186,8 +186,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Cliente_TipoResponsable</rd:DefaultName>
-            <Top>0.87056cm</Top>
-            <Left>2.38535cm</Left>
+            <Top>0.94418cm</Top>
+            <Left>2.39865cm</Left>
             <Height>0.4cm</Height>
             <Width>4.59144cm</Width>
             <ZIndex>5</ZIndex>
@@ -220,9 +220,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox27</rd:DefaultName>
-            <Top>0.03528cm</Top>
-            <Left>0.11748cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.07362cm</Top>
+            <Left>0.13665cm</Left>
+            <Height>0.47669cm</Height>
             <Width>1.18825cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
@@ -252,9 +252,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Cliente_CUIT</rd:DefaultName>
-            <Top>0.03528cm</Top>
+            <Top>0.07362cm</Top>
             <Left>1.48212cm</Left>
-            <Height>0.4cm</Height>
+            <Height>0.47669cm</Height>
             <Width>4.09743cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
@@ -286,9 +286,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox29</rd:DefaultName>
-            <Top>0.87056cm</Top>
-            <Left>7.08262cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.95005cm</Top>
+            <Left>7.05758cm</Left>
+            <Height>0.47669cm</Height>
             <Width>2.3737cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
@@ -318,9 +318,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>CondicionVenta</rd:DefaultName>
-            <Top>0.87056cm</Top>
-            <Left>9.49161cm</Left>
-            <Height>0.4cm</Height>
+            <Top>0.93676cm</Top>
+            <Left>9.45327cm</Left>
+            <Height>0.47669cm</Height>
             <Width>5cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
@@ -352,9 +352,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox31</rd:DefaultName>
-            <Top>1.30223cm</Top>
-            <Left>6.96514cm</Left>
-            <Height>0.4cm</Height>
+            <Top>1.38172cm</Top>
+            <Left>6.9401cm</Left>
+            <Height>0.47669cm</Height>
             <Width>2.38535cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
@@ -384,9 +384,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Cliente_Remito</rd:DefaultName>
-            <Top>1.27056cm</Top>
-            <Left>9.40891cm</Left>
-            <Height>0.4cm</Height>
+            <Top>1.33676cm</Top>
+            <Left>9.37057cm</Left>
+            <Height>0.47669cm</Height>
             <Width>5cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
@@ -418,8 +418,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox31</rd:DefaultName>
-            <Top>1.27796cm</Top>
-            <Left>0.11748cm</Left>
+            <Top>1.37075cm</Top>
+            <Left>0.13078cm</Left>
             <Height>0.4cm</Height>
             <Width>2.11511cm</Width>
             <ZIndex>12</ZIndex>
@@ -449,8 +449,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.27796cm</Top>
-            <Left>2.3148cm</Left>
+            <Top>1.35158cm</Top>
+            <Left>2.3281cm</Left>
             <Height>0.4cm</Height>
             <Width>4.59144cm</Width>
             <ZIndex>13</ZIndex>
@@ -466,9 +466,9 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0cm</Top>
+        <Top>0.07055cm</Top>
         <Left>0.84666cm</Left>
-        <Height>1.9273cm</Height>
+        <Height>1.99786cm</Height>
         <Width>14.70642cm</Width>
         <Style>
           <Border>
@@ -963,8 +963,8 @@
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
             <DataSetName>Factura</DataSetName>
-            <Top>0.58464cm</Top>
-            <Left>0.10504cm</Left>
+            <Top>0.07055cm</Top>
+            <Left>0.15007cm</Left>
             <Height>1.5317cm</Height>
             <Width>14.42676cm</Width>
             <Style>
@@ -976,9 +976,9 @@
           </Tablix>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>1.9273cm</Top>
+        <Top>2.13897cm</Top>
         <Left>0.8591cm</Left>
-        <Height>17.09749cm</Height>
+        <Height>16.72635cm</Height>
         <Width>14.69397cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -1008,7 +1008,7 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>7.49007in</Height>
+    <Height>7.42729in</Height>
     <Style />
   </Body>
   <Width>6.54145in</Width>
@@ -1527,7 +1527,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>2.57737cm</Height>
+      <Height>2.48467cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1882,8 +1882,9 @@
             </Image>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
+          <Top>0cm</Top>
           <Left>0.84666cm</Left>
-          <Height>2.21884cm</Height>
+          <Height>2.17791cm</Height>
           <Width>14.70642cm</Width>
           <Style>
             <Border>

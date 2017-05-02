@@ -9,3 +9,9 @@ E:\blibox\Web\blibox\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
 E:\blibox\Web\blibox\Blibox.Logica\obj\Debug\Blibox.Logica.dll
 E:\blibox\Web\blibox\Blibox.Logica\obj\Debug\Blibox.Logica.pdb
 E:\blibox\Web\blibox\Blibox.Logica\obj\Debug\Blibox.Logica.csprojResolveAssemblyReference.cache
+E:\blibox\web\Blibox.Logica\bin\Debug\Blibox.Logica.dll.config
+E:\blibox\web\Blibox.Logica\bin\Debug\Blibox.Logica.dll
+E:\blibox\web\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
+E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.csprojResolveAssemblyReference.cache
+E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.dll
+E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.pdb

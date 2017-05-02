@@ -471,24 +471,10 @@
     <Content Include="Content\dist\img\default-50x50.gif" />
     <Content Include="Content\dist\img\Delete.png" />
     <Content Include="Content\dist\img\Edit.png" />
-    <Content Include="Content\dist\img\gigolo.jpg" />
-    <Content Include="Content\dist\img\gigolo2.jpg" />
     <Content Include="Content\dist\img\icons.png" />
     <Content Include="Content\dist\img\logo.jpg" />
     <Content Include="Content\dist\img\operator_icon.jpg" />
-    <Content Include="Content\dist\img\photo1.png" />
-    <Content Include="Content\dist\img\photo2.png" />
-    <Content Include="Content\dist\img\photo3.jpg" />
-    <Content Include="Content\dist\img\photo4.jpg" />
     <Content Include="Content\dist\img\Save.png" />
-    <Content Include="Content\dist\img\user1-128x128.jpg" />
-    <Content Include="Content\dist\img\user2-160x160.jpg" />
-    <Content Include="Content\dist\img\user3-128x128.jpg" />
-    <Content Include="Content\dist\img\user4-128x128.jpg" />
-    <Content Include="Content\dist\img\user5-128x128.jpg" />
-    <Content Include="Content\dist\img\user6-128x128.jpg" />
-    <Content Include="Content\dist\img\user7-128x128.jpg" />
-    <Content Include="Content\dist\img\user8-128x128.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -1399,6 +1385,7 @@
     <Content Include="Blibox.edmx.diagram">
       <DependentUpon>Blibox.edmx</DependentUpon>
     </Content>
+    <Content Include="blibox.bak" />
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />
