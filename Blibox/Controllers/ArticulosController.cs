@@ -205,6 +205,8 @@ namespace Blibox.Models
             ViewBag.Peso = "0";
             
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social", articulo.ID_cliente);
+            ViewBag.Stock = Decimal.ToInt32((articulo.Stock == null) ? (decimal)0 : (decimal)articulo.Stock);
+            ViewBag.Stock_minimo = Decimal.ToInt32((articulo.Stock_minimo == null) ? (decimal)0 : (decimal)articulo.Stock_minimo);
             return View(articulo);
         }
 

@@ -27,7 +27,7 @@
                 <div class="box-body">
 
 
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
                         @Html.AntiForgeryToken()
 

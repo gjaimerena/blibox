@@ -24,8 +24,8 @@
                 <h3 class="box-title">Rubros</h3>
             </div>
             <div class="box-body">
-                @using (Html.BeginForm())
-            {
+               @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+               {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal" style="padding:10px;">
