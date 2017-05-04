@@ -22,7 +22,19 @@
         <br />
         <div class="row">
             <div class="col-md-4">
-                <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVA FACTURA", "Create")</button>
+                @{
+                    Blibox.Logica.Model.FEEstado estado = (Blibox.Logica.Model.FEEstado)ViewBag.estado;
+                    if ((estado != null) && (estado.Estado == true))
+                    {
+                        <button type="button" class="btn btn-new ">@Html.ActionLink("NUEVA FACTURA", "Create")</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger ">@Html.ActionLink("NO ES POSIBLE CREAR FACTURAS, CONEXION A AFIP NO DISPONIBLE, INTENTE EN UNOS MOMENTOS Y PRESIONE ESTE BOTON", "Index")</button>
+                    }
+                }
+                
+               
             </div>
 
             @{ string currentFilter = ViewBag.CurrentFilter;

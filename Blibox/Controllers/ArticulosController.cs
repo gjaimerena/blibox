@@ -13,7 +13,7 @@ using Blibox.Controllers;
 
 namespace Blibox.Models
 {
-
+    [Authorize]
     public class ArticulosController : Controller
     {
 

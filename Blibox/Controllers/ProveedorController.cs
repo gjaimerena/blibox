@@ -11,6 +11,7 @@ using PagedList;
 
 namespace Blibox.Models
 {
+    [Authorize]
     public class ProveedorController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

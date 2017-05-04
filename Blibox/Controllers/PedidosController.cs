@@ -16,6 +16,7 @@ using System.Globalization;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     public class PedidosController : Controller
     {
         private ICollection<Articulo> articulosColeccion = new HashSet<Articulo>();

@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     [AuthorizeOrRedirect(Roles = "Administrador")]
     public class CtaCteClientesController : Controller
     {

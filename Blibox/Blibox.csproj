@@ -1386,6 +1386,7 @@
       <DependentUpon>Blibox.edmx</DependentUpon>
     </Content>
     <Content Include="blibox.bak" />
+    <Content Include="Diagrama clases.cd" />
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />

@@ -14,6 +14,7 @@ using Blibox.Logica.Facturacion;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     [AuthorizeOrRedirect(Roles = "Administrador")]
     public class NotaCreditoController : Controller
     {

@@ -15,7 +15,7 @@
 
         <div class="row">
             <h3>Administración de Roles de Usuario</h3>
-            @Html.ActionLink("NUEVO ROL", "Create",null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("ADMINISTRAR ROLES DE USUARIO", "ManageUserRoles",null, new { @class = "btn btn-addmore" })
+            @Html.ActionLink("NUEVO ROL", "Create",null, new { @class = "btn btn-addmore" }) | @Html.ActionLink("CUENTAS DE USUARIOS", "Index",null, new { @class = "btn btn-addmore" })
             <hr />
             <div class="row">
                 <div class="col-md-6">
@@ -34,7 +34,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-8">
                                         <label>Usuario</label>
-                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del usuario" })
                                     </div>
 
 
@@ -134,7 +134,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-8">
                                         <label>Usuario</label>
-                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del nuevo rol" })
+                                        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Ingrese nombre del usuario" })
                                     </div>
 
 

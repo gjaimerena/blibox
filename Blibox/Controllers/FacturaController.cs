@@ -14,7 +14,8 @@ using Blibox.Logica.Model;
 
 namespace Blibox.Controllers
 {
-    [AuthorizeOrRedirect(Roles = "Administrador")]
+    [Authorize]
+    [AuthorizeOrRedirect(Roles = "Administrador,Superusuario")]
     public class FacturaController : Controller
     {
         private BliboxEntities db = new BliboxEntities();
@@ -50,6 +51,11 @@ namespace Blibox.Controllers
                     s.Cliente.Documento.ToString().Contains(q)
                     ).OrderBy(m => m.ID_cliente);
             }
+
+            //conusltio estado de los wervicios de AFIP
+            FEEstado estado = new FEEstado();
+            estado = FE.estadoAFIP();
+            ViewBag.estado = estado;
 
             return View(query.ToPagedList(page, pageSize));
         }
@@ -87,12 +93,28 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection form)
         {
+
+            //conusltio estado de los wervicios de AFIP
+            FEEstado estado = new FEEstado();
+            estado = FE.estadoAFIP();
+            ViewBag.estado = estado;
+
+            if (estado.Estado == false)
+            {
+                TempData["Noti"] = Notification.Show("Lo sentimos , el servicio de AFIP no esta disponible, intente nuevamente en unos momentos", "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+                return RedirectToAction("Index");
+            }
+
             if (ModelState.IsValid)
             {
                 //db.Encabezado_Factura.Add(encabezado_Factura);
                 //db.SaveChanges();
                 //return RedirectToAction("Index");
             }
+
+            
+
+
 
             int idCliente = Convert.ToInt32(form["ID_cliente"]);
             string documento = form["Cliente.Documento"];

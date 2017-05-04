@@ -12,6 +12,7 @@ using Blibox.Controllers;
 
 namespace Blibox.Models
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

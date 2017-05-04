@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

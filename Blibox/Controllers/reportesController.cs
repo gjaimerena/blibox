@@ -12,6 +12,7 @@ using System.Reflection;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     public class reportesController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

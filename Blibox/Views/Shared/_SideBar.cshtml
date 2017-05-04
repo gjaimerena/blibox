@@ -6,7 +6,7 @@
         <div class="user-panel">
             <div class="pull-left image">
 
-                @if (User.IsInRole("Administrador"))
+                @if (User.IsInRole("Administrador") || User.IsInRole("Superusuario"))
                 {
                     <img class="img-circle" alt="User Image" src="~/Content/dist/img/admin_icon.jpg" />
                 }
@@ -31,7 +31,7 @@
             <li class="@*active*@ treeview">
 
                 <a href="#" style="color: #fff">
-                    <i class="fa fa-book"></i> <span>Administracion</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-book"></i> <span>Administración</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="@Url.Action("Index", "Articulos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Articulos</></a></li>
@@ -44,7 +44,7 @@
                     <li><a href="@Url.Action("Index", "Cortantes")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Cortantes</></a></li>
                     <li><a href="@Url.Action("Index", "Materiales")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Materiales</></a></li>
                     <li><a href="@Url.Action("Index", "Marcos")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Marcos</></a></li>
-                    @if (User.IsInRole("Administrador"))
+                    @if (User.IsInRole("Superusuario"))
                     {
                         @:
                         <li><a href="@Url.Action("Index", "Roles")" style="color: #d4e15b"><i class="fa fa-circle-o"></i>Cuentas de usuario</a></li>
@@ -53,7 +53,7 @@
                 </ul>
             </li>
 
-            @if (User.IsInRole("Administrador"))
+            @if (User.IsInRole("Administrador") || User.IsInRole("Superusuario"))
             {
 
                 @:<li class="treeview">

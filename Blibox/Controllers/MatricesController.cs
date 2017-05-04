@@ -11,6 +11,7 @@ using PagedList;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     public class MatricesController : Controller
     {
         private BliboxEntities db = new BliboxEntities();

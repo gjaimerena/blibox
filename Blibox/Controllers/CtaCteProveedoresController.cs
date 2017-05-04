@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Blibox.Controllers
 {
+    [Authorize]
     [AuthorizeOrRedirect(Roles = "Administrador")]
     public class CtaCteProveedoresController : Controller
     {

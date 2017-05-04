@@ -51,6 +51,7 @@
     <Compile Include="Model\FECAERespuesta.cs" />
     <Compile Include="Model\FECAERespuestaCabecera.cs" />
     <Compile Include="Model\FECAERespuestaDetalle.cs" />
+    <Compile Include="Model\FEEstado.cs" />
     <Compile Include="Model\Observacion.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Model\DetalleRegistros.cs" />

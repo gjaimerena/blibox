@@ -251,14 +251,49 @@ namespace Blibox.Logica.Facturacion
             try
             {
                 WSFEv1.ServiceSoapClient fe = new WSFEv1.ServiceSoapClient();
+               
                 return fe.FECompUltimoAutorizado(auth, ptoVenta, cbteTipo).CbteNro;
 
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 return -1;
             }
         }
 
-        
+        public static FEEstado estadoAFIP()
+        {
+            FEEstado estado = new FEEstado();
+            try
+            {
+                WSFEv1.ServiceSoapClient fe = new WSFEv1.ServiceSoapClient();
+
+                var resp = fe.FEDummy();
+                if (resp.AppServer.ToUpper().Equals("OK") && resp.AuthServer.ToUpper().Equals("OK") && resp.DbServer.ToUpper().Equals("OK"))
+                {
+                    estado.Estado = true;
+                    estado.Mensaje = "Conexion AFIP disponible";
+
+                    return estado;
+                }
+                else
+                {
+                    estado.Estado = false;
+                    estado.Mensaje = "Conexion AFIP no disponible, intente en unos instantes";
+
+                    return estado;
+                }
+                   
+
+            }
+            catch (Exception ex)
+            {
+                estado.Estado = false;
+                estado.Mensaje = ex.Message.ToString();
+
+                return estado;
+            }
+
+            
+        }
     }
 }
