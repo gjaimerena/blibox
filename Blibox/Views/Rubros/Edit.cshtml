@@ -20,56 +20,86 @@
     <section class="content">
         <div class="box box-blibox box-solid">
 
-            
-                <div class="box-header with-border">
-                    <h3 class="box-title">Rubros</h3>
-                </div>
-                <div class="box-body">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Editar rubro</h3>
+            </div>
+            <div class="box-body">
 
 
-                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
             {
-                        @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                        <div class="form-horizontal" style="padding:10px; text-align:left;">
-                            <h4>Edicion del Rubro</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.ID_rubro)
+                    <div class="form-horizontal" style="padding:10px; text-align:left;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID_rubro)
 
-                            <div class="form-group">
-                                @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-1" })
-                                <div class="col-lg-4 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        <div class="form-group">
+                            <div class="dobleEntrada">
+                                @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                                        @Html.EditorFor(
+                    model => model.Descirpcion,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "Descripcion",
+                            data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar la Descripcion",
+                            required = "required",
+                            data_fv_row = ".dobleEntrada",
+                            autofocus = "autofocus"
+                        }
+                    })
                                     </div>
-                                    @Html.EditorFor(model => model.Descirpcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Descirpcion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="dobleEntrada">
+                                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2 no-clear-md" })
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                        @Html.EditorFor(
+                    model => model.Observaciones,
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            @id = "Observaciones",
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-1" })
-                                <div class="col-lg-4 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                            data_fv_row = ".dobleEntrada",
+
+                            data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Observaciones no válido",
+                            data_fv_stringlength_min = 0,
+                            data_fv_stringlength = "true"
+                        }
+                    })
                                     </div>
-                                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-2">
-                                    <input type="submit" value="Actualizar" class="btn btn-add" />
                                 </div>
                             </div>
                         </div>
-                    }
-                </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <input type="submit" value="Actualizar" class="btn btn-add" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-                <div>
-                    <button type="button" class="btn btn-cancel ">  @Html.ActionLink("Volver", "Index")</button>
-                </div>
-</section>
+        </div>
+                    <div>
+                        <button type="button" class="btn btn-cancel ">  @Html.ActionLink("Volver", "Index")</button>
+                    </div>
+    </section>
 </div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    validarForm('#form');
+    //inicializarDatePicker('#fechaPrecioLista', false, false);
+</script>

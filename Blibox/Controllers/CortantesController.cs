@@ -123,6 +123,8 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID_cortante,Codigo,Descripcion,Sector,Bocas,Observaciones")] Cortante cortante)
         {
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+
             if (ModelState.IsValid)
             {
                 db.Entry(cortante).State = EntityState.Modified;
