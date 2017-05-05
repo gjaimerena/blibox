@@ -21,16 +21,14 @@
         <div class="box box-blibox box-solid">
 
             <div class="box-header with-border">
-                <h3 class="box-title">Rubros</h3>
+                <h3 class="box-title">Crear rubro</h3>
             </div>
             <div class="box-body">
-                @using (Html.BeginForm())
-            {
+               @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "form", @class = "form form-horizontal" }))
+               {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal" style="padding:10px;">
-                        <h4> Nuevo Rubro</h4>
-
                         <div class="form-group">
                             <div class="dobleEntrada">
                                 @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })

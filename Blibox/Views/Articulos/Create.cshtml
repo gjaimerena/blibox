@@ -102,9 +102,10 @@
                                  {
                                      @class = "form-control",
                                      @id = "Costo",
-                                     //data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el costo",
-                                     //required = "required",
-                                     data_fv_row = ".dobleEntrada"
+                                     data_fv_row = ".dobleEntrada",
+                                     data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Precio costo no valido",
+                                     data_fv_stringlength_min = 0,
+                                     data_fv_stringlength = "true"
                                  }
                              })
                             </div>
@@ -251,7 +252,14 @@
                                     {
                                         @class = "form-control",
                                         @id = "Stock",
-                                        data_fv_row = ".dobleEntrada"
+                                        required = "required",
+                                        data_fv_row = ".dobleEntrada",
+                                        data_fv_thousandsSeparator = "",
+                                        data_fv_decimalSeparator = ",",
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo debe ser numérico",
+                                        data_fv_numeric = "true",
+                                        data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo es requerido",
+
                                     }
                                 })
                             </div><!-- /.col -->
@@ -267,7 +275,13 @@
                                 {
                                     @class = "form-control",
                                     @id = "Stock_minimo",
-                                    data_fv_row = ".dobleEntrada"
+                                    required = "required",
+                                    data_fv_row = ".dobleEntrada",
+                                    data_fv_thousandsSeparator = "",
+                                    data_fv_decimalSeparator = ",",
+                                    data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo debe ser numérico",
+                                    data_fv_numeric = "true",
+                                    data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo es requerido",
                                 }
                             })
                             </div>
@@ -381,7 +395,6 @@
                                                 <select required="required"
                                                         data-bind="value: ID_material, options: window.materiales, optionsText: 'Descripcion', optionsValue: 'ID_material', attr: { name: 'Componente[' + $index() + '].ID_material', id: 'Componente' + $index() + 'IDmaterial', onchange: 'calcularPeso('+$index()+')' }"
                                                         class="form-control"></select>
-                                                <em data-bind="validationMessage: ID_material"></em>
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
@@ -391,10 +404,9 @@
                                                        required="required"
                                                        min="0"
                                                        max="999999999"
-                                                       data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }"
                                                        data-fv-numeric-message="debe ser numerico"
+                                                       data-bind="value: Ciclos, attr: { name: 'Componente[' + $index() + '].Ciclos' }"
                                                        class="form-control" />
-                                                <em data-bind="validationMessage: Ciclos"></em>
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -405,10 +417,15 @@
                                             <div class="col-md-4">
                                                 <input type="number" required="required"
                                                        class="form-control"
-                                                       min="1" 
+                                                       min="0.00001" 
                                                        max="999999999" 
+                                                       data-fv-required-message="<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar las bocas"
+                                                       data-fv-greaterThan ="true"
+                                                       data-fv-greaterThan-message="<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 0"
+                                                       data-fv-lessThan ="true"
+                                                       data-fv-lessThan-message="<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 1"
+                                                       data-fv-row=".dobleEntrada"
                                                        data-bind="value: Bocas, attr: { name: 'Componente[' + $index() + '].Bocas', id: 'Componente[' + $index() + '].Bocas', onchange: 'calcularPeso('+$index()+')', required: 'true'  }" />
-                                                <em data-bind="validationMessage: Bocas"></em>
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
@@ -417,10 +434,15 @@
                                                 <input type="number"
                                                        class="form-control"
                                                        required="required" 
-                                                       min="0" 
+                                                       min="0.00001" 
                                                        max="999999999" 
+                                                       data-fv-required-message="<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el espesor"
+                                                       data-fv-greaterThan ="true"
+                                                       data-fv-greaterThan-message="<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 0"
+                                                       data-fv-lessThan ="true"
+                                                       data-fv-lessThan-message="<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 1"
+                                                       data-fv-row=".dobleEntrada"
                                                        data-bind="value: Espesor, attr: { name: 'Componente[' + $index() + '].Espesor', id: 'Componente[' + $index() + '].Espesor', onchange: 'calcularPeso('+$index()+')'  }" />
-                                                <em data-bind="validationMessage: Espesor"></em>
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -432,8 +454,11 @@
                                             <div class="col-md-4">
                                                 <input type="number"
                                                        class="form-control"
-                                                       required="required" min="0" max="999999999" data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
-                                                <em data-bind="validationMessage: Color"></em>
+                                                       required="required" 
+                                                       min="0" 
+                                                       max="999999999" 
+                                                       data-fv-row=".dobleEntrada"
+                                                       data-bind="value: Color, attr: { name: 'Componente[' + $index() + '].Color' }" />
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
@@ -442,12 +467,13 @@
                                                 <input type="text"
                                                        class="form-control"
                                                        required="required" 
-                                                       @*min="0" 
-                                                       max="999999999"*@ 
+                                                       min="0" 
+                                                       max="999999999" 
+                                                      
+                                                       data-fv-row=".dobleEntrada"
                                                        data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 
                                                       
                                                        readonly/>
-                                                <em data-bind="validationMessage: Peso"></em>
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -457,7 +483,6 @@
                                             <div class="col-md-4">
 
                                                 <select required="required"  class="form-control" data-bind="value: ID_marco, options: window.marcos, optionsText: 'Descripcion', optionsValue: 'ID_marco', attr: { name: 'Componente[' + $index() + '].ID_marco', id: 'Componente' + $index() + 'IDmarco', onchange: 'calcularPeso('+$index()+')' }"></select>
-                                                <em data-bind="validationMessage: ID_marco"></em>
                                             </div>
                                         </div><!-- /.dobleEntrada -->
 
@@ -467,7 +492,6 @@
                                             <label class="col-md-2 control-label no-clear-md">Matriz</label>
                                             <div class="col-md-4">
                                                 <select required="required" class="form-control" data-bind="value: ID_matriz, options: window.matriz, optionsText: 'Codigo', optionsValue: 'ID_matriz', attr: { name: 'Componente[' + $index() + '].ID_matriz', id: 'Componente[' + $index() + '].ID_matriz'}"></select>
-                                                <em data-bind="validationMessage: ID_matriz"></em>
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -478,7 +502,6 @@
                                             <div class="col-md-4">
 
                                                 <select required="required" class="form-control" data-bind="value: ID_cortante, options: window.cortante, optionsText: 'Descripcion', optionsValue: 'ID_cortante', attr: { name: 'Componente[' + $index() + '].ID_cortante' }"></select>
-                                                <em data-bind="validationMessage: ID_cortante"></em>
                                             </div>
                                         </div>
                                         <!-- ko if: $index()!=0 -->
@@ -495,88 +518,13 @@
                         <br />
 
                         <div class="form-group">
-
                             <input type="submit" value="Generar" data-bind="enable: canCreate()" class="btn btn-add" /> |
                             <button type="button" class="btn btn-cancel ">@Html.ActionLink("Cancelar", "Index")</button>
-
-
                         </div>
         }
 
     </section>
 </div><!-- /.content-wrapper -->
-
-<script>
-    $(document).ready(function () {
-
-        $('#form')
-            .formValidation({
-                framework: 'bootstrap',
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    Stock: {
-                        validators: {
-                            numeric: {
-                                message: 'El importe no es numerico',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ','
-                            },
-                            notEmpty: {
-                                message: 'El campo es requerido'
-                            }
-                        },
-                    },
-                    Stock_minimo: {
-                        validators: {
-                            numeric: {
-                                message: 'El importe no es numerico',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ','
-                            },
-                            notEmpty: {
-                                message: 'El campo es requerido'
-                            }
-                        },
-                    },
-                    Costo: {
-                        validators: {
-                            numeric: {
-                                message: 'El importe no es numerico',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ','
-                            },
-                            notEmpty: {
-                                message: 'El campo es requerido'
-                            }
-                        },
-                    },
-                    Precio_lista: {
-                        validators: {
-                            numeric: {
-                                message: 'El importe no es numerico',
-                                // The default separators
-                                thousandsSeparator: '',
-                                decimalSeparator: ','
-                            },
-                            notEmpty: {
-                                message: 'El campo es requerido'
-                            }
-                        },
-                    }
-                },
-
-            })
-
-
-    });
-</script>
 
 <script type="text/javascript">
     validarForm('#form');
@@ -630,8 +578,9 @@
         });
         var bocas = document.getElementById("Componente[" + numeroComponente + "].Bocas").value;
         var espesor = document.getElementById("Componente[" + numeroComponente + "].Espesor").value;
-        
-        console.log("{'marcoId': " + marco + ", 'materialId': " + material + ", 'bocas': " + bocas + ", 'espesor': " + espesor + "}");
+        bocas = bocas ? bocas : 0;
+        espesor = espesor ? espesor : 0;
+
         $.ajax({
             type: "POST",
             url: "@Url.Action("calcularPeso", "Articulos")",
@@ -642,7 +591,6 @@
                 if (data != null) {
                     var peso = data.peso.toString().replace(".", ",")
                     $("#" + idComponeteSinParentesis + "Peso").val(peso);
-                    debugger;
                 }
             },
             error: function (request, status, error) {

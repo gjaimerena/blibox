@@ -1,5 +1,7 @@
 ﻿@model Blibox.Articulo
 
+    
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -99,9 +101,10 @@
                                  {
                                      @class = "form-control",
                                      @id = "costo",
-                                     data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el costo",
-                                     required = "required",
-                                     data_fv_row = ".dobleEntrada"
+                                     data_fv_row = ".dobleEntrada",
+                                     data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Precio costo no valido",
+                                     data_fv_stringlength_min = 0,
+                                     data_fv_stringlength = "true"
                                  }
                              })
                             </div>
@@ -218,17 +221,22 @@
                         <div class="dobleEntrada">
                             <label class="control-label col-md-2">Stock</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(
-                                model => model.Stock,
+                                @Html.Editor(
+                                "Stock",
                                 new
                                 {
                                     htmlAttributes = new
                                     {
                                         @class = "form-control",
-                                        @text = "number",
+                                        @type = "number",
                                         @id = "stock",
-                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El stock debe ser numérico",
-                                        data_fv_row = ".dobleEntrada"
+                                        required = "required",
+                                        data_fv_row = ".dobleEntrada",
+
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo debe ser numérico",
+                                        data_fv_numeric = "true",
+                                        data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo es requerido",
+
                                     }
                                 })
                             </div><!-- /.col -->
@@ -236,8 +244,8 @@
                         <div class="dobleEntrada">
                             <label class="control-label col-md-2 no-clear-md">Stock Minimo</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(
-                            model => model.Stock_minimo,
+                                @Html.Editor(
+                            "Stock_minimo",
                             new
                             {
                                 htmlAttributes = new
@@ -245,8 +253,12 @@
                                     @class = "form-control",
                                     @text = "number",
                                     @id = "stockMinimo",
-                                    data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> La cantidad de stock mínimo debe ser numérico",
-                                    data_fv_row = ".dobleEntrada"
+                                    required = "required",
+                                    data_fv_row = ".dobleEntrada",
+                                    data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo debe ser numérico",
+                                    data_fv_numeric = "true",
+                                    data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> El campo es requerido",
+
                                 }
                             })
                             </div>
@@ -380,7 +392,7 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString().Replace(".",","), new { htmlAttributes = new { @Value = item.Peso, @id = "Componente" + i + "Peso", @class = "form-control", @disabled = "" } })
+                                                @Html.Editor("Componente[" + i + "].Peso", item.Peso.ToString().Replace(".",","), new { htmlAttributes = new { data_fv_row = ".dobleEntrada", @Value = item.Peso, @id = "Componente" + i + "Peso", @class = "form-control", @disabled = "" } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -395,7 +407,14 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Ciclo</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new { @Value = item.Ciclos, @class = "form-control" } })
+                                                @Html.Editor("Componente[" + i + "].Ciclos", item.Ciclos, new { htmlAttributes = new {
+                                                    @Value = item.Ciclos,
+                                                    @class = "form-control",
+
+                                                    min = "0",
+                                                    max = "999999999",
+                                                    data_fv_numeric_message = "debe ser numerico"
+                                           } })
                                             </div>
                                         </div>
                                     </div><!-- /.form-group -->
@@ -403,13 +422,47 @@
                                         <div class="dobleEntrada">
                                             <label class="col-md-2 control-label">Bocas</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Bocas", item.Bocas, new { htmlAttributes = new { @Value = item.Bocas, @id = "Componente[" + i + "].Bocas", @class = "form-control", onchange = "calcularPeso(" + i + ")" } })
+                                                @Html.Editor(
+                                                    "Componente[" + i + "].Bocas",
+                                                    item.Bocas,
+                                                    new {
+                                                        htmlAttributes = new {
+                                                            @Value = item.Bocas,
+                                                            @id = "Componente[" + i + "].Bocas",
+                                                            @class = "form-control",
+                                                            required = "required",
+                                                            min = "0.00001",
+                                                            max = "999999999",
+                                                            data_fv_required_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar las bocas",
+                                                            data_fv_greaterThan = "true",
+                                                            data_fv_greaterThan_message = "<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 0",
+                                                            data_fv_lessThan = "true",
+                                                            data_fv_lessThan_message = "<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 1",
+                                                            data_fv_row = ".dobleEntrada",
+                                                            onchange = "calcularPeso(" + i + ")" } })
                                             </div>
                                         </div>
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Espesor</label>                 
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Espesor", item.Espesor, new { htmlAttributes = new { @Value = item.Espesor, @id = "Componente[" + i + "].Espesor", @class = "form-control", onchange = "calcularPeso(" + i + ")" } })
+                                                @Html.Editor(
+                                                    "Componente[" + i + "].Espesor",
+                                                    item.Espesor,
+                                                    new {
+                                                        htmlAttributes = new {
+                                                            @Value = item.Espesor,
+                                                            @id = "Componente[" + i + "].Espesor",
+                                                            @class = "form-control",
+                                                            required = "required",
+                                                            min = "0.00001",
+                                                            max = "999999999",
+                                                            data_fv_required_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el espesor",
+                                                            data_fv_greaterThan = "true",
+                                                            data_fv_greaterThan_message = "<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 0",
+                                                            data_fv_lessThan = "true",
+                                                            data_fv_lessThan_message = "<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 1",
+                                                            data_fv_row = ".dobleEntrada",
+                                                            onchange = "calcularPeso(" + i + ")" } })
                                                 @*@Html.ValidationMessageFor(model => model.Componente.ElementAt(0).Espesor, "", new { @class = "text-danger" })*@
                                             </div>
                                         </div>
