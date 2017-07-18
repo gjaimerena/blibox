@@ -707,7 +707,7 @@
 }
 
 .skin-green .main-header .navbar {
-    background-color: #318E63;
+    background: linear-gradient(135deg, #58b28d, #79b743),#68b468;/* #318E63;*/
 }
 
     .skin-green .main-header .navbar .nav > li > a {

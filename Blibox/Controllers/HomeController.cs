@@ -13,6 +13,26 @@ namespace Blibox.Controllers
 
         public ActionResult Index()
         {
+
+            List<Pedido> pedidos = db.Pedido.Select(m => m).ToList();
+            int pendientes = 0;
+
+            foreach(Pedido p in pedidos)
+            {
+                if (p.cantidad_pedida != p.cantidad_entregada) pendientes++;
+            }
+
+            ViewBag.pedidospendientes = pendientes;
+
+            int clientes = db.Cliente.Count();
+                    
+            ViewBag.clientes = clientes;
+
+            int articulos = db.Articulo.Count();
+
+            ViewBag.articulos = articulos;
+
+
             return View();
         }
 

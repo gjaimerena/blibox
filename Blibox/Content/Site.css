@@ -1,6 +1,7 @@
 ﻿body {
     //padding-top: 50px;
     padding-bottom: 20px;
+    background:#333;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -258,6 +259,8 @@ label.control-label {
     text-transform: uppercase;
 }
 
+
+
 h3 {
     margin-top: 0px;
     text-transform: uppercase;
@@ -344,7 +347,7 @@ button > a:focus {
 
 .box.box-solid.box-blibox > .box-header {
         color: #fff;
-        background: #7CCAA6;
+        background: linear-gradient(135deg, #58b28d, #d5e4c8);/*#7CCAA6;*/
         background-color: #7CCAA6;
 }
 
