@@ -158,10 +158,17 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cortante cortante = db.Cortante.Find(id);
-            db.Cortante.Remove(cortante);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Cortante eliminada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
+            try {
+                Cortante cortante = db.Cortante.Find(id);
+                db.Cortante.Remove(cortante);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Cortante eliminada exitosamente", "CORTANTES", type: ToastType.Success, position: Position.TopCenter);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar la cortante pues tiene dependencias con Articulos", "CORTANTES", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
             return RedirectToAction("Index");
         }
 

@@ -167,11 +167,20 @@ namespace Blibox.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Cliente.Find(id);
-            db.Cliente.Remove(cliente);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Cliente dado de baja con éxito", "BAJA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
-            //HelperController.Instance.agregarMensaje("Se eliminó con éxito", HelperController.CLASE_EXITO);
+            try
+            {
+                Cliente cliente = db.Cliente.Find(id);
+                db.Cliente.Remove(cliente);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Cliente dado de baja con éxito", "BAJA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("Se eliminó con éxito", HelperController.CLASE_EXITO);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar el Cliente pues tiene dependencias de facturacion y/o Cta Cte", "BAJA DE CLIENTES", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
+           
             return RedirectToAction("Index");
         }
 

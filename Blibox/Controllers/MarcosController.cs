@@ -161,10 +161,17 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Marco marco = db.Marco.Find(id);
-            db.Marco.Remove(marco);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Marco eliminado exitosamente", "MARCOS", type: ToastType.Success, position: Position.TopCenter);
+            try {
+                Marco marco = db.Marco.Find(id);
+                db.Marco.Remove(marco);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Marco eliminado exitosamente", "MARCOS", type: ToastType.Success, position: Position.TopCenter);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar el marco pues tiene dependencias con Articulos", "MARCOS", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
             return RedirectToAction("Index");
         }
 

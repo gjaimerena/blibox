@@ -436,43 +436,50 @@ namespace Blibox.Controllers
             DataTable dt = new DataTable();
             dt.TableName = "Pedidos";
             List<Models.Pedidos> pedidos = (List<Models.Pedidos>)HttpContext.Session["pedido"];
-            dt = ToDataTable(pedidos);
-
-            dt.Columns["descArticulo"].ColumnName = "Articulo";
-            dt.Columns["componente1"].ColumnName = "Componente 1 (Mat/Marco/Espesor/Kgs restantes)";
-            dt.Columns["componente2"].ColumnName = "Componente 2 (Mat/Marco/Espesor/Kgs restantes)";
-            dt.Columns["componente3"].ColumnName = "Componente 3 (Mat/Marco/Espesor/Kgs restantes)";
-            dt.Columns["cantPedida"].ColumnName = "Cantidad Pedida";
-            dt.Columns["cantEntregada"].ColumnName = "Cantidad Entregada";
-            dt.Columns["cantRestante"].ColumnName = "Cantidad Restante";
-            dt.Columns["idArticulo"].ColumnName = "Cod Articulo";
-            dt.Columns["cliente"].ColumnName = "Cliente";
-            dt.Columns["idPedido"].ColumnName = "Id Pedido";
-
-            
-
-            dt.AcceptChanges();
-
-            using (XLWorkbook wb = new XLWorkbook())
+            if (pedidos != null)
             {
-                wb.Worksheets.Add(dt);
-                
-                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                wb.Style.Font.Bold = true;
+                dt = ToDataTable(pedidos);
 
-                Response.Clear();
-                Response.Buffer = true;
-                Response.Charset = "";
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename= Pedidos.xlsx");
+                dt.Columns["descArticulo"].ColumnName = "Articulo";
+                dt.Columns["componente1"].ColumnName = "Componente 1 (Mat/Marco/Espesor/Kgs restantes)";
+                dt.Columns["componente2"].ColumnName = "Componente 2 (Mat/Marco/Espesor/Kgs restantes)";
+                dt.Columns["componente3"].ColumnName = "Componente 3 (Mat/Marco/Espesor/Kgs restantes)";
+                dt.Columns["cantPedida"].ColumnName = "Cantidad Pedida";
+                dt.Columns["cantEntregada"].ColumnName = "Cantidad Entregada";
+                dt.Columns["cantRestante"].ColumnName = "Cantidad Restante";
+                dt.Columns["idArticulo"].ColumnName = "Cod Articulo";
+                dt.Columns["cliente"].ColumnName = "Cliente";
+                dt.Columns["idPedido"].ColumnName = "Id Pedido";
 
-                using (MemoryStream MyMemoryStream = new MemoryStream())
+
+
+                dt.AcceptChanges();
+
+                using (XLWorkbook wb = new XLWorkbook())
                 {
-                    wb.SaveAs(MyMemoryStream, false);
-                    MyMemoryStream.WriteTo(Response.OutputStream);
-                    Response.Flush();
-                    Response.End();
+                    wb.Worksheets.Add(dt);
+
+                    wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    wb.Style.Font.Bold = true;
+
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename= Pedidos.xlsx");
+
+                    using (MemoryStream MyMemoryStream = new MemoryStream())
+                    {
+                        wb.SaveAs(MyMemoryStream, false);
+                        MyMemoryStream.WriteTo(Response.OutputStream);
+                        Response.Flush();
+                        Response.End();
+                    }
                 }
+            }
+            else
+            {
+                TempData["Noti"] = Notification.Show("No hay datos para exportar", "PEDIDOS", type: ToastType.Warning);
             }
             return RedirectToAction("Index", "Pedidos");
         }

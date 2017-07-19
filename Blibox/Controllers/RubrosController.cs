@@ -138,10 +138,17 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Rubro rubro = db.Rubro.Find(id);
-            db.Rubro.Remove(rubro);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Rubro eliminado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
+            try {
+                Rubro rubro = db.Rubro.Find(id);
+                db.Rubro.Remove(rubro);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Rubro eliminado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar el Rubro pues tiene dependencias con Clientes", "RUBROS", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
             return RedirectToAction("Index");
         }
 

@@ -233,7 +233,7 @@ namespace Blibox.Models
             }
             else
             {
-                TempData["Noti"] = Notification.Show(errors[0].ToString(), "ERROR", type: ToastType.Error);
+                TempData["Noti"] = Notification.Show(errors.ElementAtOrDefault(0).First().ErrorMessage, "ERROR", type: ToastType.Error);
               //  HelperController.Instance.agregarMensaje(, HelperController.CLASE_ERROR);
             }
             getDropdownElements();
@@ -279,7 +279,7 @@ namespace Blibox.Models
                
             }
             catch (Exception e) {
-                TempData["Noti"] = Notification.Show("No se pudo elimianr el articulo, verifique que no haya pedidos que lo utilicen", "BAJA DE ARTICULOS", type: ToastType.Error);
+                TempData["Noti"] = Notification.Show("No se pudo elimianr el articulo, verifique que no haya pedidos que lo utilicen", "BAJA DE ARTICULOS", type: ToastType.Error, position: Position.TopCenter);
             }
 
             return RedirectToAction("Index");

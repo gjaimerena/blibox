@@ -166,7 +166,7 @@ namespace Blibox.Models
             {
                 db.Entry(proveedor).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["Noti"] = Notification.Show("Pedido modificado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
+                TempData["Noti"] = Notification.Show("Proveedor modificado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
             return View(proveedor);
@@ -194,10 +194,19 @@ namespace Blibox.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Proveedor proveedor = db.Proveedor.Find(id);
-            db.Proveedor.Remove(proveedor);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Pedido eliminado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
+            try
+            {
+                Proveedor proveedor = db.Proveedor.Find(id);
+                db.Proveedor.Remove(proveedor);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Proveedor eliminado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar el Proveedor pues tiene dependencias de Compras", "PROVEEDORES", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
+           
             return RedirectToAction("Index");
         }
 

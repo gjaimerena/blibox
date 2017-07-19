@@ -178,10 +178,17 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Matriz matriz = db.Matriz.Find(id);
-            db.Matriz.Remove(matriz);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Matriz eliminada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
+            try {
+                Matriz matriz = db.Matriz.Find(id);
+                db.Matriz.Remove(matriz);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Matriz eliminada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar la matriz pues tiene dependencias con Articulos", "MATRICES", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
             return RedirectToAction("Index");
         }
 

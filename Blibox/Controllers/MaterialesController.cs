@@ -144,11 +144,18 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Material material = db.Material.Find(id);
-            db.Material.Remove(material);
-            db.SaveChanges();
-            TempData["Noti"] = Notification.Show("Material eliminado exitosamente", "MATERIALES", type: ToastType.Success, position: Position.TopCenter);
-            //HelperController.Instance.agregarMensaje("El material se elimino con exito", HelperController.CLASE_EXITO);
+            try {
+                Material material = db.Material.Find(id);
+                db.Material.Remove(material);
+                db.SaveChanges();
+                TempData["Noti"] = Notification.Show("Material eliminado exitosamente", "MATERIALES", type: ToastType.Success, position: Position.TopCenter);
+                //HelperController.Instance.agregarMensaje("El material se elimino con exito", HelperController.CLASE_EXITO);
+            }
+            catch (Exception)
+            {
+                TempData["Noti"] = Notification.Show("No se puede eliminar el material pues tiene dependencias con Articulos", "MATERIALES", type: ToastType.Error, position: Position.TopCenter);
+                //throw;
+            }
             return RedirectToAction("Index");
         }
 
