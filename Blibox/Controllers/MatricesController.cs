@@ -112,14 +112,28 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_matriz,Codigo,Descripcion,Sector,Bocas,Observaciones")] Matriz matriz)
         {
-            if (ModelState.IsValid)
+            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+            try
             {
-              //  matriz.ID_matriz = db.Matriz.OrderByDescending(m => m.ID_matriz).FirstOrDefault().ID_matriz + 1;
-                db.Matriz.Add(matriz);
-                db.SaveChanges();
-                TempData["Noti"] = Notification.Show("Matriz generada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    //  matriz.ID_matriz = db.Matriz.OrderByDescending(m => m.ID_matriz).FirstOrDefault().ID_matriz + 1;
+                    db.Matriz.Add(matriz);
+                    db.SaveChanges();
+                    TempData["Noti"] = Notification.Show("Matriz generada exitosamente", "MATRICES", type: ToastType.Success, position: Position.TopCenter);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Noti"] = Notification.Show(errors.ElementAtOrDefault(0).ElementAtOrDefault(0).ErrorMessage, "ERROR", type: ToastType.Error);
+                }
             }
+            catch (Exception)
+            {
+
+                TempData["Noti"] = Notification.Show("Error de conexion a la base de datos, consulta al Administrador", type: ToastType.Error);
+            }
+           
 
             return View(matriz);
         }

@@ -78,7 +78,7 @@ namespace Blibox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_marco,Descripcion,Ancho,Largo,Observaciones")] Marco marco)
         {
-            var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+            
 
             if (ModelState.IsValid)
             {
@@ -90,8 +90,8 @@ namespace Blibox.Controllers
             }
             else
             {
-                TempData["Noti"] = Notification.Show(errors[0][0].ErrorMessage, "MARCOS", type: ToastType.Error, position: Position.TopCenter);
-               // HelperController.Instance.agregarMensaje(errors[0][0].ErrorMessage, HelperController.CLASE_ERROR);
+                var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ElementAt(0).ErrorMessage, "ERROR", type: ToastType.Error);
             }
 
             return View(marco);

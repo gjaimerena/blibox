@@ -227,19 +227,22 @@ namespace Blibox.Controllers
                 TempData["Noti"] = Notification.Show("Pedido generado exitosamente", "PEDIDOS", type: ToastType.Success, position: Position.TopCenter);
                 //HelperController.Instance.agregarMensaje("El pedido se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
-            } else
+            }
+            else
             {
-                var errors = ModelState.Select(x => x.Value.Errors)
-                           .Where(y => y.Count > 0)
-                           .ToList();
-                    foreach(var error in errors)
-                    {
-                    // cut for brevity, need to add back more code from original
-                    TempData["Noti"] = Notification.Show("Error: " + errors[0][0].ToString(), "PEDIDOS", type: ToastType.Error, position: Position.TopCenter);
-                    //HelperController.Instance.agregarMensaje(error.ToString(), HelperController.CLASE_ERROR);
+                var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ElementAt(0).ErrorMessage, "ERROR", type: ToastType.Error);
+                //var errors = ModelState.Select(x => x.Value.Errors)
+                //           .Where(y => y.Count > 0)
+                //           .ToList();
+                //    foreach(var error in errors)
+                //    {
+                //    // cut for brevity, need to add back more code from original
+                //    TempData["Noti"] = Notification.Show("Error: " + errors[0][0].ToString(), "PEDIDOS", type: ToastType.Error, position: Position.TopCenter);
+                //    //HelperController.Instance.agregarMensaje(error.ToString(), HelperController.CLASE_ERROR);
 
-                    }
-                HelperController.Instance.agregarMensaje(errors.ToString(), HelperController.CLASE_ERROR);
+                //    }
+                //HelperController.Instance.agregarMensaje(errors.ToString(), HelperController.CLASE_ERROR);
 
             }
             getDropdownElements(pedido);

@@ -178,7 +178,7 @@ namespace Blibox.Models
             {
                 getDropdownElements();
                 ViewBag.Peso = "0";
-                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ToString(), "ERROR", type: ToastType.Error);
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ElementAt(0).ErrorMessage, "ERROR", type: ToastType.Error);
                 //HelperController.Instance.agregarMensaje(errors[0].ToString(), HelperController.CLASE_ERROR);
             }
 

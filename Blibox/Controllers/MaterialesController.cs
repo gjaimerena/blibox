@@ -85,6 +85,12 @@ namespace Blibox.Controllers
                 // HelperController.Instance.agregarMensaje("El material se cargo con exito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+                TempData["Noti"] = Notification.Show(errors.ElementAtOrDefault(0).ElementAtOrDefault(0).ErrorMessage, "ERROR", type: ToastType.Error);
+            }
+           
 
             return View(material);
         }

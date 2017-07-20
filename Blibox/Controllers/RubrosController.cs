@@ -80,6 +80,11 @@ namespace Blibox.Controllers
                 TempData["Noti"] = Notification.Show("Rubro generado exitosamente", "RUBROS", type: ToastType.Success, position: Position.TopCenter);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ElementAt(0).ErrorMessage, "ERROR", type: ToastType.Error);
+            }
 
             return View(rubro);
         }

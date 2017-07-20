@@ -21,7 +21,7 @@
 
         <br />
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 @{
                     Blibox.Logica.Model.FEEstado estado = (Blibox.Logica.Model.FEEstado)ViewBag.estado;
                     if ((estado != null) && (estado.Estado == true))
@@ -36,6 +36,8 @@
                 
                
             </div>
+            </div>
+        <div class="row">
 
             @{ string currentFilter = ViewBag.CurrentFilter;
             string currentSort = ViewBag.CurrentSort;
@@ -43,7 +45,7 @@
             {
                 currentSort = "id";
             } }
-            <div style="text-align: right;" class="search-box col-md-8">
+            <div style="padding-top: 10px;" class="search-box col-md-8">
                 <form class="form-inline">
                     <div class="form-group">
                         <input type="text" name="q" value="@ViewBag.CurrentFilter" class="search-text form-control" placeholder="Buscar..." />

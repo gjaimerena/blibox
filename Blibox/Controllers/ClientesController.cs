@@ -85,6 +85,7 @@ namespace Blibox.Models
         public ActionResult Create(Cliente cliente)
         {
             cliente.Fecha_alta = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 // cliente.ID_cliente = db.Cliente.OrderByDescending(m => m.ID_cliente).FirstOrDefault().ID_cliente + 1;
@@ -95,6 +96,11 @@ namespace Blibox.Models
                 TempData["Noti"] = Notification.Show("Cliente generado con éxito", "ALTA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);
                 //HelperController.Instance.agregarMensaje("Se generó con éxito", HelperController.CLASE_EXITO);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
+                TempData["Noti"] = Notification.Show(errors.ElementAt(0).ElementAt(0).ErrorMessage, "ERROR", type: ToastType.Error);
             }
 
            
