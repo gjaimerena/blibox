@@ -53,10 +53,10 @@ namespace Blibox.Controllers
             }
 
             //conusltio estado de los wervicios de AFIP
-            //FEEstado estado = new FEEstado();
-            //estado = FE.estadoAFIP();
-            //ViewBag.estado = estado;
-            ViewBag.estado = true;
+            FEEstado estado = new FEEstado();
+            estado = FE.estadoAFIP();
+            ViewBag.estado = estado;
+            //ViewBag.estado = true;
             return View(query.ToPagedList(page, pageSize));
         }
 
