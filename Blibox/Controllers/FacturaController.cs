@@ -21,7 +21,7 @@ namespace Blibox.Controllers
         private BliboxEntities db = new BliboxEntities();
 
         // GET: Factura
-        
+
         public ActionResult Index(string sortOrder, string currentFilter, string q, int page = 1, int pageSize = 10)
         {
 
@@ -56,10 +56,10 @@ namespace Blibox.Controllers
             FEEstado estado = new FEEstado();
             estado = FE.estadoAFIP();
             ViewBag.estado = estado;
-
+            //ViewBag.estado = true;
             return View(query.ToPagedList(page, pageSize));
         }
-        
+
 
         // GET: Factura/Details/5
         public ActionResult Details(int? id)
@@ -81,7 +81,7 @@ namespace Blibox.Controllers
         {
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
             ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");
-            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion","5");
+            ViewBag.CondicionIVA = new SelectList(db.CondicionIVA, "Codigo", "Descripcion", "5");
             ViewBag.art = "";
             return View();
         }
@@ -95,11 +95,12 @@ namespace Blibox.Controllers
         {
 
             //conusltio estado de los wervicios de AFIP
-            FEEstado estado = new FEEstado();
-            estado = FE.estadoAFIP();
-            ViewBag.estado = estado;
-
-            if (estado.Estado == false)
+            //FEEstado estado = new FEEstado();
+            //estado = FE.estadoAFIP();
+            //ViewBag.estado = estado;
+            ViewBag.estado = true;
+            //if (estado.Estado == false)
+            if (ViewBag.estado == false)
             {
                 TempData["Noti"] = Notification.Show("Lo sentimos , el servicio de AFIP no esta disponible, intente nuevamente en unos momentos", "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
                 return RedirectToAction("Index");
@@ -112,7 +113,7 @@ namespace Blibox.Controllers
                 //return RedirectToAction("Index");
             }
 
-            
+
 
 
 
@@ -130,16 +131,16 @@ namespace Blibox.Controllers
             {
                 string descripcion = db.CondicionIVA.Where(m => m.Codigo == CondicionIVA).FirstOrDefault().Descripcion;
                 desc_Iva = Convert.ToDouble(descripcion.Replace('%', ' '));
-                desc_Iva =  Math.Round(desc_Iva, 2);
+                desc_Iva = Math.Round(desc_Iva, 2);
             }
 
             string ID_condicion_venta = form["ID_condicion_venta"];
             // DateTime FechaEmision = Convert.ToDateTime(form["Fecha"]);
             //int Remito = Convert.ToInt32(form["Nro_remito"]);
-            int OrdenCompra = form["OrdenCompra"]!="" ? Convert.ToInt32(form["OrdenCompra"]) : 0;
+            int OrdenCompra = form["OrdenCompra"] != "" ? Convert.ToInt32(form["OrdenCompra"]) : 0;
             int Nroremito = form["Nro_remito"] != "" ? Convert.ToInt32(form["Nro_remito"]) : 0;
             int DiasFF = form["Cliente.DiasFF"] != "" ? Convert.ToInt32(form["Cliente.DiasFF"]) : 0;
-            int DiasCheque = form["Cliente.Dias_Cheque"] != "" ? Convert.ToInt32(form["Cliente.Dias_Cheque"]) : 0;  
+            int DiasCheque = form["Cliente.Dias_Cheque"] != "" ? Convert.ToInt32(form["Cliente.Dias_Cheque"]) : 0;
             Decimal Descuento = Convert.ToDecimal(form["Descuento"].Replace('.', ','));
             Double subtotal = Convert.ToDouble(form["subtotal"].Replace('.', ','));
             Double total = Convert.ToDouble(form["total"].Replace('.', ','));
@@ -169,8 +170,8 @@ namespace Blibox.Controllers
             det.Concepto = 1; //1=Productos
             det.DocNro = Convert.ToInt64(documento);
             det.DocTipo = 80; //80=CUIT
-            det.ImpTotal = Math.Round(total, 2); 
-            det.ImpNeto = Math.Round(subtotal,2);
+            det.ImpTotal = Math.Round(total, 2);
+            det.ImpNeto = Math.Round(subtotal, 2);
             det.ImpTotConc = 0;
             det.ImpOpEx = 0;
             det.ImpTrib = 0;
@@ -190,10 +191,18 @@ namespace Blibox.Controllers
             }
 
             detalles[0] = det;
-            
-            FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 001, detalles);
+            FECAERespuesta resp = null;
+            try
+            {
+                resp = FE.AutorizacionFactura(1, 1, 001, detalles);
+            }
+            catch (System.Exception e)
+            {
+                TempData["Noti"] = Notification.Show("Error no hay conexión a internet para generar el cae. Vuelva a intentar mas tarde", "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+            }
 
-            if (resp.Cabecera.Resultado == "A")
+
+            if (resp != null && resp.Cabecera.Resultado == "A")
             {
                 DateTime fechaVencCAE = DateTime.ParseExact(resp.Detalles[0].CAEFchVto, "yyyyMMdd", null);
 
@@ -249,7 +258,7 @@ namespace Blibox.Controllers
                         concepto = "Factura Nº " + nro_factura,
                         fecha_movimiento = encFactura.Fecha,
                         importe = encFactura.Total,
-                        
+
                     };
 
                     //actualizo saldo cliente
@@ -268,11 +277,14 @@ namespace Blibox.Controllers
             }
             else
             {
-                // fue rechazada ver que hacer
-                foreach(Error err in resp.Errores)
+                if (resp != null)
                 {
-                    TempData["Noti"] = Notification.Show("Error "+err.Codigo+" - "+err.Mensaje, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
-                    //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                    // fue rechazada ver que hacer
+                    foreach (Error err in resp.Errores)
+                    {
+                        TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+                        //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                    }
                 }
             }
 
@@ -381,7 +393,7 @@ namespace Blibox.Controllers
         public ActionResult obtenerDatosCliente(int? idCliente)
         {
 
-            Cliente cliente = db.Cliente.Where(m=>m.ID_cliente == idCliente).FirstOrDefault();
+            Cliente cliente = db.Cliente.Where(m => m.ID_cliente == idCliente).FirstOrDefault();
 
             BliboxEntities db2 = new BliboxEntities();
             db2.Configuration.ProxyCreationEnabled = false;
@@ -430,12 +442,12 @@ namespace Blibox.Controllers
         {
             Articulo articulo = db.Articulo.Where(m => m.ID_articulo == idArticulo).FirstOrDefault();
 
-            if (articulo!= null)
+            if (articulo != null)
             {
-                if (articulo.Precio_lista!=null) return Json(articulo.Precio_lista, JsonRequestBehavior.AllowGet);
+                if (articulo.Precio_lista != null) return Json(articulo.Precio_lista, JsonRequestBehavior.AllowGet);
             }
-            
-                return Json(0, JsonRequestBehavior.AllowGet);
+
+            return Json(0, JsonRequestBehavior.AllowGet);
         }
 
     }
