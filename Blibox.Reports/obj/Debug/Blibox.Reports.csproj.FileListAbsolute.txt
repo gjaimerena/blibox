@@ -1,0 +1,15 @@
+E:\blibox\web\Blibox.Reports\bin\Debug\Blibox.Reports.dll
+E:\blibox\web\Blibox.Reports\bin\Debug\Blibox.Reports.pdb
+E:\blibox\web\Blibox.Reports\bin\Debug\BarcodeLib.dll
+E:\blibox\web\Blibox.Reports\obj\Debug\Blibox.Reports.csprojResolveAssemblyReference.cache
+E:\blibox\web\Blibox.Reports\obj\Debug\RdlCompile.cache
+E:\blibox\web\Blibox.Reports\obj\Debug\RdlCompile.compiled
+E:\blibox\web\Blibox.Reports\obj\Debug\Blibox.Reports.dll
+E:\blibox\web\Blibox.Reports\obj\Debug\Blibox.Reports.pdb
+F:\web\Blibox.Reports\bin\Debug\Factura.rdlc
+F:\web\Blibox.Reports\bin\Debug\Blibox.Reports.dll
+F:\web\Blibox.Reports\bin\Debug\Blibox.Reports.pdb
+F:\web\Blibox.Reports\bin\Debug\BarcodeLib.dll
+F:\web\Blibox.Reports\obj\Debug\Blibox.Reports.csprojResolveAssemblyReference.cache
+F:\web\Blibox.Reports\obj\Debug\Blibox.Reports.dll
+F:\web\Blibox.Reports\obj\Debug\Blibox.Reports.pdb

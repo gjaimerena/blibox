@@ -6,8 +6,13 @@ TestAutenticacion/bin/*
 TestAutenticacion/obj/*
 
 
-/Blibox.Logica/obj/Debug
+/Blibox.Logica/obj/Debug/*
+/Blibox.Logica/bin/Debug/*
+/Blibox.Logica/bin/Release
+
 /packages
 
 /TestAutenticacion/obj/Debug
 /TestAutenticacion/bin/Debug
+/Diagrama clases.png
+/Diagrama ER.png

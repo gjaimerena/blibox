@@ -1,0 +1,8 @@
+E:\blibox\web\Blibox.Reports\bin\Release\Blibox.Reports.dll
+E:\blibox\web\Blibox.Reports\bin\Release\Blibox.Reports.pdb
+E:\blibox\web\Blibox.Reports\bin\Release\BarcodeLib.dll
+E:\blibox\web\Blibox.Reports\obj\Release\Blibox.Reports.csprojResolveAssemblyReference.cache
+E:\blibox\web\Blibox.Reports\obj\Release\RdlCompile.cache
+E:\blibox\web\Blibox.Reports\obj\Release\RdlCompile.compiled
+E:\blibox\web\Blibox.Reports\obj\Release\Blibox.Reports.dll
+E:\blibox\web\Blibox.Reports\obj\Release\Blibox.Reports.pdb

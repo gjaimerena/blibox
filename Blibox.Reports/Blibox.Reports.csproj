@@ -51,7 +51,9 @@
     <None Include="Properties\DataSources\Item.datasource" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Factura.rdlc" />
+    <Content Include="Factura.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\biblox.png" />
