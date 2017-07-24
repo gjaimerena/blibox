@@ -260,13 +260,19 @@ namespace Blibox.Controllers
             }
             else
             {
-                // fue rechazada ver que hacer
-                foreach (Error err in resp.Errores)
+                if (resp.Errores != null)
                 {
-                    TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "NOTAS DE DEBITO", type: ToastType.Error, position: Position.TopCenter);
-                    //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                    // fue rechazada ver que hacer
+                    foreach (Error err in resp.Errores)
+                    {
+                        TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "NOTAS DE DEBITO", type: ToastType.Error, position: Position.TopCenter);
+                        //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                    }
+                } 
+                else
+                {
+                    TempData["Noti"] = Notification.Show("Error: no se puede generar en este momento, intente mas tarde.", "NOTAS DE DEBITO", type: ToastType.Error, position: Position.TopCenter);
                 }
-
             }
             ViewBag.ID_cliente = new SelectList(db.Cliente, "ID_cliente", "Razon_Social");
             ViewBag.CondicionVenta = new SelectList(db.Condicion_venta, "ID_condicion_venta", "Descripcion");

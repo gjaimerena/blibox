@@ -286,6 +286,10 @@ namespace Blibox.Controllers
                         //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
                     }
                 }
+                else
+                {
+                    TempData["Noti"] = Notification.Show("Error: no se puede generar en este momento, intente mas tarde.", "FACTURAS", type: ToastType.Error, position: Position.TopCenter);
+                }
             }
 
             //return View(form);
