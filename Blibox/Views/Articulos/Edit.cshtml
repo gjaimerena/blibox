@@ -396,7 +396,8 @@
                                         <div class="dobleEntrada">
                                             <label class="control-label col-md-2 no-clear-md">Peso</label>
                                             <div class="col-md-4">
-                                                @Html.Editor("Componente[" + i + "].Peso",
+                                                @Html.Editor(
+                                               "Componente[" + i + "].Peso",
                                                item.Peso.ToString().Replace(".",","),
                                                new {
                                                    htmlAttributes = new {
