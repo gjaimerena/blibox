@@ -105,7 +105,9 @@
                                      data_fv_row = ".dobleEntrada",
                                      data_fv_stringlength_message = "<i class='glyphicon glyphicon-info-sign'></i> Precio costo no valido",
                                      data_fv_stringlength_min = 0,
-                                     data_fv_stringlength = "true"
+                                     data_fv_stringlength = "true",
+                                     data_fv_numeric_decimalseparator = ",",
+                                     data_fv_numeric = "true",
                                  }
                              })
                             </div>
@@ -125,7 +127,9 @@
                                          data_fv_notempty_message = "<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el precio de lista",
                                          data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El precio de lista debe ser numérico",
                                          required = "required",
-                                         data_fv_row = ".dobleEntrada"
+                                         data_fv_row = ".dobleEntrada",
+                                         data_fv_numeric_decimalseparator = ",",
+                                         data_fv_numeric = "true",
                                      }
                                  })
                             </div>
@@ -314,8 +318,10 @@
                                     {
                                         @class = "form-control",
                                         @id = "tamanioXCaja",
-                                        data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> El tamaño de la caja debe ser numérico",
-                                        @text = "number"
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El tamaño de la caja debe ser numérico",
+                                        @text = "number",
+                                        data_fv_numeric_decimalseparator = ",",
+                                        data_fv_numeric = "true",
                                     }
                                 })
                         </div><!-- /.col -->
@@ -331,8 +337,8 @@
                                     {
                                         @class = "form-control",
                                         @id = "tirajeTermXHora",
-                                        data_fv_number_message = "<i class='glyphicon glyphicon-info-sign'></i> El tiraje por hora debe ser numérico",
-                                        @text = "number"
+                                        data_fv_numeric_message = "<i class='glyphicon glyphicon-info-sign'></i> El tiraje por hora debe ser numérico",
+                                        @text = "number",
                                     }
                                 })
                         </div>
@@ -436,6 +442,8 @@
                                                        required="required" 
                                                        min="0.00001" 
                                                        max="999999999" 
+                                                        data-fv-numeric_decimalseparator = ","
+                                                        data-fv-numeric = "true"
                                                        data-fv-required-message="<i class='glyphicon glyphicon-info-sign'></i> Debe ingresar el espesor"
                                                        data-fv-greaterThan ="true"
                                                        data-fv-greaterThan-message="<i class='glyphicon glyphicon-info-sign'></i> El valor debe ser mayor a 0"
@@ -469,6 +477,8 @@
                                                        required="required" 
                                                        min="0" 
                                                        max="999999999" 
+                                                        data-fv-numeric-decimalseparator = ","
+                                                        data-fv-numeric = "true"
                                                       
                                                        data-fv-row=".dobleEntrada"
                                                        data-bind="value: Peso, attr: { name: 'Componente[' + $index() + '].Peso',  id:'Componente' + $index() + 'Peso' }" 

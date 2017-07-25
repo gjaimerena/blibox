@@ -150,10 +150,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-md-4">
-                                        <label>Material: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Material.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                        <label>Material: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Material.Descripcion,
+                                                                new {
+                                                                    htmlAttributes = new {
+                                                                        @class = "form-control",
+                                                                        @disabled = "" } })
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Peso: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Peso, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+                                        <label>Peso: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Peso,
+                                                            new {
+                                                                htmlAttributes = new {
+                                                                    @class = "form-control",
+                                                                    @disabled = "" } })
                                     </div><!-- /.col -->
                                     <div class="col-md-4">
                                         <label>Marco: </label>@Html.EditorFor(model => model.Componente.ElementAt(0).Marco.Descripcion, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
