@@ -166,6 +166,8 @@ namespace Blibox.Models
                 }
                     else
                     {
+                        int newIdArticulo = db.Articulo.Max(c => c.ID_articulo)+1;
+                        articulo.ID_articulo = newIdArticulo;
                         db.Articulo.Add(articulo);
                 }
                 

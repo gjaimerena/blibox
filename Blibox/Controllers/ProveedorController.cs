@@ -124,6 +124,9 @@ namespace Blibox.Models
             proveedor.Fecha_alta = DateTime.Now;
             if (ModelState.IsValid)
             {
+                int newId = db.Proveedor.Max(c => c.ID_proveedor) + 1;
+                proveedor.ID_proveedor = newId;
+
                 db.Proveedor.Add(proveedor);
                 db.SaveChanges();
                 TempData["Noti"] = Notification.Show("Proveedor generado exitosamente", "PROVEEDORES", type: ToastType.Success, position: Position.TopCenter);

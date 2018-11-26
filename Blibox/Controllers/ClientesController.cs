@@ -90,7 +90,9 @@ namespace Blibox.Models
             {
                 // cliente.ID_cliente = db.Cliente.OrderByDescending(m => m.ID_cliente).FirstOrDefault().ID_cliente + 1;
                 cliente.TipoDocumento = 25; //valor para CUIT
-               
+
+                int newId = db.Cliente.Max(c => c.ID_cliente) + 1;
+                cliente.ID_cliente = newId;
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
                 TempData["Noti"] = Notification.Show("Cliente generado con éxito", "ALTA DE CLIENTES", type: ToastType.Success, position: Position.TopCenter);

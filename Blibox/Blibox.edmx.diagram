@@ -4,47 +4,49 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8d8f8dfe4a9542ff8b298709d497161d" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="5e0329ab6395445a971df6d89b6015a9" Name="Diagram1">
         <EntityTypeShape EntityType="Blibox.Articulo" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.AspNetRoles" Width="1.5" PointX="12.125" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.AspNetUserClaims" Width="1.5" PointX="14.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.AspNetUserLogins" Width="1.5" PointX="14.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.AspNetUsers" Width="1.5" PointX="12.125" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.AspNetRoles" Width="1.5" PointX="12.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.AspNetUserClaims" Width="1.5" PointX="17.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.AspNetUserLogins" Width="1.5" PointX="17.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.AspNetUsers" Width="1.5" PointX="15" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Blibox.Cliente" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Componente" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Compras" Width="1.5" PointX="9.375" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Condicion_venta" Width="1.5" PointX="5.25" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.CondicionIVA" Width="1.5" PointX="12" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Cortante" Width="1.5" PointX="9.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.CtaCteClientes" Width="1.5" PointX="2.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.CtaCteProveedores" Width="1.5" PointX="5.375" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Detalle_factura" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Encabezado_Factura" Width="1.5" PointX="2.875" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.IVA" Width="1.5" PointX="12" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Marco" Width="1.5" PointX="9.625" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Material" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Matriz" Width="1.5" PointX="9.625" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Pedido" Width="1.5" PointX="5.375" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Presupuesto" Width="1.5" PointX="0.5" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Proveedor" Width="1.5" PointX="7.375" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Remito" Width="1.5" PointX="7.375" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Rubro" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.sysdiagrams" Width="1.5" PointX="12" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.TipoDocumento" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.TipoMovCtaCte" Width="1.5" PointX="2.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.TipoResponsables" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="Blibox.Vendedor" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Componente" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Compras" Width="1.5" PointX="15" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Condicion_venta" Width="1.5" PointX="8" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.CondicionIVA" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Cortante" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.CtaCteClientes" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.CtaCteProveedores" Width="1.5" PointX="15" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Detalle_factura" Width="1.5" PointX="10.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Encabezado_Factura" Width="1.5" PointX="10.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.IVA" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Marco" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Material" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Matriz" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Pedido" Width="1.5" PointX="10.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Presupuesto" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Proveedor" Width="1.5" PointX="12.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Provincia" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Remito" Width="1.5" PointX="12.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Rubro" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.sysdiagrams" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.TipoDocumento" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.TipoMovCtaCte" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.TipoResponsables" Width="1.5" PointX="0.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blibox.Vendedor" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
         <AssociationConnector Association="Blibox.FK_Articulo_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Componente_Articulo" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Detalle_factura_Articulo" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Pedido_Articulo" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Blibox.FK_Cliente_Provincia" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Cliente_Rubro" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Cliente_TipoDocumento" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Cliente_TipoResponsables" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Cliente_Vendedor" ManuallyRouted="false" />
-        <AssociationConnector Association="Blibox.FK_CtaCteClientesMov_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="Blibox.FK_CtaCteClientes_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Encabezado_Factura_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Pedido_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Componente_Cortante" ManuallyRouted="false" />
@@ -56,9 +58,10 @@
         <AssociationConnector Association="Blibox.FK_CtaCteClientes_TipoMovCtaCte" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_CtaCteProveedores_Proveedor" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_CtaCteProveedores_TipoMovCtaCte" ManuallyRouted="false" />
-        <AssociationConnector Association="Blibox.FK_Detalle_factura_Encabezado_Factura1" ManuallyRouted="false" />
+        <AssociationConnector Association="Blibox.FK_Detalle_factura_Encabezado_Factura" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.FK_Encabezado_Factura_Vendedor" ManuallyRouted="false" />
-        <AssociationConnector Association="Blibox.FK_Remito_Pedido1" ManuallyRouted="false" />
+        <AssociationConnector Association="Blibox.FK_Pedido_Vendedor" ManuallyRouted="false" />
+        <AssociationConnector Association="Blibox.FK_Remito_Pedido" ManuallyRouted="false" />
         <AssociationConnector Association="Blibox.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

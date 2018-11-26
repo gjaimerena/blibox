@@ -1,0 +1,919 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="blibox_ori.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="articulos">
+          <Key>
+            <PropertyRef Name="idArticulo" />
+          </Key>
+          <Property Name="n_articulo" Type="float" Nullable="false" />
+          <Property Name="art_descr" Type="nvarchar" MaxLength="255" />
+          <Property Name="fopd" Type="float" />
+          <Property Name="n_cliente" Type="float" />
+          <Property Name="pre_costo" Type="float" />
+          <Property Name="iva" Type="float" />
+          <Property Name="pre_lista1" Type="float" />
+          <Property Name="fecha_prec" Type="nvarchar" MaxLength="255" />
+          <Property Name="pre_lista2" Type="float" />
+          <Property Name="pre_lista3" Type="float" />
+          <Property Name="stock" Type="float" />
+          <Property Name="stock_min" Type="float" />
+          <Property Name="grupo" Type="float" />
+          <Property Name="observac" Type="nvarchar" MaxLength="255" />
+          <Property Name="observac1" Type="nvarchar" MaxLength="255" />
+          <Property Name="peso1" Type="float" />
+          <Property Name="peso2" Type="float" />
+          <Property Name="peso3" Type="float" />
+          <Property Name="material1" Type="float" />
+          <Property Name="material2" Type="float" />
+          <Property Name="material3" Type="float" />
+          <Property Name="marco1" Type="float" />
+          <Property Name="marco2" Type="float" />
+          <Property Name="marco3" Type="float" />
+          <Property Name="espesor1" Type="float" />
+          <Property Name="espesor2" Type="float" />
+          <Property Name="espesor3" Type="float" />
+          <Property Name="bocas1" Type="float" />
+          <Property Name="bocas2" Type="float" />
+          <Property Name="bocas3" Type="float" />
+          <Property Name="matriz1" Type="nvarchar" MaxLength="255" />
+          <Property Name="matriz2" Type="nvarchar" MaxLength="255" />
+          <Property Name="matriz3" Type="nvarchar" MaxLength="255" />
+          <Property Name="cortante1" Type="nvarchar" MaxLength="255" />
+          <Property Name="cortante2" Type="nvarchar" MaxLength="255" />
+          <Property Name="cortante3" Type="nvarchar" MaxLength="255" />
+          <Property Name="ciclos1" Type="float" />
+          <Property Name="ciclos2" Type="float" />
+          <Property Name="ciclos3" Type="float" />
+          <Property Name="color1" Type="nvarchar" MaxLength="255" />
+          <Property Name="color2" Type="nvarchar" MaxLength="255" />
+          <Property Name="color3" Type="nvarchar" MaxLength="255" />
+          <Property Name="cantidad" Type="float" />
+          <Property Name="tamanocaja" Type="nvarchar" MaxLength="255" />
+          <Property Name="tiraje_ter" Type="float" />
+          <Property Name="tiraje_tro" Type="float" />
+          <Property Name="fazon" Type="nvarchar" MaxLength="255" />
+          <Property Name="idArticulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cctecli">
+          <Key>
+            <PropertyRef Name="idctactecli" />
+          </Key>
+          <Property Name="NRO_OPERAC" Type="float" />
+          <Property Name="N_CLIENTE" Type="float" />
+          <Property Name="CONCEPTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="FECHA_OPER" Type="datetime" />
+          <Property Name="DEB_CRED" Type="float" />
+          <Property Name="IMP_OPERAC" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idctactecli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cctepro">
+          <Key>
+            <PropertyRef Name="idCctepro" />
+          </Key>
+          <Property Name="NRO_OPERAC" Type="float" />
+          <Property Name="N_PROVEEDO" Type="float" />
+          <Property Name="CONCEPTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="FECHA_OPER" Type="datetime" />
+          <Property Name="DEB_CRED" Type="float" />
+          <Property Name="IMP_OPERAC" Type="float" />
+          <Property Name="OBSERVAC" Type="float" />
+          <Property Name="idCctepro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="N_CLIENTE" Type="float" Nullable="false" />
+          <Property Name="RAZON_CLI" Type="nvarchar" MaxLength="255" />
+          <Property Name="CONTACTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="DOMICILIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="LOCALIDAD" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVINCIA" Type="float" />
+          <Property Name="CODPOS" Type="nvarchar" MaxLength="255" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="255" />
+          <Property Name="N_VENDEDOR" Type="float" />
+          <Property Name="COMISION" Type="float" />
+          <Property Name="N_VENDEDO2" Type="float" />
+          <Property Name="COMISION2" Type="float" />
+          <Property Name="FECHA_ALTA" Type="datetime" />
+          <Property Name="COND_IVA" Type="float" />
+          <Property Name="NRO_CUIT" Type="float" />
+          <Property Name="SALDO" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="COD_ANT" Type="nvarchar" MaxLength="255" />
+          <Property Name="REFERIDO" Type="nvarchar" MaxLength="255" />
+          <Property Name="N_RUBRO" Type="float" />
+          <Property Name="DIAS_FF" Type="float" />
+          <Property Name="CHEQ_FF" Type="float" />
+          <Property Name="GRUPO_MAIL" Type="float" />
+          <Property Name="LIMITE_CRE" Type="float" />
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="compraso">
+          <Key>
+            <PropertyRef Name="idCompras" />
+          </Key>
+          <Property Name="N_PROVEEDO" Type="float" Nullable="false" />
+          <Property Name="FECHA_COMP" Type="datetime" />
+          <Property Name="N_FACTURA" Type="float" />
+          <Property Name="CANTIDAD" Type="float" />
+          <Property Name="NETO" Type="float" />
+          <Property Name="IVA" Type="float" />
+          <Property Name="TOTAL" Type="float" />
+          <Property Name="NRO_OPERAC" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idCompras" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cortanteo">
+          <Key>
+            <PropertyRef Name="idCortante" />
+          </Key>
+          <Property Name="N_CORTANTE" Type="nvarchar" MaxLength="255" />
+          <Property Name="CORT_DESCR" Type="nvarchar" MaxLength="255" />
+          <Property Name="SECTOR" Type="float" />
+          <Property Name="BOCAS" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idCortante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marcos">
+          <Key>
+            <PropertyRef Name="idMarco" />
+          </Key>
+          <Property Name="N_MARCO" Type="float" />
+          <Property Name="DESCR_MARC" Type="nvarchar" MaxLength="255" />
+          <Property Name="ANCHO" Type="float" />
+          <Property Name="LARGO" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idMarco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materialo">
+          <Key>
+            <PropertyRef Name="idMaterial" />
+          </Key>
+          <Property Name="N_MATERIAL" Type="float" />
+          <Property Name="DESCR_MAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="PESO_ESPEC" Type="float" />
+          <Property Name="OBSERVAC" Type="float" />
+          <Property Name="idMaterial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="matprim1">
+          <Key>
+            <PropertyRef Name="idMatPrima" />
+          </Key>
+          <Property Name="N_MATPRIMA" Type="float" />
+          <Property Name="MAT_DESCR" Type="nvarchar" MaxLength="255" />
+          <Property Name="OBSERVAC" Type="float" />
+          <Property Name="PESO_ESPEC" Type="float" />
+          <Property Name="idMatPrima" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MATRICES">
+          <Key>
+            <PropertyRef Name="idMatrices" />
+          </Key>
+          <Property Name="N_MATRICES" Type="nvarchar" MaxLength="255" />
+          <Property Name="MAT_DESCR" Type="nvarchar" MaxLength="255" />
+          <Property Name="SECTOR" Type="float" />
+          <Property Name="BOCAS" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idMatrices" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pedidos">
+          <Key>
+            <PropertyRef Name="idPedido" />
+          </Key>
+          <Property Name="N_PEDIDO" Type="float" />
+          <Property Name="N_ARTICULO" Type="float" />
+          <Property Name="N_CLIENTE" Type="float" />
+          <Property Name="CANT_PED" Type="float" />
+          <Property Name="CANT_ENT" Type="float" />
+          <Property Name="FECHA_PED" Type="datetime" />
+          <Property Name="FECHA_ENT" Type="datetime" />
+          <Property Name="ORDEN" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRECIO" Type="float" />
+          <Property Name="MATERIAL" Type="float" />
+          <Property Name="ESPESOR" Type="float" />
+          <Property Name="FECHA1" Type="datetime" />
+          <Property Name="REMITO1" Type="float" />
+          <Property Name="CANTIDAD1" Type="float" />
+          <Property Name="FECHA2" Type="datetime" />
+          <Property Name="REMITO2" Type="float" />
+          <Property Name="CANTIDAD2" Type="float" />
+          <Property Name="FECHA3" Type="datetime" />
+          <Property Name="REMITO3" Type="float" />
+          <Property Name="CANTIDAD3" Type="float" />
+          <Property Name="REMITO4" Type="float" />
+          <Property Name="FECHA4" Type="datetime" />
+          <Property Name="CANTIDAD4" Type="float" />
+          <Property Name="FECHA5" Type="datetime" />
+          <Property Name="REMITO5" Type="float" />
+          <Property Name="CANTIDAD5" Type="float" />
+          <Property Name="FECHA6" Type="datetime" />
+          <Property Name="REMITO6" Type="float" />
+          <Property Name="CANTIDAD6" Type="float" />
+          <Property Name="FECHA7" Type="datetime" />
+          <Property Name="REMITO7" Type="float" />
+          <Property Name="CANTIDAD7" Type="float" />
+          <Property Name="FECHA8" Type="datetime" />
+          <Property Name="REMITO8" Type="float" />
+          <Property Name="CANTIDAD8" Type="float" />
+          <Property Name="FECHA9" Type="datetime" />
+          <Property Name="REMITO9" Type="float" />
+          <Property Name="CANTIDAD9" Type="float" />
+          <Property Name="FECHA10" Type="datetime" />
+          <Property Name="REMITO10" Type="float" />
+          <Property Name="CANTIDAD10" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="OBSERVAC1" Type="nvarchar" MaxLength="255" />
+          <Property Name="OBSERVAC2" Type="float" />
+          <Property Name="IMPRESION" Type="nvarchar" MaxLength="255" />
+          <Property Name="RESPONSABL" Type="nvarchar" MaxLength="255" />
+          <Property Name="IMPMATRIZ" Type="float" />
+          <Property Name="TIPO_CAJA" Type="float" />
+          <Property Name="CODART_CLI" Type="nvarchar" MaxLength="255" />
+          <Property Name="ARMADO" Type="nvarchar" MaxLength="255" />
+          <Property Name="F_ARMADO" Type="datetime" />
+          <Property Name="FOIEP" Type="float" />
+          <Property Name="idPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proveedo">
+          <Key>
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="N_PROVEED" Type="float" />
+          <Property Name="RAZON_PRO" Type="nvarchar" MaxLength="255" />
+          <Property Name="CONTACTO" Type="nvarchar" MaxLength="255" />
+          <Property Name="DOMICILIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="LOCALIDAD" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVINCIA" Type="float" />
+          <Property Name="CODPOS" Type="float" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="255" />
+          <Property Name="FECHA_ALTA" Type="datetime" />
+          <Property Name="COND_IVA" Type="float" />
+          <Property Name="NRO_CUIT" Type="float" />
+          <Property Name="SALDO" Type="float" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rubroo">
+          <Key>
+            <PropertyRef Name="N_RUBRO" />
+          </Key>
+          <Property Name="N_RUBRO" Type="int" Nullable="false" />
+          <Property Name="RUBRO_DESC" Type="nvarchar" MaxLength="255" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="vendedoro">
+          <Key>
+            <PropertyRef Name="idVendedor" />
+          </Key>
+          <Property Name="N_VENDEDOR" Type="float" />
+          <Property Name="VEN_DESCR" Type="nvarchar" MaxLength="255" />
+          <Property Name="DOMICILIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="LOCALIDAD" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVINCIA" Type="float" />
+          <Property Name="CODPOS" Type="float" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="255" />
+          <Property Name="FECHA_ALTA" Type="datetime" />
+          <Property Name="OBSERVAC" Type="nvarchar" MaxLength="255" />
+          <Property Name="idVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="blibox_oriStoreContainer">
+          <EntitySet Name="articulos" EntityType="Self.articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cctecli" EntityType="Self.cctecli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cctepro" EntityType="Self.cctepro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="compraso" EntityType="Self.compraso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cortanteo" EntityType="Self.cortanteo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marcos" EntityType="Self.marcos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="materialo" EntityType="Self.materialo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="matprim1" EntityType="Self.matprim1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATRICES" EntityType="Self.MATRICES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proveedo" EntityType="Self.proveedo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rubroo" EntityType="Self.rubroo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vendedoro" EntityType="Self.vendedoro" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="blibox_ori" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="articulos">
+          <Key>
+            <PropertyRef Name="idArticulo" />
+          </Key>
+          <Property Name="n_articulo" Type="Double" Nullable="false" />
+          <Property Name="art_descr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fopd" Type="Double" />
+          <Property Name="n_cliente" Type="Double" />
+          <Property Name="pre_costo" Type="Double" />
+          <Property Name="iva" Type="Double" />
+          <Property Name="pre_lista1" Type="Double" />
+          <Property Name="fecha_prec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pre_lista2" Type="Double" />
+          <Property Name="pre_lista3" Type="Double" />
+          <Property Name="stock" Type="Double" />
+          <Property Name="stock_min" Type="Double" />
+          <Property Name="grupo" Type="Double" />
+          <Property Name="observac" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="observac1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="peso1" Type="Double" />
+          <Property Name="peso2" Type="Double" />
+          <Property Name="peso3" Type="Double" />
+          <Property Name="material1" Type="Double" />
+          <Property Name="material2" Type="Double" />
+          <Property Name="material3" Type="Double" />
+          <Property Name="marco1" Type="Double" />
+          <Property Name="marco2" Type="Double" />
+          <Property Name="marco3" Type="Double" />
+          <Property Name="espesor1" Type="Double" />
+          <Property Name="espesor2" Type="Double" />
+          <Property Name="espesor3" Type="Double" />
+          <Property Name="bocas1" Type="Double" />
+          <Property Name="bocas2" Type="Double" />
+          <Property Name="bocas3" Type="Double" />
+          <Property Name="matriz1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="matriz2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="matriz3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cortante1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cortante2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cortante3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ciclos1" Type="Double" />
+          <Property Name="ciclos2" Type="Double" />
+          <Property Name="ciclos3" Type="Double" />
+          <Property Name="color1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="color2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="color3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cantidad" Type="Double" />
+          <Property Name="tamanocaja" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tiraje_ter" Type="Double" />
+          <Property Name="tiraje_tro" Type="Double" />
+          <Property Name="fazon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idArticulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="cctecli">
+          <Key>
+            <PropertyRef Name="idctactecli" />
+          </Key>
+          <Property Name="NRO_OPERAC" Type="Double" />
+          <Property Name="N_CLIENTE" Type="Double" />
+          <Property Name="CONCEPTO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA_OPER" Type="DateTime" Precision="3" />
+          <Property Name="DEB_CRED" Type="Double" />
+          <Property Name="IMP_OPERAC" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idctactecli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="cctepro">
+          <Key>
+            <PropertyRef Name="idCctepro" />
+          </Key>
+          <Property Name="NRO_OPERAC" Type="Double" />
+          <Property Name="N_PROVEEDO" Type="Double" />
+          <Property Name="CONCEPTO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA_OPER" Type="DateTime" Precision="3" />
+          <Property Name="DEB_CRED" Type="Double" />
+          <Property Name="IMP_OPERAC" Type="Double" />
+          <Property Name="OBSERVAC" Type="Double" />
+          <Property Name="idCctepro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="N_CLIENTE" Type="Double" Nullable="false" />
+          <Property Name="RAZON_CLI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACTO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DOMICILIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCIA" Type="Double" />
+          <Property Name="CODPOS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TELEFONO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="N_VENDEDOR" Type="Double" />
+          <Property Name="COMISION" Type="Double" />
+          <Property Name="N_VENDEDO2" Type="Double" />
+          <Property Name="COMISION2" Type="Double" />
+          <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+          <Property Name="COND_IVA" Type="Double" />
+          <Property Name="NRO_CUIT" Type="Double" />
+          <Property Name="SALDO" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COD_ANT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REFERIDO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="N_RUBRO" Type="Double" />
+          <Property Name="DIAS_FF" Type="Double" />
+          <Property Name="CHEQ_FF" Type="Double" />
+          <Property Name="GRUPO_MAIL" Type="Double" />
+          <Property Name="LIMITE_CRE" Type="Double" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="compraso">
+          <Key>
+            <PropertyRef Name="idCompras" />
+          </Key>
+          <Property Name="N_PROVEEDO" Type="Double" Nullable="false" />
+          <Property Name="FECHA_COMP" Type="DateTime" Precision="3" />
+          <Property Name="N_FACTURA" Type="Double" />
+          <Property Name="CANTIDAD" Type="Double" />
+          <Property Name="NETO" Type="Double" />
+          <Property Name="IVA" Type="Double" />
+          <Property Name="TOTAL" Type="Double" />
+          <Property Name="NRO_OPERAC" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idCompras" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="cortanteo">
+          <Key>
+            <PropertyRef Name="idCortante" />
+          </Key>
+          <Property Name="N_CORTANTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CORT_DESCR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SECTOR" Type="Double" />
+          <Property Name="BOCAS" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idCortante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="marcos">
+          <Key>
+            <PropertyRef Name="idMarco" />
+          </Key>
+          <Property Name="N_MARCO" Type="Double" />
+          <Property Name="DESCR_MARC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ANCHO" Type="Double" />
+          <Property Name="LARGO" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idMarco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="materialo">
+          <Key>
+            <PropertyRef Name="idMaterial" />
+          </Key>
+          <Property Name="N_MATERIAL" Type="Double" />
+          <Property Name="DESCR_MAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PESO_ESPEC" Type="Double" />
+          <Property Name="OBSERVAC" Type="Double" />
+          <Property Name="idMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="matprim1">
+          <Key>
+            <PropertyRef Name="idMatPrima" />
+          </Key>
+          <Property Name="N_MATPRIMA" Type="Double" />
+          <Property Name="MAT_DESCR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBSERVAC" Type="Double" />
+          <Property Name="PESO_ESPEC" Type="Double" />
+          <Property Name="idMatPrima" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="MATRICES">
+          <Key>
+            <PropertyRef Name="idMatrices" />
+          </Key>
+          <Property Name="N_MATRICES" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MAT_DESCR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SECTOR" Type="Double" />
+          <Property Name="BOCAS" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idMatrices" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="pedidos">
+          <Key>
+            <PropertyRef Name="idPedido" />
+          </Key>
+          <Property Name="N_PEDIDO" Type="Double" />
+          <Property Name="N_ARTICULO" Type="Double" />
+          <Property Name="N_CLIENTE" Type="Double" />
+          <Property Name="CANT_PED" Type="Double" />
+          <Property Name="CANT_ENT" Type="Double" />
+          <Property Name="FECHA_PED" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_ENT" Type="DateTime" Precision="3" />
+          <Property Name="ORDEN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRECIO" Type="Double" />
+          <Property Name="MATERIAL" Type="Double" />
+          <Property Name="ESPESOR" Type="Double" />
+          <Property Name="FECHA1" Type="DateTime" Precision="3" />
+          <Property Name="REMITO1" Type="Double" />
+          <Property Name="CANTIDAD1" Type="Double" />
+          <Property Name="FECHA2" Type="DateTime" Precision="3" />
+          <Property Name="REMITO2" Type="Double" />
+          <Property Name="CANTIDAD2" Type="Double" />
+          <Property Name="FECHA3" Type="DateTime" Precision="3" />
+          <Property Name="REMITO3" Type="Double" />
+          <Property Name="CANTIDAD3" Type="Double" />
+          <Property Name="REMITO4" Type="Double" />
+          <Property Name="FECHA4" Type="DateTime" Precision="3" />
+          <Property Name="CANTIDAD4" Type="Double" />
+          <Property Name="FECHA5" Type="DateTime" Precision="3" />
+          <Property Name="REMITO5" Type="Double" />
+          <Property Name="CANTIDAD5" Type="Double" />
+          <Property Name="FECHA6" Type="DateTime" Precision="3" />
+          <Property Name="REMITO6" Type="Double" />
+          <Property Name="CANTIDAD6" Type="Double" />
+          <Property Name="FECHA7" Type="DateTime" Precision="3" />
+          <Property Name="REMITO7" Type="Double" />
+          <Property Name="CANTIDAD7" Type="Double" />
+          <Property Name="FECHA8" Type="DateTime" Precision="3" />
+          <Property Name="REMITO8" Type="Double" />
+          <Property Name="CANTIDAD8" Type="Double" />
+          <Property Name="FECHA9" Type="DateTime" Precision="3" />
+          <Property Name="REMITO9" Type="Double" />
+          <Property Name="CANTIDAD9" Type="Double" />
+          <Property Name="FECHA10" Type="DateTime" Precision="3" />
+          <Property Name="REMITO10" Type="Double" />
+          <Property Name="CANTIDAD10" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBSERVAC1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBSERVAC2" Type="Double" />
+          <Property Name="IMPRESION" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RESPONSABL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IMPMATRIZ" Type="Double" />
+          <Property Name="TIPO_CAJA" Type="Double" />
+          <Property Name="CODART_CLI" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ARMADO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F_ARMADO" Type="DateTime" Precision="3" />
+          <Property Name="FOIEP" Type="Double" />
+          <Property Name="idPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="proveedo">
+          <Key>
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="N_PROVEED" Type="Double" />
+          <Property Name="RAZON_PRO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACTO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DOMICILIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCIA" Type="Double" />
+          <Property Name="CODPOS" Type="Double" />
+          <Property Name="TELEFONO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+          <Property Name="COND_IVA" Type="Double" />
+          <Property Name="NRO_CUIT" Type="Double" />
+          <Property Name="SALDO" Type="Double" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="rubroo">
+          <Key>
+            <PropertyRef Name="N_RUBRO" />
+          </Key>
+          <Property Name="N_RUBRO" Type="Int32" Nullable="false" />
+          <Property Name="RUBRO_DESC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vendedoro">
+          <Key>
+            <PropertyRef Name="idVendedor" />
+          </Key>
+          <Property Name="N_VENDEDOR" Type="Double" />
+          <Property Name="VEN_DESCR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DOMICILIO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCIA" Type="Double" />
+          <Property Name="CODPOS" Type="Double" />
+          <Property Name="TELEFONO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FECHA_ALTA" Type="DateTime" Precision="3" />
+          <Property Name="OBSERVAC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="blibox_oriEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articulos" EntityType="Self.articulos" />
+          <EntitySet Name="cctecli" EntityType="Self.cctecli" />
+          <EntitySet Name="cctepro" EntityType="Self.cctepro" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="compraso" EntityType="Self.compraso" />
+          <EntitySet Name="cortanteo" EntityType="Self.cortanteo" />
+          <EntitySet Name="marcos" EntityType="Self.marcos" />
+          <EntitySet Name="materialo" EntityType="Self.materialo" />
+          <EntitySet Name="matprim1" EntityType="Self.matprim1" />
+          <EntitySet Name="MATRICES" EntityType="Self.MATRICES" />
+          <EntitySet Name="pedidos" EntityType="Self.pedidos" />
+          <EntitySet Name="proveedo" EntityType="Self.proveedo" />
+          <EntitySet Name="rubroo" EntityType="Self.rubroo" />
+          <EntitySet Name="vendedoro" EntityType="Self.vendedoro" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="blibox_oriStoreContainer" CdmEntityContainer="blibox_oriEntities">
+          <EntitySetMapping Name="articulos">
+            <EntityTypeMapping TypeName="blibox_ori.articulos">
+              <MappingFragment StoreEntitySet="articulos">
+                <ScalarProperty Name="n_articulo" ColumnName="n_articulo" />
+                <ScalarProperty Name="art_descr" ColumnName="art_descr" />
+                <ScalarProperty Name="fopd" ColumnName="fopd" />
+                <ScalarProperty Name="n_cliente" ColumnName="n_cliente" />
+                <ScalarProperty Name="pre_costo" ColumnName="pre_costo" />
+                <ScalarProperty Name="iva" ColumnName="iva" />
+                <ScalarProperty Name="pre_lista1" ColumnName="pre_lista1" />
+                <ScalarProperty Name="fecha_prec" ColumnName="fecha_prec" />
+                <ScalarProperty Name="pre_lista2" ColumnName="pre_lista2" />
+                <ScalarProperty Name="pre_lista3" ColumnName="pre_lista3" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="stock_min" ColumnName="stock_min" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="observac" ColumnName="observac" />
+                <ScalarProperty Name="observac1" ColumnName="observac1" />
+                <ScalarProperty Name="peso1" ColumnName="peso1" />
+                <ScalarProperty Name="peso2" ColumnName="peso2" />
+                <ScalarProperty Name="peso3" ColumnName="peso3" />
+                <ScalarProperty Name="material1" ColumnName="material1" />
+                <ScalarProperty Name="material2" ColumnName="material2" />
+                <ScalarProperty Name="material3" ColumnName="material3" />
+                <ScalarProperty Name="marco1" ColumnName="marco1" />
+                <ScalarProperty Name="marco2" ColumnName="marco2" />
+                <ScalarProperty Name="marco3" ColumnName="marco3" />
+                <ScalarProperty Name="espesor1" ColumnName="espesor1" />
+                <ScalarProperty Name="espesor2" ColumnName="espesor2" />
+                <ScalarProperty Name="espesor3" ColumnName="espesor3" />
+                <ScalarProperty Name="bocas1" ColumnName="bocas1" />
+                <ScalarProperty Name="bocas2" ColumnName="bocas2" />
+                <ScalarProperty Name="bocas3" ColumnName="bocas3" />
+                <ScalarProperty Name="matriz1" ColumnName="matriz1" />
+                <ScalarProperty Name="matriz2" ColumnName="matriz2" />
+                <ScalarProperty Name="matriz3" ColumnName="matriz3" />
+                <ScalarProperty Name="cortante1" ColumnName="cortante1" />
+                <ScalarProperty Name="cortante2" ColumnName="cortante2" />
+                <ScalarProperty Name="cortante3" ColumnName="cortante3" />
+                <ScalarProperty Name="ciclos1" ColumnName="ciclos1" />
+                <ScalarProperty Name="ciclos2" ColumnName="ciclos2" />
+                <ScalarProperty Name="ciclos3" ColumnName="ciclos3" />
+                <ScalarProperty Name="color1" ColumnName="color1" />
+                <ScalarProperty Name="color2" ColumnName="color2" />
+                <ScalarProperty Name="color3" ColumnName="color3" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="tamanocaja" ColumnName="tamanocaja" />
+                <ScalarProperty Name="tiraje_ter" ColumnName="tiraje_ter" />
+                <ScalarProperty Name="tiraje_tro" ColumnName="tiraje_tro" />
+                <ScalarProperty Name="fazon" ColumnName="fazon" />
+                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cctecli">
+            <EntityTypeMapping TypeName="blibox_ori.cctecli">
+              <MappingFragment StoreEntitySet="cctecli">
+                <ScalarProperty Name="NRO_OPERAC" ColumnName="NRO_OPERAC" />
+                <ScalarProperty Name="N_CLIENTE" ColumnName="N_CLIENTE" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="FECHA_OPER" ColumnName="FECHA_OPER" />
+                <ScalarProperty Name="DEB_CRED" ColumnName="DEB_CRED" />
+                <ScalarProperty Name="IMP_OPERAC" ColumnName="IMP_OPERAC" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idctactecli" ColumnName="idctactecli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cctepro">
+            <EntityTypeMapping TypeName="blibox_ori.cctepro">
+              <MappingFragment StoreEntitySet="cctepro">
+                <ScalarProperty Name="NRO_OPERAC" ColumnName="NRO_OPERAC" />
+                <ScalarProperty Name="N_PROVEEDO" ColumnName="N_PROVEEDO" />
+                <ScalarProperty Name="CONCEPTO" ColumnName="CONCEPTO" />
+                <ScalarProperty Name="FECHA_OPER" ColumnName="FECHA_OPER" />
+                <ScalarProperty Name="DEB_CRED" ColumnName="DEB_CRED" />
+                <ScalarProperty Name="IMP_OPERAC" ColumnName="IMP_OPERAC" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idCctepro" ColumnName="idCctepro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="blibox_ori.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="N_CLIENTE" ColumnName="N_CLIENTE" />
+                <ScalarProperty Name="RAZON_CLI" ColumnName="RAZON_CLI" />
+                <ScalarProperty Name="CONTACTO" ColumnName="CONTACTO" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+                <ScalarProperty Name="CODPOS" ColumnName="CODPOS" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="N_VENDEDOR" ColumnName="N_VENDEDOR" />
+                <ScalarProperty Name="COMISION" ColumnName="COMISION" />
+                <ScalarProperty Name="N_VENDEDO2" ColumnName="N_VENDEDO2" />
+                <ScalarProperty Name="COMISION2" ColumnName="COMISION2" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="COND_IVA" ColumnName="COND_IVA" />
+                <ScalarProperty Name="NRO_CUIT" ColumnName="NRO_CUIT" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="COD_ANT" ColumnName="COD_ANT" />
+                <ScalarProperty Name="REFERIDO" ColumnName="REFERIDO" />
+                <ScalarProperty Name="N_RUBRO" ColumnName="N_RUBRO" />
+                <ScalarProperty Name="DIAS_FF" ColumnName="DIAS_FF" />
+                <ScalarProperty Name="CHEQ_FF" ColumnName="CHEQ_FF" />
+                <ScalarProperty Name="GRUPO_MAIL" ColumnName="GRUPO_MAIL" />
+                <ScalarProperty Name="LIMITE_CRE" ColumnName="LIMITE_CRE" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compraso">
+            <EntityTypeMapping TypeName="blibox_ori.compraso">
+              <MappingFragment StoreEntitySet="compraso">
+                <ScalarProperty Name="N_PROVEEDO" ColumnName="N_PROVEEDO" />
+                <ScalarProperty Name="FECHA_COMP" ColumnName="FECHA_COMP" />
+                <ScalarProperty Name="N_FACTURA" ColumnName="N_FACTURA" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="NETO" ColumnName="NETO" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="NRO_OPERAC" ColumnName="NRO_OPERAC" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idCompras" ColumnName="idCompras" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cortanteo">
+            <EntityTypeMapping TypeName="blibox_ori.cortanteo">
+              <MappingFragment StoreEntitySet="cortanteo">
+                <ScalarProperty Name="N_CORTANTE" ColumnName="N_CORTANTE" />
+                <ScalarProperty Name="CORT_DESCR" ColumnName="CORT_DESCR" />
+                <ScalarProperty Name="SECTOR" ColumnName="SECTOR" />
+                <ScalarProperty Name="BOCAS" ColumnName="BOCAS" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idCortante" ColumnName="idCortante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marcos">
+            <EntityTypeMapping TypeName="blibox_ori.marcos">
+              <MappingFragment StoreEntitySet="marcos">
+                <ScalarProperty Name="N_MARCO" ColumnName="N_MARCO" />
+                <ScalarProperty Name="DESCR_MARC" ColumnName="DESCR_MARC" />
+                <ScalarProperty Name="ANCHO" ColumnName="ANCHO" />
+                <ScalarProperty Name="LARGO" ColumnName="LARGO" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idMarco" ColumnName="idMarco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materialo">
+            <EntityTypeMapping TypeName="blibox_ori.materialo">
+              <MappingFragment StoreEntitySet="materialo">
+                <ScalarProperty Name="N_MATERIAL" ColumnName="N_MATERIAL" />
+                <ScalarProperty Name="DESCR_MAT" ColumnName="DESCR_MAT" />
+                <ScalarProperty Name="PESO_ESPEC" ColumnName="PESO_ESPEC" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idMaterial" ColumnName="idMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="matprim1">
+            <EntityTypeMapping TypeName="blibox_ori.matprim1">
+              <MappingFragment StoreEntitySet="matprim1">
+                <ScalarProperty Name="N_MATPRIMA" ColumnName="N_MATPRIMA" />
+                <ScalarProperty Name="MAT_DESCR" ColumnName="MAT_DESCR" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="PESO_ESPEC" ColumnName="PESO_ESPEC" />
+                <ScalarProperty Name="idMatPrima" ColumnName="idMatPrima" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATRICES">
+            <EntityTypeMapping TypeName="blibox_ori.MATRICES">
+              <MappingFragment StoreEntitySet="MATRICES">
+                <ScalarProperty Name="N_MATRICES" ColumnName="N_MATRICES" />
+                <ScalarProperty Name="MAT_DESCR" ColumnName="MAT_DESCR" />
+                <ScalarProperty Name="SECTOR" ColumnName="SECTOR" />
+                <ScalarProperty Name="BOCAS" ColumnName="BOCAS" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idMatrices" ColumnName="idMatrices" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedidos">
+            <EntityTypeMapping TypeName="blibox_ori.pedidos">
+              <MappingFragment StoreEntitySet="pedidos">
+                <ScalarProperty Name="N_PEDIDO" ColumnName="N_PEDIDO" />
+                <ScalarProperty Name="N_ARTICULO" ColumnName="N_ARTICULO" />
+                <ScalarProperty Name="N_CLIENTE" ColumnName="N_CLIENTE" />
+                <ScalarProperty Name="CANT_PED" ColumnName="CANT_PED" />
+                <ScalarProperty Name="CANT_ENT" ColumnName="CANT_ENT" />
+                <ScalarProperty Name="FECHA_PED" ColumnName="FECHA_PED" />
+                <ScalarProperty Name="FECHA_ENT" ColumnName="FECHA_ENT" />
+                <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
+                <ScalarProperty Name="ESPESOR" ColumnName="ESPESOR" />
+                <ScalarProperty Name="FECHA1" ColumnName="FECHA1" />
+                <ScalarProperty Name="REMITO1" ColumnName="REMITO1" />
+                <ScalarProperty Name="CANTIDAD1" ColumnName="CANTIDAD1" />
+                <ScalarProperty Name="FECHA2" ColumnName="FECHA2" />
+                <ScalarProperty Name="REMITO2" ColumnName="REMITO2" />
+                <ScalarProperty Name="CANTIDAD2" ColumnName="CANTIDAD2" />
+                <ScalarProperty Name="FECHA3" ColumnName="FECHA3" />
+                <ScalarProperty Name="REMITO3" ColumnName="REMITO3" />
+                <ScalarProperty Name="CANTIDAD3" ColumnName="CANTIDAD3" />
+                <ScalarProperty Name="REMITO4" ColumnName="REMITO4" />
+                <ScalarProperty Name="FECHA4" ColumnName="FECHA4" />
+                <ScalarProperty Name="CANTIDAD4" ColumnName="CANTIDAD4" />
+                <ScalarProperty Name="FECHA5" ColumnName="FECHA5" />
+                <ScalarProperty Name="REMITO5" ColumnName="REMITO5" />
+                <ScalarProperty Name="CANTIDAD5" ColumnName="CANTIDAD5" />
+                <ScalarProperty Name="FECHA6" ColumnName="FECHA6" />
+                <ScalarProperty Name="REMITO6" ColumnName="REMITO6" />
+                <ScalarProperty Name="CANTIDAD6" ColumnName="CANTIDAD6" />
+                <ScalarProperty Name="FECHA7" ColumnName="FECHA7" />
+                <ScalarProperty Name="REMITO7" ColumnName="REMITO7" />
+                <ScalarProperty Name="CANTIDAD7" ColumnName="CANTIDAD7" />
+                <ScalarProperty Name="FECHA8" ColumnName="FECHA8" />
+                <ScalarProperty Name="REMITO8" ColumnName="REMITO8" />
+                <ScalarProperty Name="CANTIDAD8" ColumnName="CANTIDAD8" />
+                <ScalarProperty Name="FECHA9" ColumnName="FECHA9" />
+                <ScalarProperty Name="REMITO9" ColumnName="REMITO9" />
+                <ScalarProperty Name="CANTIDAD9" ColumnName="CANTIDAD9" />
+                <ScalarProperty Name="FECHA10" ColumnName="FECHA10" />
+                <ScalarProperty Name="REMITO10" ColumnName="REMITO10" />
+                <ScalarProperty Name="CANTIDAD10" ColumnName="CANTIDAD10" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="OBSERVAC1" ColumnName="OBSERVAC1" />
+                <ScalarProperty Name="OBSERVAC2" ColumnName="OBSERVAC2" />
+                <ScalarProperty Name="IMPRESION" ColumnName="IMPRESION" />
+                <ScalarProperty Name="RESPONSABL" ColumnName="RESPONSABL" />
+                <ScalarProperty Name="IMPMATRIZ" ColumnName="IMPMATRIZ" />
+                <ScalarProperty Name="TIPO_CAJA" ColumnName="TIPO_CAJA" />
+                <ScalarProperty Name="CODART_CLI" ColumnName="CODART_CLI" />
+                <ScalarProperty Name="ARMADO" ColumnName="ARMADO" />
+                <ScalarProperty Name="F_ARMADO" ColumnName="F_ARMADO" />
+                <ScalarProperty Name="FOIEP" ColumnName="FOIEP" />
+                <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proveedo">
+            <EntityTypeMapping TypeName="blibox_ori.proveedo">
+              <MappingFragment StoreEntitySet="proveedo">
+                <ScalarProperty Name="N_PROVEED" ColumnName="N_PROVEED" />
+                <ScalarProperty Name="RAZON_PRO" ColumnName="RAZON_PRO" />
+                <ScalarProperty Name="CONTACTO" ColumnName="CONTACTO" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+                <ScalarProperty Name="CODPOS" ColumnName="CODPOS" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="COND_IVA" ColumnName="COND_IVA" />
+                <ScalarProperty Name="NRO_CUIT" ColumnName="NRO_CUIT" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rubroo">
+            <EntityTypeMapping TypeName="blibox_ori.rubroo">
+              <MappingFragment StoreEntitySet="rubroo">
+                <ScalarProperty Name="N_RUBRO" ColumnName="N_RUBRO" />
+                <ScalarProperty Name="RUBRO_DESC" ColumnName="RUBRO_DESC" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendedoro">
+            <EntityTypeMapping TypeName="blibox_ori.vendedoro">
+              <MappingFragment StoreEntitySet="vendedoro">
+                <ScalarProperty Name="N_VENDEDOR" ColumnName="N_VENDEDOR" />
+                <ScalarProperty Name="VEN_DESCR" ColumnName="VEN_DESCR" />
+                <ScalarProperty Name="DOMICILIO" ColumnName="DOMICILIO" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+                <ScalarProperty Name="CODPOS" ColumnName="CODPOS" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="FECHA_ALTA" ColumnName="FECHA_ALTA" />
+                <ScalarProperty Name="OBSERVAC" ColumnName="OBSERVAC" />
+                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

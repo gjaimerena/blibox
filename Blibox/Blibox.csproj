@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -334,6 +335,9 @@
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Proveedor.cs">
+      <DependentUpon>Blibox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Provincia.cs">
       <DependentUpon>Blibox.tt</DependentUpon>
     </Compile>
     <Compile Include="Remito.cs">
@@ -1391,13 +1395,6 @@
     <Content Include="certificadosAfip\CertX509Blibox.pem" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
-    <EntityDeploy Include="Blibox.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Blibox.edmx.diagram">
-      <DependentUpon>Blibox.edmx</DependentUpon>
-    </Content>
     <Content Include="blibox.bak" />
     <Content Include="Diagrama clases.cd" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
@@ -1419,6 +1416,13 @@
     <Content Include="fonts\ionicons.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="db_backup\blibox.bak" />
+    <EntityDeploy Include="Blibox.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Blibox.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Blibox.edmx.diagram">
+      <DependentUpon>Blibox.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Gabriel.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\app.js" />

@@ -15,3 +15,16 @@ E:\blibox\web\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
 E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.csprojResolveAssemblyReference.cache
 E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.dll
 E:\blibox\web\Blibox.Logica\obj\Debug\Blibox.Logica.pdb
+E:\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll.config
+E:\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll
+E:\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
+E:\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.dll
+E:\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.pdb
+E:\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.csprojResolveAssemblyReference.cache
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll.config
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.dll
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\bin\Debug\Blibox.Logica.pdb
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.csprojAssemblyReference.cache
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.csproj.CoreCompileInputs.cache
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.dll
+C:\Users\a982172\Desktop\opercb7expcui10\Blibox\Blibox.Logica\obj\Debug\Blibox.Logica.pdb

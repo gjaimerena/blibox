@@ -11,6 +11,7 @@ using PagedList;
 using Blibox.Models;
 using Blibox.Logica.Facturacion;
 using Blibox.Logica.Model;
+using System.Configuration;
 
 namespace Blibox.Controllers
 {
@@ -194,7 +195,11 @@ namespace Blibox.Controllers
             FECAERespuesta resp = null;
             try
             {
-                resp = FE.AutorizacionFactura(1, 1, 001, detalles);
+                int ptoVenta = Convert.ToInt32(ConfigurationManager.AppSettings["PuntoVenta"]);
+                int CbteTipo = Convert.ToInt32(ConfigurationManager.AppSettings["CbteTipo"]);
+                int nroRegistros = Convert.ToInt32(ConfigurationManager.AppSettings["nroRegistros"]);
+                
+                resp = FE.AutorizacionFactura(nroRegistros, ptoVenta, CbteTipo, detalles);
             }
             catch (System.Exception e)
             {
@@ -246,8 +251,12 @@ namespace Blibox.Controllers
 
                 db.Encabezado_Factura.Add(encFactura);
 
-                int nro_factura = db.Encabezado_Factura.Max(m => m.Nro_factura) + 1;
-
+                int nro_factura = 0;
+                if (db.Encabezado_Factura.Count() != 0)
+                {
+                    nro_factura = db.Encabezado_Factura.Max(m => m.Nro_factura) + 1;
+                }
+                
                 //Si la factura es Cta Cte se genera el movimiento
                 if (encFactura.ID_condicon_venta == 1) //CTA CTE
                 {
@@ -280,10 +289,21 @@ namespace Blibox.Controllers
                 if (resp != null)
                 {
                     // fue rechazada ver que hacer
-                    foreach (Error err in resp.Errores)
+                    if (resp.Errores != null)
                     {
-                        TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
-                        //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                        foreach (Error err in resp.Errores)
+                        {
+                            TempData["Noti"] = Notification.Show("Error " + err.Codigo + " - " + err.Mensaje, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+                            //HelperController.Instance.agregarMensaje("Error "+err.Codigo+" - "+err.Mensaje, HelperController.CLASE_ERROR);
+                        }
+                    }
+                    else if (resp.Detalles.Count() != 0) {
+                        if (resp.Detalles[0].Observaciones.Count()!=0)
+                        {
+                            string errorMsg = resp.Detalles[0].Observaciones[0].Mensaje;
+                            string errorCode = resp.Detalles[0].Observaciones[0].Codigo.ToString();
+                            TempData["Noti"] = Notification.Show("Error " +errorCode + " - " + errorMsg, "FACTURACION", type: ToastType.Error, position: Position.TopCenter);
+                        }
                     }
                 }
                 else
