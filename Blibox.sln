@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blibox", "Blibox\Blibox.csproj", "{7C673AF1-FA7F-413E-A8AA-F2C33B4A2FE0}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAutenticacion", "TestAutenticacion\TestAutenticacion.csproj", "{15BD45FC-CA5A-4038-ADC5-A60776B4F2E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blibox.Reports", "Blibox.Reports\Blibox.Reports.csproj", "{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migracion", "Migracion\Migracion.csproj", "{F65AA9BC-EF4A-4334-AE71-AFDF1E8A9FF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigracionDB", "MigracionDB\MigracionDB.csproj", "{C367D34B-541F-4DDE-9D67-B62047773892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +37,19 @@ Global
 		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83E60CD7-E98B-4E94-A900-D2D2F9FD5BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65AA9BC-EF4A-4334-AE71-AFDF1E8A9FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65AA9BC-EF4A-4334-AE71-AFDF1E8A9FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65AA9BC-EF4A-4334-AE71-AFDF1E8A9FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65AA9BC-EF4A-4334-AE71-AFDF1E8A9FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C367D34B-541F-4DDE-9D67-B62047773892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C367D34B-541F-4DDE-9D67-B62047773892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C367D34B-541F-4DDE-9D67-B62047773892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C367D34B-541F-4DDE-9D67-B62047773892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C249C7A-E516-4DBF-8915-112DFF2785FF}
 	EndGlobalSection
 EndGlobal

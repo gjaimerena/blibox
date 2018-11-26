@@ -22,3 +22,11 @@ E:\blibox\web\TestAutenticacion\bin\Debug\Blibox.Logica.pdb
 E:\blibox\web\TestAutenticacion\obj\Debug\TestAutenticacion.csprojResolveAssemblyReference.cache
 E:\blibox\web\TestAutenticacion\obj\Debug\TestAutenticacion.exe
 E:\blibox\web\TestAutenticacion\obj\Debug\TestAutenticacion.pdb
+E:\Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.exe.config
+E:\Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.exe
+E:\Blibox\TestAutenticacion\bin\Debug\TestAutenticacion.pdb
+E:\Blibox\TestAutenticacion\bin\Debug\Blibox.Logica.dll
+E:\Blibox\TestAutenticacion\bin\Debug\Blibox.Logica.pdb
+E:\Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.csprojResolveAssemblyReference.cache
+E:\Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.exe
+E:\Blibox\TestAutenticacion\obj\Debug\TestAutenticacion.pdb

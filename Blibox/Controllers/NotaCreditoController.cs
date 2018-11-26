@@ -11,6 +11,7 @@ using PagedList;
 using Blibox.Models;
 using Blibox.Logica.Model;
 using Blibox.Logica.Facturacion;
+using System.Configuration;
 
 namespace Blibox.Controllers
 {
@@ -178,7 +179,10 @@ namespace Blibox.Controllers
             detalles[0] = det;
 
             //nroComprobante debe ser 0 para indicar que es una factura y debe generarse uno nuevo
-            FECAERespuesta resp = FE.AutorizacionFactura(1, 1, 002, detalles);
+            int ptoVenta = Convert.ToInt32(ConfigurationManager.AppSettings["PuntoVenta"]);
+            int CbteTipoNC = Convert.ToInt32(ConfigurationManager.AppSettings["CbteTipoNC"]);
+            int nroRegistros = Convert.ToInt32(ConfigurationManager.AppSettings["nroRegistros"]);
+            FECAERespuesta resp = FE.AutorizacionFactura(nroRegistros, ptoVenta, CbteTipoNC, detalles);
 
             if (resp.Cabecera.Resultado == "A")
             {

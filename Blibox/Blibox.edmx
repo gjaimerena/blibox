@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID_articulo" />
           </Key>
-          <Property Name="ID_articulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_articulo" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_cliente" Type="int" Nullable="false" />
           <Property Name="Costo" Type="decimal" Precision="18" Scale="2" />
@@ -18,10 +18,10 @@
           <Property Name="Stock" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Stock_minimo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Cant_x_bulto" Type="int" />
-          <Property Name="Tamaño_caja" Type="int" />
+          <Property Name="Tamaño_caja" Type="varchar" MaxLength="50" />
           <Property Name="Tiraje_term_x_hora" Type="int" />
           <Property Name="Tiraje_troquel_x_hora" Type="int" />
-          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -78,13 +78,13 @@
           <Key>
             <PropertyRef Name="ID_cliente" />
           </Key>
-          <Property Name="ID_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_cliente" Type="int" Nullable="false" />
           <Property Name="Razon_Social" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contacto" Type="varchar" MaxLength="50" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
           <Property Name="Localidad" Type="varchar" MaxLength="50" />
-          <Property Name="Provincia" Type="varchar" MaxLength="50" />
-          <Property Name="Codigo_Postal" Type="int" />
+          <Property Name="Provincia" Type="int" />
+          <Property Name="Codigo_Postal" Type="varchar" MaxLength="20" />
           <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="ID_vendedor" Type="int" />
@@ -92,7 +92,7 @@
           <Property Name="CondicionIVA" Type="varchar" MaxLength="50" />
           <Property Name="TipoResponsable" Type="int" Nullable="false" />
           <Property Name="Saldo" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Observaciones" Type="varchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="100" />
           <Property Name="Referidos" Type="varchar" MaxLength="50" />
           <Property Name="limite_credito" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ID_rubro" Type="int" />
@@ -154,7 +154,7 @@
             <PropertyRef Name="ID_cortante" />
           </Key>
           <Property Name="ID_cortante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo" Type="varchar" MaxLength="10" />
+          <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="Sector" Type="varchar" MaxLength="50" />
           <Property Name="Bocas" Type="int" />
@@ -303,12 +303,12 @@
           <Key>
             <PropertyRef Name="ID_proveedor" />
           </Key>
-          <Property Name="ID_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_proveedor" Type="int" Nullable="false" />
           <Property Name="Razon_social" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contacto" Type="varchar" MaxLength="50" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
           <Property Name="Localidad" Type="varchar" MaxLength="50" />
-          <Property Name="Provincia" Type="varchar" MaxLength="50" />
+          <Property Name="Provincia" Type="int" />
           <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="Celular" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
@@ -317,6 +317,13 @@
           <Property Name="CUIT" Type="bigint" />
           <Property Name="Saldo" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Observaciones" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Remito">
           <Key>
@@ -375,7 +382,7 @@
           <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Domicilio" Type="varchar" MaxLength="50" />
           <Property Name="Localidad" Type="varchar" MaxLength="50" />
-          <Property Name="Provincia" Type="varchar" MaxLength="50" />
+          <Property Name="Provincia" Type="int" />
           <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="Celular" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
@@ -392,6 +399,18 @@
             </Principal>
             <Dependent Role="Articulo">
               <PropertyRef Name="ID_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Provincia">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="Provincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -515,6 +534,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CtaCteClientes_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="CtaCteClientes">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CtaCteClientes_TipoMovCtaCte">
           <End Role="TipoMovCtaCte" Type="Self.TipoMovCtaCte" Multiplicity="1" />
           <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
@@ -524,18 +555,6 @@
             </Principal>
             <Dependent Role="CtaCteClientes">
               <PropertyRef Name="tipoMovimiento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CtaCteClientesMov_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="ID_cliente" />
-            </Principal>
-            <Dependent Role="CtaCteClientes">
-              <PropertyRef Name="id_cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -631,7 +650,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Detalle_factura_Encabezado_Factura1">
+        <Association Name="FK_Detalle_factura_Encabezado_Factura">
           <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="1" />
           <End Role="Detalle_factura" Type="Self.Detalle_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -703,7 +722,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Remito_Pedido1">
+        <Association Name="FK_Pedido_Vendedor">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="ID_vendedor" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="ID_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Remito_Pedido">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
           <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
           <ReferentialConstraint>
@@ -739,6 +770,7 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Presupuesto" EntityType="Self.Presupuesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remito" EntityType="Self.Remito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -749,6 +781,10 @@
           <AssociationSet Name="FK_Articulo_Cliente" Association="Self.FK_Articulo_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Articulo" EntitySet="Articulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Provincia" Association="Self.FK_Cliente_Provincia">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_Cliente_Rubro" Association="Self.FK_Cliente_Rubro">
             <End Role="Rubro" EntitySet="Rubro" />
@@ -790,12 +826,12 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Compras" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCteClientes_TipoMovCtaCte" Association="Self.FK_CtaCteClientes_TipoMovCtaCte">
-            <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
+          <AssociationSet Name="FK_CtaCteClientes_Cliente" Association="Self.FK_CtaCteClientes_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCteClientesMov_Cliente" Association="Self.FK_CtaCteClientesMov_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
+          <AssociationSet Name="FK_CtaCteClientes_TipoMovCtaCte" Association="Self.FK_CtaCteClientes_TipoMovCtaCte">
+            <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
           </AssociationSet>
           <AssociationSet Name="FK_CtaCteProveedores_Proveedor" Association="Self.FK_CtaCteProveedores_Proveedor">
@@ -826,7 +862,7 @@
             <End Role="Articulo" EntitySet="Articulo" />
             <End Role="Detalle_factura" EntitySet="Detalle_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura1" Association="Self.FK_Detalle_factura_Encabezado_Factura1">
+          <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura" Association="Self.FK_Detalle_factura_Encabezado_Factura">
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
             <End Role="Detalle_factura" EntitySet="Detalle_factura" />
           </AssociationSet>
@@ -850,7 +886,11 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Remito_Pedido1" Association="Self.FK_Remito_Pedido1">
+          <AssociationSet Name="FK_Pedido_Vendedor" Association="Self.FK_Pedido_Vendedor">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remito_Pedido" Association="Self.FK_Remito_Pedido">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
@@ -864,7 +904,7 @@
           <Key>
             <PropertyRef Name="ID_articulo" />
           </Key>
-          <Property Name="ID_articulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_articulo" Type="Int32" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_cliente" Type="Int32" Nullable="false" />
           <Property Name="Costo" Type="Decimal" Precision="18" Scale="2" />
@@ -873,10 +913,10 @@
           <Property Name="Stock" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Stock_minimo" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Cant_x_bulto" Type="Int32" />
-          <Property Name="Tamaño_caja" Type="Int32" />
+          <Property Name="Tamaño_caja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Tiraje_term_x_hora" Type="Int32" />
           <Property Name="Tiraje_troquel_x_hora" Type="Int32" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Articulo_Cliente" FromRole="Articulo" ToRole="Cliente" />
           <NavigationProperty Name="Componente" Relationship="Self.FK_Componente_Articulo" FromRole="Articulo" ToRole="Componente" />
           <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Articulo" FromRole="Articulo" ToRole="Detalle_factura" />
@@ -935,13 +975,13 @@
           <Key>
             <PropertyRef Name="ID_cliente" />
           </Key>
-          <Property Name="ID_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_cliente" Type="Int32" Nullable="false" />
           <Property Name="Razon_Social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Codigo_Postal" Type="Int32" />
+          <Property Name="Provincia" Type="Int32" />
+          <Property Name="Codigo_Postal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_vendedor" Type="Int32" />
@@ -949,7 +989,7 @@
           <Property Name="CondicionIVA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TipoResponsable" Type="Int32" Nullable="false" />
           <Property Name="Saldo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Referidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="limite_credito" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ID_rubro" Type="Int32" />
@@ -961,11 +1001,12 @@
           <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_ctacte" Type="Int32" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Articulo_Cliente" FromRole="Cliente" ToRole="Articulo" />
+          <NavigationProperty Name="Provincia1" Relationship="Self.FK_Cliente_Provincia" FromRole="Cliente" ToRole="Provincia" />
           <NavigationProperty Name="Rubro" Relationship="Self.FK_Cliente_Rubro" FromRole="Cliente" ToRole="Rubro" />
           <NavigationProperty Name="TipoDocumento1" Relationship="Self.FK_Cliente_TipoDocumento" FromRole="Cliente" ToRole="TipoDocumento" />
           <NavigationProperty Name="TipoResponsables" Relationship="Self.FK_Cliente_TipoResponsables" FromRole="Cliente" ToRole="TipoResponsables" />
           <NavigationProperty Name="Vendedor" Relationship="Self.FK_Cliente_Vendedor" FromRole="Cliente" ToRole="Vendedor" />
-          <NavigationProperty Name="CtaCteClientes" Relationship="Self.FK_CtaCteClientesMov_Cliente" FromRole="Cliente" ToRole="CtaCteClientes" />
+          <NavigationProperty Name="CtaCteClientes" Relationship="Self.FK_CtaCteClientes_Cliente" FromRole="Cliente" ToRole="CtaCteClientes" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Cliente" ToRole="Encabezado_Factura" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Cliente" FromRole="Cliente" ToRole="Pedido" />
         </EntityType>
@@ -1026,7 +1067,7 @@
             <PropertyRef Name="ID_cortante" />
           </Key>
           <Property Name="ID_cortante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sector" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Bocas" Type="Int32" />
@@ -1045,7 +1086,7 @@
           <Property Name="importe" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="tipoMovimiento" Type="Int32" Nullable="false" />
           <Property Name="concepto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCteClientesMov_Cliente" FromRole="CtaCteClientes" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_CtaCteClientes_Cliente" FromRole="CtaCteClientes" ToRole="Cliente" />
           <NavigationProperty Name="TipoMovCtaCte" Relationship="Self.FK_CtaCteClientes_TipoMovCtaCte" FromRole="CtaCteClientes" ToRole="TipoMovCtaCte" />
         </EntityType>
         <EntityType Name="CtaCteProveedores">
@@ -1075,7 +1116,7 @@
           <Property Name="Precio_unitario" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Precio_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Detalle_factura_Articulo" FromRole="Detalle_factura" ToRole="Articulo" />
-          <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura1" FromRole="Detalle_factura" ToRole="Encabezado_Factura" />
+          <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura" FromRole="Detalle_factura" ToRole="Encabezado_Factura" />
         </EntityType>
         <EntityType Name="Encabezado_Factura">
           <Key>
@@ -1100,7 +1141,7 @@
           <Property Name="FechaVencimientoCAE" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Encabezado_Factura_Cliente" FromRole="Encabezado_Factura" ToRole="Cliente" />
           <NavigationProperty Name="Condicion_venta" Relationship="Self.FK_Encabezado_Factura_Condicion_venta" FromRole="Encabezado_Factura" ToRole="Condicion_venta" />
-          <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura1" FromRole="Encabezado_Factura" ToRole="Detalle_factura" />
+          <NavigationProperty Name="Detalle_factura" Relationship="Self.FK_Detalle_factura_Encabezado_Factura" FromRole="Encabezado_Factura" ToRole="Detalle_factura" />
           <NavigationProperty Name="Vendedor" Relationship="Self.FK_Encabezado_Factura_Vendedor" FromRole="Encabezado_Factura" ToRole="Vendedor" />
         </EntityType>
         <EntityType Name="IVA">
@@ -1166,7 +1207,8 @@
           <Property Name="Codigo_articulo_interno_cliente" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Articulo" Relationship="Self.FK_Pedido_Articulo" FromRole="Pedido" ToRole="Articulo" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Pedido_Cliente" FromRole="Pedido" ToRole="Cliente" />
-          <NavigationProperty Name="Remito" Relationship="Self.FK_Remito_Pedido1" FromRole="Pedido" ToRole="Remito" />
+          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Pedido_Vendedor" FromRole="Pedido" ToRole="Vendedor" />
+          <NavigationProperty Name="Remito" Relationship="Self.FK_Remito_Pedido" FromRole="Pedido" ToRole="Remito" />
         </EntityType>
         <EntityType Name="Presupuesto">
           <Key>
@@ -1192,12 +1234,12 @@
           <Key>
             <PropertyRef Name="ID_proveedor" />
           </Key>
-          <Property Name="ID_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_proveedor" Type="Int32" Nullable="false" />
           <Property Name="Razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="Int32" />
           <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Celular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1209,6 +1251,14 @@
           <NavigationProperty Name="Compras" Relationship="Self.FK_Compras_Proveedor" FromRole="Proveedor" ToRole="Compras" />
           <NavigationProperty Name="CtaCteProveedores" Relationship="Self.FK_CtaCteProveedores_Proveedor" FromRole="Proveedor" ToRole="CtaCteProveedores" />
         </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Provincia" FromRole="Provincia" ToRole="Cliente" />
+        </EntityType>
         <EntityType Name="Remito">
           <Key>
             <PropertyRef Name="ID_remito" />
@@ -1217,7 +1267,7 @@
           <Property Name="Fecha" Type="DateTime" Precision="0" />
           <Property Name="ID_pedido" Type="Int32" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" />
-          <NavigationProperty Name="Pedido" Relationship="Self.FK_Remito_Pedido1" FromRole="Remito" ToRole="Pedido" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_Remito_Pedido" FromRole="Remito" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="Rubro">
           <Key>
@@ -1272,7 +1322,7 @@
           <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="Int32" />
           <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Celular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1281,6 +1331,7 @@
           <Property Name="Codigo_postal" Type="Int32" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Vendedor" FromRole="Vendedor" ToRole="Cliente" />
           <NavigationProperty Name="Encabezado_Factura" Relationship="Self.FK_Encabezado_Factura_Vendedor" FromRole="Vendedor" ToRole="Encabezado_Factura" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Vendedor" FromRole="Vendedor" ToRole="Pedido" />
         </EntityType>
         <Association Name="FK_Articulo_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
@@ -1358,6 +1409,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cliente_Provincia">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="Provincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cliente_Rubro">
           <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
@@ -1406,7 +1469,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CtaCteClientesMov_Cliente">
+        <Association Name="FK_CtaCteClientes_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="CtaCteClientes" Type="Self.CtaCteClientes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1550,7 +1613,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Detalle_factura_Encabezado_Factura1">
+        <Association Name="FK_Detalle_factura_Encabezado_Factura">
           <End Role="Encabezado_Factura" Type="Self.Encabezado_Factura" Multiplicity="1" />
           <End Role="Detalle_factura" Type="Self.Detalle_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1574,7 +1637,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Remito_Pedido1">
+        <Association Name="FK_Pedido_Vendedor">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="ID_vendedor" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="ID_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Remito_Pedido">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
           <End Role="Remito" Type="Self.Remito" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1613,6 +1688,7 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" />
           <EntitySet Name="Presupuesto" EntityType="Self.Presupuesto" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
           <EntitySet Name="Remito" EntityType="Self.Remito" />
           <EntitySet Name="Rubro" EntityType="Self.Rubro" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -1644,6 +1720,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Provincia" Association="Self.FK_Cliente_Provincia">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cliente_Rubro" Association="Self.FK_Cliente_Rubro">
             <End Role="Rubro" EntitySet="Rubro" />
             <End Role="Cliente" EntitySet="Cliente" />
@@ -1660,7 +1740,7 @@
             <End Role="Vendedor" EntitySet="Vendedor" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK_CtaCteClientesMov_Cliente" Association="Self.FK_CtaCteClientesMov_Cliente">
+          <AssociationSet Name="FK_CtaCteClientes_Cliente" Association="Self.FK_CtaCteClientes_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="CtaCteClientes" EntitySet="CtaCteClientes" />
           </AssociationSet>
@@ -1708,7 +1788,7 @@
             <End Role="TipoMovCtaCte" EntitySet="TipoMovCtaCte" />
             <End Role="CtaCteProveedores" EntitySet="CtaCteProveedores" />
           </AssociationSet>
-          <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura1" Association="Self.FK_Detalle_factura_Encabezado_Factura1">
+          <AssociationSet Name="FK_Detalle_factura_Encabezado_Factura" Association="Self.FK_Detalle_factura_Encabezado_Factura">
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
             <End Role="Detalle_factura" EntitySet="Detalle_factura" />
           </AssociationSet>
@@ -1716,7 +1796,11 @@
             <End Role="Vendedor" EntitySet="Vendedor" />
             <End Role="Encabezado_Factura" EntitySet="Encabezado_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK_Remito_Pedido1" Association="Self.FK_Remito_Pedido1">
+          <AssociationSet Name="FK_Pedido_Vendedor" Association="Self.FK_Pedido_Vendedor">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remito_Pedido" Association="Self.FK_Remito_Pedido">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Remito" EntitySet="Remito" />
           </AssociationSet>
@@ -2055,6 +2139,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="Blibox.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Remito">
             <EntityTypeMapping TypeName="Blibox.Remito">
               <MappingFragment StoreEntitySet="Remito">
@@ -2152,7 +2244,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
